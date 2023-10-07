@@ -36,6 +36,7 @@ set autoindent
 set cursorline
 set showcmd
 set encoding=UTF-8
+set updatetime=100
 
 " Lightline colorscheme:
 let g:lightline = {

@@ -141,6 +141,7 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+alias vim='/opt/homebrew/bin/vim'
 alias matlab="/Applications/MATLAB_R2022a.app/bin/matlab -nodesktop"
 alias k='kubectl'
 alias cowsaysomething="fortune | cowsay"

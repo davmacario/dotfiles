@@ -39,6 +39,13 @@ set cursorline
 set showcmd
 set encoding=UTF-8
 set updatetime=100
+set backspace=indent,eol,start
+
+" Black Python formatter settings
+let g:black_virtualenv='~/.vim/black'
+
+" Format with black when saving
+autocmd BufWritePre *.py execute ':Black'
 
 " Lightline colorscheme:
 let g:lightline = {

@@ -13,6 +13,7 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'morhetz/gruvbox'
 Plugin 'dense-analysis/ale'
+Bundle 'Valloric/YouCompleteMe'
 Plugin 'psf/black'
 Plugin 'itchyny/lightline.vim'
 Plugin 'airblade/vim-gitgutter'
@@ -58,6 +59,19 @@ au BufNewFile, BufRead *.py
     \ set fileformat=unix
 
 let g:ale_linters = {'python': ['Black']}
+
+" Autocomplete settings (YouCompleteMe)
+let g:ycm_autoclose_preview_window_after_completion=1
+
+"python with virtualenv support
+py << EOF
+import os
+import sys
+if 'VIRTUAL_ENV' in os.environ:
+  project_base_dir = os.environ['VIRTUAL_ENV']
+  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+  execfile(activate_this, dict(__file__=activate_this))
+EOF
 
 " Black Python formatter settings
 let g:black_virtualenv='~/.vim/black'

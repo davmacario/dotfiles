@@ -37,9 +37,27 @@ filetype indent on
 set autoindent
 set cursorline
 set showcmd
+set t_Co=256    " 256 bit colors
+set foldmethod=indent   " Code folding
+set foldlevel=99    " Defalut: unfolded
+" Remap 'space' to 'za' for unfolding code
+nnoremap <space> za
 set encoding=UTF-8
 set updatetime=100
 set backspace=indent,eol,start
+
+" Python file settings (some are redundant, but global changes will not affect
+" them
+au BufNewFile, BufRead *.py
+    \ set tabstop=4
+    \ set softtabstop=4
+    \ set shiftwidth=4
+    \ set textwidth=79
+    \ set expandtab
+    \ set autoindent
+    \ set fileformat=unix
+
+let g:ale_linters = {'python': ['Black']}
 
 " Black Python formatter settings
 let g:black_virtualenv='~/.vim/black'

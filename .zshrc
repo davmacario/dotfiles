@@ -146,6 +146,9 @@ alias matlab="/Applications/MATLAB_R2022a.app/bin/matlab -nodesktop"
 alias k='kubectl'
 alias cowsaysomething="fortune | cowsay"
 
+# Set bat theme
+export BAT_THEME="gruvbox-dark"
+
 ### Fix for making Docker plugin work
 fpath=(~/.zsh/completion $fpath)
 autoload -Uz compinit && compinit -i

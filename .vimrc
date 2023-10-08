@@ -15,6 +15,7 @@ Plugin 'morhetz/gruvbox'
 Plugin 'dense-analysis/ale'
 Bundle 'Valloric/YouCompleteMe'
 Plugin 'psf/black'
+Plugin 'vim-syntastic/syntastic'
 Plugin 'itchyny/lightline.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'preservim/nerdtree'
@@ -46,6 +47,8 @@ nnoremap <space> za
 set encoding=UTF-8
 set updatetime=100
 set backspace=indent,eol,start
+" Share clipboard
+set clipboard=unnamed
 
 " Python file settings (some are redundant, but global changes will not affect
 " them

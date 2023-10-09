@@ -1,5 +1,4 @@
 # Command(s) ran at the beginning
-# autoload -Uz compinit; compinit
 neofetch
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.

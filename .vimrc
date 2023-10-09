@@ -13,7 +13,7 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'morhetz/gruvbox'
 Plugin 'dense-analysis/ale'
-Bundle 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'
 Plugin 'psf/black'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'itchyny/lightline.vim'

@@ -61,7 +61,18 @@ au BufNewFile, BufRead *.py
     \ set autoindent
     \ set fileformat=unix
 
-let g:ale_linters = {'python': ['Black']}
+let g:ale_linters = {
+    \'python': ['Black'],
+    \'markdown': ['writegood'],
+    \}
+
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '⚠'
+let g:ale_linters_explicit = 1
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_save = 1
+let g:ale_fix_on_save = 1
 
 " Autocomplete settings (YouCompleteMe)
 let g:ycm_autoclose_preview_window_after_completion=1

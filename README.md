@@ -6,6 +6,7 @@ Contents:
 
 * [.zshrc](./.zshrc): ZSH configuration file (using Oh My Zsh)
 * [.vimrc](./.vimrc): VIM configuration file (requires Vundle)
+* [.p10k.zsh](./.p10k.zsh): Powerlevel10k settings file
 
 ## Requirements - ZSH
 

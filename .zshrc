@@ -86,6 +86,12 @@ plugins=(
     zsh-syntax-highlighting
     docker
     docker-compose
+    colored-man-pages
+    colorize
+    pip
+    python
+    brew
+    macos
 )
 
 source $ZSH/oh-my-zsh.sh

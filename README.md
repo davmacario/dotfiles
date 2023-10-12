@@ -20,5 +20,5 @@ Contents:
 * Vim (needs to be installed via Homebrew, as default MacOS installation does not support Python)
 * [Vundle](https://github.com/VundleVim/Vundle.vim)
 * Black (Python formatter) - create venv in `~/.vim/black/` and follow [this](https://black.readthedocs.io/en/stable/integrations/editors.html#vundle) guide
-* [YouCompleteMe](https://github.com/ycm-core/YouCompleteMe#linux-64-bit) - follow full installation carefully, solved issues have helped (in particular [n 4063]{https://github.com/ycm-core/YouCompleteMe/issues/4063})
+* [YouCompleteMe](https://github.com/ycm-core/YouCompleteMe#linux-64-bit) - follow full installation carefully, solved issues have helped (in particular [n 4063](https://github.com/ycm-core/YouCompleteMe/issues/4063))
 

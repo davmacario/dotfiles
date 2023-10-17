@@ -49,6 +49,7 @@ set updatetime=100
 set backspace=indent,eol,start
 " Share clipboard
 set clipboard=unnamed
+set path+=**
 
 " Python file settings (some are redundant, but global changes will not affect
 " them

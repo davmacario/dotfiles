@@ -62,6 +62,18 @@ au BufNewFile, BufRead *.py
     \ set autoindent
     \ set fileformat=unix
 
+" Markdown file settings
+let g:markdown_recommended_style=0
+autocmd BufNewFile, BufRead *.md
+    \ setlocal tabstop=2
+    \ setlocal softtabstop=2
+    \ setlocal shiftwidth=2
+    \ setlocal expandtab
+    \ setlocal autoindent
+    \ setlocal fileformat=unix
+    \ setlocal spell
+    \ setlocal textwidth=80
+
 let g:ale_linters = {
     \'python': ['Black'],
     \'markdown': ['writegood'],

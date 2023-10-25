@@ -53,7 +53,7 @@ set clipboard=unnamed
 set path+=**
 
 " Leader key: Space
-let mapleader = " "
+let mapleader = ","
 
 " Python file settings (some are redundant, but global changes will not affect
 " them

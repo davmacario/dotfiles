@@ -20,6 +20,7 @@ Plugin 'itchyny/lightline.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'preservim/nerdtree'
 Plugin 'ryanoasis/vim-devicons'
+Plugin 'Yggdroot/indentline'
 
 " add all your plugins here (note older versions of Vundle
 " used Bundle instead of Plugin)
@@ -50,6 +51,9 @@ set backspace=indent,eol,start
 " Share clipboard
 set clipboard=unnamed
 set path+=**
+
+" Leader key: Space
+let mapleader = " "
 
 " Python file settings (some are redundant, but global changes will not affect
 " them
@@ -89,6 +93,9 @@ let g:ale_fix_on_save = 1
 
 " Autocomplete settings (YouCompleteMe)
 let g:ycm_autoclose_preview_window_after_completion=1
+
+" Tab plugin settings
+let g:indentLine_color_term = 238
 
 " Black Python formatter settings
 let g:black_virtualenv='~/.vim/black'

@@ -35,7 +35,8 @@ syntax enable
 set tabstop=4
 set shiftwidth=4
 set expandtab
-set number
+" Hybrid line numbers
+set number relativenumber
 filetype indent on
 set autoindent
 set cursorline

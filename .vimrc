@@ -56,6 +56,12 @@ set path+=**
 " Leader key: Space
 let mapleader = ","
 
+" Remap keys for split-view
+nnoremap <leader>h <c-w>h
+nnoremap <leader>l <c-w>l
+nnoremap <leader>v :vsplit<CR>
+nnoremap <leader>s :split<CR>
+
 " Python file settings (some are redundant, but global changes will not affect
 " them
 au BufNewFile, BufRead *.py

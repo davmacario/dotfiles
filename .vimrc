@@ -32,6 +32,7 @@ call vundle#end()            " required
 filetype plugin indent on    " required
 
 syntax enable
+set mouse=a
 set tabstop=4
 set shiftwidth=4
 set expandtab
@@ -52,6 +53,9 @@ set backspace=indent,eol,start
 " Share clipboard
 set clipboard=unnamed
 set path+=**
+set hlsearch
+set ignorecase
+set smartcase
 
 " Leader key: Space
 let mapleader = ","

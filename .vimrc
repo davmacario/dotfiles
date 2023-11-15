@@ -108,6 +108,8 @@ let g:ale_completion_enabled = 0
 
 " Autocomplete settings (YouCompleteMe)
 let g:ycm_autoclose_preview_window_after_completion=1
+" Go to definition shortcut: leader + d
+nnoremap <leader>d :tab split \| YcmCompleter GoToDefinition<CR>
 
 " Tab plugin settings
 let g:indentLine_color_term = 238

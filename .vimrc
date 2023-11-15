@@ -90,9 +90,11 @@ autocmd BufNewFile, BufRead *.md
     \ setlocal textwidth=80
 
 let g:ale_linters = {
-    \'python': ['Black'],
+    \'python': ['Black', 'flake8'],
     \'markdown': ['writegood'],
     \}
+
+let g:ale_fixers = {'*': [], 'python': ['black', 'isort']}
 
 let g:ale_sign_error = '✘'
 let g:ale_sign_warning = '⚠'

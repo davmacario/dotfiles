@@ -66,6 +66,9 @@ nnoremap <leader>h <c-w>h
 nnoremap <leader>l <c-w>l
 nnoremap <leader>v :vsplit<CR>
 nnoremap <leader>s :split<CR>
+" Remap keys for navigating tabs
+nnoremap H gT
+nnoremap L gt
 
 " Python file settings (some are redundant, but global changes will not affect
 " them

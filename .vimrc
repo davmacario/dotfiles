@@ -16,7 +16,8 @@ Plugin 'dense-analysis/ale'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'psf/black'
 Plugin 'vim-syntastic/syntastic'
-Plugin 'itchyny/lightline.vim'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'preservim/nerdtree'
 Plugin 'ryanoasis/vim-devicons'
@@ -117,9 +118,7 @@ let g:black_virtualenv='~/.vim/black'
 autocmd BufWritePre *.py execute ':Black'
 
 " Lightline colorscheme:
-let g:lightline = {
-      \ 'colorscheme': 'gruvbox',
-      \ }
+let g:airline_theme='gruvbox'
 set laststatus=2
 
 " Color scheme

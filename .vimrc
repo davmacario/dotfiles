@@ -25,6 +25,8 @@ Plugin 'Yggdroot/indentline'
 Plugin 'lewis6991/gitsigns.nvim' " OPTIONAL: for git status
 Plugin 'nvim-tree/nvim-web-devicons' " OPTIONAL: for file icons
 Plugin 'romgrk/barbar.nvim'
+Plugin 'nvim-lua/plenary.nvim'
+Plugin 'nvim-telescope/telescope.nvim', { 'tag': '0.1.4' }
 
 " add all your plugins here (note older versions of Vundle
 " used Bundle instead of Plugin)
@@ -117,8 +119,14 @@ let g:ycm_autoclose_preview_window_after_completion=1
 " Go to definition shortcut: leader + d
 nnoremap <leader>d :tab split \| YcmCompleter GoToDefinition<CR>
 
-" Tab plugin settings
+" Indent plugin settings
 let g:indentLine_color_term = 238
+
+" Fuzzy finder mappings
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 
 " Black Python formatter settings
 let g:black_virtualenv='~/.vim/black'

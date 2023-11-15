@@ -22,6 +22,9 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'preservim/nerdtree'
 Plugin 'ryanoasis/vim-devicons'
 Plugin 'Yggdroot/indentline'
+Plugin 'lewis6991/gitsigns.nvim' " OPTIONAL: for git status
+Plugin 'nvim-tree/nvim-web-devicons' " OPTIONAL: for file icons
+Plugin 'romgrk/barbar.nvim'
 
 " add all your plugins here (note older versions of Vundle
 " used Bundle instead of Plugin)

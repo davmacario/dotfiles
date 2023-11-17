@@ -15,7 +15,9 @@ Contents:
 * MesloNGS LF fonts (see [this](https://github.com/romkatv/powerlevel10k/blob/master/font.md))
 * Neofetch
 
-## Requirements - vim
+## Neovim
+
+### Requirements
 
 * ~~Vim (needs to be installed via Homebrew, as default MacOS installation does not support Python)~~
 * Neovim (>=0.9.0)
@@ -23,4 +25,25 @@ Contents:
 * [Vundle](https://github.com/VundleVim/Vundle.vim)
 * Black (Python formatter) - create venv in `~/.vim/black/` and follow [this](https://black.readthedocs.io/en/stable/integrations/editors.html#vundle) guide
 * [YouCompleteMe](https://github.com/ycm-core/YouCompleteMe#linux-64-bit) - follow full installation carefully, solved issues have helped (in particular [n 4063](https://github.com/ycm-core/YouCompleteMe/issues/4063))
+* Package manager: [Packer](https://github.com/wbthomason/packer.nvim)
+* Fuzzy finder: [Telescope](https://github.com/nvim-telescope/telescope.nvim)
+* Parser: [treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
+
+### Key bindings
+
+**Leader key**: ","
+
+* Fuzzy finder: 
+  * `<leader>ff` for find files
+  * `<leader>fg` for find git files
+  * `<leader>fs` for find strings (file contents)
+* Harpoon:
+  * `<leader>a`: add file to Harpoon
+  * `Ctrl e`: toggle quick menu
+  * `Ctrl h`: navigate to file '1'
+  * `Ctrl t`: navigate to file '2'
+  * `Ctrl n`: navigate to file '3'
+  * `Ctrl s`: navigate to file '4'
+* Undotree:
+  * `<leader>u`: open undotree
 

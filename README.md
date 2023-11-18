@@ -31,12 +31,37 @@ Contents:
 
 ### Key bindings
 
-**Leader key**: ","
+**Leader key**: "<space>"
 
-* Fuzzy finder: 
+* Split view:
+  * `,`: fold code
+  * `<leader>h`: focus left split
+  * `<leader>l`: focus right split
+  * `<leader>j`: focus bottom split
+  * `<leader>k`: focus top split
+  * `<leader>v`: split vertically
+  * `<leader>s`: split horizontally
+* Tabs:
+  * `H`: move to left tab
+  * `L`: move to right tab
+* Move selected lines (**visual mode**):
+  * `J`: move selected lines down
+  * `K`: move selected lines up
+* Misc:
+  * `<leader>p`: paste without losing yanked text
+* LSP:
+  * `gd`: go to definition
+  * `K`: hover (show function definition)
+  * Press `enter` to autocomplete with selection
+  * `Ctrl <space>`: toggle completion menu
+* Fugitive (git utility):
+  * `<leader>gst`: show git status (exit with :q)
+* Nerdtree (show file tree):
+  * `Ctrl o`: toggle (on/off) tree
+* Telescope (fuzzy finder): 
   * `<leader>ff` for find files
   * `<leader>fg` for find git files
-  * `<leader>fs` for find strings (file contents)
+  * `<leader>fs` for find strings (file contents - Grep)
 * Harpoon:
   * `<leader>a`: add file to Harpoon
   * `Ctrl e`: toggle quick menu
@@ -45,5 +70,5 @@ Contents:
   * `Ctrl n`: navigate to file '3'
   * `Ctrl s`: navigate to file '4'
 * Undotree:
-  * `<leader>u`: open undotree
+  * `<leader>u`: toggle undotree (on/off)
 

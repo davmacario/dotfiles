@@ -50,9 +50,9 @@ Contents:
 * Misc:
   * `<leader>p`: paste without losing yanked text
 * LSP:
-  * `gd`: go to definition
+  * `gd`: go to definition (Use `Ctrl O` - note maiusc - to get back)
   * `K`: hover (show function definition)
-  * Press `enter` to autocomplete with selection
+  * Press `enter` to autocomplete with selection (move through selections with arrows, for now)
   * `Ctrl <space>`: toggle completion menu
 * Fugitive (git utility):
   * `<leader>gst`: show git status (exit with :q)

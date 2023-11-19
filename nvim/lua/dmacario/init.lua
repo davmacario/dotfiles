@@ -1,3 +1,4 @@
+print("Config sourced!")
 require("dmacario.remap")
 require("dmacario.set")
 

@@ -13,7 +13,7 @@ return require('packer').startup(function(use)
         requires = { {'nvim-lua/plenary.nvim'} }
     }
 
-    use({ 
+    use({
         "ellisonleao/gruvbox.nvim",
         as = 'gruvbox',
         config = function()
@@ -23,6 +23,7 @@ return require('packer').startup(function(use)
     })
 
     use( 'nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
+    -- use( 'p00f/nvim-ts-rainbow' )
     use( 'nvim-treesitter/playground' )
     use( 'theprimeagen/harpoon' )
     use( 'mbbill/undotree' )
@@ -60,8 +61,8 @@ return require('packer').startup(function(use)
     })
     use({
         "iamcco/markdown-preview.nvim",
-        run = "cd app && npm install", 
-        setup = function() 
+        run = "cd app && npm install",
+        setup = function()
             vim.g.mkdp_filetypes = { "markdown" }
         end,
         ft = { "markdown" },

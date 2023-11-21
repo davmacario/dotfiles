@@ -16,6 +16,9 @@ require'nvim-treesitter.configs'.setup {
       "markdown",
       "matlab",
       "comment",
+      "css",
+      "html",
+      "json",
   },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)

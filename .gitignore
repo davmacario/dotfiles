@@ -47,5 +47,5 @@ tags
 # Persistent undo
 [._]*.un~
 
-# Specific folders:
-plugin/
+# Specific files:
+packer_compiled.lua

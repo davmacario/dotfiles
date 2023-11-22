@@ -15,8 +15,8 @@ vim.keymap.set("n", "<leader>v", vim.cmd.vsplit)
 vim.keymap.set("n", "<leader>s", vim.cmd.split)
 
 -- Remap keys for navigating tabs
-vim.keymap.set("n", "H", "gT")
-vim.keymap.set("n", "L", "gt")
+vim.keymap.set("n", "H", ":bp<CR>")
+vim.keymap.set("n", "L", ":bn<CR>")
 
 -- Move selected lines while in visual mode
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")

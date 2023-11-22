@@ -71,4 +71,9 @@ Contents:
   * `Ctrl s`: navigate to file '4'
 * Undotree:
   * `<leader>u`: toggle undotree (on/off)
+* Dap (debugger):
+  * `<leader>dt`: toggle UI
+  * `<leader>db`: toggle breakpoint
+  * `<leader>dc`: continue (go to next breakpoint)
+  * `<leader>dr`: reset UI
 

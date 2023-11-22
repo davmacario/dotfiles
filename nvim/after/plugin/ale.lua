@@ -20,5 +20,6 @@ vim.g.ale_fix_on_save = 1
 vim.g.ale_completion_enabled = 0
 
 vim.g.ale_python_flake8_options = '--max-line-length=80'
+vim.g.ale_python_black_options = '--line-length=80'
 
 

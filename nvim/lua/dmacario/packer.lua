@@ -43,6 +43,10 @@ return require('packer').startup(function(use)
     use( 'lervag/vimtex' )
     -- use( 'folke/lsp-colors.nvim' )
     use( 'folke/trouble.nvim' )
+    -- debugger: nvim-dap
+    use({ 'rcarriga/nvim-dap-ui', requires = {'mfussenegger/nvim-dap'} })
+    use( 'theHamsta/nvim-dap-virtual-text' )
+    use( 'mfussenegger/nvim-dap-python' )
     use({
         'VonHeikemen/lsp-zero.nvim',
         branch = 'v3.x',

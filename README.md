@@ -28,6 +28,15 @@ Contents:
 * Package manager: [Packer](https://github.com/wbthomason/packer.nvim)
 * Fuzzy finder: [Telescope](https://github.com/nvim-telescope/telescope.nvim)
 * Parser: [treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
+* Debugger: [nvim-dap](https://github.com/mfussenegger/nvim-dap)
+  * It requires to create a virtual environment where to place the [debugging engine](https://github.com/microsoft/debugpy):
+
+  ```bash
+  mkdir ~/.virtualenvs
+  cd ~/.virtualenvs
+  python -m venv debugpy
+  debugpy/bin/python -m pip install debugpy
+  ```
 
 ### Key bindings
 
@@ -74,6 +83,6 @@ Contents:
 * Dap (debugger):
   * `<leader>dt`: toggle UI
   * `<leader>db`: toggle breakpoint
-  * `<leader>dc`: continue (go to next breakpoint)
+  * `<leader>dc`: continue (go to next breakpoint) or **start debugging**
   * `<leader>dr`: reset UI
 

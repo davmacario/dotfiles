@@ -48,6 +48,14 @@ return require('packer').startup(function(use)
     use( 'theHamsta/nvim-dap-virtual-text' )
     use( 'mfussenegger/nvim-dap-python' )
     use({
+        "linux-cultist/venv-selector.nvim",
+        dependencies = {
+            "neovim/nvim-lspconfig",
+            "nvim-telescope/telescope.nvim",
+            "mfussenegger/nvim-dap-python"
+        },
+    })
+    use({
         'VonHeikemen/lsp-zero.nvim',
         branch = 'v3.x',
         requires = {

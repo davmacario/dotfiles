@@ -1,6 +1,6 @@
 vim.g.ale_linters = {
     python = {'Black', 'flake8'},
-    markdown = {'writegood'},
+--    markdown = {'writegood'},
 }
 
 vim.g.ale_fixers = {

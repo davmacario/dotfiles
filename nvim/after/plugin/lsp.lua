@@ -1,3 +1,4 @@
+-- Setup for LSP (with mason + lspconfig) and autocomplete (with cmp)
 local lsp_zero = require('lsp-zero')
 
 lsp_zero.preset('recommended')
@@ -19,6 +20,7 @@ require('mason-lspconfig').setup({
         "texlab",
         "marksman",
         "lua_ls",
+        "matlab_ls",
     },
     handlers = {
         lsp_zero.default_setup,

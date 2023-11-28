@@ -33,5 +33,7 @@ vim.opt.termguicolors = true
 
 vim.opt.scrolloff = 8
 
+-- Add column at 80 chars
+-- -- Add column at 80 chars
 vim.opt.colorcolumn = "80"
 

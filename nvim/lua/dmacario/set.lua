@@ -19,7 +19,7 @@ vim.opt.encoding = 'UTF-8'
 vim.opt.updatetime = 50
 --vim.opt.backspace=indent,eol,start
 -- Share clipboard
-vim.opt.clipboard = 'unnamed'
+-- vim.opt.clipboard = 'unnamed'
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 

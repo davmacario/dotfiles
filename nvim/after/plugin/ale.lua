@@ -7,6 +7,9 @@ vim.g.ale_fixers = {
     python = {
         'black',
         'isort'
+    },
+    markdown = {
+        'prettier',
     }
 }
 

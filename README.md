@@ -1,16 +1,21 @@
 # Dotfiles - MacOS
 
-Dotfiles I use on my Mac.
+Welcome to my dotfiles!
+
+I am always trying new stuff, so not everything in this readme may be up-to-date.
+
+---
 
 Contents:
 
 - [.zshrc](./.zshrc): ZSH configuration file (using Oh My Zsh)
 - [.vimrc](./.vimrc): VIM configuration file (requires Vundle)
-- [.p10k.zsh](./.p10k.zsh): Powerlevel10k settings file
-- [nvim folder](./nvim): Neovim configuration files (Lua)
+- [.p10k.zsh](./.p10k.zsh): Powerlevel10k (ZSH theme) settings file
+- [nvim folder](./nvim): Neovim configuration files (using Lua)
 
 ## Requirements - ZSH
 
+- C compiler (gcc)
 - [Oh My Zsh](https://ohmyz.sh/)
 - [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
 - [Neovim](https://neovim.io/)
@@ -27,7 +32,9 @@ Extras:
 
 - ~~Vim (needs to be installed via Homebrew, as default MacOS installation does not support Python)~~
 - Neovim (>=0.9.0)
-  - Since I switched from Vim to NVim, I followed [this guide](https://neovim.io/doc/user/nvim.html#nvim-from-vim)
+  - Install via Homebrew $\to$ `brew install nvim`
+  - Since I switched from Vim to NVim, I first followed [this guide](https://neovim.io/doc/user/nvim.html#nvim-from-vim) - do this if you already have a working `.vimrc` and you want to import the settings
+  - Now I have completely moved over from old settings, and I followed this [video](https://youtu.be/w7i4amO_zaE?si=zt8Bdg__X2dYAQwY) to get up and running (Lua is so cool!)
 - Package manager: [Packer](https://github.com/wbthomason/packer.nvim)
 - Fuzzy finder: [Telescope](https://github.com/nvim-telescope/telescope.nvim)
 - Parser: [treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
@@ -41,9 +48,13 @@ python -m venv debugpy
 debugpy/bin/python -m pip install debugpy
 ```
 
+- _And many more!_...
+
 For a complete list of plugins, refer to the [Packer config](./nvim/lua/dmacario/packer.lua).
 
 ### Key bindings
+
+Here are my custom keybindings!
 
 **Leader key**: `<space>`
 

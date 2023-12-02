@@ -6,6 +6,10 @@ I am always trying new stuff, so not everything in this readme may be up-to-date
 
 ---
 
+Did you know you could use your Mac's TouchID sensor to authenticate `sudo`? [Here](https://github.com/davmacario/sudo-with-TouchID)'s how!
+
+---
+
 Contents:
 
 - [.zshrc](./.zshrc): ZSH configuration file (using Oh My Zsh)

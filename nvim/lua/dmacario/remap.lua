@@ -33,5 +33,3 @@ vim.keymap.set("n", "N", "Nzzzv")
 -- Paste with <leader>p to overwrite without losing yanked text
 vim.keymap.set("x", "<leader>p", "\"_dP")
 
-
-

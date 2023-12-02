@@ -17,7 +17,7 @@ vim.opt.foldmethod = 'indent'   -- Code folding
 vim.opt.foldlevel = 99    -- Defalut: unfolded
 vim.opt.encoding = 'UTF-8'
 vim.opt.updatetime = 50
---vim.opt.backspace=indent,eol,start
+-- vim.opt.backspace=indent,eol,start
 -- Share clipboard
 -- vim.opt.clipboard = 'unnamed'
 vim.opt.ignorecase = true
@@ -34,6 +34,4 @@ vim.opt.termguicolors = true
 vim.opt.scrolloff = 8
 
 -- Add column at 80 chars
--- -- Add column at 80 chars
 vim.opt.colorcolumn = "80"
-

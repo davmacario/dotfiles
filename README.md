@@ -4,6 +4,12 @@ Welcome to my dotfiles!
 
 I am always trying new stuff, so not everything in this readme may be up-to-date.
 
+> New terminal session
+> ![new session](images/new_term.png)
+
+> Neovim
+> ![nvim](images/nvim.png)
+
 ---
 
 Did you know you could use your Mac's TouchID sensor to authenticate `sudo`? [Here](https://github.com/davmacario/sudo-with-TouchID)'s how!

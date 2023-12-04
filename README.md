@@ -68,8 +68,8 @@ Here are my custom keybindings!
 
 **Leader key**: `<space>`
 
+- `,`: fold code
 - Split view:
-  - `,`: fold code
   - `<leader>h`: focus left split
   - `<leader>l`: focus right split
   - `<leader>j`: focus bottom split

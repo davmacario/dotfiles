@@ -4,7 +4,15 @@ local lsp_zero = require('lsp-zero')
 lsp_zero.preset('recommended')
 
 
-require('mason').setup({})
+require('mason').setup({
+    ui = {
+        icons = {
+            package_installed = "",
+            package_pending = "",
+            package_uninstalled = "",
+        },
+    }
+})
 require('mason-lspconfig').setup({
     ensure_installed = {
         "cssls",
@@ -21,6 +29,7 @@ require('mason-lspconfig').setup({
         "marksman",
         "lua_ls",
         "matlab_ls",
+        "rust_analyzer",
     },
     handlers = {
         lsp_zero.default_setup,

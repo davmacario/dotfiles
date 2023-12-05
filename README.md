@@ -58,6 +58,9 @@ python -m venv debugpy
 debugpy/bin/python -m pip install debugpy
 ```
 
+- [clipboard-image.nvim](https://github.com/dfendr/clipboard-image.nvim) - paste images from the clipboard to the current file (as snippet); used for Markdown
+  - Using fork since original repo has a bug for Apple Silicon Macs.
+  - It requires [pngpaste](https://github.com/jcsalterego/pngpaste)
 - _And many more!_...
 
 For a complete list of plugins, refer to the [Packer config](./nvim/lua/dmacario/packer.lua).
@@ -113,3 +116,5 @@ Here are my custom keybindings!
   - `<leader>dr`: reset UI
 - Markdown Preview:
   - `<leader>mp`: toggle MarkdownPreview window
+- Clipboard Image (paste images in editor - _Markdown_):
+  - `<leader>ip`: paste image from clipboard

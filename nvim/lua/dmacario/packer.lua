@@ -43,6 +43,7 @@ return require('packer').startup(function(use)
     use( 'stevearc/dressing.nvim' )
     use( 'airblade/vim-gitgutter' )
     use( 'lervag/vimtex' )
+    use( 'dfendr/clipboard-image.nvim' )
     -- use( 'folke/lsp-colors.nvim' )
     use( 'folke/trouble.nvim' )
     -- debugger: nvim-dap

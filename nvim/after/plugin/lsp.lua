@@ -47,7 +47,7 @@ lsp_zero.set_preferences({})
 
 lsp_zero.on_attach(function(client, bufnr)
     lsp_zero.default_keymaps({buffer = bufnr})
-
+    -- Defaults:
     -- local opts = {buffer = bufnr, remap = false}
     -- vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
     -- vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
@@ -88,8 +88,8 @@ require'lspconfig'.lua_ls.setup {
       })
 
       client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
-    end
-    return true
+  end
+  return true
   end
 }
 
@@ -98,17 +98,43 @@ local cmp_select = {behavior = cmp.SelectBehavior.Select}
 
 cmp.setup({
     sources = {
-        {name = 'path'},
-        {name = 'nvim_lsp'},
-        {name = 'nvim_lua'},
+        -- The `keyword_length` indicates after how many chars that source is activated
+        { name = 'path' },                         -- file paths
+        { name = 'nvim_lsp', keyword_length = 3 }, -- from language server
+        { name = 'nvim_lsp_signature_help'},       -- display function signatures with current parameter emphasized
+        { name = 'nvim_lua', keyword_length = 3},  -- complete neovim's Lua runtime API such vim.lsp.*
+        { name = 'buffer', keyword_length = 4 },   -- source current buffer
+        { name = 'vsnip', keyword_length = 4 },    -- nvim-cmp source for vim-vsnip 
+        { name = 'calc'},                          -- source for math calculation
     },
-    formatting = lsp_zero.cmp_format(),
     mapping = cmp.mapping.preset.insert({
         -- `Enter` key to confirm completion
         ['<CR>'] = cmp.mapping.confirm({select = false}),
-
         -- Ctrl+Space to trigger completion menu
         ['<C-Space>'] = cmp.mapping.complete(),
-    })
+        -- Activate Tab functionality
+        ['<Tab>'] = cmp.mapping.select_next_item(),
+        ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+        -- Close autocompletion menu with ctrl + e
+        ['<C-e>'] = cmp.mapping.close(),
+    }),
+    window = {
+        -- Autocomplete window graphical settings
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
+    },
+    formatting = {
+        fields = {'menu', 'abbr', 'kind'},
+        format = function(entry, item)
+            local menu_icon ={
+                nvim_lsp = 'λ',
+                vsnip = '⋗',
+                buffer = 'Ω',
+                path = '',
+            }
+            item.menu = menu_icon[entry.source.name]
+            return item
+        end,
+    },
 })
 

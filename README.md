@@ -28,8 +28,6 @@ Contents:
 - C compiler (gcc)
 - [Oh My Zsh](https://ohmyz.sh/)
 - [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
-- [Neovim](https://neovim.io/)
-  - [Packer](https://github.com/wbthomason/packer.nvim)
 
 Extras:
 
@@ -38,7 +36,7 @@ Extras:
 
 ## Neovim
 
-### Requirements
+### Requirements - Neovim
 
 - ~~Vim (needs to be installed via Homebrew, as default MacOS installation does not support Python)~~
 - Neovim (>=0.9.0)
@@ -46,6 +44,7 @@ Extras:
   - Since I switched from Vim to NVim, I first followed [this guide](https://neovim.io/doc/user/nvim.html#nvim-from-vim) - do this if you already have a working `.vimrc` and you want to import the settings
   - Now I have completely moved over from old settings, and I followed this [video](https://youtu.be/w7i4amO_zaE?si=zt8Bdg__X2dYAQwY) to get up and running (Lua is so cool!)
 - Package manager: [Packer](https://github.com/wbthomason/packer.nvim)
+  - Run `:PackerSync` the [packer config file](config/lua/dmacario/packer.lua) to install all plugins at once
 - Fuzzy finder: [Telescope](https://github.com/nvim-telescope/telescope.nvim)
 - Parser: [treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
 - Debugger: [nvim-dap](https://github.com/mfussenegger/nvim-dap)

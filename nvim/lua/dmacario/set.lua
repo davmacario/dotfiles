@@ -10,6 +10,7 @@ vim.opt.nu = true
 vim.opt.relativenumber = true
 -- Autoindent
 vim.opt.autoindent = true
+vim.opt.smartindent = true
 vim.opt.cursorline = true
 vim.opt.showcmd = true
 -- vim.opt.t_Co = 256    -- 256 bit colors

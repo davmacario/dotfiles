@@ -52,7 +52,7 @@ set t_Co=256    " 256 bit colors
 set foldmethod=indent   " Code folding
 set foldlevel=99    " Defalut: unfolded
 " Remap 'space' to 'za' for unfolding code
-nnoremap <space> za
+nnoremap , za
 set encoding=UTF-8
 set updatetime=100
 set backspace=indent,eol,start
@@ -64,7 +64,7 @@ set ignorecase
 set smartcase
 
 " Leader key: Space
-let mapleader = ","
+let mapleader = " "
 
 " Remap keys for split-view
 nnoremap <leader>h <c-w>h

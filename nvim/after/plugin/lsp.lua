@@ -25,6 +25,7 @@ require('mason-lspconfig').setup({
         "tailwindcss",
         "bashls",
         "dockerls",
+        "ltex",
         "texlab",
         "marksman",
         "lua_ls",

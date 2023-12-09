@@ -87,7 +87,7 @@ Here are my custom keybindings!
 - Misc:
   - `<leader>p`: paste without losing yanked text
 - LSP:
-  - `gd`: go to definition (Use `Ctrl O` - note maiusc - to get back)
+  - `gd`: go to definition (Use `Ctrl O` - note `shift-o` - to get back)
   - `K`: hover (show function definition)
   - Press `enter` to autocomplete with selection (move through selections with arrows, for now)
   - `Ctrl <space>`: toggle completion menu
@@ -117,3 +117,11 @@ Here are my custom keybindings!
   - `<leader>mp`: toggle MarkdownPreview window
 - Clipboard Image (paste images in editor - _Markdown_):
   - `<leader>ip`: paste image from clipboard
+- LaTeX (VimTeX):
+  - Local Leader: `"\"`
+  - `\ll`: start compilation process
+  - `\lk`: stop compilation
+  - `\lc`: clear auxiliary files
+  - `\lt`: show table of contents
+  - `\lv`: open pdf (without compiling) - won't work if no pdf was generated
+  - `\le`: toggle the log window (with compiler errors/warnings)

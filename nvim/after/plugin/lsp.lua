@@ -101,7 +101,7 @@ cmp.setup({
     sources = {
         -- The `keyword_length` indicates after how many chars that source is activated
         { name = 'path' },                         -- file paths
-        { name = 'nvim_lsp', keyword_length = 3 }, -- from language server
+        { name = 'nvim_lsp', keyword_length = 2 }, -- from language server
         { name = 'nvim_lsp_signature_help'},       -- display function signatures with current parameter emphasized
         { name = 'nvim_lua', keyword_length = 3},  -- complete neovim's Lua runtime API such vim.lsp.*
         { name = 'buffer', keyword_length = 4 },   -- source current buffer

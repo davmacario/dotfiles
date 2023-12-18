@@ -22,7 +22,7 @@ require('mason-lspconfig').setup({
         "tsserver",
         "pyright",
         "jedi_language_server",
-        "tailwindcss",
+        -- "tailwindcss",
         "bashls",
         "dockerls",
         "ltex",

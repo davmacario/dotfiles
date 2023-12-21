@@ -1,2 +1,2 @@
-vim.keymap.set('n', '<C-O>', vim.cmd.NERDTreeToggle)
+vim.keymap.set('n', '<leader>o', vim.cmd.NERDTreeToggle)
 vim.g.NerdTreeShowHidden = true

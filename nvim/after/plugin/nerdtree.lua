@@ -1,2 +1,2 @@
-vim.keymap.set('n', '<C-o>', vim.cmd.NERDTreeToggle)
+vim.keymap.set('n', '<C-e>', vim.cmd.NERDTreeToggle)
 vim.g.NerdTreeShowHidden = true

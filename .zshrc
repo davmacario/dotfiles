@@ -150,6 +150,7 @@ alias vim='/opt/homebrew/bin/nvim'
 alias matlab="/Applications/MATLAB_R2022a.app/bin/matlab -nodesktop"
 alias k='kubectl'
 alias cowsaysomething="fortune | cowsay"
+alias tmux="tmux -u"
 
 # Set bat theme
 export BAT_THEME="gruvbox-dark"

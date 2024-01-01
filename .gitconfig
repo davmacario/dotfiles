@@ -1,0 +1,9 @@
+[user]
+	name = davmacario
+	email = dav.macario@gmail.com
+[core]
+	compression = 0
+	excludesfile = /Users/dmacario/.gitignore
+	editor = nvim
+[http]
+	postBuffer = 1048576000

@@ -46,6 +46,7 @@ Extras:
 - Package manager: [Packer](https://github.com/wbthomason/packer.nvim)
   - Run `:PackerSync` the [packer config file](config/lua/dmacario/packer.lua) to install all plugins at once
 - Fuzzy finder: [Telescope](https://github.com/nvim-telescope/telescope.nvim)
+  - It requires `fd` (installed via brew: `brew install fd-find`)
 - Parser: [treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
 - Debugger: [nvim-dap](https://github.com/mfussenegger/nvim-dap)
   - It requires to create a virtual environment where to place the [debugging engine](https://github.com/microsoft/debugpy):

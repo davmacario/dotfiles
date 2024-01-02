@@ -14,6 +14,7 @@ require'nvim-treesitter.configs'.setup {
       "python",
       "yaml",
       "markdown",
+      "markdown_inline",
       "matlab",
       "comment",
       "css",

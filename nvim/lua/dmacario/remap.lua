@@ -2,7 +2,7 @@ vim.g.mapleader = ' '
 
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
--- Code folding with space
+-- Code folding with comma
 vim.keymap.set("n", ",", "za")
 
 -- Navigating split view

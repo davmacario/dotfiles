@@ -7,9 +7,6 @@ local function my_on_attach(bufnr)
 
     -- default mappings
     api.config.mappings.default_on_attach(bufnr)
-
-    -- custom mappings
-    vim.keymap.set('n', '<leader>o', vim.cmd.NvimTreeToggle)
 end
 
 
@@ -19,8 +16,7 @@ return{
         'nvim-tree/nvim-web-devicons',
     },
     config = function()
-        vim.keymap.set('n', '<leader>o', vim.cmd.NERDTreeToggle)
-        vim.g.NerdTreeShowHidden = true
+        vim.keymap.set('n', '<leader>o', vim.cmd.NvimTreeToggle)
         require("nvim-tree").setup({
             sort = {
                 sorter = "case_sensitive",

@@ -12,6 +12,7 @@ local function my_on_attach(bufnr)
     vim.keymap.set('n', '<leader>o', vim.cmd.NvimTreeToggle)
 end
 
+
 return{
     'nvim-tree/nvim-tree.lua',
     dependencies = {
@@ -28,6 +29,22 @@ return{
                 dotfiles = true,
             },
             on_attach = my_on_attach,
+            renderer = {
+                icons = {
+                    -- show = {
+                    --     git = true,
+                    --     file = false,
+                    --     folder = false,
+                    --     folder_arrow = true,
+                    -- },
+                    glyphs = {
+                        folder = {
+                            arrow_closed = "⏵",
+                            arrow_open = "⏷",
+                        },
+                    },
+                },
+            },
         })
     end
 }

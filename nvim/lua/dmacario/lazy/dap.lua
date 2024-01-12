@@ -1,7 +1,6 @@
 -- Configuration file for nvim-dap (debugger)
 return{
     -- debugger: nvim-dap
-    'mfussenegger/nvim-dap',
     {
         'rcarriga/nvim-dap-ui',
         dependencies = {'mfussenegger/nvim-dap'}

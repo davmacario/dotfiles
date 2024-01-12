@@ -22,7 +22,7 @@ return{
                 sorter = "case_sensitive",
             },
             filters = {
-                dotfiles = true,
+                dotfiles = false,
             },
             on_attach = my_on_attach,
             renderer = {

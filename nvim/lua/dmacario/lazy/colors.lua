@@ -12,9 +12,10 @@ return{
         priority = 1000,
         name = 'gruvbox',
         config = function()
-            -- require('gruvbox').setup({
-            --     disable_background = true
-            -- })
+            require('gruvbox').setup({
+                terminal_colors = true,
+                transparent_mode = true,
+            })
             vim.cmd('colorscheme gruvbox')
             ColorMyPencils()
         end

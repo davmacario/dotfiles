@@ -43,8 +43,7 @@ Extras:
   - Install via Homebrew $\to$ `brew install nvim`
   - Since I switched from Vim to NVim, I first followed [this guide](https://neovim.io/doc/user/nvim.html#nvim-from-vim) - do this if you already have a working `.vimrc` and you want to import the settings
   - Now I have completely moved over from old settings, and I followed this [video](https://youtu.be/w7i4amO_zaE?si=zt8Bdg__X2dYAQwY) to get up and running (Lua is so cool!)
-- Package manager: [Packer](https://github.com/wbthomason/packer.nvim)
-  - Run `:PackerSync` the [packer config file](config/lua/dmacario/packer.lua) to install all plugins at once
+- Package manager: [Lazy.nvim](https://github.com/folke/lazy.nvim)
 - Fuzzy finder: [Telescope](https://github.com/nvim-telescope/telescope.nvim)
   - It requires `fd` (installed via brew: `brew install fd-find`)
 - Parser: [treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
@@ -63,7 +62,7 @@ debugpy/bin/python -m pip install debugpy
   - It requires [pngpaste](https://github.com/jcsalterego/pngpaste)
 - _And many more!_...
 
-For a complete list of plugins, refer to the [Packer config](./nvim/lua/dmacario/packer.lua).
+For a complete list of plugins, refer to the [plugins folder](./lua/dmacario/lazy).
 
 ### Key bindings
 
@@ -111,8 +110,17 @@ Here are my custom keybindings!
   - `<leader>u`: toggle undotree (on/off)
 - Dap (debugger):
   - `<leader>dt`: toggle UI
+  - `<leader>dB`: set breakpoint
   - `<leader>db`: toggle breakpoint
   - `<leader>dc`: continue (go to next breakpoint) or **start debugging**
+  - `<leader>di`: step into
+  - `<leader>dj`: down
+  - `<leader>dk`: up
+  - `<leader>dl`: run last
+  - `<leader>do`: step out
+  - `<leader>dO`: step over
+  - `<leader>dp`: pause
+  - `<leader>dT`: terminate
   - `<leader>dr`: reset UI
 - Markdown Preview:
   - `<leader>mp`: toggle MarkdownPreview window

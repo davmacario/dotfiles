@@ -7,6 +7,9 @@ local function my_on_attach(bufnr)
 
     -- default mappings
     api.config.mappings.default_on_attach(bufnr)
+
+    vim.keymap.set('n', '<C-w>', api.node.open.replace_tree_buffer,     opts('Open: In Place'))
+    vim.keymap.set('n', '?',     api.tree.toggle_help,                  opts('Help'))
 end
 
 
@@ -18,11 +21,15 @@ return{
     config = function()
         vim.keymap.set('n', '<leader>o', vim.cmd.NvimTreeToggle)
         require("nvim-tree").setup({
+            git = {
+                enable = true,
+            },
             sort = {
                 sorter = "case_sensitive",
             },
             filters = {
                 dotfiles = false,
+                git_ignored = false,
             },
             on_attach = my_on_attach,
             renderer = {

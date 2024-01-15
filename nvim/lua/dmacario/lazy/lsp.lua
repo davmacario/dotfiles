@@ -68,6 +68,13 @@ return{
                 end,
                 ltex = function()
                     require('lspconfig').ltex.setup({
+                        filetypes = {
+                            "vimwiki",
+                            -- "markdown",
+                            -- "md",
+                            "pandoc",
+                            "vimwiki.markdown.pandoc"
+                        },
                         settings = {
                             ltex = {
                                 language = "en-US",

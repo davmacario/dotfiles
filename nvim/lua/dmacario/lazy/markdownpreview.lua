@@ -9,6 +9,5 @@ return{
     ft = { "markdown" },
     config = function()
         vim.keymap.set("n", "<leader>mp", vim.cmd.MarkdownPreview)
-        print("Here")
     end
 }

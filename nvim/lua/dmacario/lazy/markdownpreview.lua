@@ -17,7 +17,7 @@ return{
         vim.g.mkdp_open_ip = "127.0.0.1"
         vim.g.mkdp_port = "8888"
         vim.g.mkdp_browser = ""
-        vim.g.mkdp_echo_preview_url = false
+        vim.g.mkdp_echo_preview_url = true
         vim.g.mkdp_page_title = ' mkdp:「${name}」'
         vim.g.mkdp_theme = 'dark'
         -- Open preview in new window:
@@ -25,7 +25,7 @@ return{
         function! OpenMarkdownPreview(url)
             if has('macunix')
                 execute "silent ! open -a Firefox -n --args --new-window " . a:url
-                echom ">>> new window - url: " . a:url
+                " echom ">>> new window - url: " . a:url
             else
                 execute "silent ! firefox --new-window " . a:url
             endif

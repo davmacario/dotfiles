@@ -28,6 +28,7 @@ return{
                 "css",
                 "html",
                 "json",
+                "jsonc",
                 "rust",
                 "go",
             },

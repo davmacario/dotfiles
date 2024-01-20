@@ -4,17 +4,29 @@ return{
         vim.g.ale_linters = {
             python = {'Black', 'flake8'},
             markdown = {'prettier', 'markdownlint'},
+            lua = {'lua-format'},
         }
 
-        vim.g.ale_fixers = {
-            python = {
-                'black',
-                'isort'
-            },
-            markdown = {
-                'prettier',
-            }
-        }
+        vim.api.nvim_exec([[
+            let g:ale_fixers = {
+            \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+            \   'python': ['black', 'isort'],
+            \   'markdown': ['prettier'],
+            \   'lua': ['lua-format'],
+            \   'json': ['prettier'],
+            \}
+        ]], false)
+
+        -- -- Since the '*' key is not supported in Lua, switch to vimscript...
+        -- vim.g.ale_fixers = {
+        --     python = {
+        --         'black',
+        --         'isort'
+        --     },
+        --     markdown = {
+        --         'prettier',
+        --     }
+        -- }
 
         vim.g.ale_sign_error = '✘'
         vim.g.ale_sign_warning = '⚠'

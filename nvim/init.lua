@@ -1,1 +1,1 @@
-require("dmacario")
+require("dmacario.init")

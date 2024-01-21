@@ -125,8 +125,6 @@ source $ZSH/oh-my-zsh.sh
 PROMPT="%B%F{47}%n@%m%f%b:%F{cyan}%~ %#%f "
 
 alias ls='ls -G'
-export CLICOLOR=1
-export LSCOLORS=gxFxCxDxBxegedabagaced
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -152,18 +150,18 @@ alias k='kubectl'
 alias cowsaysomething="fortune | cowsay"
 alias tmux="tmux -u"
 
-# Set bat theme
-export BAT_THEME="gruvbox-dark"
-
 ### Fix for making Docker plugin work
 fpath=(~/.zsh/completion $fpath)
 autoload -Uz compinit && compinit -i
 
+# Environment variables
+export CLICOLOR=1
+export LSCOLORS=gxFxCxDxBxegedabagaced
 # Entry point for Depthai demo app, enables to run <depthai_launcher> in terminal
 export PATH=$PATH:/Users/dmacario/Luxonis/depthai/entrypoint
-
+# Set bat theme
+export BAT_THEME="gruvbox-dark"
 # Change terminal language settings to english:
 export LC_ALL=C
-
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"

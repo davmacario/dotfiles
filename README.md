@@ -93,12 +93,13 @@ Here are my custom keybindings!
   - `Ctrl <space>`: toggle completion menu
 - Fugitive (git utility):
   - `<leader>gst`: show git status (exit with :q)
-- Nerdtree (show file tree):
+- Nvim-tree (file tree):
   - `<leader>o`: toggle (on/off) tree
 - Telescope (fuzzy finder):
-  - `<leader>ff` for find files
-  - `<leader>fg` for find git files
-  - `<leader>fs` for find strings (file contents - Grep)
+  - `<leader>ff`: find files
+  - `<leader>fg`: find git files
+  - `<leader>fs`: find strings (file content - Live Grep)
+  - `<leader>fb`: finding in the currently open buffers
 - Harpoon:
   - `<leader>a`: add file to Harpoon
   - `Ctrl e`: toggle quick menu
@@ -125,7 +126,7 @@ Here are my custom keybindings!
 - Markdown Preview:
   - `<leader>mp`: toggle MarkdownPreview window
 - Clipboard Image (paste images in editor - _Markdown_):
-  - `<leader>ip`: paste image from clipboard
+  - `<leader>ip`: paste image from clipboard (it will prompt to insert the image name in the folder `./img/`)
 - LaTeX (VimTeX):
   - Local Leader: `"\"`
   - `\ll`: start compilation process

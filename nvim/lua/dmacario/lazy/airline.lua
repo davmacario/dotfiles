@@ -5,8 +5,12 @@ return{
 	dependencies = {
 		{"vim-airline/vim-airline-themes"},
         {"nvim-tree/nvim-web-devicons"},
+        {"tpope/vim-fugitive"},
 	},
     config = function()
+        -- vim.g['airline_extensions'] = {'airline-ale'}
+        vim.g['airline#extensions#ale#enabled'] = 1
+        vim.g['airline#extensions#branch#enabled'] = 1
         vim.g['airline#extensions#tabline#enabled'] = 1
         vim.g['airline#extensions#tabline#left_sep'] = ''
         vim.g['airline#extensions#tabline#left_alt_sep'] = ''

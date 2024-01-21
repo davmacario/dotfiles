@@ -4,7 +4,7 @@ return{
 	priority = 1000,
 	dependencies = {
 		{"vim-airline/vim-airline-themes"},
-		{"ryanoasis/vim-devicons"},
+        {"nvim-tree/nvim-web-devicons"},
 	},
     config = function()
         vim.g['airline#extensions#tabline#enabled'] = 1

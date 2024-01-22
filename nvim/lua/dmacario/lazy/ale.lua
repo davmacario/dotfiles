@@ -1,11 +1,11 @@
 return{
     'dense-analysis/ale',
     config = function()
-        vim.g.ale_linters = {
-            python = {'Black', 'flake8'},
-            markdown = {'prettier', 'markdownlint'},
-            lua = {'lua-format'},
-        }
+        -- vim.g.ale_linters = {
+        --     python = {'Black', 'flake8'},
+        --     markdown = {'prettier', 'markdownlint'},
+        --     lua = {'lua-format'},
+        -- }
 
         vim.api.nvim_exec([[
             let g:ale_fixers = {

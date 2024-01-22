@@ -14,6 +14,9 @@ return{
             \   'markdown': ['prettier'],
             \   'lua': ['lua-format'],
             \   'json': ['prettier'],
+            \   'c': ['clangtidy'],
+            \   'c++': ['clangtidy'],
+            \   'cmake': ['cmakeformat'],
             \}
         ]], false)
 

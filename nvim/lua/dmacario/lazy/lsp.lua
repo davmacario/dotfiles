@@ -59,6 +59,8 @@ return{
                 "matlab_ls",
                 "rust_analyzer",
                 "gopls",
+                "clangd",
+                "cmake",
             },
             handlers = {
                 lsp_zero.default_setup,

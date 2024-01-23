@@ -93,6 +93,8 @@ Here are my custom keybindings!
   - `Ctrl <space>`: toggle completion menu
 - Fugitive (git utility):
   - `<leader>gst`: show git status (exit with :q)
+  - `<leader>gps`: git pull
+  - `<leader>gpu`: git push
 - Nvim-tree (file tree):
   - `<leader>o`: toggle (on/off) tree
 - Telescope (fuzzy finder):

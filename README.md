@@ -92,7 +92,7 @@ Here are my custom keybindings!
   - Press `enter` to autocomplete with selection (move through selections with arrows, for now)
   - `Ctrl <space>`: toggle completion menu
 - Fugitive (git utility):
-  - `<leader>gst`: show git status (exit with :q)
+  - `<leader>gs`: show git status (exit with :q)
   - `<leader>gps`: git pull
   - `<leader>gpu`: git push
 - Nvim-tree (file tree):

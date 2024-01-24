@@ -25,6 +25,8 @@ return{
         {'hrsh7th/nvim-cmp'},
         {'hrsh7th/cmp-nvim-lsp'},
         {'L3MON4D3/LuaSnip'},
+        -- Ensure lsp "writes on top of" fugitive
+        {'tpope/vim-fugitive'}
     },
     config = function()
         local lsp_zero = require('lsp-zero')

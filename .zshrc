@@ -171,4 +171,7 @@ export GHREPOS="$HOME/github/$GITUSER"
 export DOTFILES="$GHREPOS/dotfiles_mac"
 
 # Add local bin to path
-export PATH="$PATH:$HOME/bin"
+export PATH="$PATH:$HOME/.local/bin"
+
+# Go executables
+export PATH="$PATH:$HOME/go/bin"

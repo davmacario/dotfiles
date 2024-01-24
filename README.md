@@ -23,11 +23,19 @@ Contents:
 - [.p10k.zsh](./.p10k.zsh): Powerlevel10k (ZSH theme) settings file
 - [nvim folder](./nvim): Neovim configuration files (using Lua)
 
-## Requirements - ZSH
+## Requirements
 
 - C compiler (gcc)
 - [Oh My Zsh](https://ohmyz.sh/)
 - [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
+- ~~Vim (needs to be installed via Homebrew, as default MacOS installation does not support Python)~~
+- Neovim (>=0.9.0)
+  - Install via Homebrew $\to$ `brew install nvim`
+  - Since I switched from Vim to NVim, I first followed [this guide](https://neovim.io/doc/user/nvim.html#nvim-from-vim) - do this if you already have a working `.vimrc` and you want to import the settings
+  - Now I have completely moved over from old settings, and I followed this [video](https://youtu.be/w7i4amO_zaE?si=zt8Bdg__X2dYAQwY) to get up and running (Lua is so cool!)
+- `fd` (installed via brew: `brew install fd-find`
+- [pngpaste](https://github.com/jcsalterego/pngpaste)
+- [pomo](https://github.com/rwxrob/pomo)
 
 Extras:
 
@@ -36,16 +44,10 @@ Extras:
 
 ## Neovim
 
-### Requirements - Neovim
+### Plugins - Neovim
 
-- ~~Vim (needs to be installed via Homebrew, as default MacOS installation does not support Python)~~
-- Neovim (>=0.9.0)
-  - Install via Homebrew $\to$ `brew install nvim`
-  - Since I switched from Vim to NVim, I first followed [this guide](https://neovim.io/doc/user/nvim.html#nvim-from-vim) - do this if you already have a working `.vimrc` and you want to import the settings
-  - Now I have completely moved over from old settings, and I followed this [video](https://youtu.be/w7i4amO_zaE?si=zt8Bdg__X2dYAQwY) to get up and running (Lua is so cool!)
 - Package manager: [Lazy.nvim](https://github.com/folke/lazy.nvim)
 - Fuzzy finder: [Telescope](https://github.com/nvim-telescope/telescope.nvim)
-  - It requires `fd` (installed via brew: `brew install fd-find`)
 - Parser: [treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
 - Debugger: [nvim-dap](https://github.com/mfussenegger/nvim-dap)
   - It requires to create a virtual environment where to place the [debugging engine](https://github.com/microsoft/debugpy):
@@ -59,10 +61,9 @@ debugpy/bin/python -m pip install debugpy
 
 - [clipboard-image.nvim](https://github.com/dfendr/clipboard-image.nvim) - paste images from the clipboard to the current file (as snippet); used for Markdown
   - Using fork since original repo has a bug for Apple Silicon Macs.
-  - It requires [pngpaste](https://github.com/jcsalterego/pngpaste)
 - _And many more!_...
 
-For a complete list of plugins, refer to the [plugins folder](./lua/dmacario/lazy).
+For a complete list of plugins, refer to the [plugins folder](./nvim/lua/dmacario/lazy).
 
 ### Key bindings
 
@@ -72,12 +73,12 @@ Here are my custom keybindings!
 
 - `,`: fold code
 - Split view:
+  - `<leader>v`: split vertically
+  - `<leader>s`: split horizontally
   - `<leader>h`: focus left split
   - `<leader>l`: focus right split
   - `<leader>j`: focus bottom split
   - `<leader>k`: focus top split
-  - `<leader>v`: split vertically
-  - `<leader>s`: split horizontally
 - Tabs:
   - `H`: move to left tab
   - `L`: move to right tab

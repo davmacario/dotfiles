@@ -1,4 +1,4 @@
-print("Config sourced!")
+print("Welcome back!")
 
 require("dmacario.remap")
 require("dmacario.set")

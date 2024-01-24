@@ -165,3 +165,7 @@ export BAT_THEME="gruvbox-dark"
 export LC_ALL=C
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+
+export GITUSER="davmacario"
+export GHREPOS="$HOME/github/$GITUSER"
+export DOTFILES="$GHREPOS/dotfiles_mac"

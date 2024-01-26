@@ -175,3 +175,6 @@ export PATH="$PATH:$HOME/.local/bin"
 
 # Go executables
 export PATH="$PATH:$HOME/go/bin"
+
+# Configuration
+export XDG_CONFIG_HOME="$HOME/.config"

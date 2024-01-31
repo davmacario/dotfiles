@@ -5,11 +5,9 @@ return{
     },
     'vim-airline/vim-airline-themes',
     'ryanoasis/vim-devicons',
-    'lewis6991/gitsigns.nvim',
     'nvim-tree/nvim-web-devicons',
     'romgrk/barbar.nvim',
     'stevearc/dressing.nvim',
-    'airblade/vim-gitgutter',
     'lervag/vimtex',  -- Latex filetype plugin
     'Vimjas/vim-python-pep8-indent',
     -- {

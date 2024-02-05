@@ -18,4 +18,5 @@ return{
         },
     },
     main = "ibl",
+    event = { "BufReadPost", "BufNewFile" },
 }

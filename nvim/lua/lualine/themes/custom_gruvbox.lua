@@ -1,6 +1,6 @@
 local colors = {
   black        = '#282828',
-  white        = '#ebdbb2',  -- subst. with 223
+  white        = 223,
   red          = '#fb4934',
   green        = '#b8bb26',
   blue         = '#83a598',
@@ -18,14 +18,14 @@ return {
     c = {bg = colors.darkgray, fg = colors.gray}
   },
   insert = {
-    a = {bg = colors.blue, fg = colors.black, gui = 'bold'},
+    a = {bg = colors.green, fg = colors.black, gui = 'bold'},
     b = {bg = colors.lightgray, fg = colors.white},
-    c = {bg = colors.lightgray, fg = colors.white}
+    c = {bg = colors.darkgray, fg = colors.gray}
   },
   visual = {
     a = {bg = colors.yellow, fg = colors.black, gui = 'bold'},
     b = {bg = colors.lightgray, fg = colors.white},
-    c = {bg = colors.inactivegray, fg = colors.black}
+    c = {bg = colors.black, fg = colors.white}
   },
   replace = {
     a = {bg = colors.red, fg = colors.black, gui = 'bold'},
@@ -33,7 +33,7 @@ return {
     c = {bg = colors.black, fg = colors.white}
   },
   command = {
-    a = {bg = colors.green, fg = colors.black, gui = 'bold'},
+    a = {bg = colors.blue, fg = colors.black, gui = 'bold'},
     b = {bg = colors.lightgray, fg = colors.white},
     c = {bg = colors.inactivegray, fg = colors.black}
   },

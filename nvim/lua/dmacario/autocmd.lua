@@ -6,7 +6,7 @@ augroup('setLineLength', { clear = true })
 autocmd('Filetype', {
   group = 'setLineLength',
   pattern = { 'text', 'markdown', 'html', 'xhtml', 'typescript', 'json' },
-  command = 'setlocal cc=0 colorcolumn=100'
+  command = 'setlocal cc=0 colorcolumn=1000'
 })
 
 -- Set indentation to 2 spaces

@@ -22,6 +22,12 @@ return{
         section_separators = { left = '', right = ''},
         disabled_filetypes = {
           'NvimTree',
+          'dapui_stacks',
+          'dapui_watches',
+          'dapui_breakpoints',
+          'dapui_scopes',
+          'dapui_console',
+          'dap-repl',
           statusline = {},
           winbar = {},
         },

@@ -100,8 +100,8 @@ return{
           require('lspconfig').ltex.setup({
             filetypes = {
               "vimwiki",
-              -- "markdown",
-              -- "md",
+              "markdown",
+              "md",
               "pandoc",
               "vimwiki.markdown.pandoc"
             },

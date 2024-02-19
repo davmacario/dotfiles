@@ -179,3 +179,6 @@ export PATH="$PATH:$HOME/go/bin"
 
 # Configuration
 export XDG_CONFIG_HOME="$HOME/.config"
+
+# Rust setup
+source "$HOME/.cargo/env"

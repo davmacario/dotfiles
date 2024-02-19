@@ -4,6 +4,7 @@ require("dmacario.remap")
 require("dmacario.set")
 require("dmacario.autocmd")
 require("dmacario.lazy_init")
+require("dmacario.themes")
 
 vim.o.background = "dark" -- or "light" for light mode
 vim.cmd([[colorscheme gruvbox]])

@@ -46,20 +46,6 @@ return{
     local lsp_zero = require('lsp-zero')
     lsp_zero.extend_lspconfig()
     lsp_zero.preset('recommended')
-
-    local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
-    for type, icon in pairs(signs) do
-      local hl = "DiagnosticSign" .. type
-      vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-    end
-
-    vim.api.nvim_exec([[
-      hi LspDiagnosticsUnderlineError guisp=red gui=bold,italic,underline
-      hi LspDiagnosticsUnderlineWarning guisp=orange gui=bold,italic,underline
-      hi LspDiagnosticsUnderlineInformation guisp=yellow gui=bold,italic,underline
-      hi LspDiagnosticsUnderlineHint guisp=green gui=bold,italic,underline
-    ]], false)
-
     vim.diagnostic.config({
       virtual_text = {
         prefix = '●', -- Could be '■', '▎', 'x'
@@ -121,6 +107,13 @@ return{
                 }
               },
             },
+          })
+        end,
+        rust_analyzer = function()
+          require('lspconfig').rust_analyzer.setup({
+            cmd = {
+              "rustup", "run", "stable", "rust-analyzer",
+            }
           })
         end,
       }

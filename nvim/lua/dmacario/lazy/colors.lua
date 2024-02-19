@@ -20,6 +20,9 @@ return{
       require('gruvbox').setup({
         terminal_colors = true,
         transparent_mode = true,
+        underline = true,
+        undercurl = true,
+        overrides = {},
       })
       vim.cmd('colorscheme gruvbox')
       ColorMyPencils()

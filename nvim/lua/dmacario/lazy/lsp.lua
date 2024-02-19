@@ -53,6 +53,13 @@ return{
       vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
     end
 
+    vim.api.nvim_exec([[
+      hi LspDiagnosticsUnderlineError guisp=red gui=bold,italic,underline
+      hi LspDiagnosticsUnderlineWarning guisp=orange gui=bold,italic,underline
+      hi LspDiagnosticsUnderlineInformation guisp=yellow gui=bold,italic,underline
+      hi LspDiagnosticsUnderlineHint guisp=green gui=bold,italic,underline
+    ]], false)
+
     vim.diagnostic.config({
       virtual_text = {
         prefix = '●', -- Could be '■', '▎', 'x'

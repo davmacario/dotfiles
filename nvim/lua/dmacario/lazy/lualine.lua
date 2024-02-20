@@ -1,8 +1,8 @@
-local icon
+local os_icon
 if vim.fn.has("macunix") then
-    icon = ""
+    os_icon = ""
 else
-    icon = ""
+    os_icon = ""
 end
 
 return{
@@ -44,9 +44,9 @@ return{
         lualine_a = {{'mode', icon = ""}},
         lualine_b = {'branch', 'diff'},
         lualine_c = {'filename', 'searchcount'},
-        lualine_x = {'encoding', { "fileformat", symbols = { unix = icon } }},
+        lualine_x = {'encoding', { "fileformat", symbols = { unix = os_icon } }},
         lualine_y = {'filetype', 'progress'},
-        lualine_z = {{ 'location', icon = ""}, 'diagnostics'}
+        lualine_z = {{ 'location', icon = ""}}
       },
       inactive_sections = {
         lualine_a = {},
@@ -54,12 +54,12 @@ return{
         lualine_c = {'filename'},
         lualine_x = {'location'},
         lualine_y = {},
-        lualine_z = {}
+        lualine_z = {},
       },
       tabline = {},
       winbar = {},
       inactive_winbar = {},
-      extensions = {'fugitive'}
+      extensions = {'fugitive', 'trouble'}
     }
   end
 }

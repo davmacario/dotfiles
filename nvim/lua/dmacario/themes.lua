@@ -1,22 +1,20 @@
--- Themes
 local cmd = vim.cmd
 local set_hl = vim.api.nvim_set_hl
 local sign_define = vim.fn.sign_define
 
 
-vim.api.nvim_exec([[
-hi LspDiagnosticsUnderlineError guisp=red gui=bold,italic,underline
-hi LspDiagnosticsUnderlineWarning guisp=orange gui=bold,italic,underline
-hi LspDiagnosticsUnderlineInformation guisp=yellow gui=bold,italic,underline
-hi LspDiagnosticsUnderlineHint guisp=green gui=bold,italic,underline
-]], false)
+-- Set colors
+vim.o.background = "dark" -- or "light" for light mode
+vim.cmd([[colorscheme gruvbox]])
 
+-- Highlight groups override
+-- Underlines for diagnostics (NOT WORKING in iTerm2)
+cmd("hi LspDiagnosticsUnderlineError guisp=red gui=bold,italic,underline")
+cmd("hi LspDiagnosticsUnderlineWarning guisp=orange gui=bold,italic,underline")
+cmd("hi LspDiagnosticsUnderlineInformation guisp=yellow gui=bold,italic,underline")
+cmd("hi LspDiagnosticsUnderlineHint guisp=green gui=bold,italic,underline")
 
 -- Diagnostics colors and signs
-set_hl(0, 'DiagnosticError', { fg = 'red', bg = 'None' })
-set_hl(0, 'DiagnosticWarn', { fg = 'orange', bg = 'None' })
-set_hl(0, 'DiagnosticInfo', { fg = 'teal', bg = 'None' })
-set_hl(0, 'DiagnosticHint', { fg = 'white', bg = 'None' })
 local signs = { Error = "", Warn = "", Info = "", Hint = "" }
 for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
@@ -26,3 +24,7 @@ end
 vim.diagnostic.config({
   underline = true,
 })
+
+-- Nvim-tree overrides
+vim.cmd("highlight link NvimTreeGitDirtyIcon GruvboxYellow")
+vim.cmd("highlight link NvimTreeGitStagedIcon GruvboxGreen")

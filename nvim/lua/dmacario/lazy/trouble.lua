@@ -3,10 +3,10 @@ return{
   opts = {
     signs = {
       -- icons / text used for a diagnostic
-      error = "",
-      warning = "",
-      hint = "",
-      information = "",
+      error = "",
+      warning = "",
+      hint = "",
+      information = "",
       other = "",
     },
     use_diagnostic_signs = false,

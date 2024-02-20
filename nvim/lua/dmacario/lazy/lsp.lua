@@ -109,13 +109,6 @@ return{
             },
           })
         end,
-        rust_analyzer = function()
-          require('lspconfig').rust_analyzer.setup({
-            cmd = {
-              "rustup", "run", "stable", "rust-analyzer",
-            }
-          })
-        end,
       }
     })
 
@@ -168,6 +161,11 @@ return{
         return true
       end
     }
+    require('lspconfig').rust_analyzer.setup({
+      cmd = {
+        "rustup", "run", "stable", "rust-analyzer",
+      }
+    })
 
     -- Autocompletion (cmp)
     local cmp = require('cmp')

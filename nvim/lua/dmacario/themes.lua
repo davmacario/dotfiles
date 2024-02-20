@@ -17,7 +17,7 @@ set_hl(0, 'DiagnosticError', { fg = 'red', bg = 'None' })
 set_hl(0, 'DiagnosticWarn', { fg = 'orange', bg = 'None' })
 set_hl(0, 'DiagnosticInfo', { fg = 'teal', bg = 'None' })
 set_hl(0, 'DiagnosticHint', { fg = 'white', bg = 'None' })
-local signs = { Error = "", Warn = "", Info = "", Hint = "" }
+local signs = { Error = "", Warn = "", Info = "", Hint = "" }
 for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
   local texthl = "Diagnostic" .. type

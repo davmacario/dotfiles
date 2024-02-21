@@ -41,6 +41,8 @@ return{
     -- Ensure lsp "writes on top of" fugitive
     {'tpope/vim-fugitive'},
     {'nvim-tree/nvim-web-devicons'},
+    -- Null-ls
+    {'jose-elias-alvarez/null-ls.nvim', dependencies = {'nvim-lua/plenary.nvim'}}
   },
   config = function()
     local lsp_zero = require('lsp-zero')
@@ -82,6 +84,7 @@ return{
         "gopls",
         "clangd",
         "cmake",
+        "efm",
       },
       handlers = {
         lsp_zero.default_setup,

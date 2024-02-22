@@ -138,3 +138,9 @@ Here are my custom keybindings!
   - `\lt`: show table of contents
   - `\lv`: open pdf (without compiling) - won't work if no pdf was generated
   - `\le`: toggle the log window (with compiler errors/warnings)
+- Trouble (diagnostics):
+  - `<leader>xx`: toggle trouble window
+  - `<leader>xw`: toggle trouble window for current workspace
+  - `<leader>xd`: toggle trouble window for current document
+  - `<leader>xq`: toggle trouble quick fix
+  - `<leader>xl`: toggle trouble for items in the location list

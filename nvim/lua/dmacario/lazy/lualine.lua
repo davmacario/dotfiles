@@ -43,7 +43,19 @@ return{
       sections = {
         lualine_a = {{'mode', icon = ""}},
         lualine_b = {'branch', 'diff'},
-        lualine_c = {'filename', 'searchcount'},
+        lualine_c = {
+          {
+            'diagnostics',
+            symbols = {
+              error = "",
+              warn = "",
+              hint = "󰌶",
+              info = "",
+              other = "",
+            }
+          },
+          'filename',
+          'searchcount'},
         lualine_x = {'encoding', { "fileformat", symbols = { unix = os_icon } }},
         lualine_y = {'filetype', 'progress'},
         lualine_z = {{ 'location', icon = ""}}

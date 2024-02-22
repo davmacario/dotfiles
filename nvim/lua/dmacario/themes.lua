@@ -15,7 +15,7 @@ cmd("hi LspDiagnosticsUnderlineInformation guisp=yellow gui=bold,italic,underlin
 cmd("hi LspDiagnosticsUnderlineHint guisp=green gui=bold,italic,underline")
 
 -- Diagnostics colors and signs
-local signs = { Error = "", Warn = "", Info = "", Hint = "" }
+local signs = { Error = "", Warn = "", Info = "", Hint = "󰌶" }
 for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
   local texthl = "Diagnostic" .. type

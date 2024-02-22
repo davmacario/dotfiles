@@ -92,26 +92,6 @@ return{
           local lua_opts = lsp_zero.nvim_lua_ls()
           require('lspconfig').lua_ls.setup(lua_opts)
         end,
-        ltex = function()
-          require('lspconfig').ltex.setup({
-            filetypes = {
-              "vimwiki",
-              "markdown",
-              "md",
-              "pandoc",
-              "vimwiki.markdown.pandoc"
-            },
-            settings = {
-              ltex = {
-                language = "en-US",
-                additionalRules = {
-                  enablePickyRules = true,
-                  motherTongue = "it-IT",
-                }
-              },
-            },
-          })
-        end,
       }
     })
 
@@ -168,6 +148,29 @@ return{
       cmd = {
         "rustup", "run", "stable", "rust-analyzer",
       }
+    })
+    require('lspconfig').ltex.setup({
+      filetypes = {"latex", "tex"},
+      settings = { -- See https://valentjn.github.io/ltex/settings.html for full list
+        ltex = {
+          enabled = {
+            "bibtex",
+            "context",
+            "context.tex",
+            "html",
+            "latex",
+            "org",
+            "restructuredtext",
+            "rsweave",
+            -- "markdown",
+          },
+          language = "en-US",
+          additionalRules = {
+            enablePickyRules = false,
+            motherTongue = "it",
+          }
+        },
+      },
     })
 
     -- Autocompletion (cmp)

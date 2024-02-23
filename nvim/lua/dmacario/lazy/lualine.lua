@@ -1,5 +1,5 @@
 local os_icon
-if vim.fn.has("macunix") then
+if vim.loop.os_uname().sysname == "Darwin" then
     os_icon = ""
 else
     os_icon = ""

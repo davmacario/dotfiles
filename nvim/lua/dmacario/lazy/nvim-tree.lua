@@ -38,29 +38,40 @@ return{
       renderer = {
         icons = {
           -- show = {
-            --     git = true,
-            --     file = false,
-            --     folder = false,
-            --     folder_arrow = true,
-            -- },
-            glyphs = {
-              folder = {
-                arrow_closed = "⏵",
-                arrow_open = "⏷",
-              },
-              git = {
-                unstaged = "",
-                staged = "",
-                unmerged = "",
-                renamed = "󰑕",
-                deleted = "󰆴",
-                untracked = "",
-                ignored = "",
-              },
+          --     git = true,
+          --     file = false,
+          --     folder = false,
+          --     folder_arrow = true,
+          -- },
+          glyphs = {
+            folder = {
+              arrow_closed = "⏵",
+              arrow_open = "⏷",
+            },
+            git = {
+              unstaged = "",
+              staged = "",
+              unmerged = "",
+              renamed = "󰑕",
+              deleted = "󰆴",
+              untracked = "",
+              ignored = "",
             },
           },
         },
-      })
+      },
+    })
+    require("nvim-web-devicons").setup({
+      strict = true,
+      -- Filetype icon override (missing icons)
+      override_by_extension = {
+        toml = {
+          icon = "",
+          color = "#bdb76b",
+          name = "Toml",
+        }
+      }
+    })
     end,
   }
 

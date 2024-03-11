@@ -57,7 +57,7 @@ return{
           },
         },
         lualine_c = {
-          'filename',
+          {'filename', path=1},
           'searchcount'},
         lualine_x = {'encoding', { "fileformat", symbols = { unix = os_icon } }},
         lualine_y = {'filetype', 'progress'},

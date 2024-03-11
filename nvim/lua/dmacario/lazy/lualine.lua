@@ -66,7 +66,7 @@ return{
       inactive_sections = {
         lualine_a = {},
         lualine_b = {},
-        lualine_c = {'filename'},
+        lualine_c = {{'filename', path=2}},
         lualine_x = {'location'},
         lualine_y = {},
         lualine_z = {},

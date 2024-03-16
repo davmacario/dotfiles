@@ -80,18 +80,20 @@ Here are my custom keybindings!
   - `<leader>j`: focus bottom split
   - `<leader>k`: focus top split
 - Tabs:
-  - `H`: move to left tab
-  - `L`: move to right tab
+  - `H`: move to "left" tab
+  - `L`: move to "right" tab
+    - _Note_: left/right depends on the order according to which the tabs were opened (it takes some getting used to...)
 - Move selected lines (**visual mode**):
   - `J`: move selected lines down
   - `K`: move selected lines up
 - Misc:
   - `<leader>p`: paste without losing yanked text
 - LSP:
-  - `gd`: go to definition (Use `Ctrl O` - note `shift-o` - to get back)
+  - `gd`: go to definition (Use `Ctrl o` to get back)
   - `K`: hover (show function definition)
-  - Press `enter` to autocomplete with selection (move through selections with arrows, for now)
-  - `Ctrl <space>`: toggle completion menu
+  - Use `tab` and `shift tab` to cycle through suggestion
+  - Press `enter` to autocomplete with selection
+  - `Ctrl <space>`: toggle completion menu (on & off)
 - Fugitive (git utility):
   - `<leader>gs`: show git status (exit with :q)
   - `<leader>gps`: git pull

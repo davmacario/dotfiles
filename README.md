@@ -7,7 +7,10 @@ I am always trying new stuff, so not everything in this readme may be up-to-date
 > New terminal session
 > ![new session](images/new_term.png)
 
-> Neovim
+> Neovim - Startup
+> ![nvim](images/nvim_open.png)
+
+> Neovim - Editing a file
 > ![nvim](images/nvim.png)
 
 ---

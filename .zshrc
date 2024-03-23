@@ -1,5 +1,8 @@
 # Command(s) ran at the beginning
-neofetch
+if [ -n "$SSH_CLIENT" ];
+then
+    neofetch
+fi
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]

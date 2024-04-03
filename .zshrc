@@ -172,7 +172,7 @@ export PATH="$PATH:$HOME/.rvm/bin"
 
 export GITUSER="davmacario"
 export GHREPOS="$HOME/github/$GITUSER"
-export DOTFILES="$GHREPOS/dotfiles_mac"
+export DOTFILES="$GHREPOS/dotfiles"
 
 # Add local bin to path
 export PATH="$PATH:$HOME/.local/bin"

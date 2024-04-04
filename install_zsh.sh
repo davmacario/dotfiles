@@ -22,6 +22,18 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     fi
 fi
 
+# Installing plugins (autocomplete)
+while true; do
+    read -pr "Do you want to install the following plugins:\n  zsh-autosuggestions,\n  zsh-syntax-highlighting\n? [y/n]" yn
+    case $yn in
+        [Yy]* ) sudo git clone "https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions";
+            sudo git clone "https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting";
+            break;;
+        [Nn]* ) break;;
+        * ) echo "Please answer y/n"
+    esac
+done
+
 # Prompt for setting default
 
 if [ "$FLG" -eq 1 ]; then

@@ -11,14 +11,12 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     echo "Linux detected!"
 
     # TODO: add support for other package managers
-    if [ -f "apt -v" ]; then
+    if [ -n "$(apt-get -v)" ]; then
         echo "Using Ubuntu/Debian - apt detected!"
         PACMAN="apt"
-        if [ -f "apt-get -v" ];then
-            sudo apt-get install python-dev python-pip python3-dev python3-pip
-            sudo apt-get install ninja-build gettext cmake unzip curl build-essential
-        fi
-    elif [ -f "pacman -v" ]; then
+        sudo apt-get install python-dev python-pip python3-dev python3-pip
+        sudo apt-get install ninja-build gettext cmake unzip curl build-essential
+    elif [ -n "$(pacman -v)" ]; then
         echo "Pacman detected!"
         PACMAN="pacman"
     fi
@@ -31,8 +29,8 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     # Command line tools
     xcode-select --install
     # Install homebrew
-    if [ -z "brew -v" ]; then
-	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    if [ -z "$(brew -v)" ]; then
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     fi
 
     INVOKE_PACMAN="brew"
@@ -40,13 +38,14 @@ fi
 
 # Install possible required packages with:
 # $INVOKE_PACMAN install
-$INVOKE_PACMAN install tmux fzf neofetch htop
+$INVOKE_PACMAN install tmux fzf neofetch htop git cmake gcc
 
 # ------------------------------------------------------------------------------
 
 # 1. If using ZSH, install p10k
-if [ -n "$($SHELL -c "echo $ZSH_VERSION")" ]; then  # zsh is preferred
+if [[ "$SHELL" == *"zsh"* ]]; then  # zsh is the shell
     # Install Oh My Zsh
+    echo "Installing OMZ"
     cd "$HOME" || echo "Unable to find $HOME" && exit 1
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
@@ -64,7 +63,7 @@ if [ -f "$ZSH_RC" ] && [ ! -L "$HOME/.zshrc" ];then
     ln -s "$ZSH_RC" "$HOME/.zshrc"
 fi
 # Source it
-if [ -n "$($SHELL -c "echo $ZSH_VERSION")" ]; then  # zsh is preferred
+if [[ "$SHELL" == *"zsh"* ]]; then  # zsh is the shell
     echo "Sourcing ZSHRC"
     source "$HOME/.zshrc"
 fi
@@ -75,7 +74,7 @@ if [ -f "$BASH_RC" ] && [ ! -L "$HOME/.bashrc" ];then
     ln -s "$BASH_RC" "$HOME/.bashrc"
 fi
 
-if [ -n "$($SHELL -c "echo $BASH_VERSION")" ]; then  # bash is preferred
+if [[ "$SHELL" == *"bash"* ]]; then  # bash is the shell
     echo "Sourcing BASHRC"
     source "$HOME/.bashrc"
 fi
@@ -163,6 +162,9 @@ fi
 if [ -f "$CURR_DIR/.vimrc" ] && [ ! -L "$HOME/.vimrc" ]; then
     ln -s "$CURR_DIR/.vimrc" "$HOME/.vimrc"
 fi
+
+# 3. Extras
+git config --global core.editor "vim"
 
 echo "Setup complete!"
 exit 0

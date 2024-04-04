@@ -1,4 +1,4 @@
-# Dotfiles - MacOS
+# Dotfiles
 
 Welcome to my dotfiles!
 
@@ -15,11 +15,11 @@ I am always trying new stuff, so not everything in this readme may be up-to-date
 
 ---
 
-Did you know you could use your Mac's TouchID sensor to authenticate `sudo`? [Here](https://github.com/davmacario/sudo-with-TouchID)'s how!
+**Note**: for a specific configuration select the specific branch
 
 ---
 
-Contents:
+General contents:
 
 - [.zshrc](./.zshrc): ZSH configuration file (using Oh My Zsh)
 - [.vimrc](./.vimrc): VIM configuration file (requires Vundle)
@@ -31,19 +31,19 @@ Contents:
 - C compiler (gcc)
 - [Oh My Zsh](https://ohmyz.sh/)
 - [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
-- ~~Vim (needs to be installed via Homebrew, as default MacOS installation does not support Python)~~
 - Neovim (>=0.9.0)
-  - Install via Homebrew $\to$ `brew install nvim`
-  - Since I switched from Vim to NVim, I first followed [this guide](https://neovim.io/doc/user/nvim.html#nvim-from-vim) - do this if you already have a working `.vimrc` and you want to import the settings
-  - Now I have completely moved over from old settings, and I followed this [video](https://youtu.be/w7i4amO_zaE?si=zt8Bdg__X2dYAQwY) to get up and running (Lua is so cool!)
-- `fd` (installed via brew: `brew install fd-find`
+  - Install via package manager (recommended for mac, via homebrew)
+  - For Ubuntu, since the neovim version found in the apt repository is older, I compile Neovim from source
+- `fd` (`brew/sudo apt-get install fd-find`)
+- fzf (`brew/sudo apt-get install fzf`)
 - [pngpaste](https://github.com/jcsalterego/pngpaste)
-- [pomo](https://github.com/rwxrob/pomo)
 
 Extras:
 
 - MesloNGS LF fonts (see [this](https://github.com/romkatv/powerlevel10k/blob/master/font.md))
-- Neofetch
+- Neofetch (via package manager)
+- `htop`
+- [pomo](https://github.com/rwxrob/pomo)
 
 ## Neovim
 

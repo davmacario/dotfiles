@@ -22,7 +22,7 @@ fi
 
 # Installing plugins (autocomplete)
 while true; do
-    read -pr "Do you want to install the following plugins:\n  zsh-autosuggestions,\n  zsh-syntax-highlighting\n? [y/n]" yn
+    read -p "Do you want to install the following plugins:\n  zsh-autosuggestions,\n  zsh-syntax-highlighting\n? [y/n]" yn
     case $yn in
         [Yy]* ) sudo git clone "https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions";
             sudo git clone "https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting";
@@ -36,7 +36,7 @@ done
 
 if [ "$FLG" -eq 1 ]; then
     while true; do
-        read -pr "ZSH is not the default shell, do you want to set it as default? [y/n]" yn2
+        read -p "ZSH is not the default shell, do you want to set it as default? [y/n]" yn2
         case $yn2 in
             [Yy]* ) chsh -s "$(which zsh)"; break;;
             [Nn]* ) exit 2;;

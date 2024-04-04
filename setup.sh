@@ -14,8 +14,6 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     if [ -n "$(apt-get -v)" ]; then
         echo "Using Ubuntu/Debian - apt detected!"
         PACMAN="apt"
-        sudo apt-get install python-dev python-pip python3-dev python3-pip
-        sudo apt-get install ninja-build gettext cmake unzip curl build-essential
     elif [ -n "$(pacman -v)" ]; then
         echo "Pacman detected!"
         PACMAN="pacman"
@@ -38,7 +36,9 @@ fi
 
 # Install possible required packages with:
 # $INVOKE_PACMAN install
-$INVOKE_PACMAN install tmux fzf neofetch htop git cmake gcc
+$INVOKE_PACMAN install tmux fzf neofetch htop git cmake gcc whois cowsay sl \
+    python3 python3-dev python3-pip python-dev python-pip ninja-build gettext \
+    unzip curl build-essential telnet
 
 # ------------------------------------------------------------------------------
 
@@ -168,8 +168,6 @@ if [ ! -L "$HOME/.gitconfig" ]; then
     ln -s "$CURR_DIR/.gitconfig" "$HOME/.gitconfig"
 fi
 
-# 3. Extras
-git config --global core.editor "vim"
 
 echo "Setup complete!"
 exit 0

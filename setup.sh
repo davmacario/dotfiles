@@ -163,6 +163,11 @@ if [ -f "$CURR_DIR/.vimrc" ] && [ ! -L "$HOME/.vimrc" ]; then
     ln -s "$CURR_DIR/.vimrc" "$HOME/.vimrc"
 fi
 
+# Git config
+if [ ! -L "$HOME/.gitconfig" ]; then
+    ln -s "$CURR_DIR/.gitconfig" "$HOME/.gitconfig"
+fi
+
 # 3. Extras
 git config --global core.editor "vim"
 

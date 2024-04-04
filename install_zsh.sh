@@ -2,7 +2,7 @@
 
 # Install ZSH
 FLG=0
-if [[ "$OSTYPE" == "linux-gnu"* ]] && [[ -n "$(apt-get -v)" ]]; then
+if [[ "$OSTYPE" == "linux-gnu"* ]] && [[ -n "$(apt-get -v)" ]] && [[ -n "$(which zsh)" ]]; then
     sudo apt-get update
     sudo apt-get install zsh -y
 
@@ -10,8 +10,6 @@ if [[ "$OSTYPE" == "linux-gnu"* ]] && [[ -n "$(apt-get -v)" ]]; then
         echo "Cannot find zsh install"
         exit 1
     fi
-
-    zsh
 
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     # ZSH comes pre-installed by default

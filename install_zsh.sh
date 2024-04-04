@@ -2,7 +2,7 @@
 
 # Install ZSH
 FLG=0
-if [[ "$OSTYPE" == "linux-gnu"* ]] && [[ -n "$(apt-get -v)" ]] && [[ -n "$(which zsh)" ]]; then
+if [[ "$OSTYPE" == "linux-gnu"* ]] && [[ -n "$(apt-get -v)" ]] && [[ -z "$(which zsh)" ]]; then
     sudo apt-get update
     sudo apt-get install zsh -y
 

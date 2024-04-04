@@ -36,8 +36,8 @@ done
 
 if [ "$FLG" -eq 1 ]; then
     while true; do
-        read -p "ZSH is not the default shell, do you want to set it as default? [y/n]" yn
-        case $yn in
+        read -pr "ZSH is not the default shell, do you want to set it as default? [y/n]" yn2
+        case $yn2 in
             [Yy]* ) chsh -s "$(which zsh)"; break;;
             [Nn]* ) exit 2;;
             * ) echo "Please answer y/n"

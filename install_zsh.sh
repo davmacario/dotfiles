@@ -34,7 +34,7 @@ done
 
 # Prompt for setting default
 
-if [ "$FLG" -eq 1 ]; then
+if [ ! "$FLG" -eq 1 ]; then
     while true; do
         read -r -p "ZSH is not the default shell, do you want to set it as default? [y/n]  " yn
         case $yn in

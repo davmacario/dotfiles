@@ -170,4 +170,4 @@ fi
 
 
 echo "Setup complete!"
-exit 0
+return 0

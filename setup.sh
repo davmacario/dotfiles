@@ -37,7 +37,7 @@ fi
 # Install possible required packages with:
 # $INVOKE_PACMAN install
 $INVOKE_PACMAN install tmux fzf neofetch htop git cmake gcc whois cowsay sl \
-    python3 python3-dev python3-pip python-dev python-pip ninja-build gettext \
+    python3 python3-dev python3-pip ninja-build gettext \
     unzip curl build-essential telnet
 
 # ------------------------------------------------------------------------------
@@ -107,8 +107,8 @@ if [ -d "$CURR_DIR/nvim" ]; then
         git clone https://github.com/neovim/neovim
         cd neovim || exit 2
         git checkout stable
-        make CMAKE_BUILD_TYPE=RelWithDebInfo
         echo "Building Neovim from source"
+        make CMAKE_BUILD_TYPE=RelWithDebInfo
         cd build && cpack -G DEB && sudo dpkg -i nvim-linux64.deb
 
 	sudo apt-get install fd-find

@@ -14,6 +14,11 @@ return{
   lazy = false,
   priority = 1000,
   config = function()
+    local git_icons = {
+      added    = " ",
+      modified = " ",
+      removed  = " ",
+    }
     require('lualine').setup {
       options = {
         icons_enabled = true,
@@ -44,7 +49,24 @@ return{
         lualine_a = {{'mode', icon = ""}},
         lualine_b = {
           'branch',
-          'diff',
+          {
+            "diff",
+            symbols = {
+              added = git_icons.added,
+              modified = git_icons.modified,
+              removed = git_icons.removed,
+            },
+            source = function()
+              local gitsigns = vim.b.gitsigns_status_dict
+              if gitsigns then
+                return {
+                  added = gitsigns.added,
+                  modified = gitsigns.changed,
+                  removed = gitsigns.removed,
+                }
+              end
+            end,
+          },
           {
             'diagnostics',
             symbols = {

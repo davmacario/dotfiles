@@ -172,6 +172,10 @@ return{
         },
       },
     })
+    require('lspconfig').grammarly.setup({
+      filetypes = { "markdown", "latex", "tex" },
+      init_options = { clientId = "client_BaDkMgx4X19X9UxxYRCXZo" }
+    })
 
     -- Autocompletion (cmp)
     local cmp = require('cmp')

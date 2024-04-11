@@ -72,6 +72,11 @@ return{
         }
       }
     })
+    -- Nvim-tree color overrides
+    vim.cmd("highlight link NvimTreeGitDirtyIcon GruvboxYellow")
+    vim.cmd("highlight link NvimTreeGitStagedIcon GruvboxGreen")
+    vim.cmd("highlight link NvimTreeGitFileNewIcon GruvboxPurple")
+    vim.cmd("highlight link NvimTreeGitNewIcon GruvboxPurple")
     end,
   }
 

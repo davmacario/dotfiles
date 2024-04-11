@@ -1,7 +1,6 @@
 print("Welcome back!")
 
-require("dmacario.remap")
-require("dmacario.set")
-require("dmacario.autocmd")
-require("dmacario.lazy_init")
-require("dmacario.themes")
+require("dmacario.remap")  -- Key mappings
+require("dmacario.set")  -- General Vim settings 
+require("dmacario.autocmd")  -- Autocmd definitions
+require("dmacario.lazy_init")  -- Lazy Init. file

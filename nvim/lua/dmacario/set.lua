@@ -1,3 +1,5 @@
+-- General settings
+
 -- vim.opt.guicursor = ""
 
 -- Settings from vimrc

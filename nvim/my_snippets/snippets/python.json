@@ -1,0 +1,16 @@
+{
+	"Main": {
+		"prefix": "main",
+		"body": [
+			"if __name__ == \"__main__\":",
+    		"\tmain()"
+		],
+		"description": "Create script main"
+	},
+	"Shebang": {
+		"prefix": "shebang",
+		"body": [
+			"#!/usr/bin/env python3"
+		]
+	}
+}

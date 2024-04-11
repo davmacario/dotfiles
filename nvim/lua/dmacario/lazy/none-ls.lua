@@ -12,10 +12,14 @@ return {
           "stylua",
           "eslint_d",
           "prettier",
+          "prettierd",
           "black",
           "isort",
           "markdownlint",
           "clang-format",
+          "shellcheck",
+          "bibtex-tidy",
+          "latexindent",
         },
       })
     end,
@@ -31,9 +35,12 @@ return {
         sources = { -- Add here functionalities (formatting, diagnostics, ...)
           null_ls.builtins.formatting.stylua,
           null_ls.builtins.formatting.prettier,
+          null_ls.builtins.formatting.prettierd,
           null_ls.builtins.formatting.black,
           null_ls.builtins.formatting.isort,
+          null_ls.builtins.formatting.markdownlint,
           null_ls.builtins.formatting.clang_format,
+
           require("none-ls.diagnostics.eslint_d"),
           null_ls.builtins.diagnostics.markdownlint,
         },

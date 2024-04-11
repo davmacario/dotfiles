@@ -6,10 +6,10 @@ I am always trying new stuff, so not everything in this readme may be up-to-date
 
 > New terminal session
 > ![new session](images/new_term.png)
-
+>
 > Neovim - Startup
 > ![nvim](images/nvim_open.png)
-
+>
 > Neovim - Editing a file
 > ![nvim](images/nvim.png)
 
@@ -117,6 +117,8 @@ Here are my custom keybindings!
   - `Ctrl s`: navigate to file '4'
 - Undotree:
   - `<leader>u`: toggle undotree (on/off)
+- Null-ls/None-ls:
+  - `<leader>ft`: format current buffer (need to ensure formatter is installed)
 - Dap (debugger):
   - `<leader>dt`: toggle UI
   - `<leader>dB`: set breakpoint

@@ -38,6 +38,7 @@ return {
           "clangd",
           "cmake",
           "efm",
+          "grammarly",
         },
       })
     end,

@@ -1,7 +1,7 @@
 local augroup = vim.api.nvim_create_augroup   -- Create/get autocommand group
 local autocmd = vim.api.nvim_create_autocmd   -- Create autocommand
 
--- Disable max line length
+-- Disable max line length in some files
 augroup('disableLineLength', { clear = true })
 autocmd('Filetype', {
   group = 'disableLineLength',
@@ -9,7 +9,7 @@ autocmd('Filetype', {
   command = 'setlocal cc=0 colorcolumn=1000'
 })
 
--- Python custom line lenght
+-- Python custom line lenght (from Black)
 augroup('pythonLineLength', { clear = true})
 autocmd('Filetype', {
   group = 'pythonLineLength',
@@ -17,7 +17,7 @@ autocmd('Filetype', {
   command = 'setlocal colorcolumn=88'
 })
 
--- Set indentation to 2 spaces
+-- Set indentation to 2 spaces for specific filetypes
 augroup('setIndent', { clear = true })
 autocmd('Filetype', {
   group = 'setIndent',

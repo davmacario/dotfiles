@@ -1,5 +1,13 @@
 # Dotfiles
 
+<!--toc:start-->
+- [Dotfiles](#dotfiles)
+  - [Requirements](#requirements)
+  - [Neovim](#neovim)
+    - [Plugins - Neovim](#plugins-neovim)
+    - [Key bindings](#key-bindings)
+<!--toc:end-->
+
 Welcome to my dotfiles!
 
 I am always trying new stuff, so not everything in this readme may be up-to-date.
@@ -93,9 +101,14 @@ Here are my custom keybindings!
   - `<leader>p`: paste without losing yanked text
 - LSP:
   - `gd`: go to definition (Use `Ctrl o` to get back)
+  - `gr`: go to references (in split)
   - `K`: hover (show function definition)
+  - `<leader>ca`: show code actions
+  - `<leader>vws`: view workspace symbol
+  - `<leader>rn`: rename symbol under cursor (refactor buffers)
+- Autcompletion:
   - Use `tab` and `shift tab` to cycle through suggestion
-  - Press `enter` to autocomplete with selection
+  - Press `enter` to autocomplete witn selection
   - `Ctrl <space>`: toggle completion menu (on & off)
 - Fugitive (git utility):
   - `<leader>gs`: show git status (exit with :q)

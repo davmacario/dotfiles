@@ -59,6 +59,11 @@ return {
       vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {})
       vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, {})
 
+      -- Border of 'hover' box
+      vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+        border = "rounded",
+      })
+
       local lspconfig = require("lspconfig")
       lspconfig.grammarly.setup({
         capabilities = capabilities,

@@ -40,7 +40,7 @@ fi
 # Install possible required packages with:
 # $INVOKE_PACMAN install
 $INVOKE_PACMAN install tmux fzf neofetch htop git cmake gcc whois cowsay sl \
-    python3 python3-dev python3-pip ninja-build gettext npm \
+        python3 python3-dev python3-pip ninja-build gettext npm ripgrep \
     unzip curl build-essential telnet
 
 # ------------------------------------------------------------------------------

@@ -98,7 +98,7 @@ return {
             language = "en-US",
             additionalRules = {
               enablePickyRules = false,
-              motherTongue = "it",
+              motherTongue = "it-IT",
             },
           },
         },

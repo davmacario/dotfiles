@@ -29,6 +29,9 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     # Install homebrew
     if [ -z "$(brew -v)" ]; then
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    else
+        brew update
+        brew upgrade
     fi
 
     INVOKE_PACMAN="brew"
@@ -37,7 +40,7 @@ fi
 # Install possible required packages with:
 # $INVOKE_PACMAN install
 $INVOKE_PACMAN install tmux fzf neofetch htop git cmake gcc whois cowsay sl \
-    python3 python3-dev python3-pip ninja-build gettext npm golang \
+    python3 python3-dev python3-pip ninja-build gettext npm \
     unzip curl build-essential telnet
 
 # ------------------------------------------------------------------------------
@@ -99,6 +102,7 @@ if [ -d "$CURR_DIR/nvim" ]; then
     echo "Installing Neovim"
     if [[ "$OSTYPE" == "darwin"* ]]; then
         $INVOKE_PACMAN install nvim fd
+        ./macos-zathura.sh
     elif [[ "$OSTYPE" == "linux-gnu"* ]] && [ -f "apt-get -v" ]; then
         # Compile neovim from source
         cd "$GHDIR" || echo "Unable to find GitHub" && exit 1
@@ -111,7 +115,8 @@ if [ -d "$CURR_DIR/nvim" ]; then
         make CMAKE_BUILD_TYPE=RelWithDebInfo
         cd build && cpack -G DEB && sudo dpkg -i nvim-linux64.deb
 
-	sudo apt-get install fd-find
+        # Install required packages for extensions
+        sudo apt-get install -y fd-find zathura golang-go
     fi
 
     cd "$CURR_DIR"

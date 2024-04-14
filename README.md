@@ -10,7 +10,8 @@
 
 Welcome to my dotfiles!
 
-I am always trying new stuff, so not everything in this readme may be up-to-date.
+I am always trying new stuff, so not everything in this readme may be
+up-to-date.
 
 > New terminal session
 > ![new session](images/new_term.png)
@@ -41,14 +42,16 @@ General contents:
 - [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
 - Neovim (>=0.9.0)
   - Install via package manager (recommended for mac, via homebrew)
-  - For Ubuntu, since the neovim version found in the apt repository is older, I compile Neovim from source
+  - For Ubuntu, since the neovim version found in the apt repository is older, I
+  compile Neovim from source
 - `fd` (`brew/sudo apt-get install fd-find`)
 - fzf (`brew/sudo apt-get install fzf`)
 - [pngpaste](https://github.com/jcsalterego/pngpaste)
 
 Extras:
 
-- MesloNGS LF fonts (see [this](https://github.com/romkatv/powerlevel10k/blob/master/font.md))
+- MesloNGS LF fonts (see
+[this](https://github.com/romkatv/powerlevel10k/blob/master/font.md))
 - Neofetch (via package manager)
 - `htop`
 - [pomo](https://github.com/rwxrob/pomo)
@@ -61,7 +64,8 @@ Extras:
 - Fuzzy finder: [Telescope](https://github.com/nvim-telescope/telescope.nvim)
 - Parser: [treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
 - Debugger: [nvim-dap](https://github.com/mfussenegger/nvim-dap)
-  - It requires to create a virtual environment where to place the [debugging engine](https://github.com/microsoft/debugpy):
+  - It requires to create a virtual environment where to place the [debugging
+  engine](https://github.com/microsoft/debugpy):
 
 ```bash
 mkdir "$HOME"/.virtualenvs
@@ -70,11 +74,13 @@ python -m venv debugpy
 debugpy/bin/python -m pip install debugpy
 ```
 
-- [clipboard-image.nvim](https://github.com/dfendr/clipboard-image.nvim) - paste images from the clipboard to the current file (as snippet); used for Markdown
+- [clipboard-image.nvim](https://github.com/dfendr/clipboard-image.nvim) - paste
+images from the clipboard to the current file (as snippet); used for Markdown
   - Using fork since original repo has a bug for Apple Silicon Macs.
 - _And many more!_...
 
-For a complete list of plugins, refer to the [plugins folder](./nvim/lua/dmacario/lazy).
+For a complete list of plugins, refer to the [plugins
+folder](./nvim/lua/dmacario/lazy).
 
 ### Key bindings
 
@@ -93,7 +99,8 @@ Here are my custom keybindings!
 - Tabs:
   - `H`: move to "left" tab
   - `L`: move to "right" tab
-    - _Note_: left/right depends on the order according to which the tabs were opened (it takes some getting used to...)
+    - _Note_: left/right depends on the order according to which the tabs were
+    opened (it takes some getting used to...)
 - Move selected lines (**visual mode**):
   - `J`: move selected lines down
   - `K`: move selected lines up
@@ -149,7 +156,8 @@ Here are my custom keybindings!
 - Markdown Preview:
   - `<leader>mp`: toggle MarkdownPreview window
 - Clipboard Image (paste images in editor - _Markdown_):
-  - `<leader>ip`: paste image from clipboard (it will prompt to insert the image name in the folder `./img/`)
+  - `<leader>ip`: paste image from clipboard (it will prompt to insert the image
+  name in the folder `./img/`)
 - LaTeX (VimTeX):
   - Local Leader: `"\"`
   - `\ll`: start compilation process

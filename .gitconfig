@@ -1,6 +1,8 @@
 [user]
 	name = davmacario
 	email = dav.macario@gmail.com
+[credential "https://github.com"]
+    helper = !/usr/bin/gh auth git-credential
 [core]
 	compression = 0
 	excludesfile = /Users/dmacario/.gitignore

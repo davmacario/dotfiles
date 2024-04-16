@@ -3,7 +3,6 @@ return {
   config = function()
     vim.g.tex_flavor = "latex"
     vim.g.tex_conceal = "abdmgs"
-    vim.opt.conceallevel = 2
     vim.g.vimtex_syntax_conceal = {
           accents = 1,
           ligatures = 1,

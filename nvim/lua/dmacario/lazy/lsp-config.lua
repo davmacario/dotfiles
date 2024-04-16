@@ -39,6 +39,7 @@ return {
           "cmake",
           "efm",
           "grammarly",
+          "sqlls"
         },
       })
     end,

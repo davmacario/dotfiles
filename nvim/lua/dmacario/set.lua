@@ -25,6 +25,7 @@ vim.opt.updatetime = 50
 -- vim.opt.clipboard = 'unnamed'
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+vim.opt.conceallevel = 0
 
 vim.opt.hlsearch = false
 vim.opt.incsearch = true

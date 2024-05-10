@@ -4,6 +4,37 @@ then
     neofetch
 fi
 
+# Setup secrets
+export SECRETS="$HOME/.keys"
+# Evaluate permissions on secrets folder - syntax changes between Linux and Mac
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    secrets_perm=$(stat -f '%A %a %N' "$SECRETS")
+else
+    secrets_perm=$(stat -c '%a %n' "$SECRETS")
+fi
+# Create folder if not there
+if [ ! -d "$SECRETS" ]; then
+    mkdir "$SECRETS"
+    chmod 700 "$SECRETS"
+    chown -R "$(whoami)" "$SECRETS"
+elif [ "$secrets_perm" != 600 ]; then
+    chmod 700 "$SECRETS"
+    chown -R "$(whoami)" "$SECRETS"
+    # TODO: improve - need all files in there with permission and ownership
+fi
+
+# Source secret keys file (not on version control)
+if [ -d "$SECRETS" ]; then
+    for FILE in "$SECRETS"/*; do
+        echo "Sourcing $FILE"
+        source "$FILE"
+    done
+elif [ -d "$HOME/.keys" ]; then
+    for FILE in "$HOME/.keys"/*; do
+        source "$FILE"
+    done
+fi
+
 # Homebrew setup
 if [[ $(uname -m) == 'arm64' ]]; then
     BREWPATH=/opt/homebrew/bin

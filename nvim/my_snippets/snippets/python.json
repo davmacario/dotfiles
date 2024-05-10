@@ -31,5 +31,12 @@
       "\tmain(args)"
     ],
     "description": "Basic Python script template with argument parser"
+  },
+  "Get file directory": {
+    "prefix": "filedir",
+    "body": [
+      "script_dir = os.path.dirname(__file__)"
+    ],
+    "description": "Add command to set the variable `script_dir` to contain the file's directory name"
   }
 }

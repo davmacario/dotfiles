@@ -29,6 +29,7 @@
       "\tparser = ArgumentParser()",
       "\targs = parser.parse_args()",
       "\tmain(args)"
-    ]
+    ],
+    "description": "Basic Python script template with argument parser"
   }
 }

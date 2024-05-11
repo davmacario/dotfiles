@@ -41,7 +41,7 @@ fi
 # $INVOKE_PACMAN install
 $INVOKE_PACMAN install tmux fzf neofetch htop git cmake gcc whois cowsay sl \
         python3 python3-dev python3-pip ninja-build gettext npm ripgrep \
-    unzip curl build-essential telnet
+        unzip curl build-essential telnet python3-venv
 
 # ------------------------------------------------------------------------------
 
@@ -133,7 +133,7 @@ if [ -d "$CURR_DIR/nvim" ]; then
 
     mkdir "$HOME/.virtualenvs"
     cd "$HOME/.virtualenvs"
-    python -m venv debugpy
+    python3 -m venv debugpy
     source debugpy/bin/activate
     pip3 install --upgrade pip
     python3 -m pip install debugpy

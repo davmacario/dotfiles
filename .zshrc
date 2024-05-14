@@ -26,7 +26,7 @@ fi
 # Source secret keys file (not on version control)
 if [ -d "$SECRETS" ]; then
     for FILE in "$SECRETS"/*; do
-        echo "Sourcing $FILE"
+        # echo "Sourcing $FILE"
         source "$FILE"
     done
 elif [ -d "$HOME/.keys" ]; then

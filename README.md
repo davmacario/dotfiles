@@ -13,9 +13,6 @@ Welcome to my dotfiles!
 I am always trying new stuff, so not everything in this readme may be
 up-to-date.
 
-> New terminal session
-> ![new session](images/new_term.png)
->
 > Neovim - Startup
 > ![nvim](images/nvim_open.png)
 >

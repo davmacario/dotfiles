@@ -3,14 +3,40 @@
 		"prefix": "main",
 		"body": [
 			"if __name__ == \"__main__\":",
-    		"\tmain()"
+    	"\tmain()"
 		],
-		"description": "Create script main"
+		"description": "Create 'if __name__ == __main__'"
 	},
 	"Shebang": {
 		"prefix": "shebang",
 		"body": [
 			"#!/usr/bin/env python3"
 		]
-	}
+	},
+  "Basic Script Template": {
+    "prefix": "script_template",
+    "body": [
+			"#!/usr/bin/env python3",
+      "",
+      "import os",
+      "from argparse import ArgumentParser",
+      "",
+      "",
+      "def main(args):",
+      "\tpass",
+      "",
+      "if __name__ == \"__main__\":",
+      "\tparser = ArgumentParser()",
+      "\targs = parser.parse_args()",
+      "\tmain(args)"
+    ],
+    "description": "Basic Python script template with argument parser"
+  },
+  "Get file directory": {
+    "prefix": "filedir",
+    "body": [
+      "script_dir = os.path.dirname(__file__)"
+    ],
+    "description": "Add command to set the variable `script_dir` to contain the file's directory name"
+  }
 }

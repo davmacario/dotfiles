@@ -4,6 +4,37 @@ then
     neofetch
 fi
 
+# Setup secrets
+export SECRETS="$HOME/.keys"
+# Evaluate permissions on secrets folder - syntax changes between Linux and Mac
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    secrets_perm=$(stat -f '%A %a %N' "$SECRETS")
+else
+    secrets_perm=$(stat -c '%a %n' "$SECRETS")
+fi
+# Create folder if not there
+if [ ! -d "$SECRETS" ]; then
+    mkdir "$SECRETS"
+    chmod 700 "$SECRETS"
+    chown -R "$(whoami)" "$SECRETS"
+elif [ "$secrets_perm" != 600 ]; then
+    chmod 700 "$SECRETS"
+    chown -R "$(whoami)" "$SECRETS"
+    # TODO: improve - need all files in there with permission and ownership
+fi
+
+# Source secret keys file (not on version control)
+if [ -d "$SECRETS" ]; then
+    for FILE in "$SECRETS"/*; do
+        # echo "Sourcing $FILE"
+        source "$FILE"
+    done
+elif [ -d "$HOME/.keys" ]; then
+    for FILE in "$HOME/.keys"/*; do
+        source "$FILE"
+    done
+fi
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -160,3 +191,14 @@ export PATH="$PATH:$HOME/go/bin"
 
 # Configuration
 export XDG_CONFIG_HOME="$HOME/.config"
+
+# Rust setup
+source "$HOME/.cargo/env"
+
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# DBus settings
+export DBUS_SESSION_BUS_ADDRESS="unix:path=$DBUS_LAUNCHD_SESSION_BUS_SOCKET"
+export EDITOR="nvim"

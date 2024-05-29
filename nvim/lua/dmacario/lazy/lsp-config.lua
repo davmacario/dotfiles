@@ -39,7 +39,7 @@ return {
           "cmake",
           "efm",
           "grammarly",
-          "sqlls"
+          "sqlls",
         },
       })
     end,
@@ -78,7 +78,10 @@ return {
       lspconfig.tsserver.setup({ capabilities = capabilities })
       lspconfig.pyright.setup({ capabilities = capabilities })
       lspconfig.jedi_language_server.setup({ capabilities = capabilities })
-      lspconfig.bashls.setup({ capabilities = capabilities })
+      lspconfig.bashls.setup({
+        capabilities = capabilities,
+        filetypes = { ".sh", "bash", ".bashrc", ".zshrc", ".conf", "sh", "zsh" }
+      })
       lspconfig.dockerls.setup({ capabilities = capabilities })
       lspconfig.ltex.setup({
         capabilities = capabilities,
@@ -111,8 +114,8 @@ return {
         on_init = function(client)
           local path = client.workspace_folders[1].name
           if
-              not vim.loop.fs_stat(path .. "/.luarc.json") and not vim.loop.fs_stat(path .. "/.luarc.jsonc")
-          then
+            not vim.loop.fs_stat(path .. "/.luarc.json") and not vim.loop.fs_stat(path .. "/.luarc.jsonc")
+            then
             client.config.settings = vim.tbl_deep_extend("force", client.config.settings, {
               Lua = {
                 runtime = {

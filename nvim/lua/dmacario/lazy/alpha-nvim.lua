@@ -13,16 +13,21 @@ local logo = {
 	[[                                                                                                   ]],
 }
 local cowsay = function(max_width)
+  if vim.fn.system('cowsay') == 0 then
+    return logo
+  end
 	-- Used to convert the output of cowsay (from system) to a Lua table
 	max_width = max_width or 39
-	local fortune_result = require("alpha.fortune")({ max_width = max_width })
-	local text = table.concat({ unpack(fortune_result, 2, #fortune_result) }, "\n")
-	local result = vim.fn.system(string.format('cowsay -W %s "%s"', max_width, text))
+  local result = ""
+  if vim.fn.system('fortune') == 1 then
+    -- I prefer the system 'fortune', so use it if available
+    result = vim.fn.system(string.format('fortune | cowsay -W %s', max_width))
+  else
+    local fortune_result = require("alpha.fortune")({ max_width = max_width })
+	  local text = table.concat({ unpack(fortune_result, 2, #fortune_result) }, "\n")
+    result = vim.fn.system(string.format('cowsay -W %s "%s"', max_width, text))
+  end
 
-	if vim.v.shell_error ~= 0 then
-		-- default, if running cowsay returns an error
-		return logo
-	end
   -- The small logo is placed above the output of cowsay
 	local pos, out_table =
 		0, {
@@ -61,7 +66,6 @@ return {
 			dashboard.button("g", "    find git files", ":Telescope git_files<CR>"),
 			dashboard.button("l", "󰒲    lazy", ":Lazy<CR>"),
 			dashboard.button("m", "󱌣    mason", ":Mason<CR>"),
-			-- dashboard.button('p', '󰄉    profile', ':Lazy profile<CR>'),
 			dashboard.button("q", "󰭿    quit", ":qa<CR>"),
 		}
 		dashboard.section.footer.opts.hl = "Type"

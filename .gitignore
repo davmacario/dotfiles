@@ -49,3 +49,6 @@ tags
 
 # Specific files:
 packer_compiled.lua
+
+# Lazy json file
+lazy-lock.json

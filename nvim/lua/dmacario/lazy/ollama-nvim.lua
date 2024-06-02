@@ -50,8 +50,8 @@ return {
 		},
 		-- View the actual default prompts in ./lua/ollama/prompts.lua
 		prompts = {
-			Sample_Prompt = {
-				prompt = "This is a sample prompt that receives $input and $sel(ection), among others.",
+			Chatbot = {
+				prompt = "You are a helpful chatbot that can will reply promptly and provide an effective and clear response. What follows is the user prompt:\n$input\n$sel",
 				input_label = "> ",
 				model = "llama3",
 				action = "display",

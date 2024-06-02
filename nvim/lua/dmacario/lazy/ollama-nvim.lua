@@ -51,7 +51,7 @@ return {
 		-- View the actual default prompts in ./lua/ollama/prompts.lua
 		prompts = {
 			Chatbot = {
-				prompt = "You are a helpful chatbot that can will reply promptly and provide an effective and clear response. What follows is the user prompt:\n$input\n$sel",
+				prompt = "You are a helpful chatbot that can will reply promptly and provide an effective and clear response. What follows is the user prompt:\n$input",
 				input_label = "> ",
 				model = "llama3",
 				action = "display",

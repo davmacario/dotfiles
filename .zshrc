@@ -136,9 +136,8 @@ plugins=(
     brew
     macos
 )
-bindkey '^ ' autosuggest-accept  # Use ctrl+space to accept autosuggestion
-
 source $ZSH/oh-my-zsh.sh
+bindkey '^ ' autosuggest-accept  # Use ctrl+space to accept autosuggestion
 
 # User configuration
 

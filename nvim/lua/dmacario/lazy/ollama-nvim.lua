@@ -57,7 +57,7 @@ return {
 				action = "display",
 			},
       Coding_question = {
-        prompt = "You are a coding assistant that will help the user by providing a clear response to his question related to coding. Here is what the user asked:\n$input",
+        prompt = "You are a coding assistant that will help the user by providing a clear response to his question related to coding and programming.\nUser: $input",
         input_label = "> ",
         model = "codestral",
         action = "display",

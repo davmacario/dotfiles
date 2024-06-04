@@ -12,7 +12,7 @@ autocmd("Filetype", {
 augroup("md_latex_settings", { clear = true })
 autocmd("Filetype", {
 	group = "md_latex_settings",
-	pattern = { "markdown", "latex", "tex" },
+	pattern = { "latex", "tex" },
 	command = "setlocal textwidth=80 conceallevel=2",
 })
 

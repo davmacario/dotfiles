@@ -65,24 +65,32 @@ return {
         border = "rounded",
       })
 
+      -- Setup of the individual servers
       local lspconfig = require("lspconfig")
+      local on_attach = function(client, bufnr)
+        -- if client.server_capabilities.documentSymbolProvider then
+        -- end
+        local navic = require("nvim-navic")
+        navic.attach(client, bufnr)
+      end
       lspconfig.grammarly.setup({
         capabilities = capabilities,
         filetypes = { "markdown", "latex", "tex" },
         init_options = { clientId = "client_BaDkMgx4X19X9UxxYRCXZo" },
       })
-      lspconfig.cssls.setup({ capabilities = capabilities })
+      lspconfig.cssls.setup({ capabilities = capabilities, on_attach = on_attach })
       lspconfig.eslint.setup({ capabilities = capabilities })
-      lspconfig.html.setup({ capabilities = capabilities })
-      lspconfig.jsonls.setup({ capabilities = capabilities })
-      lspconfig.tsserver.setup({ capabilities = capabilities })
-      lspconfig.pyright.setup({ capabilities = capabilities })
+      lspconfig.html.setup({ capabilities = capabilities, on_attach = on_attach })
+      lspconfig.jsonls.setup({ capabilities = capabilities, on_attach = on_attach })
+      lspconfig.tsserver.setup({ capabilities = capabilities, on_attach = on_attach })
+      lspconfig.pyright.setup({ capabilities = capabilities, on_attach = on_attach })
       lspconfig.jedi_language_server.setup({ capabilities = capabilities })
       lspconfig.bashls.setup({
         capabilities = capabilities,
-        filetypes = { ".sh", "bash", ".bashrc", ".zshrc", ".conf", "sh", "zsh" }
+        filetypes = { ".sh", "bash", ".bashrc", ".zshrc", ".conf", "sh", "zsh" },
+        on_attach = on_attach
       })
-      lspconfig.dockerls.setup({ capabilities = capabilities })
+      lspconfig.dockerls.setup({ capabilities = capabilities, on_attach = on_attach })
       lspconfig.ltex.setup({
         capabilities = capabilities,
         filetypes = { "latex", "tex" },
@@ -107,15 +115,15 @@ return {
           },
         },
       })
-      lspconfig.texlab.setup({ capabilities = capabilities })
-      lspconfig.marksman.setup({ capabilities = capabilities })
+      lspconfig.texlab.setup({ capabilities = capabilities, on_attach = on_attach })
+      lspconfig.marksman.setup({ capabilities = capabilities, on_attach = on_attach })
       lspconfig.lua_ls.setup({
         capabilities = capabilities,
         on_init = function(client)
           local path = client.workspace_folders[1].name
           if
-            not vim.loop.fs_stat(path .. "/.luarc.json") and not vim.loop.fs_stat(path .. "/.luarc.jsonc")
-            then
+              not vim.loop.fs_stat(path .. "/.luarc.json") and not vim.loop.fs_stat(path .. "/.luarc.jsonc")
+          then
             client.config.settings = vim.tbl_deep_extend("force", client.config.settings, {
               Lua = {
                 runtime = {
@@ -141,8 +149,9 @@ return {
           end
           return true
         end,
+        on_attach = on_attach
       })
-      lspconfig.matlab_ls.setup({ capabilities = capabilities })
+      lspconfig.matlab_ls.setup({ capabilities = capabilities, on_attach = on_attach })
       lspconfig.rust_analyzer.setup({
         capabilities = capabilities,
         cmd = {
@@ -151,10 +160,11 @@ return {
           "stable",
           "rust-analyzer",
         },
+        on_attach = on_attach
       })
-      lspconfig.gopls.setup({ capabilities = capabilities })
-      lspconfig.clangd.setup({ capabilities = capabilities })
-      lspconfig.cmake.setup({ capabilities = capabilities })
+      lspconfig.gopls.setup({ capabilities = capabilities, on_attach = on_attach })
+      lspconfig.clangd.setup({ capabilities = capabilities, on_attach = on_attach })
+      lspconfig.cmake.setup({ capabilities = capabilities, on_attach = on_attach })
       lspconfig.efm.setup({ capabilities = capabilities })
     end,
   },

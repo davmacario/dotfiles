@@ -23,6 +23,7 @@ return{
     -- Disable netrw:
     vim.g.loaded_netrw = 1
     vim.g.loaded_netrwPlugin = 1
+    local icons = require("dmacario.style.icons")
     require("nvim-tree").setup({
       git = {
         enable = true,
@@ -36,29 +37,7 @@ return{
       },
       on_attach = my_on_attach,
       renderer = {
-        icons = {
-          -- show = {
-          --     git = true,
-          --     file = false,
-          --     folder = false,
-          --     folder_arrow = true,
-          -- },
-          glyphs = {
-            folder = {
-              arrow_closed = "⏵",
-              arrow_open = "⏷",
-            },
-            git = {
-              unstaged = "",
-              staged = "",
-              unmerged = "",
-              renamed = "󰑕",
-              deleted = "󰆴",
-              untracked = "",
-              ignored = "",
-            },
-          },
-        },
+        icons = icons.tree_icons,
       },
     })
     require("nvim-web-devicons").setup({

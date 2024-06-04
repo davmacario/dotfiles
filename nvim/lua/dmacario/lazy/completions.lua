@@ -1,31 +1,3 @@
-local kind_icons = {
-	Class = " ",
-	Method = " ",
-	Function = "ƒ ",
-	Text = " ",
-	Constructor = " ",
-	Field = "󰄶 ",
-	File = " ",
-	Variable = " ",
-	Module = "󰏗 ",
-	Keyword = "󰌋 ",
-	Interface = "󰜰 ",
-	Property = "󰜢 ",
-	Unit = " ",
-	Value = "󰎠 ",
-	Snippet = " ",
-	Enum = " ",
-	EnumMember = " ",
-	Color = "󰏘 ",
-	Reference = " ",
-	Folder = "󰉋 ",
-	Constant = " ",
-	Struct = " ",
-	Event = " ",
-	Operator = " ",
-	TypeParameter = "󰅲 ",
-}
-
 return {
 	{
 		"hrsh7th/cmp-nvim-lsp",
@@ -39,26 +11,27 @@ return {
 
 		config = function()
 			local ls = require("luasnip")
-      local s = ls.snippet
-      local t = ls.text_node
-      local i = ls.insert_node
+			local s = ls.snippet
+			local t = ls.text_node
+			local i = ls.insert_node
 
-      -- Snippets definitions (the one below is an example)
-      ls.add_snippets("lua", {
-        s("hello", {
-          t('print("Hello '),
-          i(1),
-          t(' world")')
-        })
-      })
+			-- Snippets definitions (the one below is an example)
+			ls.add_snippets("lua", {
+				s("hello", {
+					t('print("Hello '),
+					i(1),
+					t(' world")'),
+				}),
+			})
 		end,
 	},
 	{
 		"hrsh7th/nvim-cmp",
 		config = function()
 			require("luasnip.loaders.from_vscode").lazy_load()
-      require("luasnip.loaders.from_vscode").load({ paths = "~/.config/nvim/my_snippets" })
+			require("luasnip.loaders.from_vscode").load({ paths = "~/.config/nvim/my_snippets" })
 			local cmp = require("cmp")
+      local icons = require("dmacario.style.icons")
 			cmp.setup({
 				snippet = {
 					expand = function(args)
@@ -89,7 +62,7 @@ return {
 					fields = { "menu", "abbr", "kind" },
 					format = function(entry, vim_item)
 						-- Kind icons
-						vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
+						vim_item.kind = string.format("%s %s", icons.kind_icons[vim_item.kind], vim_item.kind)
 						-- Source
 						local menu_icon = {
 							nvim_lsp = "λ",

@@ -100,7 +100,6 @@ return {
 				},
 				lualine_x = {
 					get_status_icon,
-					get_condition,
 					"encoding",
 					{ "fileformat", symbols = { unix = os_icon } },
 				},

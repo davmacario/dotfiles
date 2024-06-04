@@ -56,6 +56,12 @@ return {
 				model = "llama3",
 				action = "display",
 			},
+      Coding_question = {
+        prompt = "You are a coding assistant that will help the user by providing a clear response to his question related to coding. Here is what the user asked:\n$input",
+        input_label = "> ",
+        model = "codestral",
+        action = "display",
+      },
 		},
 	},
 }

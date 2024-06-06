@@ -1,10 +1,10 @@
 local icons = require("dmacario.style.icons")
 
--- Define a function to check the status and return the corresponding icon
+-- Define a function to check the Ollama status and return the corresponding icon
 local function get_status_icon()
-  if not package.loaded["ollama"] then
-    return icons.ollama.not_loaded .. " ~ not loaded"
-  end
+	if not package.loaded["ollama"] then
+		return icons.ollama.not_loaded .. " ~ not loaded"
+	end
 
 	if require("ollama").status ~= nil then
 		local status = require("ollama").status()

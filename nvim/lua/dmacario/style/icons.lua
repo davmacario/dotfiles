@@ -97,6 +97,8 @@ ICONS.location_logo = ""
 ICONS.ollama = {
 	idle = "󱙺",
 	busy = "󰚩",
+  not_loaded = "",
+  unreachable = "󰚌",
 }
 
 return ICONS

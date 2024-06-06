@@ -1,18 +1,20 @@
 local icons = require("dmacario.style.icons")
 
--- Define a function to check that ollama is installed and working
-local function get_condition()
-	return package.loaded["ollama"] and require("ollama").status ~= nil
-end
-
 -- Define a function to check the status and return the corresponding icon
 local function get_status_icon()
-	local status = require("ollama").status()
+  if not package.loaded["ollama"] then
+    return icons.ollama.not_loaded .. " ~ not loaded"
+  end
 
-	if status == "IDLE" then
-		return icons.ollama.idle .. " ~ idle" -- nf-md-robot-outline
-	elseif status == "WORKING" then
-		return icons.ollama.busy .. " ~ busy" -- nf-md-robot
+	if require("ollama").status ~= nil then
+		local status = require("ollama").status()
+		if status == "IDLE" then
+			return icons.ollama.idle .. " ~ idle" -- nf-md-robot-outline
+		elseif status == "WORKING" then
+			return icons.ollama.busy .. " ~ busy" -- nf-md-robot
+		end
+	else
+		return icons.ollama.unreachable .. " ~ unreachable"
 	end
 end
 

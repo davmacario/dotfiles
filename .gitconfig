@@ -9,3 +9,5 @@
 	editor = nvim
 [http]
 	postBuffer = 1048576000
+[init]
+	defaultBranch = main

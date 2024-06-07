@@ -1,23 +1,20 @@
-local os_icon
-if vim.loop.os_uname().sysname == "Darwin" then
-	os_icon = ""
-else
-	os_icon = ""
-end
+local icons = require("dmacario.style.icons")
 
--- Define a function to check that ollama is installed and working
-local function get_condition()
-	return package.loaded["ollama"] and require("ollama").status ~= nil
-end
-
--- Define a function to check the status and return the corresponding icon
+-- Define a function to check the Ollama status and return the corresponding icon
 local function get_status_icon()
-	local status = require("ollama").status()
+	if not package.loaded["ollama"] then
+		return icons.ollama.not_loaded .. " ~ not loaded"
+	end
 
-	if status == "IDLE" then
-		return "󱙺 ~ idle" -- nf-md-robot-outline
-	elseif status == "WORKING" then
-		return "󰚩 ~ busy" -- nf-md-robot
+	if require("ollama").status ~= nil then
+		local status = require("ollama").status()
+		if status == "IDLE" then
+			return icons.ollama.idle .. " ~ idle" -- nf-md-robot-outline
+		elseif status == "WORKING" then
+			return icons.ollama.busy .. " ~ busy" -- nf-md-robot
+		end
+	else
+		return icons.ollama.unreachable .. " ~ unreachable"
 	end
 end
 
@@ -30,11 +27,7 @@ return {
 	lazy = false,
 	priority = 1000,
 	config = function()
-		local git_icons = {
-			added = " ",
-			modified = " ",
-			removed = " ",
-		}
+		local navic = require("nvim-navic")
 		require("lualine").setup({
 			options = {
 				icons_enabled = true,
@@ -62,16 +55,12 @@ return {
 				},
 			},
 			sections = {
-				lualine_a = { { "mode", icon = "" } },
+				lualine_a = { { "mode", icon = icons.vim_logo } },
 				lualine_b = {
 					"branch",
 					{
 						"diff",
-						symbols = {
-							added = git_icons.added,
-							modified = git_icons.modified,
-							removed = git_icons.removed,
-						},
+						symbols = icons.git_icons,
 						source = function()
 							local gitsigns = vim.b.gitsigns_status_dict
 							if gitsigns then
@@ -85,13 +74,7 @@ return {
 					},
 					{
 						"diagnostics",
-						symbols = {
-							error = "",
-							warn = "",
-							hint = "󰌶",
-							info = "",
-							other = "",
-						},
+						symbols = icons.diagnostics,
 					},
 				},
 				lualine_c = {
@@ -101,10 +84,10 @@ return {
 				lualine_x = {
 					get_status_icon,
 					"encoding",
-					{ "fileformat", symbols = { unix = os_icon } },
+					{ "fileformat", symbols = { unix = icons.os_icon } },
 				},
 				lualine_y = { "filetype", "progress" },
-				lualine_z = { { "location", icon = "" } },
+				lualine_z = { { "location", icon = icons.location_icon } },
 			},
 			inactive_sections = {
 				lualine_a = {},
@@ -115,7 +98,18 @@ return {
 				lualine_z = {},
 			},
 			tabline = {},
-			winbar = {},
+			winbar = {
+				lualine_c = {
+					{
+						function()
+							return navic.get_location()
+						end,
+						cond = function()
+							return navic.is_available()
+						end,
+					},
+				},
+			},
 			inactive_winbar = {},
 			extensions = { "fugitive", "trouble" },
 		})

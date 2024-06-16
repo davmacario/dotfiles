@@ -8,7 +8,7 @@ return {
       icons = icons.kind_icons,
       lsp = {
         auto_attach = true,
-        preference = { "clangd", "pyright", "ltex" },
+        preference = { "clangd", "jedi_language_server", "ltex" },
       },
       highlight = true,
       separator = "  ",

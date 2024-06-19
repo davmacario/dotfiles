@@ -150,6 +150,7 @@ Here are my custom keybindings!
   - `<leader>dp`: pause
   - `<leader>dT`: terminate
   - `<leader>dr`: reset UI
+  - `<leader>?`: eval variable under cursor (show type and attributes)
 - Markdown Preview:
   - `<leader>mp`: toggle MarkdownPreview window
 - Clipboard Image (paste images in editor - _Markdown_):

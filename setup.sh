@@ -19,8 +19,7 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         PACMAN="pacman"
     fi
 
-    INVOKE_PACMAN="sudo $PACMAN"
-    # Can install linux-specific packages here
+    INVOKE_PACMAN="sudo $PACMAN -y"
 
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     echo "MacOS detected!"
@@ -37,11 +36,38 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     INVOKE_PACMAN="brew"
 fi
 
+# packages that have the same name across different platforms
+packages_global=(
+    tmux
+    fzf
+    neofetch
+    htop
+    git
+    cmake
+    gcc
+    whois
+    cowsay
+    sl
+    python3
+    python3-dev 
+    python3-pip 
+    ninja-build 
+    gettext 
+    npm 
+    ripgrep
+    unzip 
+    curl 
+    build-essential 
+    telnet 
+    python3-venv
+)
+
 # Install possible required packages with:
 # $INVOKE_PACMAN install
-$INVOKE_PACMAN install tmux fzf neofetch htop git cmake gcc whois cowsay sl \
-        python3 python3-dev python3-pip ninja-build gettext npm ripgrep \
-        unzip curl build-essential telnet python3-venv
+for package in "${packages_global[@]}"; do
+    echo "Installing $package..."
+    $INVOKE_PACMAN install "$package"
+done
 
 # ------------------------------------------------------------------------------
 

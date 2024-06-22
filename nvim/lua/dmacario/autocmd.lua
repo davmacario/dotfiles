@@ -31,3 +31,11 @@ autocmd("Filetype", {
 	pattern = { "xml", "html", "xhtml", "css", "scss", "javascript", "typescript", "yaml", "lua", "json", "markdown" },
 	command = "setlocal expandtab shiftwidth=2 tabstop=2",
 })
+
+-- Treat Jenkinsfile as groovy
+augroup("jenkinsGroovy", { clear = true })
+autocmd("Filetype", {
+	group = "jenkinsGroovy",
+	pattern = { ".jenkins", "Jenkinsfile", "jenkinsfile" },
+	command = "set filetype=groovy",
+})

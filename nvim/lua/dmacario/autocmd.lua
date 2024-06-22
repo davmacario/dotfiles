@@ -34,8 +34,8 @@ autocmd("Filetype", {
 
 -- Treat Jenkinsfile as groovy
 augroup("jenkinsGroovy", { clear = true })
-autocmd("Filetype", {
+autocmd({ "Filetype", "BufRead", "BufNewFile" }, {
 	group = "jenkinsGroovy",
-	pattern = { ".jenkins", "Jenkinsfile", "jenkinsfile" },
+	pattern = { ".jenkins", "Jenkinsfile", "jenkinsfile", "jenkins" },
 	command = "set filetype=groovy",
 })

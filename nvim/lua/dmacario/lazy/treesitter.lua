@@ -32,6 +32,7 @@ return {
 				"jsonc",
 				"rust",
 				"go",
+				"terraform",
 			},
 
 			-- Install parsers synchronously (only applied to `ensure_installed`)

@@ -232,3 +232,6 @@ export NVM_DIR="$HOME/.config/nvm"
 # DBus settings
 export DBUS_SESSION_BUS_ADDRESS="unix:path=$DBUS_LAUNCHD_SESSION_BUS_SOCKET"
 export EDITOR="nvim"
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /opt/homebrew/bin/terraform terraform

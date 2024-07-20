@@ -47,6 +47,7 @@ return {
 	},
 	{
 		"neovim/nvim-lspconfig",
+		dependencies = { "hrsh7th/cmp-nvim-lsp" },
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			-- local opts = {buffer = bufnr, remap = false}
@@ -137,11 +138,10 @@ return {
 									checkThirdParty = false,
 									library = {
 										vim.env.VIMRUNTIME,
-										-- "${3rd}/luv/library"
-										-- "${3rd}/busted/library",
 									},
-									-- or pull in all of 'runtimepath'. NOTE: this is a lot slower
-									-- library = vim.api.nvim_get_runtime_file("", true)
+								},
+								diagnostics = {
+									globals = { "vim" },
 								},
 							},
 						})

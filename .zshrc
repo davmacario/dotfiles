@@ -222,6 +222,9 @@ export PATH="$PATH:$HOME/go/bin"
 # Configuration
 export XDG_CONFIG_HOME="$HOME/.config"
 
+# kubectl setup
+export KUBECONFIG="$HOME/.kube/config"
+
 # Rust setup
 source "$HOME/.cargo/env"
 

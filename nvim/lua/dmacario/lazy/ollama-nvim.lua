@@ -29,7 +29,7 @@ return {
 	---@type Ollama.Config
 	opts = {
 		model = "codestral",
-		url = "http://100.91.137.78:11434",
+		url = "http://100.91.137.78:11435",
 		serve = {
 			command = "docker",
 			args = {
@@ -40,7 +40,7 @@ return {
 				"-v",
 				"ollama:/root/.ollama",
 				"-p",
-				"11434:11434",
+				"11435:11434",
 				"--name",
 				"ollama",
 				"ollama/ollama",

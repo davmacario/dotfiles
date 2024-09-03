@@ -41,6 +41,7 @@ return {
 					"grammarly",
 					"sqlls",
 					"terraformls",
+          "arduino_language_server",
 				},
 			})
 		end,
@@ -167,6 +168,7 @@ return {
 			lspconfig.clangd.setup({ capabilities = capabilities, on_attach = on_attach })
 			lspconfig.cmake.setup({ capabilities = capabilities, on_attach = on_attach })
 			lspconfig.efm.setup({ capabilities = capabilities })
+      lspconfig.arduino_language_server.setup({ capabilities = capabilities, on_attach = on_attach })
 		end,
 	},
 }

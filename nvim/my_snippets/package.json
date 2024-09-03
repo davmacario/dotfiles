@@ -12,6 +12,10 @@
       {
         "language": "python",
         "path": "./snippets/python.json"
+      },
+      {
+        "language": "arduino",
+        "path": "./snippets/arduino.json"
       }
     ]
   }

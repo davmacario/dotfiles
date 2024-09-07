@@ -20,7 +20,7 @@ function ColorMyPencils(color)
 	cmd("hi LspDiagnosticsUnderlineError guisp=red gui=bold,italic,underline")
 	cmd("hi LspDiagnosticsUnderlineWarning guisp=orange gui=bold,italic,underline")
 	cmd("hi LspDiagnosticsUnderlineInformation guisp=yellow gui=bold,italic,underline")
-	cmd("hi LspDiagnosticsUnderlineHint guisp=green gui=bold,italic,underline")
+    cmd("hi LspDiagnosticsUnderlineHint guisp=green gui=bold,italic,underline")
 
 	-- Diagnostics configuration
 	local signs = { Error = "", Warn = "", Info = "", Hint = "󰌶" }

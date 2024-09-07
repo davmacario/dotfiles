@@ -9,6 +9,7 @@ autocmd("Filetype", {
 	command = "setlocal cc=0 colorcolumn=1000",
 })
 
+-- LaTeX settings
 augroup("md_latex_settings", { clear = true })
 autocmd("Filetype", {
 	group = "md_latex_settings",
@@ -38,4 +39,12 @@ autocmd({ "Filetype", "BufRead", "BufNewFile" }, {
 	group = "jenkinsGroovy",
 	pattern = { ".jenkins", "Jenkinsfile", "jenkinsfile", "jenkins" },
 	command = "set filetype=groovy",
+})
+
+-- Always remove trailing whitespaces
+autocmd("BufWritePre", {
+	pattern = { "*" },
+	callback = function()
+		vim.cmd([[%s/\s\+$//e]])
+	end,
 })

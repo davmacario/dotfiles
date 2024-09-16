@@ -22,10 +22,8 @@ return {
 					"eslint",
 					"html",
 					"jsonls",
-					"tsserver",
 					"pyright",
 					"jedi_language_server",
-					-- "tailwindcss",
 					"bashls",
 					"dockerls",
 					"ltex",
@@ -85,7 +83,6 @@ return {
 			lspconfig.eslint.setup({ capabilities = capabilities })
 			lspconfig.html.setup({ capabilities = capabilities, on_attach = on_attach })
 			lspconfig.jsonls.setup({ capabilities = capabilities, on_attach = on_attach })
-			lspconfig.tsserver.setup({ capabilities = capabilities, on_attach = on_attach })
 			lspconfig.pyright.setup({ capabilities = capabilities, on_attach = on_attach })
 			lspconfig.jedi_language_server.setup({ capabilities = capabilities })
 			lspconfig.bashls.setup({

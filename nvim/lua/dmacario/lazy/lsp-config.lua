@@ -73,11 +73,6 @@ return {
 				local navic = require("nvim-navic")
 				navic.attach(client, bufnr)
 			end
-			lspconfig.grammarly.setup({
-				capabilities = capabilities,
-				filetypes = { "markdown", "latex", "tex" },
-				init_options = { clientId = "client_BaDkMgx4X19X9UxxYRCXZo" },
-			})
 			lspconfig.cssls.setup({ capabilities = capabilities, on_attach = on_attach })
 			lspconfig.eslint.setup({ capabilities = capabilities })
 			lspconfig.html.setup({ capabilities = capabilities, on_attach = on_attach })

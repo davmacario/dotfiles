@@ -36,7 +36,6 @@ return {
 					"clangd",
 					"cmake",
 					"efm",
-					"grammarly",
 					"sqlls",
 					"terraformls",
 					"arduino_language_server",

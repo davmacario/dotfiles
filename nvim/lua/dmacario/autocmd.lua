@@ -29,7 +29,24 @@ autocmd("Filetype", {
 augroup("setIndent", { clear = true })
 autocmd("Filetype", {
 	group = "setIndent",
-	pattern = { "xml", "html", "xhtml", "css", "scss", "javascript", "typescript", "yaml", "lua", "json", "markdown" },
+	pattern = {
+		"xml",
+		"html",
+		"xhtml",
+		"css",
+		"scss",
+		"javascript",
+		"typescript",
+		"yaml",
+		"lua",
+		"json",
+		"markdown",
+		"c",
+		"cpp",
+		"cc",
+		".h",
+		".hpp",
+	},
 	command = "setlocal expandtab shiftwidth=2 tabstop=2",
 })
 

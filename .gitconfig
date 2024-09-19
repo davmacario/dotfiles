@@ -1,14 +1,18 @@
-[user]
-	name = davmacario
-	email = dav.macario@gmail.com
+[init]
+	defaultBranch = main
 [core]
 	compression = 0
     excludesfile = /home/dmacario/.gitignore
 	editor = nvim
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[credential "https://github.com"]
+	helper = !/usr/bin/gh auth git-credential
 [http]
 	postBuffer = 1048576000
-[init]
-	defaultBranch = main
 [alias]
     lg = lg1
     lg1 = lg1-specific --all
@@ -18,7 +22,7 @@
     lg1-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'
     lg2-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
     lg3-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset) %C(bold cyan)(committed: %cD)%C(reset) %C(auto)%d%C(reset)%n''          %C(white)%s%C(reset)%n''          %C(dim white)- %an <%ae> %C(reset) %C(dim white)(committer: %cn <%ce>)%C(reset)'
-[credential "https://github.com"]
-	helper = !/usr/bin/gh auth git-credential
-[includeIf "gitdir:/home/dmacario/github/"]
-    path = "/home/dmacario/github/.gitconfig"
+[includeIf "gitdir/i:/home/dmacario/src/"]
+    path=vitestro.gitconfig
+[includeIf "gitdir/i:/home/dmacario/github/"]
+    path=personal.gitconfig

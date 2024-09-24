@@ -134,13 +134,13 @@ return {
 						},
 					})
 				end,
-        settings = {
-          Lua = {
+				settings = {
+					Lua = {
 						diagnostics = {
 							globals = { "vim", "require" },
 						},
-          }
-        },
+					},
+				},
 				on_attach = on_attach,
 			})
 
@@ -158,7 +158,17 @@ return {
 			lspconfig.gopls.setup({ capabilities = capabilities, on_attach = on_attach })
 			lspconfig.clangd.setup({ capabilities = capabilities, on_attach = on_attach })
 			lspconfig.cmake.setup({ capabilities = capabilities, on_attach = on_attach })
-			lspconfig.efm.setup({ capabilities = capabilities })
+			lspconfig.efm.setup({
+				capabilities = capabilities,
+				settings = {
+					rootMarkers = { "./git" },
+					languages = {
+						lua = {
+							{ formatCommand = "lua-format -i", formatStdin = true },
+						},
+					},
+				},
+			})
 			lspconfig.arduino_language_server.setup({
 				capabilities = capabilities,
 				on_attach = on_attach,

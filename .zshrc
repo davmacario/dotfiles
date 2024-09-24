@@ -156,14 +156,14 @@ export LC_ALL=C
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 ####
-export GITUSER="davmacario"
+export GHUSER="davmacario"
 export GHDIR="$HOME/github"
-export GHREPOS="$GHDIR/$GITUSER"
+export GHREPOS="$GHDIR/$GHUSER"
 export DOTFILES="$GHREPOS/dotfiles"
 # Add local bin to path
 export PATH="$PATH:$HOME/.local/bin"
 # Go executables
-export PATH="$PATH:$HOME/go/bin:/usr/local/go/bin"
+export PATH="$PATH:/usr/local/go/bin"
 # Configuration
 export XDG_CONFIG_HOME="$HOME/.config"
 # Default editor
@@ -176,7 +176,13 @@ export NVM_DIR="$HOME/.config/nvm"
 
 # Some Lua/Nvim 0.10 thing
 export PATH="$PATH:$HOME/.local/share/nvim/lazy-rocks/hererocks/bin"
-#
+
+# Getting around WSL and copy-pasting to/from system clipboard
+export DISPLAY=:0
+
+# Use Nvidia GPU
+export MESA_D3D12_DEFAULT_ADAPTER_NAME=nvidia
+
 ################
 setopt histignorealldups sharehistory
 HISTSIZE=1000

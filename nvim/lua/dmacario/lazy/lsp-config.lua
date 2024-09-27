@@ -30,7 +30,6 @@ return {
 					"texlab",
 					"marksman",
 					"lua_ls",
-					"matlab_ls",
 					"rust_analyzer",
 					"gopls",
 					"clangd",
@@ -38,7 +37,6 @@ return {
 					"efm",
 					"sqlls",
 					"terraformls",
-					"arduino_language_server",
 				},
 			})
 		end,
@@ -49,14 +47,16 @@ return {
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			-- local opts = {buffer = bufnr, remap = false}
+      -- Diagnostics config (TODO: place them in the appropriate file)
+      vim.diagnostic.config({ underline=true, virtual_text=true, float=true })
 			-- Keymaps
 			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
 			vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
 			vim.keymap.set("n", "gr", vim.lsp.buf.references, {})
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 			vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol, {})
-			vim.keymap.set("n", "[d", vim.diagnostic.goto_next, {})
-			vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, {})
+			vim.keymap.set("n", "[d", function() vim.diagnostic.jump({count=1}) end, { desc = 'Jump to next diagnostic item' })
+			vim.keymap.set("n", "]d", function() vim.diagnostic.jump({count=-1}) end, { desc = 'Jump to previous diagnostic item' })
 			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {})
 			vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, {})
 
@@ -144,7 +144,6 @@ return {
 				on_attach = on_attach,
 			})
 
-			lspconfig.matlab_ls.setup({ capabilities = capabilities, on_attach = on_attach })
 			lspconfig.rust_analyzer.setup({
 				capabilities = capabilities,
 				cmd = {
@@ -168,15 +167,6 @@ return {
 						},
 					},
 				},
-			})
-			lspconfig.arduino_language_server.setup({
-				capabilities = capabilities,
-				on_attach = on_attach,
-				on_new_config = function(config, root_dir)
-					local fqbn = {
-						[vim.env.HOME .. "/programming/Arduino/blink_builtin_led"] = "esp32:esp32:lilygo_t_display_s3",
-					}
-				end,
 			})
 		end,
 	},

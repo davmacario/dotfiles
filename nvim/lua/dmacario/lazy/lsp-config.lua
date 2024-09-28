@@ -22,26 +22,23 @@ return {
 					"eslint",
 					"html",
 					"jsonls",
-					"tsserver",
 					"pyright",
 					"jedi_language_server",
-					-- "tailwindcss",
 					"bashls",
 					"dockerls",
 					"ltex",
 					"texlab",
 					"marksman",
 					"lua_ls",
-					"matlab_ls",
 					"rust_analyzer",
 					"gopls",
 					"clangd",
 					"cmake",
 					"efm",
-					"grammarly",
 					"sqlls",
 					"terraformls",
 					"arduino_language_server",
+					"yamlls",
 				},
 			})
 		end,
@@ -52,14 +49,20 @@ return {
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			-- local opts = {buffer = bufnr, remap = false}
+			-- Diagnostics config (TODO: place them in the appropriate file)
+			vim.diagnostic.config({ underline = true, virtual_text = true, float = true })
 			-- Keymaps
 			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
 			vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
 			vim.keymap.set("n", "gr", vim.lsp.buf.references, {})
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 			vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol, {})
-			vim.keymap.set("n", "[d", vim.diagnostic.goto_next, {})
-			vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, {})
+			vim.keymap.set("n", "[d", function()
+				vim.diagnostic.jump({ count = 1 })
+			end, { desc = "Jump to next diagnostic item" })
+			vim.keymap.set("n", "]d", function()
+				vim.diagnostic.jump({ count = -1 })
+			end, { desc = "Jump to previous diagnostic item" })
 			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {})
 			vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, {})
 
@@ -76,16 +79,10 @@ return {
 				local navic = require("nvim-navic")
 				navic.attach(client, bufnr)
 			end
-			lspconfig.grammarly.setup({
-				capabilities = capabilities,
-				filetypes = { "markdown", "latex", "tex" },
-				init_options = { clientId = "client_BaDkMgx4X19X9UxxYRCXZo" },
-			})
 			lspconfig.cssls.setup({ capabilities = capabilities, on_attach = on_attach })
 			lspconfig.eslint.setup({ capabilities = capabilities })
 			lspconfig.html.setup({ capabilities = capabilities, on_attach = on_attach })
 			lspconfig.jsonls.setup({ capabilities = capabilities, on_attach = on_attach })
-			lspconfig.tsserver.setup({ capabilities = capabilities, on_attach = on_attach })
 			lspconfig.pyright.setup({ capabilities = capabilities, on_attach = on_attach })
 			lspconfig.jedi_language_server.setup({ capabilities = capabilities })
 			lspconfig.bashls.setup({
@@ -143,17 +140,16 @@ return {
 						},
 					})
 				end,
-        settings = {
-          Lua = {
+				settings = {
+					Lua = {
 						diagnostics = {
 							globals = { "vim", "require" },
 						},
-          }
-        },
+					},
+				},
 				on_attach = on_attach,
 			})
 
-			lspconfig.matlab_ls.setup({ capabilities = capabilities, on_attach = on_attach })
 			lspconfig.rust_analyzer.setup({
 				capabilities = capabilities,
 				cmd = {
@@ -167,7 +163,17 @@ return {
 			lspconfig.gopls.setup({ capabilities = capabilities, on_attach = on_attach })
 			lspconfig.clangd.setup({ capabilities = capabilities, on_attach = on_attach })
 			lspconfig.cmake.setup({ capabilities = capabilities, on_attach = on_attach })
-			lspconfig.efm.setup({ capabilities = capabilities })
+			lspconfig.efm.setup({
+				capabilities = capabilities,
+				settings = {
+					rootMarkers = { "./git" },
+					languages = {
+						lua = {
+							{ formatCommand = "lua-format -i", formatStdin = true },
+						},
+					},
+				},
+			})
 			lspconfig.arduino_language_server.setup({
 				capabilities = capabilities,
 				on_attach = on_attach,
@@ -177,6 +183,7 @@ return {
 					}
 				end,
 			})
+			lspconfig.yamlls.setup({ capabilities = capabilities, on_attach = on_attach })
 		end,
 	},
 }

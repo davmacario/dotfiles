@@ -87,7 +87,7 @@ return {
 					{ "fileformat", symbols = { unix = icons.os_icon } },
 				},
 				lualine_y = { "filetype", "progress" },
-				lualine_z = { { "location", icon = icons.location_icon } },
+				lualine_z = { { "location", icon = icons.location_logo } },
 			},
 			inactive_sections = {
 				lualine_a = {},

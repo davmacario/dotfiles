@@ -4,7 +4,7 @@ then
     neofetch
 fi
 
-# Setup secrets
+# Setup secret keys/passwords - private folder
 export SECRETS="$HOME/.keys"
 # Evaluate permissions on secrets folder - syntax changes between Linux and Mac
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -15,24 +15,24 @@ fi
 # Create folder if not there
 if [ ! -d "$SECRETS" ]; then
     mkdir "$SECRETS"
-    chmod 700 "$SECRETS"
+    # No version control for the keys
+    touch "$SECRETS/.gitignore"
+    echo "*" >> "$SECRETS/.gitignore"
+    echo "!.gitignore" >> "$SECRETS/.gitignore"
+    chmod -R 700 "$SECRETS"
     chown -R "$(whoami)" "$SECRETS"
 elif [ "$secrets_perm" != 600 ]; then
-    chmod 700 "$SECRETS"
+    chmod -R 700 "$SECRETS"
     chown -R "$(whoami)" "$SECRETS"
-    # TODO: improve - need all files in there with permission and ownership
 fi
 
 # Source secret keys file (not on version control)
 if [ -d "$SECRETS" ]; then
-    for FILE in "$SECRETS"/*; do
-        # echo "Sourcing $FILE"
-        source "$FILE"
-    done
-elif [ -d "$HOME/.keys" ]; then
-    for FILE in "$HOME/.keys"/*; do
-        source "$FILE"
-    done
+    if [ "$(ls "$SECRETS")" ]; then
+        for FILE in "$SECRETS"/*; do
+            source "$FILE"
+        done
+    fi
 fi
 
 # Homebrew setup
@@ -51,25 +51,13 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+# Theme
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
-
-# Uncomment the following line to use case-sensitive completion.
+# Case-sensitive completion.
 CASE_SENSITIVE="true"
 
 # Uncomment the following line to use hyphen-insensitive completion.
@@ -170,7 +158,7 @@ PROMPT="%B%F{47}%n@%m%f%b:%F{cyan}%~ %#%f "
 alias ls='ls -G'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[[ ! -f "$HOME/.p10k.zsh" ]] || source "$HOME/.p10k.zsh"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -200,8 +188,6 @@ autoload -Uz compinit && compinit -i
 # Environment variables
 export CLICOLOR=1
 export LSCOLORS=gxFxCxDxBxegedabagaced
-# Entry point for Depthai demo app, enables to run <depthai_launcher> in terminal
-export PATH=$PATH:/Users/dmacario/Luxonis/depthai/entrypoint
 # Set bat theme
 export BAT_THEME="gruvbox-dark"
 # Change terminal language settings to english:
@@ -209,15 +195,16 @@ export LC_ALL=C
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
-export GITUSER="davmacario"
-export GHREPOS="$HOME/github/$GITUSER"
+export GHUSER="davmacario"
+export GHDIR="$HOME/github"
+export GHREPOS="$GHDIR/$GHUSER"
 export DOTFILES="$GHREPOS/dotfiles"
 
 # Add local bin to path
 export PATH="$PATH:$HOME/.local/bin"
 
 # Go executables
-export PATH="$PATH:$HOME/go/bin"
+export PATH="$PATH:$HOME/go/bin:/usr/local/go/bin"
 
 # Configuration
 export XDG_CONFIG_HOME="$HOME/.config"

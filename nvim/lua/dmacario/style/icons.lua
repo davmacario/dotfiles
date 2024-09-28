@@ -10,7 +10,7 @@ ICONS.kind_icons = {
 	Field = "󰄶 ",
 	Constructor = " ",
 	Enum = " ",
-	Interface = "󰕘",
+	Interface = "󰕘 ",
 	Function = "ƒ ",
 	Variable = " ",
 	Constant = " ",
@@ -50,12 +50,12 @@ ICONS.tree_icons = {
 			arrow_open = "⏷",
 		},
 		git = {
-			unstaged = "",
-			staged = "",
+			unstaged = " ",
+			staged = " ",
 			unmerged = "",
 			renamed = "󰑕",
 			deleted = "󰆴",
-			untracked = "",
+			untracked = " ",
 			ignored = "",
 		},
 	},
@@ -77,11 +77,11 @@ ICONS.git_icons = {
 }
 
 ICONS.diagnostics = {
-	error = "",
-	warn = "",
-	hint = "󰌶",
-	info = "",
-	other = "",
+	error = " ",
+	warn = " ",
+	hint = "󰌶 ",
+	info = " ",
+	other = " ",
 }
 
 if vim.loop.os_uname().sysname == "Darwin" then

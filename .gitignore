@@ -52,3 +52,6 @@ packer_compiled.lua
 
 # Lazy json file
 lazy-lock.json
+
+# Log files
+*.log

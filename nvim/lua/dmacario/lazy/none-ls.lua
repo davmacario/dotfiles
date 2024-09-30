@@ -49,7 +49,7 @@ return {
 					-- Diagnostics sources
 					null_ls.builtins.diagnostics.markdownlint,
 					require("none-ls.diagnostics.flake8").with({ -- from none-ls-extras
-						extra_args = { "--max-line-length", "88" },
+						extra_args = {},
 						prefer_local = ".venv/bin",
 					}),
 					require("none-ls-shellcheck.diagnostics"),

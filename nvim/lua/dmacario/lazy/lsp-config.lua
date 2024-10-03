@@ -49,8 +49,6 @@ return {
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			-- local opts = {buffer = bufnr, remap = false}
-			-- Diagnostics config (TODO: place them in the appropriate file)
-			vim.diagnostic.config({ underline = true, virtual_text = true, float = true })
 			-- Keymaps
 			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
 			vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})

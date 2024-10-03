@@ -32,12 +32,10 @@ function ColorMyPencils(color)
           [vim.diagnostic.severity.INFO] = signs.info,
           [vim.diagnostic.severity.HINT] = signs.hint,
       },
-    }
-  })
-
-	vim.diagnostic.config({
+    },
 		underline = true,
 		virtual_text = {
+      source = "if_many",
 			prefix = "●", -- Could be '■', '▎', 'x'
 		},
 	})

@@ -20,24 +20,24 @@ function ColorMyPencils(color)
 	cmd("hi LspDiagnosticsUnderlineError guisp=red gui=bold,italic,underline")
 	cmd("hi LspDiagnosticsUnderlineWarning guisp=orange gui=bold,italic,underline")
 	cmd("hi LspDiagnosticsUnderlineInformation guisp=yellow gui=bold,italic,underline")
-    cmd("hi LspDiagnosticsUnderlineHint guisp=green gui=bold,italic,underline")
+	cmd("hi LspDiagnosticsUnderlineHint guisp=green gui=bold,italic,underline")
 
 	-- Diagnostics configuration
 	local signs = require("dmacario.style.icons").diagnostics
-  vim.diagnostic.config({
-    signs = {
-      text = {
-          [vim.diagnostic.severity.ERROR] = signs.error,
-          [vim.diagnostic.severity.WARN] = signs.warn,
-          [vim.diagnostic.severity.INFO] = signs.info,
-          [vim.diagnostic.severity.HINT] = signs.hint,
-      },
-    },
+	vim.diagnostic.config({
+		signs = {
+			text = {
+				[vim.diagnostic.severity.ERROR] = signs.error,
+				[vim.diagnostic.severity.WARN] = signs.warn,
+				[vim.diagnostic.severity.INFO] = signs.info,
+				[vim.diagnostic.severity.HINT] = signs.hint,
+			},
+		},
 		underline = true,
 		virtual_text = {
-      source = "if_many",
 			prefix = "●", -- Could be '■', '▎', 'x'
 		},
+		float = true,
 	})
 end
 

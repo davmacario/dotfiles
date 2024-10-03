@@ -23,20 +23,18 @@ function ColorMyPencils(color)
 	cmd("hi LspDiagnosticsUnderlineHint guisp=green gui=bold,italic,underline")
 
 	local signs = require("dmacario.style.icons").diagnostics
-	vim.diagnostic.config({
-		signs = {
-			text = {
-				[vim.diagnostic.severity.ERROR] = signs.error,
-				[vim.diagnostic.severity.WARN] = signs.warn,
-				[vim.diagnostic.severity.INFO] = signs.info,
-				[vim.diagnostic.severity.HINT] = signs.hint,
-			},
-		},
-	})
-
-	vim.diagnostic.config({
+  vim.diagnostic.config({
+    signs = {
+      text = {
+          [vim.diagnostic.severity.ERROR] = signs.error,
+          [vim.diagnostic.severity.WARN] = signs.warn,
+          [vim.diagnostic.severity.INFO] = signs.info,
+          [vim.diagnostic.severity.HINT] = signs.hint,
+      },
+    },
 		underline = true,
 		virtual_text = {
+      source = "if_many",
 			prefix = "●", -- Could be '■', '▎', 'x'
 		},
 	})

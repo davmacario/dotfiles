@@ -28,8 +28,8 @@ return {
 
 	---@type Ollama.Config
 	opts = {
-		model = "llama3.1",
-		url = "http://127.0.0.1:11434",
+		model = "codestral",
+		url = "http://100.91.137.78:11435",
 		serve = {
 			command = "docker",
 			args = {
@@ -53,19 +53,19 @@ return {
 			Chatbot = {
 				prompt = "You are a helpful chatbot that can will reply promptly and provide an effective and clear response. What follows is the user prompt:\n$input",
 				input_label = "> ",
-				model = "llama3.1",
+				model = "llama3",
 				action = "display",
 			},
 			Coding_Question = {
 				prompt = "You are a coding assistant that will help the user by providing a clear response to his question related to coding and programming.\nUser: $input",
 				input_label = "> ",
-				model = "llama3.1",
+				model = "codestral",
 				action = "display",
 			},
 			Rewrite_Text = {
 				prompt = "You are a text writing assistant that writes clear understandable text.\n$input\n'$sel'",
 				input_label = "> ",
-				model = "llama3.1",
+				model = "llama3",
 				action = "display",
 			},
 		},

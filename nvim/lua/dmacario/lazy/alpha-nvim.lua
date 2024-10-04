@@ -21,7 +21,7 @@ local cowsay = function(max_width)
 	local result = ""
 	if vim.fn.system("fortune") == 1 then
 		-- I prefer the system 'fortune', so use it if available
-		result = vim.fn.system(string.format("fortune | cowsay -W %s", max_width))
+		result = vim.fn.system(string.format('fortune | cowsay -W %s', max_width))
 	else
 		local fortune_result = require("alpha.fortune")({ max_width = max_width })
 		local text = table.concat({ unpack(fortune_result, 2, #fortune_result) }, "\n")
@@ -62,7 +62,7 @@ return {
 			dashboard.button("i", "    new file", ":ene <BAR> startinsert<CR>"),
 			dashboard.button("o", "    old files", ":Telescope oldfiles<CR>"),
 			dashboard.button("f", "󰥨    find file", ":Telescope find_files<CR>"),
-			dashboard.button("t", "󰱼    find text", ":Telescope live_grep<CR>"),
+			dashboard.button("s", "󰱼    find text", ":Telescope live_grep<CR>"),
 			dashboard.button("g", "    find git files", ":Telescope git_files<CR>"),
 			dashboard.button("l", "󰒲    lazy", ":Lazy<CR>"),
 			dashboard.button("m", "󱌣    mason", ":Mason<CR>"),

@@ -53,7 +53,7 @@ return {
 			Chatbot = {
 				prompt = "You are a helpful chatbot that can will reply promptly and provide an effective and clear response. What follows is the user prompt:\n$input",
 				input_label = "> ",
-				model = "llama3",
+				model = "llama3.1",
 				action = "display",
 			},
 			Coding_Question = {
@@ -65,7 +65,7 @@ return {
 			Rewrite_Text = {
 				prompt = "You are a text writing assistant that writes clear understandable text.\n$input\n'$sel'",
 				input_label = "> ",
-				model = "llama3",
+				model = "llama3.1",
 				action = "display",
 			},
 		},

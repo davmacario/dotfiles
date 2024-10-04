@@ -16,6 +16,10 @@
       {
         "language": "arduino",
         "path": "./snippets/arduino.json"
+      },
+      {
+        "language": ["markdown", ".md", ".mdx"],
+        "path": "./snippets/markdown.json"
       }
     ]
   }

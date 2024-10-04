@@ -1,0 +1,12 @@
+{
+  "YAML header": {
+    "prefix": "header",
+    "body": [
+      "---",
+      "author: Davide Macario",
+      "title: ${1:author}",
+      "date: $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE",
+      "---"
+    ]
+  }
+}

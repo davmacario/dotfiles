@@ -49,16 +49,16 @@ packages_global=(
     cowsay
     sl
     python3
-    python3-dev
-    python3-pip
-    ninja-build
-    gettext
-    npm
+    python3-dev 
+    python3-pip 
+    ninja-build 
+    gettext 
+    npm 
     ripgrep
-    unzip
-    curl
-    build-essential
-    telnet
+    unzip 
+    curl 
+    build-essential 
+    telnet 
     python3-venv
 )
 

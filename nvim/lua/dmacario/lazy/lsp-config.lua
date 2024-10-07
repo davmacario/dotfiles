@@ -86,6 +86,12 @@ return {
 			lspconfig.bashls.setup({
 				capabilities = capabilities,
 				filetypes = { ".sh", "bash", ".bashrc", ".zshrc", ".conf", "sh", "zsh" },
+        settings = {
+          bashIde = {
+            -- Disable shellcheck in bash-language-server (conflicting)
+            shellcheckPath = "",
+          }
+        },
 				on_attach = on_attach,
 			})
 			lspconfig.dockerls.setup({ capabilities = capabilities, on_attach = on_attach })

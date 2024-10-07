@@ -139,6 +139,8 @@ alias cowsaysomething="fortune | cowsay"
 alias tmux="tmux -u"
 alias bat="batcat"
 
+alias gcl='gitlab-ci-local'
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -182,6 +184,9 @@ export DISPLAY=:0
 
 # Use Nvidia GPU
 export MESA_D3D12_DEFAULT_ADAPTER_NAME=nvidia
+
+# Gitlab CI Local
+NEEDS=true
 
 ################
 setopt histignorealldups sharehistory

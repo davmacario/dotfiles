@@ -64,6 +64,7 @@ autocmd("Filetype", {
 		"javascript",
 		"typescript",
 		"yaml",
+		"yml",
 		"lua",
 		"json",
 		"markdown",

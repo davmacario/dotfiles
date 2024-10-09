@@ -42,6 +42,7 @@ return {
 					"dapui_scopes",
 					"dapui_console",
 					"dap-repl",
+          "fugitiveblame",
 					statusline = {},
 					winbar = {},
 				},

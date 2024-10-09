@@ -86,12 +86,12 @@ return {
 			lspconfig.bashls.setup({
 				capabilities = capabilities,
 				filetypes = { ".sh", "bash", ".bashrc", ".zshrc", ".conf", "sh", "zsh" },
-        settings = {
-          bashIde = {
-            -- Disable shellcheck in bash-language-server (conflicting)
-            shellcheckPath = "",
-          }
-        },
+				settings = {
+					bashIde = {
+						-- Disable shellcheck in bash-language-server (conflicting)
+						shellcheckPath = "",
+					},
+				},
 				on_attach = on_attach,
 			})
 			lspconfig.dockerls.setup({ capabilities = capabilities, on_attach = on_attach })
@@ -187,7 +187,20 @@ return {
 					}
 				end,
 			})
-			lspconfig.yamlls.setup({ capabilities = capabilities, on_attach = on_attach })
+			lspconfig.yamlls.setup({
+				capabilities = capabilities,
+				on_attach = on_attach,
+				filetypes = { "yaml", "yml" },
+				settings = {
+					yaml = {
+						hover = true,
+						completion = true,
+						customTags = {
+							"!reference sequence",
+						},
+					},
+				},
+			})
 		end,
 	},
 }

@@ -35,7 +35,7 @@ return {
 			)
 			vim.keymap.set("n", "<leader>fs", builtin.live_grep, { desc = "Telescope live grep (find text in files)" })
 			vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope find buffers" })
-			vim.keymap.set("n", "<leader>fS", builtin.grep_string, { desc = "Telescope find string (under cursor)" })
+			vim.keymap.set("x", "<leader>fs", '\"zy<Cmd>lua require("telescope.builtin").grep_string({search=vim.fn.getreg("z")})<CR>', { desc = "Telescope find string (under cursor)" })
 		end,
 	},
 	{

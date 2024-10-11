@@ -5,7 +5,7 @@ local autocmd = vim.api.nvim_create_autocmd -- Create autocommand
 augroup("disableLineLength", { clear = true })
 autocmd("Filetype", {
 	group = "disableLineLength",
-	pattern = { "html", "xhtml", "typescript", "json" },
+	pattern = { "html", "xhtml", "typescript", "json", "markdown" },
 	command = "setlocal cc=0 colorcolumn=1000",
 })
 
@@ -85,6 +85,7 @@ autocmd({ "Filetype", "BufRead", "BufNewFile" }, {
 	command = "set filetype=groovy",
 })
 
+-- Set correct filetype for gitconfig (enable treesitter)
 augroup("gitconfig", { clear = true })
 autocmd({ "Filetype", "BufRead", "BufNewFile" }, {
 	group = "gitconfig",

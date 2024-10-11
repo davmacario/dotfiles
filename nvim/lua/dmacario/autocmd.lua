@@ -20,22 +20,22 @@ autocmd("Filetype", {
 -- For python files, grab the maximum line length from teh active flake8 config
 -- and use it to set the value of colorcolumn
 local function get_flake8_max_line_length()
-  local config_files = {".flake8", "setup.cfg", "tox.ini"}
-  for _, filename in ipairs(config_files) do
-    local file = io.open(filename, "r")
-    if file then
-      for line in file:lines() do
-        local max_line_length = line:match("^%s*max%-line%-length%s*=%s*(%d+)")
-        if max_line_length then
-          file:close()
-          return tonumber(max_line_length)
-        end
-      end
-      file:close()
-    end
-  end
-  -- Default line length if no config found (same as in ~/.flake8)
-  return 88
+	local config_files = { ".flake8", "setup.cfg", "tox.ini" }
+	for _, filename in ipairs(config_files) do
+		local file = io.open(filename, "r")
+		if file then
+			for line in file:lines() do
+				local max_line_length = line:match("^%s*max%-line%-length%s*=%s*(%d+)")
+				if max_line_length then
+					file:close()
+					return tonumber(max_line_length)
+				end
+			end
+			file:close()
+		end
+	end
+	-- Default line length if no config found (same as in ~/.flake8)
+	return 88
 end
 
 -- Python custom line lenght
@@ -43,12 +43,12 @@ augroup("pythonLineLength", { clear = true })
 autocmd("Filetype", {
 	group = "pythonLineLength",
 	pattern = { "python", "python3", "py" },
-  callback = function()
-    local max_line_length = get_flake8_max_line_length()
-    if max_line_length then
-      vim.wo.colorcolumn = tostring(max_line_length)
-    end
-  end
+	callback = function()
+		local max_line_length = get_flake8_max_line_length()
+		if max_line_length then
+			vim.wo.colorcolumn = tostring(max_line_length)
+		end
+	end,
 })
 
 -- Set indentation to 2 spaces for specific filetypes
@@ -83,6 +83,13 @@ autocmd({ "Filetype", "BufRead", "BufNewFile" }, {
 	group = "jenkinsGroovy",
 	pattern = { ".jenkins", "Jenkinsfile", "jenkinsfile", "jenkins" },
 	command = "set filetype=groovy",
+})
+
+augroup("gitconfig", { clear = true })
+autocmd({ "Filetype", "BufRead", "BufNewFile" }, {
+	group = "gitconfig",
+	pattern = { "*.gitconfig", ".gitconfig.*" },
+	command = "set filetype=gitconfig",
 })
 
 -- Always remove trailing whitespaces

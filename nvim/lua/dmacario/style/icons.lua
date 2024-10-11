@@ -76,6 +76,24 @@ ICONS.git_icons = {
 	removed = " ",
 }
 
+ICONS.filetypes = {
+	gitconfig = {
+		icon = "",
+		color = "#f54d27",
+		name = "gitconfig",
+	},
+	python = {
+    icon = "",
+    color = "#ffbc03",
+    name = "python"
+  },
+	gitlab = {
+    icon = "",
+    color = "#e24329",
+    name = "gitlab"
+  },
+}
+
 ICONS.diagnostics = {
 	error = " ",
 	warn = " ",
@@ -97,8 +115,8 @@ ICONS.location_logo = ""
 ICONS.ollama = {
 	idle = "󱙺",
 	busy = "󰚩",
-  not_loaded = "",
-  unreachable = "󰚌",
+	not_loaded = "",
+	unreachable = "󰚌",
 }
 
 return ICONS

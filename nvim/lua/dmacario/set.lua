@@ -41,7 +41,7 @@ vim.opt.scrolloff = 8
 vim.opt.colorcolumn = "80"
 
 -- Settings for lualine
-vim.opt.showtabline = 2
+vim.opt.showtabline = 0
 vim.opt.showmode = false
 
 -- Line wrap

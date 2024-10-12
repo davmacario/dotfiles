@@ -16,7 +16,7 @@ return {
 	normal = {
 		a = { bg = colors.gray, fg = colors.black, gui = "bold" },
 		b = { bg = colors.lightgray, fg = colors.white },
-		c = { bg = colors.darkgray, fg = colors.gray },
+		c = { bg = colors.inactivedarkgray, fg = colors.gray },
 	},
 	insert = {
 		a = { bg = colors.blue, fg = colors.black, gui = "bold" },
@@ -26,7 +26,7 @@ return {
 	visual = {
 		a = { bg = colors.yellow, fg = colors.black, gui = "bold" },
 		b = { bg = colors.lightgray, fg = colors.white },
-		c = { bg = colors.black, fg = colors.white },
+		c = { bg = colors.black, fg = colors.gray },
 	},
 	replace = {
 		a = { bg = colors.red, fg = colors.black, gui = "bold" },
@@ -42,8 +42,5 @@ return {
 		a = { bg = colors.inactivedarkgray, fg = colors.gray, gui = "bold" },
 		b = { bg = colors.inactivedarkgray, fg = colors.gray },
 		c = { bg = colors.inactivedarkgray, fg = colors.gray },
-		x = { bg = colors.inactivedarkgray, fg = colors.gray },
-		y = { bg = colors.inactivedarkgray, fg = colors.gray },
-		z = { bg = colors.inactivedarkgray, fg = colors.gray },
 	},
 }

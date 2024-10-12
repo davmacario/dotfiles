@@ -10,7 +10,7 @@ return {
         auto_attach = true,
         preference = { "clangd", "jedi_language_server", "ltex" },
       },
-      highlight = true,
+      highlight = false,
       separator = icons.navic.separator,
       depth_limit = 6,
       depth_limit_indicator = icons.navic.depth_limit,

@@ -13,7 +13,7 @@ return {
       highlight = true,
       separator = icons.navic.separator,
       depth_limit = 6,
-      depth_limit_indicator = "󰇘",
+      depth_limit_indicator = icons.navic.depth_limit,
       safe_output = true,
       lazy_update_context = false,
       click = false,

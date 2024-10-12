@@ -1,7 +1,7 @@
 local icons = require("dmacario.style.icons")
 
 -- Check the Ollama status and return the corresponding icon
-local function get_status_icon()
+local function get_ollama_status_icon()
 	if not package.loaded["ollama"] then
 		return icons.ollama.not_loaded .. " ~ not loaded"
 	end
@@ -18,26 +18,29 @@ local function get_status_icon()
 	end
 end
 
--- Function to prevent the winbar to disappear (misaligns vsplits)
-local function fill_winbar()
+-- Function to prevent the winbar to disappear by ensuring there is always
+-- something to display
+-- A bit hacky, but it works
+local function breadcrumbs()
 	local navic = require("nvim-navic")
-	-- local placeholder_data = {{
-	-- 	kind = 1,
-	-- 	type = "file",
-	-- 	name = "",
-	-- 	icon = icons.kind_icons.File .. icons.navic.separator,
-	-- 	scope = "",
-	-- }}
-	-- local placeholder = navic.format_data(placeholder_data)
-  local placeholder = ""
+	local prefix_data = { -- Dummy element
+		kind = 1,
+		type = "file",
+		name = "",
+		scope = "",
+	}
+	local separator = "%#NavicSeparator#" .. icons.navic.separator .. "%*"
 	if navic.is_available() then
 		-- Return position in the file (or some placeholder)
-		local location = navic.get_location()
+		local data = navic.get_data()
+		table.insert(data, 1, prefix_data)
+		local location = navic.format_data(data)
+		-- local location = navic.get_location()
 		if location ~= "" then
-			return placeholder .. location
+			return location
 		end
 	end
-	return placeholder
+	return navic.format_data(prefix_data)
 end
 
 return {
@@ -104,7 +107,7 @@ return {
 					"searchcount",
 				},
 				lualine_x = {
-					get_status_icon,
+					get_ollama_status_icon,
 					"encoding",
 					{ "fileformat", symbols = { unix = icons.os_icon } },
 				},
@@ -120,14 +123,8 @@ return {
 				lualine_z = {},
 			},
 			tabline = {},
-			winbar = {
-        lualine_b = {function() return icons.kind_icons.File end},
-				lualine_c = { { fill_winbar } },
-			},
-			inactive_winbar = {
-        lualine_b = {function() return icons.kind_icons.File end},
-				lualine_c = { { fill_winbar } },
-			},
+			winbar = { lualine_c = { breadcrumbs } },
+			inactive_winbar = {},
 			extensions = { "fugitive", "trouble" },
 		})
 	end,

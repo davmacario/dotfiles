@@ -122,6 +122,7 @@ ICONS.ollama = {
 ICONS.navic = {
 	separator = "  ",
 	depth_limit = "󰇘",
+  prefix = ""
 }
 
 return ICONS

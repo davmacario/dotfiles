@@ -21,7 +21,7 @@ return {
     devicons.setup({
       strict = true,
       override_by_filename = {
-        [".flake8"] = ICONS.filetypes.python,
+        [".flake8"] = ICONS.filetypes.python_lint,
         [".gitkeep"] = ICONS.filetypes.gitkeep,
       },
       override_by_extension = {

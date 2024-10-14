@@ -22,6 +22,7 @@ return {
       strict = true,
       override_by_filename = {
         [".flake8"] = ICONS.filetypes.python,
+        [".gitkeep"] = ICONS.filetypes.gitkeep,
       },
       override_by_extension = {
         ["gitlab-ci.yml"] = ICONS.filetypes.gitlab,

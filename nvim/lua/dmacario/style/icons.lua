@@ -92,6 +92,11 @@ ICONS.filetypes = {
 		color = "#e24329",
 		name = "gitlab",
 	},
+  gitkeep = {
+    icon = "",
+    color = "#6d8086",
+    name = "gitkeep",
+  }
 }
 
 ICONS.diagnostics = {

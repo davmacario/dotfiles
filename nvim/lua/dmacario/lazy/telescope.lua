@@ -7,6 +7,20 @@ return {
 		},
 		config = function()
 			require("telescope").setup({
+				defaults = {
+					vimgrep_arguments = {
+						"rg",
+						"--color=never",
+						"--no-heading",
+						"--with-filename",
+						"--line-number",
+						"--column",
+						"--smart-case",
+						"--hidden",
+						"--glob",
+						"!**/.git/*",
+					},
+				},
 				pickers = {
 					find_files = {
 						-- Custom find_files targets (sometimes I need to find ignored files, e.g., notes)
@@ -15,11 +29,9 @@ return {
 						no_ignore = true,
 					},
 					live_grep = {
-						additional_args = { "--hidden", "--glob", "!**/.git/*" },
 						no_ignore = true,
 					},
 					grep_string = {
-						find_command = { "--hidden", "--glob", "!**/.git/*" },
 						no_ignore = true,
 					},
 				},
@@ -35,7 +47,12 @@ return {
 			)
 			vim.keymap.set("n", "<leader>fs", builtin.live_grep, { desc = "Telescope live grep (find text in files)" })
 			vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope find buffers" })
-			vim.keymap.set("x", "<leader>fs", '\"zy<Cmd>lua require("telescope.builtin").grep_string({search=vim.fn.getreg("z")})<CR>', { desc = "Telescope find string (under cursor)" })
+			vim.keymap.set(
+				"x",
+				"<leader>fs",
+				'"zy<Cmd>lua require("telescope.builtin").grep_string({search=vim.fn.getreg("z")})<CR>',
+				{ desc = "Telescope find string (under cursor)" }
+			)
 		end,
 	},
 	{

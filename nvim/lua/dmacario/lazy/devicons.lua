@@ -28,5 +28,5 @@ return {
         ["gitconfig"] = ICONS.filetypes.gitconfig,
       },
     })
-  end
+  end,
 }

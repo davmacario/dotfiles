@@ -87,6 +87,11 @@ ICONS.filetypes = {
 		color = "#ffbc03",
 		name = "python",
 	},
+	python_lint = {
+		icon = "",
+		color = "#6d8086",
+		name = "python",
+	},
 	gitlab = {
 		icon = "",
 		color = "#e24329",

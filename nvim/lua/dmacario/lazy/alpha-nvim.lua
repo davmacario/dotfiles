@@ -62,7 +62,7 @@ return {
 			dashboard.button("i", "    new file", ":ene <BAR> startinsert<CR>"),
 			dashboard.button("o", "    old files", ":Telescope oldfiles<CR>"),
 			dashboard.button("f", "󰥨    find file", ":Telescope find_files<CR>"),
-			dashboard.button("s", "󰱼    find text", ":Telescope live_grep<CR>"),
+			dashboard.button("s", "󰱼    find text", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>"),
 			dashboard.button("g", "    find git files", ":Telescope git_files<CR>"),
 			dashboard.button("l", "󰒲    lazy", ":Lazy<CR>"),
 			dashboard.button("m", "󱌣    mason", ":Mason<CR>"),

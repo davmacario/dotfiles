@@ -3,18 +3,18 @@ local icons = require("dmacario.style.icons")
 -- Check the Ollama status and return the corresponding icon
 local function get_ollama_status_icon()
 	if not package.loaded["ollama"] then
-		return icons.ollama.not_loaded .. " ~ not loaded"
+		return icons.ollama.not_loaded -- .. " ~ not loaded"
 	end
 
 	if require("ollama").status ~= nil then
 		local status = require("ollama").status()
 		if status == "IDLE" then
-			return icons.ollama.idle .. " ~ idle" -- nf-md-robot-outline
+			return icons.ollama.idle -- .. " ~ idle" -- nf-md-robot-outline
 		elseif status == "WORKING" then
-			return icons.ollama.busy .. " ~ busy" -- nf-md-robot
+			return icons.ollama.busy -- .. " ~ busy" -- nf-md-robot
 		end
 	else
-		return icons.ollama.unreachable .. " ~ unreachable"
+		return icons.ollama.unreachable -- .. " ~ unreachable"
 	end
 end
 

@@ -1,5 +1,5 @@
 [user]
-	name = davmacario
+	name = Davide Macario
 	email = dav.macario@gmail.com
 [credential "https://github.com"]
 	helper = !/usr/bin/gh auth git-credential

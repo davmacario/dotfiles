@@ -25,14 +25,14 @@ return {
 						"--smart-case",
 						"--hidden",
 						"--glob",
-						"!**/.git/*",
+						"!{**/.git/*,**/__pycache__/*,*.pyc}",
 					},
 				},
 				pickers = {
 					find_files = {
 						-- Custom find_files targets (sometimes I need to find ignored files, e.g., notes)
 						-- `hidden = true` will still show the inside of `.git/` as it's not `.gitignore`d.
-						find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
+						find_command = { "rg", "--files", "--hidden", "--glob", "!{**/.git/*,**/__pycache__/*,*.pyc}" },
 						no_ignore = true,
 					},
 					live_grep = {

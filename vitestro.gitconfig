@@ -1,5 +1,5 @@
 [user]
-	name = dmacarioVitestro
+	name = Davide Macario
 	email = davide.macario@vitestro.com
 [filter "lfs"]
 	clean = git-lfs clean -- %f

@@ -1,6 +1,38 @@
 local augroup = vim.api.nvim_create_augroup -- Create/get autocommand group
 local autocmd = vim.api.nvim_create_autocmd -- Create autocommand
 
+--
+local function get_editorconfig_max_line_length()
+  local config_files = { ".editorconfig" }
+  for _, fname in ipairs(config_files) do
+    local file = io.open(fname, "r")
+    if file then
+      for line in file:lines() do
+        local max_line_length = line:match("^%s*max%_line%_length%s*=%s*(%d+)")
+        if max_line_length then
+          file:close()
+          return tonumber(max_line_length)
+        end
+      end
+      file:close()
+    end
+  end
+  return 80 -- default
+end
+
+-- Colorcolumn depending on .editorconfig
+augroup("setColorColumn", { clear = true })
+autocmd({ "BufNewFile", "BufReadPre" }, {
+  group = "setColorColumn",
+  pattern = { "*" },
+	callback = function()
+		local max_line_length = get_editorconfig_max_line_length()
+		if max_line_length then
+			vim.wo.colorcolumn = tostring(max_line_length)
+		end
+	end,
+})
+
 -- Disable max line length in some files
 augroup("disableLineLength", { clear = true })
 autocmd("Filetype", {

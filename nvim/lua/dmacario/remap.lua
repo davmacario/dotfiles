@@ -20,6 +20,12 @@ vim.keymap.set("n", "<leader>s", vim.cmd.split)
 vim.keymap.set("n", "H", ":bp<CR>")
 vim.keymap.set("n", "L", ":bn<CR>")
 
+-- Remap keys for resizing splits
+vim.keymap.set("n", "<leader>>", "<C-w>>")
+vim.keymap.set("n", "<leader><lt>", "<C-w><lt>")
+vim.keymap.set("n", "<leader>+", "<C-w>+")
+vim.keymap.set("n", "<leader>-", "<C-w>-")
+
 -- Move selected lines while in visual mode
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")

@@ -69,7 +69,6 @@ return {
 					"SmiteshP/nvim-navic",
 					"MunifTanjim/nui.nvim",
 				},
-				opts = { lsp = { auto_attach = true } },
 			},
 		},
 		config = function()
@@ -89,9 +88,6 @@ return {
 			end, { desc = "Jump to previous diagnostic item" })
 			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {})
 			vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, {})
-
-			-- Nvim Navbuddy
-			vim.keymap.set("n", "<leader>nb", ":Navbuddy<CR>")
 
 			-- Border of 'hover' box
 			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {

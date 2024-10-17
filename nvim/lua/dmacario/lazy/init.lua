@@ -14,7 +14,6 @@ return {
 		name = "plenary",
     dependencies = { "vhyrro/luarocks.nvim" }
 	},
-	"vim-airline/vim-airline-themes",
 	"nvim-tree/nvim-web-devicons",
 	"romgrk/barbar.nvim",
 	"stevearc/dressing.nvim",

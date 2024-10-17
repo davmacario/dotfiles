@@ -26,7 +26,7 @@ local function breadcrumbs()
 	local prefix_data = { -- Dummy element
 		kind = 1,
 		type = "file",
-    icon = icons.navic.prefix,
+		icon = icons.navic.prefix,
 		name = "",
 		scope = "",
 	}
@@ -41,7 +41,7 @@ local function breadcrumbs()
 			return location
 		end
 	end
-	return navic.format_data({prefix_data})
+	return navic.format_data({ prefix_data })
 end
 
 return {

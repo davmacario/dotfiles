@@ -1,12 +1,11 @@
 # Dotfiles
 
 <!--toc:start-->
+
 - [Dotfiles](#dotfiles)
   - [Requirements](#requirements)
-  - [Neovim](#neovim)
-    - [Plugins - Neovim](#plugins-neovim)
-    - [Key bindings](#key-bindings)
-<!--toc:end-->
+  - [Neovim](#neovim) - [Plugins - Neovim](#plugins-neovim) - [Key bindings](#key-bindings)
+  <!--toc:end-->
 
 Welcome to my dotfiles!
 
@@ -40,7 +39,7 @@ General contents:
 - Neovim (>=0.9.0)
   - Install via package manager (recommended for mac, via homebrew)
   - For Ubuntu, since the neovim version found in the apt repository is older, I
-  compile Neovim from source
+    compile Neovim from source
 - `fd` (`brew/sudo apt-get install fd-find`)
 - fzf (`brew/sudo apt-get install fzf`)
 - [pngpaste](https://github.com/jcsalterego/pngpaste)
@@ -48,7 +47,7 @@ General contents:
 Extras:
 
 - MesloNGS LF fonts (see
-[this](https://github.com/romkatv/powerlevel10k/blob/master/font.md))
+  [this](https://github.com/romkatv/powerlevel10k/blob/master/font.md))
 - Neofetch (via package manager)
 - `htop`
 - [pomo](https://github.com/rwxrob/pomo)
@@ -62,7 +61,7 @@ Extras:
 - Parser: [treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
 - Debugger: [nvim-dap](https://github.com/mfussenegger/nvim-dap)
   - It requires to create a virtual environment where to place the [debugging
-  engine](https://github.com/microsoft/debugpy):
+    engine](https://github.com/microsoft/debugpy):
 
 ```bash
 mkdir "$HOME"/.virtualenvs
@@ -72,7 +71,7 @@ debugpy/bin/python -m pip install debugpy
 ```
 
 - [clipboard-image.nvim](https://github.com/dfendr/clipboard-image.nvim) - paste
-images from the clipboard to the current file (as snippet); used for Markdown
+  images from the clipboard to the current file (as snippet); used for Markdown
   - Using fork since original repo has a bug for Apple Silicon Macs.
 - _And many more!_...
 
@@ -93,16 +92,25 @@ Here are my custom keybindings!
   - `<leader>l`: focus right split
   - `<leader>j`: focus bottom split
   - `<leader>k`: focus top split
+  - `<leader>>`: increase split width
+  - `<leader><`: decrease split width
+  - `<leader>+`: increase split height
+  - `<leader>-`: decrease split height
 - Tabs:
   - `H`: move to "left" tab
   - `L`: move to "right" tab
     - _Note_: left/right depends on the order according to which the tabs were
-    opened (it takes some getting used to...)
+      opened (it takes some getting used to...)
 - Move selected lines (**visual mode**):
   - `J`: move selected lines down
   - `K`: move selected lines up
-- Misc:
+- Copy-pasting:
   - `<leader>p`: paste without losing yanked text
+  - `<leader>y` (visual and normal mode): yank to system clipboard
+  - `<leader>Y`: yank (until end of line) to system clipboard
+- Extra utilities:
+  - `<leader>x`: make current file executable (`chmod`)
+  - `<leader>R`: replace word under cursor in current buffer
 - LSP:
   - `gd`: go to definition (Use `Ctrl o` to get back)
   - `gr`: go to references (in split)
@@ -110,6 +118,12 @@ Here are my custom keybindings!
   - `<leader>ca`: show code actions
   - `<leader>vws`: view workspace symbol
   - `<leader>rn`: rename symbol under cursor (refactor buffers)
+  - `[d`: jump to next diagnostic item
+  - `]d`: jump to previous diagnostic item
+  - `<leader>rn`: rename item (refactor)
+  - `Ctrl h` (in insert mode): show function signature (highlights function arguments)
+- Navbuddy (navigate file outline):
+  - `<leader>nb`: launch navbuddy
 - Autcompletion:
   - Use `tab` and `shift tab` to cycle through suggestion
   - Press `enter` to autocomplete witn selection
@@ -120,11 +134,15 @@ Here are my custom keybindings!
   - `<leader>gpu`: git push
 - Nvim-tree (file tree):
   - `<leader>o`: toggle (on/off) tree
+  - `?` (when in nvim tree): show commands
 - Telescope (fuzzy finder):
-  - `<leader>ff`: find files
+  - `<leader>ff`: find files (ignoring selected folders/patterns)
   - `<leader>fg`: find git files
-  - `<leader>fs`: find strings (file content - Live Grep)
+  - `<leader>fs`: find string in files (using ripgrep)
+  - `<leader>fs` (visual mode): find selected string in files (using ripgrep)
   - `<leader>fb`: finding in the currently open buffers
+  - `<leader>fr`: resume last Telescope search
+  - [_not really a keymap_] `ctrl q` (when inside telescope): store search result in quickfix buffer
 - Harpoon:
   - `<leader>a`: add file to Harpoon
   - `Ctrl e`: toggle quick menu
@@ -155,7 +173,7 @@ Here are my custom keybindings!
   - `<leader>mp`: toggle MarkdownPreview window
 - Clipboard Image (paste images in editor - _Markdown_):
   - `<leader>ip`: paste image from clipboard (it will prompt to insert the image
-  name in the folder `./img/`)
+    name in the folder `./img/`)
 - LaTeX (VimTeX):
   - Local Leader: `"\"`
   - `\ll`: start compilation process
@@ -170,3 +188,5 @@ Here are my custom keybindings!
   - `<leader>xd`: toggle trouble window for current document
   - `<leader>xq`: toggle trouble quick fix
   - `<leader>xl`: toggle trouble for items in the location list
+- Venv selector:
+  - `<leader>vs`: launch Python venv selector

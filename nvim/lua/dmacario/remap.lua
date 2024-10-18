@@ -17,10 +17,10 @@ vim.keymap.set("n", "<leader>j", "<C-w>j")
 vim.keymap.set("n", "<leader>k", "<C-w>k")
 
 -- Remap keys for resizing splits
-vim.keymap.set("n", "<leader>>", "<C-w>>")
-vim.keymap.set("n", "<leader><lt>", "<C-w><lt>")
-vim.keymap.set("n", "<leader>+", "<C-w>+")
-vim.keymap.set("n", "<leader>-", "<C-w>-")
+vim.keymap.set("n", "<leader>>", "<C-w>2>")
+vim.keymap.set("n", "<leader><lt>", "<C-w>2<lt>")
+vim.keymap.set("n", "<leader>+", "<C-w>2+")
+vim.keymap.set("n", "<leader>-", "<C-w>2-")
 
 -- Remap keys for navigating tabs
 vim.keymap.set("n", "H", ":bp<CR>")

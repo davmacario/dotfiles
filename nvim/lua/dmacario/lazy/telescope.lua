@@ -10,6 +10,7 @@ return {
 				-- For major updates, this must be adjusted manually.
 				version = "^1.0.0",
 			},
+			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 		},
 		config = function()
 			local telescope = require("telescope")
@@ -44,6 +45,7 @@ return {
 				},
 			})
 			telescope.load_extension("live_grep_args")
+			telescope.load_extension("fzf")
 
 			local builtin = require("telescope.builtin")
 			vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })

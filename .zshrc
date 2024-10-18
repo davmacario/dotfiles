@@ -17,7 +17,7 @@ if [ ! -d "$SECRETS" ]; then
     echo "!.gitignore" >> "$SECRETS/.gitignore"
     chmod 700 "$SECRETS"
     chown -R "$(whoami)" "$SECRETS"
-elif [ "$secrets_perm" != 600 ]; then
+elif [ "$secrets_perm" != 700 ]; then
     chmod 700 "$SECRETS"
     chown -R "$(whoami)" "$SECRETS"
     # TODO: improve - need all files in there with permission and ownership

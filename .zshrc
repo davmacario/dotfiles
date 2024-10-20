@@ -138,6 +138,7 @@ alias k='kubectl'
 alias cowsaysomething="fortune | cowsay"
 alias tmux="tmux -u"
 alias bat="batcat"
+alias find_files="fd --type f --hidden --exclude .git | fzf-tmux -p --reverse"
 
 alias gcl='gitlab-ci-local'
 

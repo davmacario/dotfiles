@@ -157,6 +157,8 @@ if [ -d "$CURR_DIR/nvim" ]; then
         sudo make install
     fi
 
+    ./scripts/lazygit-install.sh
+
     mkdir "$HOME/.virtualenvs"
     cd "$HOME/.virtualenvs"
     python3 -m venv debugpy

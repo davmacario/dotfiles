@@ -55,3 +55,6 @@ lazy-lock.json
 
 # Log files
 *.log
+
+# NVIM Spellcheck folder
+nvim/spell/

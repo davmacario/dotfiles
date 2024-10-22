@@ -51,7 +51,8 @@ vim.keymap.set("n", "<leader>Y", '"+Y', { desc = "<leader>Y to yank until end of
 
 -- Utilities
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { desc = "Make current file executable" })
-vim.keymap.set("n", "<leader>R", ":%s/<c-r><c-w>/<c-r><c-w>/gc<c-f>$F/i", { desc = "Replace word under cursor" })
+vim.keymap.set("n", "<leader>R", ":%s/<C-r><C-w>/<C-r><C-w>/gc<C-f>$F/i", { desc = "Replace word under cursor" })
+vim.keymap.set("x", "<leader>R", "\"hy:%s/<C-r>h//gc<left><left><left>", { desc = "Replace word under cursor" })
 
 -- ToDo list
 vim.keymap.set(

@@ -16,9 +16,9 @@ vim.opt.smartindent = true
 vim.opt.cursorline = true
 vim.opt.showcmd = true
 -- vim.opt.t_Co = 256    -- 256 bit colors
-vim.opt.foldmethod = 'indent'   -- Code folding
-vim.opt.foldlevel = 99    -- Defalut: unfolded
-vim.opt.encoding = 'UTF-8'
+vim.opt.foldmethod = "indent" -- Code folding
+vim.opt.foldlevel = 99        -- Defalut: unfolded
+vim.opt.encoding = "UTF-8"
 vim.opt.updatetime = 50
 -- vim.opt.backspace=indent,eol,start
 -- Share clipboard
@@ -50,3 +50,7 @@ vim.opt.wrap = true
 -- Do not load netrw (allows to use file tree plugin)
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+
+-- Spellcheck
+vim.opt.spell = true
+vim.opt.spelllang = "en_us"

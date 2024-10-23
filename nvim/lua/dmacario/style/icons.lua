@@ -101,6 +101,12 @@ ICONS.filetypes = {
     icon = "",
     color = "#6d8086",
     name = "gitkeep",
+  },
+  default = {
+    icon = "",
+    color = "#6d8086",
+    cterm_color = "66",
+    name = "Default"
   }
 }
 

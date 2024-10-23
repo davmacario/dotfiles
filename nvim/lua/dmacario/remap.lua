@@ -58,7 +58,7 @@ vim.keymap.set("x", "<leader>R", "\"hy:%s/<C-r>h//gc<left><left><left>", { desc 
 vim.keymap.set(
 	"n",
 	"<leader>td",
-	"o<CR><CR><CR><ESC>kkiTODO:<ESC><cmd>CBllline13<CR>o<CR> - [ ] ",
+	"o<CR><ESC>kkA TODO:<ESC>jjA - [ ] ",
 	{ desc = "Add a TODO comment" }
 )
 vim.keymap.set("n", "<leader>md", "0f[lrx", { desc = "Mark Done" })

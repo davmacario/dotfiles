@@ -20,7 +20,9 @@ vim.keymap.set("n", "<leader>k", "<C-w>k")
 vim.keymap.set("n", "<leader>>", "<C-w>2>")
 vim.keymap.set("n", "<leader><lt>", "<C-w>2<lt>")
 vim.keymap.set("n", "<leader>+", "<C-w>2+")
+vim.keymap.set("n", "<leader>=", "<C-w>2+") -- Not pressing shift, may change
 vim.keymap.set("n", "<leader>-", "<C-w>2-")
+vim.keymap.set("n", "<leader>_", "<C-w>2-") -- Force of habit
 
 -- Remap keys for navigating tabs
 vim.keymap.set("n", "H", ":bp<CR>")

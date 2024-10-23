@@ -141,22 +141,6 @@ return {
 			vim.keymap.set("n", "<leader>?", function()
 				ui.eval(nil, { enter = true })
 			end)
-			-- dap.setup()
-
-			-- vim.keymap.set("n", "<leader>db", ":DapToggleBreakpoint<CR>", {noremap=true})
-			-- vim.keymap.set("n", "<leader>dc", ":DapContinue<CR>", {noremap=true})
-
-			-- dap.configurations.python = {
-			--   {
-			--     type = 'python';
-			--     request = 'launch';
-			--     name = "Launch file";
-			--     program = "${file}";
-			--     pythonPath = function()
-			--       return '/usr/bin/python'
-			--     end;
-			--   },
-			-- }
 		end,
 	},
 }

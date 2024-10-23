@@ -102,6 +102,12 @@ ICONS.filetypes = {
     color = "#6d8086",
     name = "gitkeep",
   },
+  bat = {
+    icon = "",
+    color = "#00a4ef",
+    cterm_color = "39",
+    name = "bat"
+  },
   default = {
     icon = "",
     color = "#6d8086",

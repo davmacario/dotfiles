@@ -52,5 +52,5 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 -- Spellcheck
-vim.opt.spell = true
-vim.opt.spelllang = "en_us"
+-- vim.opt.spell = true
+-- vim.opt.spelllang = "en_us"

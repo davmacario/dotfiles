@@ -55,7 +55,7 @@ vim.keymap.set("n", "<leader>R", ":%s/<C-r><C-w>/<C-r><C-w>/gc<C-f>$F/i", { desc
 vim.keymap.set("x", "<leader>R", '"hy:%s/<C-r>h//gc<left><left><left>', { desc = "Replace word under cursor" })
 
 -- ToDo list
-vim.keymap.set("n", "<leader>td", "o<CR><ESC>kkA TODO:<ESC>jjA - [ ] ", { desc = "Add a TODO comment" })
+vim.keymap.set("n", "<leader>td", "o<CR><ESC>kkA TODO:<ESC>jjA - [ ]<ESC>kk0d^j.j.A", { desc = "Add a TODO comment" })
 vim.keymap.set("n", "<leader>md", "0f[lrx", { desc = "Mark Done" })
 vim.keymap.set("n", "<leader>rm", "0f[lr ", { desc = "Remove checkMark" })
 vim.keymap.set("n", "<leader>to", "o- [ ] ", { desc = "Open new TODO: item below current line" })

@@ -21,7 +21,7 @@ return {
 		vim.g.mkdp_page_title = " mkdp:「${name}」"
 		vim.g.mkdp_theme = "dark"
 		-- Open preview in new window:
-		vim.api.nvim_exec(
+		vim.api.nvim_exec2(
 			[[
         function! OpenMarkdownPreview(url)
             if has('macunix')
@@ -34,7 +34,7 @@ return {
 
         let g:mkdp_browserfunc = 'OpenMarkdownPreview'
         ]],
-			false
+			{ output = false }
 		)
 	end,
 }

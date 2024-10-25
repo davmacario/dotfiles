@@ -38,7 +38,7 @@ augroup("disableLineLength", { clear = true })
 autocmd("Filetype", {
 	group = "disableLineLength",
 	pattern = { "html", "xhtml", "typescript", "json", "markdown" },
-	command = "setlocal cc=0 colorcolumn=1000",
+	command = "setlocal cc=0",
 })
 
 -- LaTeX settings
@@ -80,7 +80,7 @@ autocmd("Filetype", {
 		if max_line_length then
 			vim.wo.colorcolumn = tostring(max_line_length)
 		end
-    vim.opt.formatoptions:append("cro")
+		vim.opt.formatoptions:append("cro")
 	end,
 })
 
@@ -141,6 +141,15 @@ autocmd("Filetype", {
 	pattern = {
 		"python",
 		"yaml",
+		"markdown",
 	},
 	command = "set nosmartindent",
+})
+
+-- Fix formatoptions markdown
+augroup("mdFormatOpts", { clear = true })
+autocmd("FileType", {
+  group = "mdFormatOpts",
+  pattern = { "markdown" },
+  command = "set comments=b:*,b:-,b:+,n:>,n:1. fo+=cro"
 })

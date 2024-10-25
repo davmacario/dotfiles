@@ -149,7 +149,42 @@ autocmd("Filetype", {
 -- Fix formatoptions markdown
 augroup("mdFormatOpts", { clear = true })
 autocmd("FileType", {
-  group = "mdFormatOpts",
-  pattern = { "markdown" },
-  command = "set comments=b:*,b:-,b:+,n:>,n:1. fo+=cro"
+	group = "mdFormatOpts",
+	pattern = { "markdown" },
+	command = "set comments=b:*,b:-,b:+,n:> fo+=cro",
+})
+
+-- Function to indent a list item
+function _G.markdown_indent_list_item()
+	local line = vim.api.nvim_get_current_line()
+	if line:match("^%s*[-+*] ") then
+		return vim.api.nvim_replace_termcodes("<C-t>", true, false, true) -- Use Neovim's built-in indent functionality
+	end
+	return vim.api.nvim_replace_termcodes("<tab>", true, false, true) -- Default Tab behavior
+end
+
+-- Function to unindent a list item
+function _G.markdown_unindent_list_item_shift_tab()
+	local line = vim.api.nvim_get_current_line()
+	if line:match("^%s*[-+*] ") then
+		return vim.api.nvim_replace_termcodes("<C-d>", true, false, true) -- Use Neovim's built-in unindent functionality
+	end
+	return vim.api.nvim_replace_termcodes("<S-Tab>", true, false, true) -- Default Shift-Tab behavior
+end
+
+autocmd("FileType", {
+	group = "mdFormatOpts",
+	pattern = { "markdown" },
+	callback = function()
+		-- Tab for indenting list items
+		vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.markdown_indent_list_item()", { expr = true, noremap = true })
+
+		-- Shift-Tab for unindenting list items
+		vim.api.nvim_set_keymap(
+			"i",
+			"<S-Tab>",
+			"v:lua.markdown_unindent_list_item_shift_tab()",
+			{ expr = true, noremap = true }
+		)
+	end,
 })

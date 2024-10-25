@@ -3,28 +3,28 @@ local autocmd = vim.api.nvim_create_autocmd -- Create autocommand
 
 --
 local function get_editorconfig_max_line_length()
-  local config_files = { ".editorconfig" }
-  for _, fname in ipairs(config_files) do
-    local file = io.open(fname, "r")
-    if file then
-      for line in file:lines() do
-        local max_line_length = line:match("^%s*max%_line%_length%s*=%s*(%d+)")
-        if max_line_length then
-          file:close()
-          return tonumber(max_line_length)
-        end
-      end
-      file:close()
-    end
-  end
-  return 80 -- default
+	local config_files = { ".editorconfig" }
+	for _, fname in ipairs(config_files) do
+		local file = io.open(fname, "r")
+		if file then
+			for line in file:lines() do
+				local max_line_length = line:match("^%s*max%_line%_length%s*=%s*(%d+)")
+				if max_line_length then
+					file:close()
+					return tonumber(max_line_length)
+				end
+			end
+			file:close()
+		end
+	end
+	return 80 -- default
 end
 
 -- Colorcolumn depending on .editorconfig
 augroup("setColorColumn", { clear = true })
 autocmd({ "BufNewFile", "BufReadPre" }, {
-  group = "setColorColumn",
-  pattern = { "*" },
+	group = "setColorColumn",
+	pattern = { "*" },
 	callback = function()
 		local max_line_length = get_editorconfig_max_line_length()
 		if max_line_length then
@@ -70,7 +70,7 @@ local function get_flake8_max_line_length()
 	return 88
 end
 
--- Python custom line lenght
+-- Python custom line lenght + comments
 augroup("pythonLineLength", { clear = true })
 autocmd("Filetype", {
 	group = "pythonLineLength",
@@ -80,6 +80,7 @@ autocmd("Filetype", {
 		if max_line_length then
 			vim.wo.colorcolumn = tostring(max_line_length)
 		end
+    vim.opt.formatoptions:append("cro")
 	end,
 })
 
@@ -131,4 +132,15 @@ autocmd("BufWritePre", {
 	callback = function()
 		vim.cmd([[%s/\s\+$//e]])
 	end,
+})
+
+-- Remove smartindent in some files (experiencing issues)
+augroup("noSmartIndent", { clear = true })
+autocmd("Filetype", {
+	group = "noSmartIndent",
+	pattern = {
+		"python",
+		"yaml",
+	},
+	command = "set nosmartindent",
 })

@@ -19,20 +19,27 @@ if [ ! -d "$SECRETS" ]; then
     touch "$SECRETS/.gitignore"
     echo "*" >> "$SECRETS/.gitignore"
     echo "!.gitignore" >> "$SECRETS/.gitignore"
-    chmod -R 700 "$SECRETS"
+    chmod 600 "$SECRETS/.gitignore"
+    chmod 700 "$SECRETS"
     chown -R "$(whoami)" "$SECRETS"
-elif [ "$secrets_perm" != 600 ]; then
-    chmod -R 700 "$SECRETS"
+elif [ "$secrets_perm" != 700 ]; then
+    chmod 700 "$SECRETS"
     chown -R "$(whoami)" "$SECRETS"
-fi
-
-# Source secret keys file (not on version control)
-if [ -d "$SECRETS" ]; then
+    # Source secret keys file
     if [ "$(ls "$SECRETS")" ]; then
-        for FILE in "$SECRETS"/*; do
-            source "$FILE"
+        for file in "$SECRETS"/*; do
+            chmod 600 "$file"
         done
     fi
+fi
+
+# Source secret keys file
+# Checks that there are non-hidden files (because there will always be a .gitignore)
+if [ "$(ls "$SECRETS")" ]; then
+    for file in "$SECRETS"/*; do
+        # echo "Sourcing $FILE"
+        [ -f "$file" ] && source "$file"
+    done
 fi
 
 # Homebrew setup

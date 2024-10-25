@@ -15,29 +15,24 @@ if [ ! -d "$SECRETS" ]; then
     # No version control for the keys
     echo "*" >> "$SECRETS/.gitignore"
     echo "!.gitignore" >> "$SECRETS/.gitignore"
+    chmod 600 "$SECRETS/.gitignore"
     chmod 700 "$SECRETS"
     chown -R "$(whoami)" "$SECRETS"
 elif [ "$secrets_perm" != 700 ]; then
     chmod 700 "$SECRETS"
     chown -R "$(whoami)" "$SECRETS"
-    # TODO: improve - need all files in there with permission and ownership
+    for file in "$SECRETS"/*; do
+        chmod 600 "$file"
+    done
 fi
 
-# Source secret keys file (not on version control)
+# Source secret keys file
 # Checks that there are non-hidden files (because there will always be a .gitignore)
-if [ -d "$SECRETS" ]; then
-    if [ "$(ls "$SECRETS")" ]; then
-        for FILE in "$SECRETS"/*; do
-            # echo "Sourcing $FILE"
-            source "$FILE"
-        done
-    fi
-elif [ -d "$HOME/.keys" ]; then
-    if [ "$(ls "$SECRETS")" ]; then
-        for FILE in "$HOME/.keys"/*; do
-            source "$FILE"
-        done
-    fi
+if [ "$(ls "$SECRETS")" ]; then
+    for file in "$SECRETS"/*; do
+        # echo "Sourcing $FILE"
+        [ -f "$file" ] && source "$file"
+    done
 fi
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.

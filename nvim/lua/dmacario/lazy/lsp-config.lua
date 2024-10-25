@@ -226,6 +226,7 @@ return {
 					},
 				},
 			})
+			lspconfig.terraformls.setup({ capabilities = capabilities, on_attach = on_attach })
 		end,
 	},
 }

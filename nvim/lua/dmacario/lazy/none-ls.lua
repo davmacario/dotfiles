@@ -48,7 +48,7 @@ return {
 
 					-- Diagnostics sources
 					null_ls.builtins.diagnostics.markdownlint.with({
-						args = { "--stdin", "--disable", "MD013", "--" },
+						args = { "--stdin", "--disable", "MD013", "--disable", "MD033", "--" },
 					}),
 					require("none-ls.diagnostics.flake8").with({ -- from none-ls-extras
 						extra_args = {},

@@ -38,7 +38,7 @@ augroup("disableLineLength", { clear = true })
 autocmd("Filetype", {
 	group = "disableLineLength",
 	pattern = { "html", "xhtml", "typescript", "json", "markdown" },
-	command = "setlocal cc=0 colorcolumn=1000",
+	command = "setlocal cc=0",
 })
 
 -- LaTeX settings
@@ -141,6 +141,15 @@ autocmd("Filetype", {
 	pattern = {
 		"python",
 		"yaml",
+		"markdown",
 	},
 	command = "set nosmartindent",
+})
+
+-- Fix formatoptions markdown
+augroup("mdFormatOpts", { clear = true })
+autocmd("FileType", {
+  group = "mdFormatOpts",
+  pattern = { "markdown" },
+  command = "set comments=b:*,b:-,b:+,n:>,n:1. fo+=cro"
 })

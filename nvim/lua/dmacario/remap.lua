@@ -46,7 +46,7 @@ vim.keymap.set("v", ">", ">gv")
 vim.keymap.set("v", "<", "<gv")
 
 -- Copy-pasting
-vim.keymap.set("x", "<leader>p", '"_dp', { desc = "Paste with <leader>p to overwrite without losing yanked text" })
+vim.keymap.set("x", "<leader>p", '"_dP', { desc = "Paste with <leader>p to overwrite without losing yanked text" })
 vim.keymap.set("n", "<leader>y", '"+y', { desc = "<leader>y to yank to system clipboard" })
 vim.keymap.set("v", "<leader>y", '"+y', { desc = "<leader>y to yank selection to system clipboard" })
 vim.keymap.set("n", "<leader>Y", '"+Y', { desc = "<leader>Y to yank until end of line to system clipboard" })

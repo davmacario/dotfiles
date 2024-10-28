@@ -178,13 +178,14 @@ autocmd("FileType", {
 	callback = function()
 		-- Tab for indenting list items
 		vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.markdown_indent_list_item()", { expr = true, noremap = true })
-
 		-- Shift-Tab for unindenting list items
 		vim.api.nvim_set_keymap(
 			"i",
 			"<S-Tab>",
 			"v:lua.markdown_unindent_list_item_shift_tab()",
-			{ expr = true, noremap = true }
-		)
+      { expr = true, noremap = true }
+    )
+    vim.keymap.set("n", "<leader>to", "o<ESC>cc- [ ] ", { desc = "Open new TODO: item below current line" })
+    vim.keymap.set("n", "<leader>tO", "O<ESC>cc- [ ] ", { desc = "Open new TODO: item below current line" })
 	end,
 })

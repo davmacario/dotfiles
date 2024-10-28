@@ -4,7 +4,7 @@ local colors = {
 	red = "#fb4934",
 	green = "#b8bb26",
 	blue = "#83a598",
-	yellow = "#fe8019",
+	orange = "#fe8019",
 	gray = "#a89984",
 	darkgray = "#3c3836",
 	lightgray = "#504945",
@@ -23,7 +23,7 @@ return {
 		c = { bg = colors.darkgray, fg = colors.white },
 	},
 	visual = {
-		a = { bg = colors.yellow, fg = colors.black, gui = "bold" },
+		a = { bg = colors.orange, fg = colors.black, gui = "bold" },
 		b = { bg = colors.lightgray, fg = colors.white },
 		c = { bg = colors.darkgray, fg = colors.white },
 	},

@@ -13,13 +13,13 @@ local logo = {
 	[[                                                                                                   ]],
 }
 local cowsay = function(max_width)
-	if vim.fn.system("cowsay") == 0 then
+	if vim.fn.executable("cowsay") == 0 then
 		return logo
 	end
 	-- Used to convert the output of cowsay (from system) to a Lua table
 	max_width = max_width or 39
 	local result = ""
-	if vim.fn.system("fortune") == 1 then
+	if vim.fn.executable("fortune") == 1 then
 		-- I prefer the system 'fortune', so use it if available
 		result = vim.fn.system(string.format('fortune | cowsay -W %s', max_width))
 	else

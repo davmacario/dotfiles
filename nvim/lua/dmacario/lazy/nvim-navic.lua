@@ -21,5 +21,6 @@ return {
         return text
       end,
     })
+    vim.g.navic_silence = true  -- Suppress warnings/errors
   end,
 }

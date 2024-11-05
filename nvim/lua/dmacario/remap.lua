@@ -9,6 +9,12 @@ vim.keymap.set("n", ",", "za", { desc = "Code folding with comma" })
 -- Split view
 vim.keymap.set("n", "<leader>v", vim.cmd.vsplit)
 vim.keymap.set("n", "<leader>s", vim.cmd.split)
+vim.keymap.set(
+  "n",
+  "<leader>q",
+  ":bp|bd#<CR>",
+  { noremap = true, silent = true, desc = "Close current buffer without losing split" }
+)
 
 -- Navigating split view
 vim.keymap.set("n", "<leader>h", "<C-w>h")
@@ -18,7 +24,7 @@ vim.keymap.set("n", "<leader>k", "<C-w>k")
 -- Jump to last in direction
 vim.keymap.set("n", "<leader>L", function()
   local wins = api.nvim_tabpage_list_wins(0)
-	api.nvim_set_current_win(wins[#wins])
+  api.nvim_set_current_win(wins[#wins])
 end)
 vim.keymap.set("n", "<leader>H", function()
   local wins = api.nvim_tabpage_list_wins(0)

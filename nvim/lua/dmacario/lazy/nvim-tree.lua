@@ -40,7 +40,7 @@ return {
 				group_empty = true,
 				indent_markers = {
 					enable = true,
-					inline_arrows = false,
+					inline_arrows = true,
 				},
 			},
 		})

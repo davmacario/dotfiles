@@ -53,6 +53,9 @@ vim.g.loaded_netrwPlugin = 1
 -- vim.opt.spell = true
 -- vim.opt.spelllang = "en_us"
 
+-- FormatOptions
+vim.opt.formatoptions:append("cro")
+
 if vim.fn.has("wsl") then
 	vim.opt.clipboard = {
 		name = "WslClipboard",

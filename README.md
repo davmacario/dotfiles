@@ -92,10 +92,13 @@ Here are my custom keybindings!
   - `<leader>l`: focus right split
   - `<leader>j`: focus bottom split
   - `<leader>k`: focus top split
+  - `<leader>H`: focus bottom-leftmost split
+  - `<leader>L`: focus top-rightmost split
   - `<leader>>`: increase split width
   - `<leader><`: decrease split width
   - `<leader>+`: increase split height
   - `<leader>-`: decrease split height
+  - `<leader>q`: close current active buffer, preserving split
 - Tabs:
   - `H`: move to "left" tab
   - `L`: move to "right" tab

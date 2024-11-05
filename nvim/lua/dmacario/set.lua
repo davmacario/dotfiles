@@ -16,8 +16,11 @@ vim.opt.smartindent = true
 vim.opt.cursorline = true
 vim.opt.showcmd = true
 -- vim.opt.t_Co = 256    -- 256 bit colors
-vim.opt.foldmethod = "indent" -- Code folding
-vim.opt.foldlevel = 99 -- Defalut: unfolded
+-- Folding settings
+vim.opt.foldmethod = 'expr'
+vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.opt.foldlevelstart = 99
+-- Encoding
 vim.opt.encoding = "UTF-8"
 vim.opt.updatetime = 50
 -- vim.opt.backspace=indent,eol,start

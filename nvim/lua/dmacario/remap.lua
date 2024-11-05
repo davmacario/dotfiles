@@ -1,5 +1,5 @@
+local api = vim.api
 -- Key mappings
-
 vim.g.mapleader = " "
 
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
@@ -15,6 +15,15 @@ vim.keymap.set("n", "<leader>h", "<C-w>h")
 vim.keymap.set("n", "<leader>l", "<C-w>l")
 vim.keymap.set("n", "<leader>j", "<C-w>j")
 vim.keymap.set("n", "<leader>k", "<C-w>k")
+-- Jump to last in direction
+vim.keymap.set("n", "<leader>L", function()
+  local wins = api.nvim_tabpage_list_wins(0)
+	api.nvim_set_current_win(wins[#wins])
+end)
+vim.keymap.set("n", "<leader>H", function()
+  local wins = api.nvim_tabpage_list_wins(0)
+  api.nvim_set_current_win(wins[1])
+end)
 
 -- Remap keys for resizing splits
 vim.keymap.set("n", "<leader>>", "<C-w>2>")

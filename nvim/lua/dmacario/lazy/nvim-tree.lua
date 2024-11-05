@@ -36,6 +36,12 @@ return {
 			on_attach = my_on_attach,
 			renderer = {
 				icons = icons.tree_icons,
+				full_name = true,
+				group_empty = true,
+				indent_markers = {
+					enable = true,
+					inline_arrows = false,
+				},
 			},
 		})
 		-- Nvim-tree color overrides

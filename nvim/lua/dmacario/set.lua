@@ -21,8 +21,6 @@ vim.opt.foldlevel = 99        -- Default: unfolded
 vim.opt.encoding = "UTF-8"
 vim.opt.updatetime = 50
 -- vim.opt.backspace=indent,eol,start
--- Share clipboard
--- vim.opt.clipboard = 'unnamed'
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.conceallevel = 0
@@ -54,3 +52,18 @@ vim.g.loaded_netrwPlugin = 1
 -- Spellcheck
 -- vim.opt.spell = true
 -- vim.opt.spelllang = "en_us"
+
+if vim.fn.has("wsl") then
+	vim.opt.clipboard = {
+		name = "WslClipboard",
+		copy = {
+			["+"] = "clip.exe",
+			["*"] = "clip.exe",
+		},
+		paste = {
+			["+"] = 'powershell.exe -NoLogo -NoProfile -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+			["*"] = 'powershell.exe -NoLogo -NoProfile -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+		},
+		cache_enabled = 0,
+	}
+end

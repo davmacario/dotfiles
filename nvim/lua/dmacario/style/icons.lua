@@ -97,23 +97,27 @@ ICONS.filetypes = {
 		color = "#e24329",
 		name = "gitlab",
 	},
-  gitkeep = {
-    icon = "",
-    color = "#6d8086",
-    name = "gitkeep",
-  },
-  bat = {
-    icon = "",
-    color = "#00a4ef",
-    cterm_color = "39",
-    name = "bat"
-  },
-  default = {
-    icon = "",
-    color = "#6d8086",
-    cterm_color = "66",
-    name = "Default"
-  }
+	gitkeep = {
+		icon = "",
+		color = "#6d8086",
+		name = "gitkeep",
+	},
+	bat = {
+		icon = "",
+		color = "#00a4ef",
+		cterm_color = "39",
+		name = "bat",
+	},
+	cucumber = {
+		icon = "🥒",
+		name = "cucumber",
+	},
+	default = {
+		icon = "",
+		color = "#6d8086",
+		cterm_color = "66",
+		name = "Default",
+	},
 }
 
 ICONS.diagnostics = {
@@ -144,7 +148,7 @@ ICONS.ollama = {
 ICONS.navic = {
 	separator = "  ",
 	depth_limit = "󰇘",
-  prefix = ""
+	prefix = "",
 }
 
 return ICONS

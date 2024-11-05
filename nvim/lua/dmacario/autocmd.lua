@@ -183,9 +183,19 @@ autocmd("FileType", {
 			"i",
 			"<S-Tab>",
 			"v:lua.markdown_unindent_list_item_shift_tab()",
-      { expr = true, noremap = true }
-    )
-    vim.keymap.set("n", "<leader>to", "o<ESC>cc- [ ] ", { desc = "Open new TODO: item below current line" })
-    vim.keymap.set("n", "<leader>tO", "O<ESC>cc- [ ] ", { desc = "Open new TODO: item below current line" })
+			{ expr = true, noremap = true }
+		)
+		vim.keymap.set("n", "<leader>to", "o<ESC>cc- [ ] ", { desc = "Open new TODO: item below current line" })
+		vim.keymap.set("n", "<leader>tO", "O<ESC>cc- [ ] ", { desc = "Open new TODO: item below current line" })
+	end,
+})
+
+-- Deactivate statuscol in alpha (dashboard)
+augroup("alpha_tabline", { clear = true })
+autocmd("FileType", {
+	group = "alpha_tabline",
+	pattern = { "alpha" },
+	callback = function()
+		vim.opt_local.statuscolumn = ""
 	end,
 })

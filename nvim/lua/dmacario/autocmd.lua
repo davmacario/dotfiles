@@ -208,7 +208,7 @@ autocmd("FileType", {
 		"lazyterm",
 	},
 	callback = function()
-		vim.wo.statuscolumn = ""
+		vim.opt_local.statuscolumn = ""
 	end,
 })
 
@@ -217,7 +217,7 @@ autocmd("BufEnter", {
 	group = "noLineNumbersNvimTree",
 	callback = function()
 		if vim.bo.filetype == "NvimTree" then
-			vim.wo.statuscolumn = ""
+			vim.opt_local.statuscolumn = ""
 		end
 	end,
 })

@@ -42,14 +42,14 @@ vim.opt.scrolloff = 8
 vim.opt.colorcolumn = "80"
 
 -- Settings for lualine
-vim.opt.showtabline = 0
+vim.opt.showtabline = 2
 vim.opt.showmode = false
 
 -- Line wrap
 vim.opt.wrap = true
 
 -- Statuscolumn settings
-local separator_l = "  "
+local separator_l = " "
 local separator_r = " "
 
 -- Get the number of times the current line wraps
@@ -66,7 +66,7 @@ local function get_num_wraps()
 
 		-- subtract the number of empty spaces in your statuscol. I have
 		-- four extra spaces in mine, to enhance readability for me
-		local bufferwidth = winwidth - numberwidth - signwidth - foldwidth - 1
+		local bufferwidth = winwidth - numberwidth - signwidth - foldwidth
 
 		-- fetch the line and calculate its display width
 		local line = vim.fn.getline(vim.v.lnum)
@@ -80,7 +80,7 @@ end
 
 function CheckSymbolOrNumber(current)
 	if vim.v.virtnum < 0 then
-		return "-"
+		return ""
 	end
 
 	if vim.v.virtnum > 0 and (vim.wo.number or vim.wo.relativenumber) then
@@ -91,7 +91,7 @@ function CheckSymbolOrNumber(current)
 			return "│"
 		end
 	end
-
+	-- vim.v.virtnum == 0, i.e., no wrap
 	return current
 end
 

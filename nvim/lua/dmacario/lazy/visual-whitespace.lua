@@ -2,7 +2,7 @@ return {
 	"mcauley-penney/visual-whitespace.nvim",
 	config = function()
 		require("visual-whitespace").setup({
-			highlight = { fg = "#7c6f64", bg = "#665c54" },
+			highlight = { fg = "#a89984", bg = "#665c54" },
 			space_char = "·",
 			tab_char = "→",
 			nl_char = "↲",

@@ -22,6 +22,7 @@ vim.keymap.set("n", "<leader>l", "<C-w>l")
 vim.keymap.set("n", "<leader>j", "<C-w>j")
 vim.keymap.set("n", "<leader>k", "<C-w>k")
 -- Jump to last in direction
+local api = vim.api
 vim.keymap.set("n", "<leader>L", function()
   local wins = api.nvim_tabpage_list_wins(0)
   api.nvim_set_current_win(wins[#wins])

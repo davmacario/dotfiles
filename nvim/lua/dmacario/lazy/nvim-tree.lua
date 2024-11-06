@@ -50,5 +50,8 @@ return {
 		vim.cmd("highlight link NvimTreeGitFileNewIcon GruvboxPurple")
 		vim.cmd("highlight link NvimTreeGitNewIcon GruvboxPurple")
 		vim.cmd("highlight link NvimTreeMergeIcon GruvboxRed")
+    vim.cmd("highlight link NvimTreeIndentMarker GruvboxGray")
+    vim.cmd("highlight link NvimTreeFolderArrowClosed NvimTreeFileIcon")
+    vim.cmd("highlight link NvimTreeFolderArrowOpen NvimTreeFileIcon")
 	end,
 }

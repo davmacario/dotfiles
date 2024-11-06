@@ -1,6 +1,17 @@
 #!/bin/bash
 # Set up dotfiles
 
+abort(){
+    echo -e "Error encountered - aborting"
+    exit 1
+}
+
+installing(){
+    echo "Installing $1..."
+}
+
+trap abort ERR SIGTERM SIGILL
+
 CURR_DIR=$(pwd)
 echo "Current dir: $CURR_DIR"
 
@@ -61,13 +72,34 @@ packages_global=(
     telnet
     python3-venv
 )
+packages_mac=(
+    bat
+    fd
+    golang
+)
+packages_deb=(
+    batcat
+    golang-go
+)
 
 # Install possible required packages with:
 # $INVOKE_PACMAN install
 for package in "${packages_global[@]}"; do
-    echo "Installing $package..."
+    installing "$package"
     $INVOKE_PACMAN install "$package"
 done
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    for package in "${packages_mac[@]}"; do
+        installing "$package"
+        brew install "$package"
+    done
+else
+    for package in "${packages_deb[@]}"; do
+        installing "$package"
+        sudo apt install "$package"
+    done
+fi
 
 # ------------------------------------------------------------------------------
 
@@ -127,7 +159,7 @@ if [ -d "$CURR_DIR/nvim" ]; then
 
     echo "Installing Neovim"
     if [[ "$OSTYPE" == "darwin"* ]]; then
-        $INVOKE_PACMAN install nvim fd
+        $INVOKE_PACMAN install nvim
         ./macos-zathura.sh
     elif [[ "$OSTYPE" == "linux-gnu"* ]] && [ -f "apt-get -v" ]; then
         # Compile neovim from source
@@ -140,9 +172,6 @@ if [ -d "$CURR_DIR/nvim" ]; then
         echo "Building Neovim from source"
         make CMAKE_BUILD_TYPE=RelWithDebInfo
         cd build && cpack -G DEB && sudo dpkg -i nvim-linux64.deb
-
-        # Install required packages for extensions
-        sudo apt-get install -y fd-find zathura golang-go
     fi
 
     cd "$CURR_DIR"

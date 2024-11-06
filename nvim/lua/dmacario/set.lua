@@ -51,6 +51,8 @@ vim.opt.wrap = true
 -- Statuscolumn settings
 local separator_l = "  "
 local separator_r = " "
+
+-- Get the number of times the current line wraps
 local function get_num_wraps()
 	-- Calculate the actual buffer width, accounting for splits, number columns, and other padding
 	local wrapped_lines = vim.api.nvim_win_call(0, function()
@@ -64,7 +66,7 @@ local function get_num_wraps()
 
 		-- subtract the number of empty spaces in your statuscol. I have
 		-- four extra spaces in mine, to enhance readability for me
-		local bufferwidth = winwidth - numberwidth - signwidth - foldwidth - 4
+		local bufferwidth = winwidth - numberwidth - signwidth - foldwidth - 1
 
 		-- fetch the line and calculate its display width
 		local line = vim.fn.getline(vim.v.lnum)

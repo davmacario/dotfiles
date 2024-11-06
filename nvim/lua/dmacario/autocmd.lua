@@ -191,11 +191,33 @@ autocmd("FileType", {
 })
 
 -- Deactivate statuscol in alpha (dashboard)
-augroup("alpha_tabline", { clear = true })
+augroup("noLineNumbers", { clear = true })
 autocmd("FileType", {
-	group = "alpha_tabline",
-	pattern = { "alpha" },
+	group = "noLineNumbers",
+	pattern = {
+		"help",
+		"alpha",
+		"dashboard",
+		"neo-tree",
+		"Trouble",
+		"trouble",
+		"lazy",
+		"mason",
+		"notify",
+		"toggleterm",
+		"lazyterm",
+	},
 	callback = function()
-		vim.opt_local.statuscolumn = ""
+		vim.wo.statuscolumn = ""
+	end,
+})
+
+augroup("noLineNumbersNvimTree", { clear = true })
+autocmd("BufEnter", {
+	group = "noLineNumbersNvimTree",
+	callback = function()
+		if vim.bo.filetype == "NvimTree" then
+			vim.wo.statuscolumn = ""
+		end
 	end,
 })

@@ -17,10 +17,10 @@ function ColorMyPencils(color)
 
   -- Highlight groups override
   -- Underlines for diagnostics (NOT WORKING in iTerm2)
-  cmd("hi LspDiagnosticsUnderlineError guisp=red gui=bold,italic,underline")
-  cmd("hi LspDiagnosticsUnderlineWarning guisp=orange gui=bold,italic,underline")
-  cmd("hi LspDiagnosticsUnderlineInformation guisp=yellow gui=bold,italic,underline")
-  cmd("hi LspDiagnosticsUnderlineHint guisp=green gui=bold,italic,underline")
+  set_hl(0, "LspDiagnosticsUnderlineError", {fg = "red", bold = true, italic = true, underline = true})
+  set_hl(0, "LspDiagnosticsUnderlineWarning", {fg = "orange", bold = true, italic = true, underline = true})
+  set_hl(0, "LspDiagnosticsUnderlineInformation", {fg = "yellow", bold = true, italic = true, underline = true})
+  set_hl(0, "LspDiagnosticsUnderlineHint", {fg = "green", bold = true, italic = true, underline = true})
 
   -- Diagnostics configuration
   local signs = require("dmacario.style.icons").diagnostics

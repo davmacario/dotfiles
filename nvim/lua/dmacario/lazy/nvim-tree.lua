@@ -45,13 +45,13 @@ return {
 			},
 		})
 		-- Nvim-tree color overrides
-		vim.cmd("highlight link NvimTreeGitDirtyIcon GruvboxYellow")
-		vim.cmd("highlight link NvimTreeGitStagedIcon GruvboxGreen")
-		vim.cmd("highlight link NvimTreeGitFileNewIcon GruvboxPurple")
-		vim.cmd("highlight link NvimTreeGitNewIcon GruvboxPurple")
-		vim.cmd("highlight link NvimTreeMergeIcon GruvboxRed")
-		vim.cmd("highlight link NvimTreeIndentMarker GruvboxGray")
-		vim.cmd("highlight link NvimTreeFolderArrowClosed NvimTreeFileIcon")
-		vim.cmd("highlight link NvimTreeFolderArrowOpen NvimTreeFileIcon")
-	end,
+		vim.api.nvim_set_hl(0, "NvimTreeGitDirtyIcon", { link = "GruvboxYellow" })
+		vim.api.nvim_set_hl(0, "NvimTreeGitStagedIcon", { link = "GruvboxGreen"} )
+		vim.api.nvim_set_hl(0, "NvimTreeGitFileNewIcon", { link = "GruvboxPurple"} )
+		vim.api.nvim_set_hl(0, "NvimTreeGitNewIcon", { link = "GruvboxPurple"} )
+		vim.api.nvim_set_hl(0, "NvimTreeMergeIcon", { link = "GruvboxRed"} )
+		vim.api.nvim_set_hl(0, "NvimTreeIndentMarker", { link = "GruvboxGray"} )
+		vim.api.nvim_set_hl(0, "NvimTreeFolderArrowClosed", { link = "NvimTreeFileIcon"} )
+		vim.api.nvim_set_hl(0, "NvimTreeFolderArrowOpen", { link = "NvimTreeFileIcon"} )
+    end,
 }

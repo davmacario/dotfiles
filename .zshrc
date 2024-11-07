@@ -178,6 +178,9 @@ export PATH="$PATH:$HOME/.local/share/nvim/lazy-rocks/hererocks/bin"
 # Getting around WSL and copy-pasting to/from system clipboard
 export DISPLAY=:0
 
+# Add windows executables to path
+export PATH="$PATH:/mnt/c/Windows/system32"
+
 # Use Nvidia GPU
 export MESA_D3D12_DEFAULT_ADAPTER_NAME=nvidia
 

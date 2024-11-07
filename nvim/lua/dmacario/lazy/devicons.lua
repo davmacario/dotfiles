@@ -3,7 +3,7 @@ local function get_special_ext(name)
 	if name:find(".*%.gitlab%-ci.*%.yml") then -- Match <>.gitlab-ci<>.yml
 		return "gitlab-ci.yml" -- Return `gitlab-ci.yml` as the extension
 	end
-	if name:find("^Dockerfile.*") then
+	if name:find("^Dockerfile.*") or name:find(".*.Dockerfile$") then
 		return "Dockerfile"
 	end
 	return nil

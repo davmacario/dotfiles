@@ -187,7 +187,7 @@ alias matlab="/Applications/MATLAB_R2022a.app/bin/matlab -nodesktop"
 alias k='kubectl'
 alias cowsaysomething="fortune | cowsay"
 alias tmux="tmux -u"
-alias ff="fd --type f --hidden --exclude .git | fzf-tmux -p --preview \"batcat --color=always {}\" --reverse"
+alias ff="fd --type f --hidden --exclude .git | fzf-tmux -p --preview \"bat --color=always {}\" --reverse"
 
 ### Fix for making Docker plugin work
 fpath=(~/.zsh/completion $fpath)

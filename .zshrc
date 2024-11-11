@@ -187,7 +187,7 @@ alias matlab="/Applications/MATLAB_R2022a.app/bin/matlab -nodesktop"
 alias k='kubectl'
 alias cowsaysomething="fortune | cowsay"
 alias tmux="tmux -u"
-alias ff="fd --type f --hidden --exclude .git | fzf-tmux -p --reverse"
+alias ff="fd --type f --hidden --exclude .git | fzf-tmux -p --preview \"batcat --color=always {}\" --reverse"
 
 ### Fix for making Docker plugin work
 fpath=(~/.zsh/completion $fpath)
@@ -230,6 +230,15 @@ export NVM_DIR="$HOME/.config/nvm"
 # DBus settings
 export DBUS_SESSION_BUS_ADDRESS="unix:path=$DBUS_LAUNCHD_SESSION_BUS_SOCKET"
 export EDITOR="nvim"
+
+# Manpage colors
+export MANPAGER="less -R --use-color -Dd+r -Du+b"
+
+################
+setopt histignorealldups sharehistory
+HISTSIZE=1000
+SAVEHIST=1000
+HISTFILE=~/.zsh_history
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/homebrew/bin/terraform terraform

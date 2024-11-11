@@ -133,7 +133,7 @@ alias k='kubectl'
 alias cowsaysomething="fortune | cowsay"
 alias tmux="tmux -u"
 alias bat="batcat"
-alias ff="fd --type f --hidden --exclude .git | fzf-tmux -p --reverse"
+alias ff="fd --type f --hidden --exclude .git | fzf-tmux -p --preview \"batcat --color=always {}\" --reverse"
 
 alias gcl='gitlab-ci-local'
 
@@ -186,6 +186,9 @@ export MESA_D3D12_DEFAULT_ADAPTER_NAME=nvidia
 
 # Gitlab CI Local
 NEEDS=true
+
+# Manpage colors
+export MANPAGER="less -R --use-color -Dd+r -Du+b"
 
 ################
 setopt histignorealldups sharehistory

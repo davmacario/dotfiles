@@ -1,24 +1,6 @@
 local augroup = vim.api.nvim_create_augroup -- Create/get autocommand group
 local autocmd = vim.api.nvim_create_autocmd -- Create autocommand
-
---
-local function get_editorconfig_max_line_length()
-	local config_files = { ".editorconfig" }
-	for _, fname in ipairs(config_files) do
-		local file = io.open(fname, "r")
-		if file then
-			for line in file:lines() do
-				local max_line_length = line:match("^%s*max%_line%_length%s*=%s*(%d+)")
-				if max_line_length then
-					file:close()
-					return tonumber(max_line_length)
-				end
-			end
-			file:close()
-		end
-	end
-	return 80 -- default
-end
+local utils = require("dmacario.utils")
 
 -- Colorcolumn depending on .editorconfig
 augroup("setColorColumn", { clear = true })
@@ -26,7 +8,7 @@ autocmd({ "BufNewFile", "BufReadPre" }, {
 	group = "setColorColumn",
 	pattern = { "*" },
 	callback = function()
-		local max_line_length = get_editorconfig_max_line_length()
+		local max_line_length = utils.get_editorconfig_max_line_length()
 		if max_line_length then
 			vim.wo.colorcolumn = tostring(max_line_length)
 		end
@@ -49,34 +31,13 @@ autocmd("Filetype", {
 	command = "setlocal textwidth=80 conceallevel=2",
 })
 
--- For python files, grab the maximum line length from teh active flake8 config
--- and use it to set the value of colorcolumn
-local function get_flake8_max_line_length()
-	local config_files = { ".flake8", "setup.cfg", "tox.ini" }
-	for _, filename in ipairs(config_files) do
-		local file = io.open(filename, "r")
-		if file then
-			for line in file:lines() do
-				local max_line_length = line:match("^%s*max%-line%-length%s*=%s*(%d+)")
-				if max_line_length then
-					file:close()
-					return tonumber(max_line_length)
-				end
-			end
-			file:close()
-		end
-	end
-	-- Default line length if no config found (same as in ~/.flake8)
-	return 88
-end
-
 -- Python custom line lenght + comments
 augroup("pythonLineLength", { clear = true })
 autocmd("Filetype", {
 	group = "pythonLineLength",
 	pattern = { "python", "python3", "py" },
 	callback = function()
-		local max_line_length = get_flake8_max_line_length()
+		local max_line_length = utils.get_flake8_max_line_length()
 		if max_line_length then
 			vim.wo.colorcolumn = tostring(max_line_length)
 		end
@@ -153,24 +114,6 @@ autocmd("FileType", {
 	pattern = { "markdown" },
 	command = "set comments=b:*,b:-,b:+,n:> fo+=cro",
 })
-
--- Function to indent a list item
-function _G.markdown_indent_list_item()
-	local line = vim.api.nvim_get_current_line()
-	if line:match("^%s*[-+*] ") then
-		return vim.api.nvim_replace_termcodes("<C-t>", true, false, true) -- Use Neovim's built-in indent functionality
-	end
-	return vim.api.nvim_replace_termcodes("<tab>", true, false, true) -- Default Tab behavior
-end
-
--- Function to unindent a list item
-function _G.markdown_unindent_list_item_shift_tab()
-	local line = vim.api.nvim_get_current_line()
-	if line:match("^%s*[-+*] ") then
-		return vim.api.nvim_replace_termcodes("<C-d>", true, false, true) -- Use Neovim's built-in unindent functionality
-	end
-	return vim.api.nvim_replace_termcodes("<S-Tab>", true, false, true) -- Default Shift-Tab behavior
-end
 
 autocmd("FileType", {
 	group = "mdFormatOpts",

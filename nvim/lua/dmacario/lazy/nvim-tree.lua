@@ -1,14 +1,4 @@
-local function my_on_attach(bufnr)
-	local api = require("nvim-tree.api")
-
-	local function opts(desc)
-		return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
-	end
-
-	-- default mappings
-	api.config.mappings.default_on_attach(bufnr)
-	vim.keymap.set("n", "?", api.tree.toggle_help, opts("Help"))
-end
+local utils = require("dmacario.utils")
 
 return {
 	"nvim-tree/nvim-tree.lua",
@@ -36,7 +26,7 @@ return {
 				dotfiles = false,
 				git_ignored = false,
 			},
-			on_attach = my_on_attach,
+			on_attach = utils.my_on_attach,
 			renderer = {
 				icons = icons.tree_icons,
 				full_name = true,

@@ -37,6 +37,7 @@ Temporary Items
 
 # Session
 Session.vim
+Session*.vim
 Sessionx.vim
 
 # Temporary

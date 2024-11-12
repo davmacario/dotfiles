@@ -1,0 +1,17 @@
+{
+  "Template": {
+    "prefix": "template",
+    "body": [
+      "void setup() {",
+      "\t// put your setup code here, to run once:",
+      "",
+      "}",
+      "",
+      "void loop() {",
+      "\t// put your main code here, to run repeatedly:",
+      "",
+      "}"
+    ],
+    "description": "Arduino default sketch template"
+  }
+}

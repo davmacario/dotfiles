@@ -1,21 +1,47 @@
 local icons = require("dmacario.style.icons")
 
--- Define a function to check the Ollama status and return the corresponding icon
-local function get_status_icon()
+-- Check the Ollama status and return the corresponding icon
+local function get_ollama_status_icon()
 	if not package.loaded["ollama"] then
-		return icons.ollama.not_loaded .. " ~ not loaded"
+		return icons.ollama.not_loaded -- .. " ~ not loaded"
 	end
 
 	if require("ollama").status ~= nil then
 		local status = require("ollama").status()
 		if status == "IDLE" then
-			return icons.ollama.idle .. " ~ idle" -- nf-md-robot-outline
+			return icons.ollama.idle -- .. " ~ idle" -- nf-md-robot-outline
 		elseif status == "WORKING" then
-			return icons.ollama.busy .. " ~ busy" -- nf-md-robot
+			return icons.ollama.busy -- .. " ~ busy" -- nf-md-robot
 		end
 	else
-		return icons.ollama.unreachable .. " ~ unreachable"
+		return icons.ollama.unreachable -- .. " ~ unreachable"
 	end
+end
+
+-- Function to prevent the winbar to disappear by ensuring there is always
+-- something to display
+-- A bit hacky, but it works
+local function breadcrumbs()
+	local navic = require("nvim-navic")
+	local prefix_data = { -- Dummy element
+		kind = 1,
+		type = "file",
+		icon = icons.navic.prefix,
+		name = "",
+		scope = "",
+	}
+	local separator = "%#NavicSeparator#" .. icons.navic.separator .. "%*"
+	if navic.is_available() then
+		-- Return position in the file (or some placeholder)
+		local data = navic.get_data()
+		table.insert(data, 1, prefix_data)
+		local location = navic.format_data(data)
+		-- local location = navic.get_location()
+		if location ~= "" then
+			return location
+		end
+	end
+	return navic.format_data({ prefix_data })
 end
 
 return {
@@ -27,7 +53,6 @@ return {
 	lazy = false,
 	priority = 1000,
 	config = function()
-		local navic = require("nvim-navic")
 		require("lualine").setup({
 			options = {
 				icons_enabled = true,
@@ -42,6 +67,7 @@ return {
 					"dapui_scopes",
 					"dapui_console",
 					"dap-repl",
+					"fugitiveblame",
 					statusline = {},
 					winbar = {},
 				},
@@ -82,12 +108,12 @@ return {
 					"searchcount",
 				},
 				lualine_x = {
-					get_status_icon,
+					get_ollama_status_icon,
 					"encoding",
 					{ "fileformat", symbols = { unix = icons.os_icon } },
 				},
 				lualine_y = { "filetype", "progress" },
-				lualine_z = { { "location", icon = icons.location_icon } },
+				lualine_z = { { "location", icon = icons.location_logo } },
 			},
 			inactive_sections = {
 				lualine_a = {},
@@ -98,19 +124,8 @@ return {
 				lualine_z = {},
 			},
 			tabline = {},
-			winbar = {
-				lualine_c = {
-					{
-						function()
-							return navic.get_location()
-						end,
-						cond = function()
-							return navic.is_available()
-						end,
-					},
-				},
-			},
-			inactive_winbar = {},
+			winbar = { lualine_c = { breadcrumbs } },
+			inactive_winbar = { lualine_c = { breadcrumbs } },
 			extensions = { "fugitive", "trouble" },
 		})
 	end,

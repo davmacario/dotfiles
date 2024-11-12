@@ -1,13 +1,10 @@
 -- Configuration file for nvim-dap (debugger)
 return {
 	{
-		"rcarriga/nvim-dap-ui",
-		dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
-	},
-	{
 		-- debugger: nvim-dap
 		"mfussenegger/nvim-dap",
 		dependencies = {
+			"nvim-neotest/nvim-nio",
 			{
 				"rcarriga/nvim-dap-ui",
 				opts = {},
@@ -24,14 +21,10 @@ return {
 			},
 			{
 				"mfussenegger/nvim-dap-python",
-				config = function()
-					require("dap-python").setup("~/.virtualenvs/debugpy/bin/python")
-				end,
 			},
 			-- virtual text for the debugger
 			{
 				"theHamsta/nvim-dap-virtual-text",
-				opts = {},
 			},
 			-- mason.nvim integration
 			{
@@ -137,22 +130,17 @@ return {
 
 		config = function()
 			local dap = require("dap")
-			-- dap.setup()
+			local ui = require("dapui")
+			local virtual_text = require("nvim-dap-virtual-text")
 
-			-- vim.keymap.set("n", "<leader>db", ":DapToggleBreakpoint<CR>", {noremap=true})
-			-- vim.keymap.set("n", "<leader>dc", ":DapContinue<CR>", {noremap=true})
+			require("dap-python").setup("~/.virtualenvs/debugpy/bin/python")
 
-			-- dap.configurations.python = {
-			--   {
-			--     type = 'python';
-			--     request = 'launch';
-			--     name = "Launch file";
-			--     program = "${file}";
-			--     pythonPath = function()
-			--       return '/usr/bin/python'
-			--     end;
-			--   },
-			-- }
+			ui.setup()
+			virtual_text.setup()
+
+			vim.keymap.set("n", "<leader>?", function()
+				ui.eval(nil, { enter = true })
+			end)
 		end,
 	},
 }

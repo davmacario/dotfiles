@@ -10,7 +10,7 @@ ICONS.kind_icons = {
 	Field = "󰄶 ",
 	Constructor = " ",
 	Enum = " ",
-	Interface = "󰕘",
+	Interface = "󰕘 ",
 	Function = "ƒ ",
 	Variable = " ",
 	Constant = " ",
@@ -76,12 +76,56 @@ ICONS.git_icons = {
 	removed = " ",
 }
 
+ICONS.filetypes = {
+	gitconfig = {
+		icon = "",
+		color = "#f54d27",
+		name = "gitconfig",
+	},
+	python = {
+		icon = "",
+		color = "#ffbc03",
+		name = "python",
+	},
+	python_lint = {
+		icon = "",
+		color = "#6d8086",
+		name = "python",
+	},
+	gitlab = {
+		icon = "",
+		color = "#e24329",
+		name = "gitlab",
+	},
+	gitkeep = {
+		icon = "",
+		color = "#6d8086",
+		name = "gitkeep",
+	},
+	bat = {
+		icon = "",
+		color = "#00a4ef",
+		cterm_color = "39",
+		name = "bat",
+	},
+	cucumber = {
+		icon = "🥒",
+		name = "cucumber",
+	},
+	default = {
+		icon = "",
+		color = "#6d8086",
+		cterm_color = "66",
+		name = "Default",
+	},
+}
+
 ICONS.diagnostics = {
-	error = "",
-	warn = "",
-	hint = "󰌶",
-	info = "",
-	other = "",
+	error = " ",
+	warn = " ",
+	hint = "󰌶 ",
+	info = " ",
+	other = " ",
 }
 
 if vim.loop.os_uname().sysname == "Darwin" then
@@ -97,8 +141,14 @@ ICONS.location_logo = ""
 ICONS.ollama = {
 	idle = "󱙺",
 	busy = "󰚩",
-  not_loaded = "",
-  unreachable = "󰚌",
+	not_loaded = "",
+	unreachable = "󰚌",
+}
+
+ICONS.navic = {
+	separator = "  ",
+	depth_limit = "󰇘",
+	prefix = "",
 }
 
 return ICONS

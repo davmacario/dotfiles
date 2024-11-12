@@ -13,15 +13,15 @@ local logo = {
 	[[                                                                                                   ]],
 }
 local cowsay = function(max_width)
-	if vim.fn.system("cowsay") == 0 then
+	if vim.fn.executable("cowsay") == 0 then
 		return logo
 	end
 	-- Used to convert the output of cowsay (from system) to a Lua table
 	max_width = max_width or 39
 	local result = ""
-	if vim.fn.system("fortune") == 1 then
+	if vim.fn.executable("fortune") == 1 then
 		-- I prefer the system 'fortune', so use it if available
-		result = vim.fn.system(string.format("fortune | cowsay -W %s", max_width))
+		result = vim.fn.system(string.format('fortune | cowsay -W %s', max_width))
 	else
 		local fortune_result = require("alpha.fortune")({ max_width = max_width })
 		local text = table.concat({ unpack(fortune_result, 2, #fortune_result) }, "\n")
@@ -62,8 +62,9 @@ return {
 			dashboard.button("i", "    new file", ":ene <BAR> startinsert<CR>"),
 			dashboard.button("o", "    old files", ":Telescope oldfiles<CR>"),
 			dashboard.button("f", "󰥨    find file", ":Telescope find_files<CR>"),
-			dashboard.button("t", "󰱼    find text", ":Telescope live_grep<CR>"),
+			dashboard.button("s", "󰱼    find text", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>"),
 			dashboard.button("g", "    find git files", ":Telescope git_files<CR>"),
+      dashboard.button("r", "    resume session", ":source Session.vim<CR>"),
 			dashboard.button("l", "󰒲    lazy", ":Lazy<CR>"),
 			dashboard.button("m", "󱌣    mason", ":Mason<CR>"),
 			dashboard.button("q", "󰭿    quit", ":qa<CR>"),

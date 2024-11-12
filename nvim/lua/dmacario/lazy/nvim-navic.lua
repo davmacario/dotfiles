@@ -8,12 +8,12 @@ return {
       icons = icons.kind_icons,
       lsp = {
         auto_attach = true,
-        preference = { "clangd", "pyright", "ltex" },
+        preference = { "clangd", "jedi_language_server", "ltex" },
       },
-      highlight = true,
-      separator = "  ",
-      depth_limit = 0,
-      depth_limit_indicator = "..",
+      highlight = false,
+      separator = icons.navic.separator,
+      depth_limit = 6,
+      depth_limit_indicator = icons.navic.depth_limit,
       safe_output = true,
       lazy_update_context = false,
       click = false,
@@ -21,5 +21,6 @@ return {
         return text
       end,
     })
+    vim.g.navic_silence = true  -- Suppress warnings/errors
   end,
 }

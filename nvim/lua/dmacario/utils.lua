@@ -52,7 +52,9 @@ function M.git_branch_session_name()
   else
     local branch_name = M.get_dir_branch()
     if branch_name ~= "" then
-      return "Session_" .. branch_name ..".vim"
+      -- Replace "/", " ", "," with "-" in file name
+      local branch_name_fixed = branch_name:gsub("[/ ,]", "-")
+      return "Session_" .. branch_name_fixed ..".vim"
     else
       return default_name
     end

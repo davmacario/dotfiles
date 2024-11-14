@@ -79,6 +79,14 @@ autocmd({ "Filetype", "BufRead", "BufNewFile" }, {
 	command = "set filetype=groovy",
 })
 
+-- Treat .tf as terraform
+augroup("tfFileType", { clear = true })
+autocmd({ "Filetype", "BufRead", "BufNewFile" }, {
+	group = "tfFileType",
+	pattern = { ".tf", "tf" },
+	command = "set filetype=terraform",
+})
+
 -- Set correct filetype for gitconfig (enable treesitter)
 augroup("gitconfig", { clear = true })
 autocmd({ "Filetype", "BufRead", "BufNewFile" }, {

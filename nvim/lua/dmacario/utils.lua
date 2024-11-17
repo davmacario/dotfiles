@@ -22,58 +22,57 @@ function _G.markdown_unindent_list_item_shift_tab()
 	return vim.api.nvim_replace_termcodes("<S-Tab>", true, false, true) -- Default Shift-Tab behavior
 end
 
-
 -- Return true if inside a git repository
 function M.is_git_repo()
-	local _ =  vim.fn.system("git rev-parse --is-inside-work-tree")
-  return vim.v.shell_error == 0
+	local _ = vim.fn.system("git rev-parse --is-inside-work-tree")
+	return vim.v.shell_error == 0
 end
 
 -- If inside a git repo, return the branch name
 function M.get_dir_branch()
-  if M.is_git_repo() then
-    local branch = vim.fn.system("git branch --show-current 2> /dev/null | tr -d '\n'")
-    if branch ~= "" then
-      return branch
-    else
-      return ""
-    end
-  else
-    return ""
-  end
+	if M.is_git_repo() then
+		local branch = vim.fn.system("git branch --show-current 2> /dev/null | tr -d '\n'")
+		if branch ~= "" then
+			return branch
+		else
+			return ""
+		end
+	else
+		return ""
+	end
 end
 
 -- Build the vim session name with the git branch
 -- > Session_<branch_name>.vim
 function M.git_branch_session_name()
-  local default_name = "Session.vim"
-  if not M.is_git_repo() then
-    return default_name
-  else
-    local branch_name = M.get_dir_branch()
-    if branch_name ~= "" then
-      -- Replace "/", " ", "," with "-" in file name
-      local branch_name_fixed = branch_name:gsub("[/ ,]", "-")
-      return "Session_" .. branch_name_fixed ..".vim"
-    else
-      return default_name
-    end
-  end
+	local default_name = "Session.vim"
+	if not M.is_git_repo() then
+		return default_name
+	else
+		local branch_name = M.get_dir_branch()
+		if branch_name ~= "" then
+			-- Replace "/", " ", "," with "-" in file name
+			local branch_name_fixed = branch_name:gsub("[/ ,]", "-")
+			return "Session_" .. branch_name_fixed .. ".vim"
+		else
+			return default_name
+		end
+	end
 end
 
 -- Attempt to restore session from Session*.vim file
 function M.smart_session_restore()
-  local default_session = "Session.vim"
-  if not M.is_git_repo() then
-    vim.cmd.source(default_session)
-  else
-    local session_name_git = M.git_branch_session_name()
-    if vim.fn.filereadable(session_name_git) == 1 then
-      vim.cmd.source(session_name_git)
-    else
-      vim.cmd.source(default_session)
-    end
-  end
+	local default_session = "Session.vim"
+	if not M.is_git_repo() then
+		vim.cmd.source(default_session)
+	else
+		local session_name_git = M.git_branch_session_name()
+		if vim.fn.filereadable(session_name_git) == 1 then
+			vim.cmd.source(session_name_git)
+		else
+			vim.cmd.source(default_session)
+		end
+	end
 end
 
 -- Alpha
@@ -266,5 +265,83 @@ function M.breadcrumbs()
 	return navic.format_data({ prefix_data })
 end
 
+-- Get dir of current file
+function M.get_current_file_directory()
+	local source = debug.getinfo(1, "S").source
+	local path = source:sub(2) -- Remove the "@" at the start of the source path
+	return path:match("(.*/)")
+end
+
+-- Open file in read-only buffer
+--- @param filename string
+function M.open_readonly(filename)
+	vim.cmd.edit(vim.fn.fnameescape(filename))
+	vim.bo.readonly = true
+	vim.bo.modifiable = false
+end
+
+-- Open file in floating window
+--- @param filename string
+--- @param opts table
+function M.open_float_win(filename, opts)
+	-- Default opts
+	local defaults = {
+		readonly = false,
+		width = 0.5,
+		height = 0.6,
+		window = {
+			relative = "editor",
+			style = "minimal",
+			border = "rounded",
+		},
+	}
+	local window = {}
+	local width = defaults.width
+	local height = defaults.height
+	local readonly = opts.readonly or defaults.readonly
+	if opts ~= nil then -- extract options
+		if opts.width and 1 > opts.width > 0 then
+			width = opts.width
+		end
+		if opts.height and 1 > opts.height > 0 then
+			height = opts.height
+		end
+		window.relative = opts.relative or defaults.window.relative
+		window.style = opts.style or defaults.window.style
+		window.border = opts.border or defaults.window.border
+	end
+
+	local esc_filename = vim.fn.fnameescape(filename)
+	local lines = vim.fn.readfile(esc_filename)
+	local newbuf = vim.api.nvim_create_buf(false, true)
+	vim.api.nvim_buf_set_lines(newbuf, 0, -1, false, lines)
+
+	vim.bo[newbuf].modifiable = not readonly
+	vim.bo[newbuf].readonly = readonly
+	vim.bo[newbuf].filetype = vim.filetype.match({ filename = esc_filename, buf = newbuf }) or "markdown"
+
+	-- Ensure floating win is at least 10x80 always
+	local win_width = math.max(math.floor(vim.o.columns * width), 80)
+	local win_height = math.max(math.floor(vim.o.lines * height), 10)
+	local win_opts = vim.tbl_extend("keep", window, {
+		width = win_width,
+		height = win_height,
+		col = math.floor((vim.o.columns - win_width) / 2),
+		row = math.floor((vim.o.lines - win_height) / 2),
+	})
+
+	local win = vim.api.nvim_open_win(newbuf, true, win_opts)
+	vim.wo[win].number = false
+	vim.wo[win].relativenumber = false
+	vim.wo[win].cursorline = false
+	vim.keymap.set("n", "q", function()
+		vim.api.nvim_win_close(win, true)
+	end, { buffer = newbuf, noremap = true, silent = true })
+end
+
+-- Open tips file (local)
+function M.open_tips()
+	M.open_float_win(M.get_current_file_directory() .. "nvim-tips.md", { readonly = true })
+end
 
 return M

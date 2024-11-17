@@ -3,6 +3,6 @@ return {
 	config = function()
 		vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
 		vim.keymap.set("n", "<leader>gps", ":Git push<CR>", { noremap = true })
-		vim.keymap.set("n", "<leader>gpu", ":Git pull<CR>", { noremap = true })
+		vim.keymap.set("n", "<leader>gpu", ":Git pull -p<CR>", { noremap = true })
 	end,
 }

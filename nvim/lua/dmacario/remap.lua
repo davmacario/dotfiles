@@ -41,8 +41,8 @@ vim.keymap.set("n", "<leader>-", "<C-w>2-")
 vim.keymap.set("n", "<leader>_", "<C-w>2-") -- Force of habit
 
 -- Remap keys for navigating tabs
-vim.keymap.set("n", "H", ":bp<CR>")
-vim.keymap.set("n", "L", ":bn<CR>")
+vim.keymap.set("n", "H", vim.cmd.bp)
+vim.keymap.set("n", "L", vim.cmd.bn)
 
 -- Move selected lines while in visual mode
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -80,9 +80,8 @@ vim.keymap.set("n", "<leader>to", "o- [ ] ", { desc = "Open new TODO: item below
 vim.keymap.set("n", "<leader>tO", "O- [ ] ", { desc = "Open new TODO: item below current line" })
 
 -- Session management
-vim.keymap.set(
-	"n",
-	"<leader>se",
-	":mksession! " .. utils.git_branch_session_name() .. "<CR>",
-	{ desc = "Create Vim session file with git branch name (if inside Git repo)" }
-)
+vim.keymap.set("n", "<leader>se", function()
+  local session_name = utils.git_branch_session_name()
+	vim.cmd("mksession! " .. session_name)
+  vim.print("Created " .. session_name)
+end, { desc = "Create Vim session file with git branch name (if inside Git repo)" })

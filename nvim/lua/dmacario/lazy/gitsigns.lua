@@ -9,6 +9,6 @@ return {
 			signs = icons.gitsigns,
 			current_line_blame = true,
 		})
-		vim.keymap.set("n", "<leader>gb", ":Gitsigns blame", { desc = "Toggle git blame window" })
+		vim.keymap.set("n", "<leader>gb", ":silent Gitsigns blame<CR>", { desc = "Toggle git blame window" })
 	end,
 }

@@ -99,7 +99,9 @@ autocmd({ "Filetype", "BufRead", "BufNewFile" }, {
 autocmd("BufWritePre", {
 	pattern = { "*" },
 	callback = function()
+    local pos = vim.fn.getpos(".")
 		vim.cmd([[%s/\s\+$//e]])
+    vim.fn.setpos(".", pos)
 	end,
 })
 

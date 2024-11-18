@@ -20,7 +20,7 @@ augroup("disableLineLength", { clear = true })
 autocmd("Filetype", {
 	group = "disableLineLength",
 	pattern = { "html", "xhtml", "typescript", "json", "markdown" },
-	command = "setlocal cc=0",
+	command = "setlocal cc=0 textwidth=0",
 })
 
 -- LaTeX settings

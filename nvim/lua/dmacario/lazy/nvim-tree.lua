@@ -4,6 +4,7 @@ return {
 	"nvim-tree/nvim-tree.lua",
 	dependencies = {
 		"nvim-tree/nvim-web-devicons",
+		"stevearc/dressing.nvim",
 	},
 	config = function()
 		vim.keymap.set("n", "<leader>o", vim.cmd.NvimTreeToggle)

@@ -68,7 +68,7 @@ vim.g.loaded_netrwPlugin = 1
 -- vim.opt.spelllang = "en_us"
 
 -- FormatOptions
-vim.opt.formatoptions:append("cro")
+vim.opt.formatoptions:append("ro") -- jcroql (no t - autowrap text)
 
 if vim.fn.has("wsl") then
 	vim.opt.clipboard = {

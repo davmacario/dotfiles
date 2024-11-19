@@ -12,7 +12,7 @@ vim.keymap.set("n", "<leader>v", vim.cmd.vsplit)
 vim.keymap.set("n", "<leader>s", vim.cmd.split)
 vim.keymap.set(
 	"n",
-	"<leader>q",
+	"<leader>bq",
 	":bp|bd#<CR>",
 	{ noremap = true, silent = true, desc = "Close current buffer without losing split" }
 )

@@ -134,6 +134,8 @@ alias cowsaysomething="fortune | cowsay"
 alias tmux="tmux -u"
 alias bat="batcat"
 alias ff="fd --type f --hidden --exclude .git | fzf-tmux -p --preview \"batcat --color=always {}\" --reverse"
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
 
 alias gcl='gitlab-ci-local'
 

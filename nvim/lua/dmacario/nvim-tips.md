@@ -19,3 +19,9 @@ Some nice tips to keep handy when using neovim.
 - Use (shift + )tab to select items, and `alt + q` to add the selected items to
   a quickfix list
 - Custom mapping: `<leader>fr`, to resume last Telescope search
+
+## Print terminal command output in current buffer
+
+`:%!<Command>`
+
+Note: it will overwrite current buffer content!

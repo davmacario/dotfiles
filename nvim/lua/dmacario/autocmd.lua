@@ -122,7 +122,7 @@ augroup("mdFormatOpts", { clear = true })
 autocmd("FileType", {
 	group = "mdFormatOpts",
 	pattern = { "markdown" },
-	command = "set comments=b:*,b:-,b:+,n:> fo+=cro",
+	command = "setlocal comments=b:*,b:-,b:+,n:> fo=jqlnro",
 })
 
 autocmd("FileType", {

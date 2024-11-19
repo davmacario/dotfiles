@@ -188,6 +188,8 @@ alias k='kubectl'
 alias cowsaysomething="fortune | cowsay"
 alias tmux="tmux -u"
 alias ff="fd --type f --hidden --exclude .git | fzf-tmux -p --preview \"bat --color=always {}\" --reverse"
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
 
 ### Fix for making Docker plugin work
 fpath=(~/.zsh/completion $fpath)

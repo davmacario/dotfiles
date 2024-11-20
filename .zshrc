@@ -193,8 +193,6 @@ else
     alias bat="batcat"
     alias ff="fd --type f --hidden --exclude .git | fzf-tmux -p --preview \"batcat --color=always {}\" --reverse"
 fi
-# Set up fzf key bindings and fuzzy completion
-source <(fzf --zsh)
 
 ### Fix for making Docker plugin work
 fpath=(~/.zsh/completion $fpath)
@@ -248,4 +246,10 @@ SAVEHIST=1000
 HISTFILE=~/.zsh_history
 
 autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /opt/homebrew/bin/terraform terraform
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    complete -o nospace -C /opt/homebrew/bin/terraform terraform
+else
+    complete -o nospace -C /usr/bin/terraform terraform
+fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

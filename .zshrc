@@ -139,6 +139,8 @@ alias gcl='gitlab-ci-local'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Env variables
 export PATH="$HOME/go/bin:$PATH"
@@ -198,5 +200,3 @@ HISTFILE=~/.zsh_history
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/bin/terraform terraform
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

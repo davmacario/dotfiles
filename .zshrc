@@ -199,6 +199,14 @@ fpath=(~/.zsh/completion $fpath)
 autoload -Uz compinit && compinit -i
 
 # Environment variables
+# fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export PATH="$HOME/go/bin:$PATH"
+export GO111MODULE=on
+export PATH="$HOME/.fnm:$PATH"
+eval "$(fnm env)"
+
 export CLICOLOR=1
 export LSCOLORS=gxFxCxDxBxegedabagaced
 # Set bat theme
@@ -251,5 +259,3 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 else
     complete -o nospace -C /usr/bin/terraform terraform
 fi
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

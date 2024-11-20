@@ -119,7 +119,24 @@ fi
 
 # ------------------------------------------------------------------------------
 
-# 2. Hyperlinks
+# 2. Hyperlinks - don't overwrite files if already present
+
+# fzf config
+FZF_ZSH_CONF="$CURR_DIR/.fzf.zsh"
+if [ -f "$FZF_ZSH_CONF" ] && [ ! -L "$HOME/.fzf.zsh" ]; then
+    ln -s "$FZF_ZSH_CONF" "$HOME/.fzf.zsh"
+fi
+FZF_BASH_CONF="$CURR_DIR/.fzf.bash"
+if [ -f "$FZF_BASH_CONF" ] && [ ! -L "$HOME/.fzf.bash" ]; then
+    ln -s "$FZF_BASH_CONF" "$HOME/.fzf.bash"
+fi
+
+# P10k config
+P10K_CONF="$CURR_DIR/.p10k.zsh"
+if [ -f "$P10K_CONF" ] && [ ! -L "$HOME/.p10k.zsh" ]; then
+    ln -s "$P10K_CONF" "$HOME/.p10k.zsh"
+fi
+
 # NOTE: different branches may not contain all the files
 # zshrc:
 ZSH_RC="$CURR_DIR/.zshrc"

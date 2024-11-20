@@ -50,7 +50,6 @@ fi
 # packages that have the same name across different platforms
 packages_global=(
     tmux
-    fzf
     neofetch
     htop
     git
@@ -100,6 +99,10 @@ else
         sudo apt install "$package"
     done
 fi
+
+# Install fzf from source
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
 
 # ------------------------------------------------------------------------------
 

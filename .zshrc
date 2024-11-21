@@ -247,6 +247,9 @@ export EDITOR="nvim"
 # Manpage colors
 export MANPAGER="less -R --use-color -Dd+r -Du+b"
 
+# Personal scripts - TODO: download repo in setup.sh script
+[ -d "$GHREPOS/bash-scripts" ] && export PATH="$PATH:$GHREPOS/bash-scripts"
+
 ################
 setopt histignorealldups sharehistory
 HISTSIZE=1000

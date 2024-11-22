@@ -197,6 +197,8 @@ fi
 ### Fix for making Docker plugin work
 fpath=(~/.zsh/completion $fpath)
 autoload -Uz compinit && compinit -i
+alias gg="lazygit" # Override git gui
+alias gcl='gitlab-ci-local'
 
 # Environment variables
 # fzf

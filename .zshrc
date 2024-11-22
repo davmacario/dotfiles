@@ -134,7 +134,7 @@ alias cowsaysomething="fortune | cowsay"
 alias tmux="tmux -u"
 alias bat="batcat"
 alias ff="fd --type f --hidden --exclude .git | fzf-tmux -p --preview \"batcat --color=always {}\" --reverse"
-
+alias gg="lazygit" # Override git gui
 alias gcl='gitlab-ci-local'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.

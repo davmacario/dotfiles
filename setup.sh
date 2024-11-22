@@ -121,41 +121,30 @@ fi
 
 # 2. Hyperlinks - don't overwrite files if already present
 
-# fzf config
-FZF_ZSH_CONF="$CURR_DIR/.fzf.zsh"
-if [ -f "$FZF_ZSH_CONF" ] && [ ! -L "$HOME/.fzf.zsh" ]; then
-    ln -s "$FZF_ZSH_CONF" "$HOME/.fzf.zsh"
-fi
-FZF_BASH_CONF="$CURR_DIR/.fzf.bash"
-if [ -f "$FZF_BASH_CONF" ] && [ ! -L "$HOME/.fzf.bash" ]; then
-    ln -s "$FZF_BASH_CONF" "$HOME/.fzf.bash"
-fi
+make_link() {
+    if [ -f "$CURR_DIR/$1" ] && [ ! -L "$HOME/$1" ]; then
+        ln -s "$CURR_DIR/$1" "$HOME/$1"
+    fi
+}
 
-# P10k config
-P10K_CONF="$CURR_DIR/.p10k.zsh"
-if [ -f "$P10K_CONF" ] && [ ! -L "$HOME/.p10k.zsh" ]; then
-    ln -s "$P10K_CONF" "$HOME/.p10k.zsh"
-fi
+files_to_link=(
+    ".gitignore"
+    ".fzf.zsh"
+    ".fzf.bash"
+    ".p10k.zsh"
+    ".zshrc"
+    ".bashrc"
+)
 
-# NOTE: different branches may not contain all the files
-# zshrc:
-ZSH_RC="$CURR_DIR/.zshrc"
-if [ -f "$ZSH_RC" ] && [ ! -L "$HOME/.zshrc" ];then
-    ln -s "$ZSH_RC" "$HOME/.zshrc"
-fi
-# Source it
-if [[ "$SHELL" == *"zsh"* ]]; then  # zsh is the shell
+for fl in "${files_to_link[@]}"; do
+    make_link "$fl"
+done
+
+# Source shellrc
+if [[ "$SHELL" == *"zsh"* ]] && [[ -f "$HOME/.zshrc" ]]; then
     echo "Sourcing ZSHRC"
     source "$HOME/.zshrc"
-fi
-
-# bashrc:
-BASH_RC="$CURR_DIR/.bashrc"
-if [ -f "$BASH_RC" ] && [ ! -L "$HOME/.bashrc" ];then
-    ln -s "$BASH_RC" "$HOME/.bashrc"
-fi
-
-if [[ "$SHELL" == *"bash"* ]]; then  # bash is the shell
+elif [[ "$SHELL" == *bash* ]] && [[ -f "$HOME/.bashrc" ]]; then
     echo "Sourcing BASHRC"
     source "$HOME/.bashrc"
 fi

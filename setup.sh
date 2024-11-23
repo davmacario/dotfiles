@@ -128,12 +128,14 @@ make_link() {
 }
 
 files_to_link=(
-    ".gitignore"
-    ".fzf.zsh"
-    ".fzf.bash"
-    ".p10k.zsh"
-    ".zshrc"
     ".bashrc"
+    ".fzf.bash"
+    ".fzf.zsh"
+    ".gitignore"
+    ".mac.zshrc"
+    ".p10k.zsh"
+    ".ubuntu.zshrc"
+    ".zshrc"
 )
 
 for fl in "${files_to_link[@]}"; do

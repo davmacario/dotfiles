@@ -193,3 +193,17 @@ Here are my custom keybindings!
   - `<leader>xl`: toggle trouble for items in the location list
 - Venv selector:
   - `<leader>vs`: launch Python venv selector
+
+## Tmux
+
+Terminal multiplexer for session handling and persistent terminal sessions.
+
+### Keybindings
+
+_Note:_ these only work from within Tmux.
+
+- `<prefix>` = `ctrl + b` (default)
+- `<prefix>R`: refresh tmux (source config)
+- Tmux resurrect (save session over reboots):
+  - `<prefix> + <ctrl>s`: save current session
+  - `<prefix> + <ctrl>r`: restore sessions

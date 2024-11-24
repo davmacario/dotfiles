@@ -128,12 +128,14 @@ make_link() {
 }
 
 files_to_link=(
-    ".gitignore"
-    ".fzf.zsh"
-    ".fzf.bash"
-    ".p10k.zsh"
-    ".zshrc"
     ".bashrc"
+    ".fzf.bash"
+    ".fzf.zsh"
+    ".gitignore"
+    ".mac.zshrc"
+    ".p10k.zsh"
+    ".ubuntu.zshrc"
+    ".zshrc"
 )
 
 for fl in "${files_to_link[@]}"; do
@@ -207,6 +209,11 @@ if [ -d "$CURR_DIR/nvim" ]; then
 fi
 
 # Tmux config
+# Install the Tmux Plugin Manager
+
+[ ! -d "$HOME/.tmux/plugins" ]; mkdir -p "$HOME/.tmux/plugins"
+git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+
 if [ -n "$XDG_CONFIG_HOME" ] && [ -d "$CURR_DIR/tmux" ]; then  # Should be defined in .zshrc
     if [ ! -L "$XDG_CONFIG_HOME/tmux" ]; then
         ln -s "$CURR_DIR/tmux" "$XDG_CONFIG_HOME/tmux"

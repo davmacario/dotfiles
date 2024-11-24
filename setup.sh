@@ -1,6 +1,17 @@
 #!/bin/bash
 # Set up dotfiles
 
+abort(){
+    echo -e "Error encountered - aborting"
+    exit 1
+}
+
+installing(){
+    echo "Installing $1..."
+}
+
+trap abort ERR SIGTERM SIGILL
+
 CURR_DIR=$(pwd)
 echo "Current dir: $CURR_DIR"
 
@@ -19,8 +30,7 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         PACMAN="pacman"
     fi
 
-    INVOKE_PACMAN="sudo $PACMAN"
-    # Can install linux-specific packages here
+    INVOKE_PACMAN="sudo $PACMAN -y"
 
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     echo "MacOS detected!"
@@ -37,11 +47,62 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     INVOKE_PACMAN="brew"
 fi
 
+# packages that have the same name across different platforms
+packages_global=(
+    tmux
+    neofetch
+    htop
+    git
+    cmake
+    gcc
+    whois
+    cowsay
+    sl
+    python3
+    python3-dev
+    python3-pip
+    ninja-build
+    gettext
+    npm
+    ripgrep
+    unzip
+    curl
+    build-essential
+    telnet
+    python3-venv
+)
+packages_mac=(
+    bat
+    fd
+    golang
+)
+packages_deb=(
+    batcat
+    golang-go
+)
+
 # Install possible required packages with:
 # $INVOKE_PACMAN install
-$INVOKE_PACMAN install tmux fzf neofetch htop git cmake gcc whois cowsay sl \
-        python3 python3-dev python3-pip ninja-build gettext npm ripgrep \
-        unzip curl build-essential telnet python3-venv
+for package in "${packages_global[@]}"; do
+    installing "$package"
+    $INVOKE_PACMAN install "$package"
+done
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    for package in "${packages_mac[@]}"; do
+        installing "$package"
+        brew install "$package"
+    done
+else
+    for package in "${packages_deb[@]}"; do
+        installing "$package"
+        sudo apt install "$package"
+    done
+fi
+
+# Install fzf from source
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
 
 # ------------------------------------------------------------------------------
 
@@ -58,26 +119,32 @@ fi
 
 # ------------------------------------------------------------------------------
 
-# 2. Hyperlinks
-# NOTE: different branches may not contain all the files
-# zshrc:
-ZSH_RC="$CURR_DIR/.zshrc"
-if [ -f "$ZSH_RC" ] && [ ! -L "$HOME/.zshrc" ];then
-    ln -s "$ZSH_RC" "$HOME/.zshrc"
-fi
-# Source it
-if [[ "$SHELL" == *"zsh"* ]]; then  # zsh is the shell
+# 2. Hyperlinks - don't overwrite files if already present
+
+make_link() {
+    if [ -f "$CURR_DIR/$1" ] && [ ! -L "$HOME/$1" ]; then
+        ln -s "$CURR_DIR/$1" "$HOME/$1"
+    fi
+}
+
+files_to_link=(
+    ".gitignore"
+    ".fzf.zsh"
+    ".fzf.bash"
+    ".p10k.zsh"
+    ".zshrc"
+    ".bashrc"
+)
+
+for fl in "${files_to_link[@]}"; do
+    make_link "$fl"
+done
+
+# Source shellrc
+if [[ "$SHELL" == *"zsh"* ]] && [[ -f "$HOME/.zshrc" ]]; then
     echo "Sourcing ZSHRC"
     source "$HOME/.zshrc"
-fi
-
-# bashrc:
-BASH_RC="$CURR_DIR/.bashrc"
-if [ -f "$BASH_RC" ] && [ ! -L "$HOME/.bashrc" ];then
-    ln -s "$BASH_RC" "$HOME/.bashrc"
-fi
-
-if [[ "$SHELL" == *"bash"* ]]; then  # bash is the shell
+elif [[ "$SHELL" == *bash* ]] && [[ -f "$HOME/.bashrc" ]]; then
     echo "Sourcing BASHRC"
     source "$HOME/.bashrc"
 fi
@@ -101,7 +168,7 @@ if [ -d "$CURR_DIR/nvim" ]; then
 
     echo "Installing Neovim"
     if [[ "$OSTYPE" == "darwin"* ]]; then
-        $INVOKE_PACMAN install nvim fd
+        $INVOKE_PACMAN install nvim
         ./macos-zathura.sh
     elif [[ "$OSTYPE" == "linux-gnu"* ]] && [ -f "apt-get -v" ]; then
         # Compile neovim from source
@@ -114,9 +181,6 @@ if [ -d "$CURR_DIR/nvim" ]; then
         echo "Building Neovim from source"
         make CMAKE_BUILD_TYPE=RelWithDebInfo
         cd build && cpack -G DEB && sudo dpkg -i nvim-linux64.deb
-
-        # Install required packages for extensions
-        sudo apt-get install -y fd-find zathura golang-go
     fi
 
     cd "$CURR_DIR"
@@ -130,6 +194,8 @@ if [ -d "$CURR_DIR/nvim" ]; then
         make all
         sudo make install
     fi
+
+    ./scripts/lazygit-install.sh
 
     mkdir "$HOME/.virtualenvs"
     cd "$HOME/.virtualenvs"

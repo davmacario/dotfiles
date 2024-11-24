@@ -1,8 +1,4 @@
-# Command(s) ran at the beginning
-if [ -n "$SSH_CLIENT" ];
-then
-    neofetch
-fi
+# ZSH configuration - davmacario
 
 # Setup secrets
 export SECRETS="$HOME/.keys"
@@ -15,23 +11,27 @@ fi
 # Create folder if not there
 if [ ! -d "$SECRETS" ]; then
     mkdir "$SECRETS"
+    touch "$SECRETS/.gitignore"
+    # No version control for the keys
+    echo "*" >> "$SECRETS/.gitignore"
+    echo "!.gitignore" >> "$SECRETS/.gitignore"
+    chmod 600 "$SECRETS/.gitignore"
     chmod 700 "$SECRETS"
     chown -R "$(whoami)" "$SECRETS"
-elif [ "$secrets_perm" != 600 ]; then
+elif [ "$secrets_perm" != 700 ]; then
     chmod 700 "$SECRETS"
     chown -R "$(whoami)" "$SECRETS"
-    # TODO: improve - need all files in there with permission and ownership
+    for file in "$SECRETS"/*; do
+        chmod 600 "$file"
+    done
 fi
 
-# Source secret keys file (not on version control)
-if [ -d "$SECRETS" ]; then
-    for FILE in "$SECRETS"/*; do
+# Source secret keys file
+# Checks that there are non-hidden files (because there will always be a .gitignore)
+if [ "$(ls "$SECRETS")" ]; then
+    for file in "$SECRETS"/*; do
         # echo "Sourcing $FILE"
-        source "$FILE"
-    done
-elif [ -d "$HOME/.keys" ]; then
-    for FILE in "$HOME/.keys"/*; do
-        source "$FILE"
+        [ -f "$file" ] && source "$file"
     done
 fi
 
@@ -42,23 +42,11 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-# Path to your oh-my-zsh installation.
+# Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+# Set name of the theme to load
 ZSH_THEME="powerlevel10k/powerlevel10k"
-
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
 CASE_SENSITIVE="true"
@@ -120,56 +108,51 @@ plugins=(
     zsh-autosuggestions
     zsh-syntax-highlighting
 )
+
 source $ZSH/oh-my-zsh.sh
-bindkey '^ ' autosuggest-accept  # Use ctrl+space to accept autosuggestion
+
+# Use ctrl+space to accept autosuggestion
+bindkey '^ ' autosuggest-accept
 
 # User configuration
 
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-PROMPT="%B%F{47}%n@%m%f%b:%F{cyan}%~ %#%f "
-
+# Aliases
 alias ls='ls --color=auto'
-export CLICOLOR=1
-export LS_COLORS='rs=0:di=00;36:ln=04;32:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;31:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.zip=04;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lz=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;33:*.rpm=01;31:*.jar=01;31:*.rar=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.axv=01;35:*.anx=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.axa=00;36:*.oga=00;36:*.spx=00;36:*.xspf=00;36:*.zsh=00;32';
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+alias ll="ls -l"
+alias llm="ll -rt"
+alias ls='ls --color=auto'
 alias python=/usr/bin/python3
-
 alias jlab="jupyter lab --port=8899"
+alias k='kubectl'
 alias cowsaysomething="fortune | cowsay"
 alias tetris=/snap/bin/tetris-thefenriswolf.tetris
 alias matlab="~/MATLAB/R2022a/bin/matlab"
 alias vim="nvim"
 alias bat="batcat"
 alias tmux="tmux -u"
+alias bat="batcat"
+alias ff="fd --type f --hidden --exclude .git | fzf-tmux -p --preview \"batcat --color=always {}\" --reverse"
+alias gg="lazygit" # Override git gui
+alias gcl='gitlab-ci-local'
 
+#
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Env variables
 export GUROBI_HOME="/home/dmacario/gurobi1001/linux64"
 export PATH="${PATH}:${GUROBI_HOME}/bin"
 export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${GUROBI_HOME}/lib"
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/go/bin:$PATH"
+export GO111MODULE=on
+export PATH="$HOME/.fnm:$PATH"
+eval "$(fnm env)"
+export CLICOLOR=1
+export LS_COLORS='rs=0:di=00;36:ln=04;32:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;31:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.zip=04;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lz=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;33:*.rpm=01;31:*.jar=01;31:*.rar=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.axv=01;35:*.anx=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.axa=00;36:*.oga=00;36:*.spx=00;36:*.xspf=00;36:*.zsh=00;32';
+# Set bat theme
 export BAT_THEME="gruvbox-dark"
 export PATH=/usr/local/cuda-12.4/bin${PATH:+:${PATH}}
 export LD_LIBRARY_PATH=/usr/local/cuda-12.4/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
@@ -178,26 +161,51 @@ export LC_ALL=C
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
-export GITUSER="davmacario"
-export GHREPOS="$HOME/github/$GITUSER"
-export DOTFILES="$GHREPOS/dotfiles_mac"
-
+# Github config
+export GHUSER="davmacario"
+export GHDIR="$HOME/github"
+export GHREPOS="$GHDIR/$GHUSER"
+export DOTFILES="$GHREPOS/dotfiles"
 # Add local bin to path
 export PATH="$PATH:$HOME/.local/bin"
-
 # Go executables
-export PATH="$PATH:$HOME/go/bin"
-
+export PATH="$PATH:/usr/local/go/bin"
 # Configuration
 export XDG_CONFIG_HOME="$HOME/.config"
-
-# Rust setup
-source "$HOME/.cargo/env"
-
+# Default editor
+export EDITOR="nvim"
+# kubectl setup
+export KUBECONFIG="$HOME/.kube/config"
 export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# DBus settings
-export DBUS_SESSION_BUS_ADDRESS="unix:path=$DBUS_LAUNCHD_SESSION_BUS_SOCKET"
-export EDITOR="nvim"
+# Some Lua/Nvim 0.10 thing
+export PATH="$PATH:$HOME/.local/share/nvim/lazy-rocks/hererocks/bin"
+
+# Getting around WSL and copy-pasting to/from system clipboard
+export DISPLAY=:0
+
+# Add windows executables to path
+export PATH="$PATH:/mnt/c/Windows/system32"
+
+# Use Nvidia GPU
+export MESA_D3D12_DEFAULT_ADAPTER_NAME=nvidia
+
+# Gitlab CI Local
+NEEDS=true
+
+# Manpage colors
+export MANPAGER="less -R --use-color -Dd+r -Du+b"
+
+# Personal scripts - TODO: download repo in setup.sh script
+[ -d "$GHREPOS/bash-scripts/src" ] && export PATH="$PATH:$GHREPOS/bash-scripts/src"
+
+################
+setopt histignorealldups sharehistory
+HISTSIZE=1000
+SAVEHIST=1000
+HISTFILE=~/.zsh_history
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/bin/terraform terraform

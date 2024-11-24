@@ -1,3 +1,5 @@
+local api = vim.api
+local utils = require("dmacario.utils")
 -- Key mappings
 
 vim.g.mapleader = " "
@@ -10,10 +12,10 @@ vim.keymap.set("n", ",", "za", { desc = "Code folding with comma" })
 vim.keymap.set("n", "<leader>v", vim.cmd.vsplit)
 vim.keymap.set("n", "<leader>s", vim.cmd.split)
 vim.keymap.set(
-  "n",
-  "<leader>q",
-  ":bp|bd#<CR>",
-  { noremap = true, silent = true, desc = "Close current buffer without losing split" }
+	"n",
+	"<leader>bq",
+	":bp|bd#<CR>",
+	{ noremap = true, silent = true, desc = "Close current buffer without losing split" }
 )
 
 -- Navigating split view
@@ -22,14 +24,13 @@ vim.keymap.set("n", "<leader>l", "<C-w>l")
 vim.keymap.set("n", "<leader>j", "<C-w>j")
 vim.keymap.set("n", "<leader>k", "<C-w>k")
 -- Jump to last in direction
-local api = vim.api
 vim.keymap.set("n", "<leader>L", function()
-  local wins = api.nvim_tabpage_list_wins(0)
-  api.nvim_set_current_win(wins[#wins])
+	local wins = api.nvim_tabpage_list_wins(0)
+	api.nvim_set_current_win(wins[#wins])
 end)
 vim.keymap.set("n", "<leader>H", function()
-  local wins = api.nvim_tabpage_list_wins(0)
-  api.nvim_set_current_win(wins[1])
+	local wins = api.nvim_tabpage_list_wins(0)
+	api.nvim_set_current_win(wins[1])
 end)
 
 -- Remap keys for resizing splits
@@ -41,8 +42,8 @@ vim.keymap.set("n", "<leader>-", "<C-w>2-")
 vim.keymap.set("n", "<leader>_", "<C-w>2-") -- Force of habit
 
 -- Remap keys for navigating tabs
-vim.keymap.set("n", "H", ":bp<CR>")
-vim.keymap.set("n", "L", ":bn<CR>")
+vim.keymap.set("n", "H", vim.cmd.bp)
+vim.keymap.set("n", "L", vim.cmd.bn)
 
 -- Move selected lines while in visual mode
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -78,3 +79,10 @@ vim.keymap.set("n", "<leader>md", "0f[lrx", { desc = "Mark Done" })
 vim.keymap.set("n", "<leader>rm", "0f[lr ", { desc = "Remove checkMark" })
 vim.keymap.set("n", "<leader>to", "o- [ ] ", { desc = "Open new TODO: item below current line" })
 vim.keymap.set("n", "<leader>tO", "O- [ ] ", { desc = "Open new TODO: item below current line" })
+
+-- Session management
+vim.keymap.set("n", "<leader>se", function()
+  local session_name = utils.git_branch_session_name()
+	vim.cmd("mksession! " .. session_name)
+  vim.print("Created " .. session_name)
+end, { desc = "Create Vim session file with git branch name (if inside Git repo)" })

@@ -1,22 +1,5 @@
 local icons = require("dmacario.style.icons")
-
--- Check the Ollama status and return the corresponding icon
-local function get_ollama_status_icon()
-	if not package.loaded["ollama"] then
-		return icons.ollama.not_loaded -- .. " ~ not loaded"
-	end
-
-	if require("ollama").status ~= nil then
-		local status = require("ollama").status()
-		if status == "IDLE" then
-			return icons.ollama.idle -- .. " ~ idle" -- nf-md-robot-outline
-		elseif status == "WORKING" then
-			return icons.ollama.busy -- .. " ~ busy" -- nf-md-robot
-		end
-	else
-		return icons.ollama.unreachable -- .. " ~ unreachable"
-	end
-end
+local utils = require("dmacario.utils")
 
 -- Function to prevent the winbar to disappear by ensuring there is always
 -- something to display
@@ -75,9 +58,9 @@ return {
 				always_divide_middle = true,
 				globalstatus = false,
 				refresh = {
-					statusline = 1000,
-					tabline = 1000,
-					winbar = 1000,
+					statusline = 300,
+					tabline = 300,
+					winbar = 300,
 				},
 			},
 			sections = {
@@ -108,7 +91,7 @@ return {
 					"searchcount",
 				},
 				lualine_x = {
-					get_ollama_status_icon,
+					utils.get_ollama_status_icon,
 					"encoding",
 					{ "fileformat", symbols = { unix = icons.os_icon } },
 				},
@@ -124,8 +107,8 @@ return {
 				lualine_z = {},
 			},
 			tabline = {},
-			winbar = { lualine_c = { breadcrumbs } },
-			inactive_winbar = { lualine_c = { breadcrumbs } },
+			winbar = { lualine_c = { utils.breadcrumbs } },
+			inactive_winbar = { lualine_c = { utils.breadcrumbs } },
 			extensions = { "fugitive", "trouble" },
 		})
 	end,

@@ -37,6 +37,7 @@ Temporary Items
 
 # Session
 Session.vim
+Session*.vim
 Sessionx.vim
 
 # Temporary
@@ -52,3 +53,9 @@ packer_compiled.lua
 
 # Lazy json file
 lazy-lock.json
+
+# log files
+*.log
+
+# NVIM Spellcheck folder
+nvim/spell/

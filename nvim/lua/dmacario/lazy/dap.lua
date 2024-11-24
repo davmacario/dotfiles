@@ -10,13 +10,12 @@ return {
 				opts = {},
 				config = function(_, opts)
 					require("dapui").setup(opts)
-					vim.keymap.set("n", "<leader>dt", ":lua require('dapui').toggle()<CR>", { noremap = true })
-					vim.keymap.set(
-						"n",
-						"<leader>dr",
-						":lua require('dapui').open({reset=true})<CR>",
-						{ noremap = true }
-					)
+					vim.keymap.set("n", "<leader>dt", function()
+						require("dapui").toggle()
+					end, { noremap = true })
+					vim.keymap.set("n", "<leader>dr", function()
+						require("dapui").open({ reset = true })
+					end, { noremap = true })
 				end,
 			},
 			{

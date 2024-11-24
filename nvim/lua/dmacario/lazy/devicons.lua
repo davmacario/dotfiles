@@ -1,13 +1,4 @@
--- Get the file extension (custom)
-local function get_special_ext(name)
-	if name:find(".*%.gitlab%-ci.*%.yml") then -- Match <>.gitlab-ci<>.yml
-		return "gitlab-ci.yml" -- Return `gitlab-ci.yml` as the extension
-	end
-	if name:find("^Dockerfile.*") or name:find(".*.Dockerfile$") then
-		return "Dockerfile"
-	end
-	return nil
-end
+local utils = require("dmacario.utils")
 
 return {
 	"nvim-tree/nvim-web-devicons",
@@ -15,11 +6,11 @@ return {
 		local devicons = require("nvim-web-devicons")
 		local get_icon = devicons.get_icon
 		devicons.get_icon = function(name, ext, opts)
-			return get_icon(name, get_special_ext(name) or ext, opts)
+			return get_icon(name, utils.get_special_ext(name) or ext, opts)
 		end
 		local get_icon_colors = devicons.get_icon_colors
 		devicons.get_icon_colors = function(name, ext, opts)
-			return get_icon_colors(name, get_special_ext(name) or ext, opts)
+			return get_icon_colors(name, utils.get_special_ext(name) or ext, opts)
 		end
 		devicons.setup({
 			strict = true,

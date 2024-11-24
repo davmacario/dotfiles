@@ -1,0 +1,7 @@
+[user]
+	name = Davide Macario
+	email = dav.macario@gmail.com
+[credential "https://github.com"]
+	helper = !/usr/bin/gh auth git-credential
+[includeIf "gitdir:/home/dmacario/github/"]
+    path = "/home/dmacario/github/.gitconfig"

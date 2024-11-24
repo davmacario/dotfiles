@@ -1,6 +1,10 @@
-# ZSH configuration - davmacario
+# Command(s) ran at the beginning
+if [ -n "$SSH_CLIENT" ];
+then
+    neofetch
+fi
 
-# Setup secrets
+# Setup secret keys/passwords - private folder
 export SECRETS="$HOME/.keys"
 # Evaluate permissions on secrets folder - syntax changes between Linux and Mac
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -11,8 +15,8 @@ fi
 # Create folder if not there
 if [ ! -d "$SECRETS" ]; then
     mkdir "$SECRETS"
-    touch "$SECRETS/.gitignore"
     # No version control for the keys
+    touch "$SECRETS/.gitignore"
     echo "*" >> "$SECRETS/.gitignore"
     echo "!.gitignore" >> "$SECRETS/.gitignore"
     chmod 600 "$SECRETS/.gitignore"
@@ -21,9 +25,12 @@ if [ ! -d "$SECRETS" ]; then
 elif [ "$secrets_perm" != 700 ]; then
     chmod 700 "$SECRETS"
     chown -R "$(whoami)" "$SECRETS"
-    for file in "$SECRETS"/*; do
-        chmod 600 "$file"
-    done
+    # Source secret keys file
+    if [ "$(ls "$SECRETS")" ]; then
+        for file in "$SECRETS"/*; do
+            chmod 600 "$file"
+        done
+    fi
 fi
 
 # Source secret keys file
@@ -51,13 +58,13 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Path to your Oh My Zsh installation.
+# Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-# Set name of the theme to load
+# Theme
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
-# Uncomment the following line to use case-sensitive completion.
+# Case-sensitive completion.
 CASE_SENSITIVE="true"
 
 # Which plugins would you like to load?
@@ -78,19 +85,12 @@ plugins=(
     brew
     macos
 )
-
 source $ZSH/oh-my-zsh.sh
-
 # Use ctrl+space to accept autosuggestion
 bindkey '^ ' autosuggest-accept
 
 # User configuration
-
-# Aliases
-alias ls='ls --color=auto'
-alias ll="ls -l"
-alias llm="ll -rt"
-
+alias ls='ls -G'
 alias vim='nvim'
 alias k='kubectl'
 alias cowsaysomething="fortune | cowsay"
@@ -121,7 +121,6 @@ export XDG_CONFIG_HOME="$HOME/.config"
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# Env variables
 export PATH="$HOME/go/bin:$PATH"
 export GO111MODULE=on
 
@@ -138,11 +137,16 @@ export LC_ALL=C
 
 # Add local bin to path
 export PATH="$PATH:$HOME/.local/bin"
+
 # Go executables
 export PATH="$PATH:$HOME/go/bin:/usr/local/go/bin"
 
 # kubectl setup
 export KUBECONFIG="$HOME/.kube/config"
+
+# Rust setup
+source "$HOME/.cargo/env"
+
 export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

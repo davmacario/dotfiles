@@ -171,7 +171,7 @@ export PATH="$PATH:$HOME/.rvm/bin"
 setopt histignorealldups sharehistory
 HISTSIZE=100000
 SAVEHIST=100000
-HISTFILE="~/.zsh_history"
+HISTFILE="$HOME/.zsh_history"
 
 autoload -U +X bashcompinit && bashcompinit
 

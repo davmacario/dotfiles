@@ -90,7 +90,7 @@ source $ZSH/oh-my-zsh.sh
 bindkey '^ ' autosuggest-accept
 
 # User configuration
-alias ls='ls -G'
+alias ls='ls --color=auto'
 alias ll="ls -l"
 alias llm="ll -rt"
 alias vim='nvim'

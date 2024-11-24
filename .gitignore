@@ -59,3 +59,6 @@ lazy-lock.json
 
 # NVIM Spellcheck folder
 nvim/spell/
+
+# Tmux plugins
+tmux/plugins/

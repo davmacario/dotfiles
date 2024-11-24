@@ -91,6 +91,8 @@ bindkey '^ ' autosuggest-accept
 
 # User configuration
 alias ls='ls -G'
+alias ll="ls -l"
+alias llm="ll -rt"
 alias vim='nvim'
 alias k='kubectl'
 alias cowsaysomething="fortune | cowsay"

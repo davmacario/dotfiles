@@ -56,6 +56,7 @@ autocmd("Filetype", {
 		"css",
 		"scss",
 		"javascript",
+    "javascriptreact",
 		"typescript",
 		"yaml",
 		"yml",

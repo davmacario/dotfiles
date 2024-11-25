@@ -95,6 +95,7 @@ alias ll="ls -l"
 alias llm="ll -rt"
 alias vim='nvim'
 alias k='kubectl'
+alias tf='terraform'
 alias cowsaysomething="fortune | cowsay"
 alias tmux="tmux -u"
 alias gg="lazygit" # Override git gui

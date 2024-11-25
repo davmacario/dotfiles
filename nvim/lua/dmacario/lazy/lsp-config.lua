@@ -53,6 +53,7 @@ return {
 					"efm",
 					"sqlls",
 					"terraformls",
+					"yamlls",
 				},
 			})
 		end,

@@ -11,10 +11,10 @@ vim.keymap.set("n", ",", "za", { desc = "Code folding with comma" })
 vim.keymap.set("n", "<leader>v", vim.cmd.vsplit)
 vim.keymap.set("n", "<leader>s", vim.cmd.split)
 vim.keymap.set(
-  "n",
-  "<leader>bq",
-  ":bp|bd#<CR>",
-  { noremap = true, silent = true, desc = "Close current buffer without losing split" }
+	"n",
+	"<leader>bq",
+	":bp|bd#<CR>",
+	{ noremap = true, silent = true, desc = "Close current buffer without losing split" }
 )
 
 -- Navigating split view
@@ -24,12 +24,12 @@ vim.keymap.set("n", "<leader>j", "<C-w>j")
 vim.keymap.set("n", "<leader>k", "<C-w>k")
 -- Jump to last in direction
 vim.keymap.set("n", "<leader>L", function()
-  local wins = api.nvim_tabpage_list_wins(0)
-  api.nvim_set_current_win(wins[#wins])
+	local wins = api.nvim_tabpage_list_wins(0)
+	api.nvim_set_current_win(wins[#wins])
 end)
 vim.keymap.set("n", "<leader>H", function()
-  local wins = api.nvim_tabpage_list_wins(0)
-  api.nvim_set_current_win(wins[1])
+	local wins = api.nvim_tabpage_list_wins(0)
+	api.nvim_set_current_win(wins[1])
 end)
 
 -- Remap keys for resizing splits
@@ -81,17 +81,17 @@ vim.keymap.set("n", "<leader>tO", "O- [ ] ", { desc = "Open new TODO: item below
 
 -- Session management
 vim.keymap.set("n", "<leader>se", function()
-  local session_name = utils.git_branch_session_name()
-  vim.cmd("mksession! " .. session_name)
-  vim.print("Created " .. session_name)
+	local session_name = utils.git_branch_session_name()
+	vim.cmd("mksession! " .. session_name)
+	vim.print("Created " .. session_name)
 end, { desc = "Create Vim session file with git branch name (if inside Git repo)" })
 
 vim.keymap.set("n", "<leader>sr", function()
-  local session_name = utils.git_branch_session_name()
-  local out = vim.system({ "rm", session_name })
-  if vim.v.shell_error ~= 0 then  -- FIXME: not working...
-    print("Unable to delete session file " .. session_name .. ". " .. out)
-  else
-    print("Session file deleted successfully")
-  end
+	local session_name = utils.git_branch_session_name()
+	local out = vim.system({ "rm", session_name })
+	if vim.v.shell_error ~= 0 then -- FIXME: not working...
+		print("Unable to delete session file " .. session_name .. ". " .. out)
+	else
+		print("Session file deleted successfully")
+	end
 end, { desc = "Remove Vim session file for current branch" })

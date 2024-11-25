@@ -132,7 +132,6 @@ if [ -x "$(command -v fnm)" ]; then
 fi
 
 export CLICOLOR=1
-export TERM="xterm-256color"
 
 # Set bat theme
 export BAT_THEME="gruvbox-dark"

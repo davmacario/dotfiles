@@ -68,6 +68,7 @@ autocmd("Filetype", {
 		"cc",
 		".h",
 		".hpp",
+    "toml",
 	},
 	command = "setlocal expandtab shiftwidth=2 tabstop=2",
 })

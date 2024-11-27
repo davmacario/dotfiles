@@ -15,7 +15,6 @@ return {
 		dependencies = { "vhyrro/luarocks.nvim" },
 	},
 	"nvim-tree/nvim-web-devicons",
-	"romgrk/barbar.nvim",
 	"Vimjas/vim-python-pep8-indent",
 	"simrat39/rust-tools.nvim",
 }

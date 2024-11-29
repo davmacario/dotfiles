@@ -34,6 +34,8 @@ let mapleader = " "
 " Remap keys for split-view
 nnoremap <leader>h <c-w>h
 nnoremap <leader>l <c-w>l
+nnoremap <leader>k <c-w>k
+nnoremap <leader>j <c-w>j
 nnoremap <leader>v :vsplit<CR>
 nnoremap <leader>s :split<CR>
 " Remap keys for navigating tabs

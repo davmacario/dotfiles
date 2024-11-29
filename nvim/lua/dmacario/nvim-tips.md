@@ -19,3 +19,14 @@ Some nice tips to keep handy when using neovim.
 - Use (shift + )tab to select items, and `alt + q` to add the selected items to
   a quickfix list
 - Custom mapping: `<leader>fr`, to resume last Telescope search
+
+## Nice keymaps
+
+- `<leader>R` (both normal and visual): replace word under cursor/selected
+- `<leader>td`: create TODO comment
+- `<leader>to`: create todo in next line
+- `<leader>tO`: create todo in prev. line
+- `<leader>md`: mark todo in current line as done
+- `<leader>rm`: mark todo in current line as not done
+- `<leader>se`: create session file (with smart Git name)
+- `<leader>sr`: remove session file (with smart Git name)

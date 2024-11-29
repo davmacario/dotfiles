@@ -37,8 +37,8 @@ nnoremap <leader>l <c-w>l
 nnoremap <leader>v :vsplit<CR>
 nnoremap <leader>s :split<CR>
 " Remap keys for navigating tabs
-nnoremap H gT
-nnoremap L gt
+nnoremap H :bn<CR>
+nnoremap L :bp<CR>
 " Colorscheme
 colorscheme retrobox
 set background=dark

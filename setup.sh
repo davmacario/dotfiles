@@ -70,6 +70,7 @@ packages_global=(
     build-essential
     telnet
     python3-venv
+    shellcheck
 )
 packages_mac=(
     bat

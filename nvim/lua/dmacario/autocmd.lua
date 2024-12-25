@@ -56,11 +56,10 @@ autocmd("Filetype", {
 		"css",
 		"scss",
 		"javascript",
-    "javascriptreact",
+		"javascriptreact",
 		"typescript",
 		"yaml",
 		"yml",
-		"lua",
 		"json",
 		"markdown",
 		"c",
@@ -68,9 +67,27 @@ autocmd("Filetype", {
 		"cc",
 		".h",
 		".hpp",
-    "toml",
+		"toml",
 	},
 	command = "setlocal expandtab shiftwidth=2 tabstop=2",
+})
+
+augroup("luaIndent", { clear = true })
+autocmd("FileType", {
+	group = "luaIndent",
+	pattern = {
+		"lua",
+	},
+	command = "setlocal noexpandtab shiftwidth=2 tabstop=2",
+})
+
+augroup("golangIndent", { clear = true })
+autocmd("Filetype", {
+	group = "golangIndent",
+	pattern = {
+		"go",
+	},
+	command = "setlocal noexpandtab shiftwidth=4 tabstop=4",
 })
 
 -- Treat Jenkinsfile as groovy
@@ -101,9 +118,9 @@ autocmd({ "Filetype", "BufRead", "BufNewFile" }, {
 autocmd("BufWritePre", {
 	pattern = { "*" },
 	callback = function()
-    local pos = vim.fn.getpos(".")
+		local pos = vim.fn.getpos(".")
 		vim.cmd([[%s/\s\+$//e]])
-    vim.fn.setpos(".", pos)
+		vim.fn.setpos(".", pos)
 	end,
 })
 

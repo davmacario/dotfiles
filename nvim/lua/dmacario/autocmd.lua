@@ -56,10 +56,10 @@ autocmd("Filetype", {
 		"css",
 		"scss",
 		"javascript",
+		"javascriptreact",
 		"typescript",
 		"yaml",
 		"yml",
-		"lua",
 		"json",
 		"markdown",
 		"c",
@@ -73,6 +73,24 @@ autocmd("Filetype", {
 		"terraform",
 	},
 	command = "setlocal expandtab shiftwidth=2 tabstop=2",
+})
+
+augroup("luaIndent", { clear = true })
+autocmd("FileType", {
+	group = "luaIndent",
+	pattern = {
+		"lua",
+	},
+	command = "setlocal noexpandtab shiftwidth=2 tabstop=2",
+})
+
+augroup("golangIndent", { clear = true })
+autocmd("Filetype", {
+	group = "golangIndent",
+	pattern = {
+		"go",
+	},
+	command = "setlocal noexpandtab shiftwidth=4 tabstop=4",
 })
 
 -- Treat Jenkinsfile as groovy

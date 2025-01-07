@@ -67,7 +67,10 @@ autocmd("Filetype", {
 		"cc",
 		".h",
 		".hpp",
-    "toml",
+		"toml",
+		"tfvars",
+		"tf",
+		"terraform",
 	},
 	command = "setlocal expandtab shiftwidth=2 tabstop=2",
 })
@@ -100,9 +103,9 @@ autocmd({ "Filetype", "BufRead", "BufNewFile" }, {
 autocmd("BufWritePre", {
 	pattern = { "*" },
 	callback = function()
-    local pos = vim.fn.getpos(".")
+		local pos = vim.fn.getpos(".")
 		vim.cmd([[%s/\s\+$//e]])
-    vim.fn.setpos(".", pos)
+		vim.fn.setpos(".", pos)
 	end,
 })
 

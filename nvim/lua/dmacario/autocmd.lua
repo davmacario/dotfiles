@@ -68,6 +68,10 @@ autocmd("Filetype", {
 		".h",
 		".hpp",
 		"toml",
+		".tfvars",
+		".tf",
+		"terraform",
+		"terraform-vars",
 	},
 	command = "setlocal expandtab shiftwidth=2 tabstop=2",
 })

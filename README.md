@@ -146,6 +146,7 @@ Here are my custom keybindings!
   - `<leader>fb`: finding in the currently open buffers
   - `<leader>fr`: resume last Telescope search
   - [_not really a keymap_] `ctrl q` (when inside telescope): store search result in quickfix buffer
+  - [_not really a keymap_] `alt q` (when inside telescope): store _selected_ search result in quickfix buffer
 - Harpoon:
   - `<leader>a`: add file to Harpoon
   - `Ctrl e`: toggle quick menu

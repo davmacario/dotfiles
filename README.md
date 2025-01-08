@@ -113,7 +113,7 @@ Here are my custom keybindings!
   - `<leader>Y`: yank (until end of line) to system clipboard
 - Extra utilities:
   - `<leader>x`: make current file executable (`chmod`)
-  - `<leader>R`: replace word under cursor in current buffer
+  - `<leader>R`: replace word under cursor in current buffer (both normal and visual mode)
 - LSP:
   - `gd`: go to definition (Use `Ctrl o` to get back)
   - `gr`: go to references (in split)

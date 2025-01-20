@@ -53,6 +53,7 @@ return {
 					"efm",
 					"sqlls",
 					"terraformls",
+					"tflint",
 					"yamlls",
 				},
 			})
@@ -217,6 +218,7 @@ return {
 				},
 			})
 			lspconfig.terraformls.setup({ capabilities = capabilities, on_attach = on_attach })
+			lspconfig.tflint.setup({ capabilities = capabilities, on_attach = on_attach })
 			lspconfig.taplo.setup({ capabilities = capabilities, on_attach = on_attach })
 		end,
 	},

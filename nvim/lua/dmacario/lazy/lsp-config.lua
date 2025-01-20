@@ -20,74 +20,74 @@ return {
           -- - Float in the range of 0-1 for a percentage of screen height.
           height = 0.9,
 
-          icons = {
-            package_installed = "",
-            package_pending = "",
-            package_uninstalled = "",
-          },
-        },
-      })
-    end,
-  },
-  {
-    "williamboman/mason-lspconfig.nvim",
-    config = function()
-      require("mason-lspconfig").setup({
-        ensure_installed = {
-          "cssls",
-          "eslint",
-          "html",
-          "jsonls",
-          "pyright",
-          "jedi_language_server",
-          "bashls",
-          "dockerls",
-          "ltex",
-          "texlab",
-          "marksman",
-          "lua_ls",
-          "rust_analyzer",
-          "gopls",
-          "clangd",
-          "cmake",
-          "efm",
-          "sqlls",
-          "terraformls",
-          "arduino_language_server",
-          "yamlls",
-        },
-      })
-    end,
-  },
-  {
-    "neovim/nvim-lspconfig",
-    dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      {
-        "SmiteshP/nvim-navbuddy",
-        dependencies = {
-          "SmiteshP/nvim-navic",
-          "MunifTanjim/nui.nvim",
-        },
-      },
-    },
-    config = function()
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
-      -- local opts = {buffer = bufnr, remap = false}
-      -- Keymaps
-      vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
-      vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
-      vim.keymap.set("n", "gr", vim.lsp.buf.references, {})
-      vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
-      vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol, {})
-      vim.keymap.set("n", "[d", function()
-        vim.diagnostic.jump({ count = 1 })
-      end, { desc = "Jump to next diagnostic item" })
-      vim.keymap.set("n", "]d", function()
-        vim.diagnostic.jump({ count = -1 })
-      end, { desc = "Jump to previous diagnostic item" })
-      vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {})
-      vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, {})
+					icons = {
+						package_installed = "",
+						package_pending = "",
+						package_uninstalled = "",
+					},
+				},
+			})
+		end,
+	},
+	{
+		"williamboman/mason-lspconfig.nvim",
+		config = function()
+			require("mason-lspconfig").setup({
+				ensure_installed = {
+					"cssls",
+					"eslint",
+					"html",
+					"jsonls",
+					"pyright",
+					"jedi_language_server",
+					"bashls",
+					"dockerls",
+					"ltex",
+					"texlab",
+					"marksman",
+					"lua_ls",
+					"rust_analyzer",
+					"gopls",
+					"clangd",
+					"cmake",
+					"efm",
+					"sqlls",
+					"terraformls",
+					"tflint",
+					"yamlls",
+				},
+			})
+		end,
+	},
+	{
+		"neovim/nvim-lspconfig",
+		dependencies = {
+			"hrsh7th/cmp-nvim-lsp",
+			{
+				"SmiteshP/nvim-navbuddy",
+				dependencies = {
+					"SmiteshP/nvim-navic",
+					"MunifTanjim/nui.nvim",
+				},
+			},
+		},
+		config = function()
+			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+			-- local opts = {buffer = bufnr, remap = false}
+			-- Keymaps
+			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
+			vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
+			vim.keymap.set("n", "gr", vim.lsp.buf.references, {})
+			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
+			vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol, {})
+			vim.keymap.set("n", "[d", function()
+				vim.diagnostic.jump({ count = 1 })
+			end, { desc = "Jump to next diagnostic item" })
+			vim.keymap.set("n", "]d", function()
+				vim.diagnostic.jump({ count = -1 })
+			end, { desc = "Jump to previous diagnostic item" })
+			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {})
+			vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, {})
 
       -- Border of 'hover' box
       vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
@@ -179,56 +179,47 @@ return {
         on_attach = on_attach,
       })
 
-      lspconfig.rust_analyzer.setup({
-        capabilities = capabilities,
-        cmd = {
-          "rustup",
-          "run",
-          "stable",
-          "rust-analyzer",
-        },
-        on_attach = on_attach,
-      })
-      lspconfig.gopls.setup({ capabilities = capabilities, on_attach = on_attach })
-      lspconfig.clangd.setup({ capabilities = capabilities, on_attach = on_attach })
-      lspconfig.cmake.setup({ capabilities = capabilities, on_attach = on_attach })
-      lspconfig.efm.setup({
-        capabilities = capabilities,
-        settings = {
-          rootMarkers = { "./git" },
-          languages = {
-            lua = {
-              { formatCommand = "lua-format -i", formatStdin = true },
-            },
-          },
-        },
-      })
-      lspconfig.arduino_language_server.setup({
-        capabilities = capabilities,
-        on_attach = on_attach,
-        on_new_config = function(config, root_dir)
-          local fqbn = {
-            [vim.env.HOME .. "/programming/Arduino/blink_builtin_led"] = "esp32:esp32:lilygo_t_display_s3",
-          }
-        end,
-      })
-      lspconfig.yamlls.setup({
-        capabilities = capabilities,
-        on_attach = on_attach,
-        filetypes = { "yaml", "yml" },
-        settings = {
-          yaml = {
-            hover = true,
-            completion = true,
-            customTags = {
-              "!reference sequence",
-            },
-          },
-        },
-      })
-      lspconfig.terraformls.setup({ capabilities = capabilities, on_attach = on_attach })
-      lspconfig.taplo.setup({ capabilities = capabilities, on_attach = on_attach })
-      lspconfig.ts_ls.setup({ capabilities = capabilities, on_attach = on_attach })
-    end,
-  },
+			lspconfig.rust_analyzer.setup({
+				capabilities = capabilities,
+				cmd = {
+					"rustup",
+					"run",
+					"stable",
+					"rust-analyzer",
+				},
+				on_attach = on_attach,
+			})
+			lspconfig.gopls.setup({ capabilities = capabilities, on_attach = on_attach })
+			lspconfig.clangd.setup({ capabilities = capabilities, on_attach = on_attach })
+			lspconfig.cmake.setup({ capabilities = capabilities, on_attach = on_attach })
+			lspconfig.efm.setup({
+				capabilities = capabilities,
+				settings = {
+					rootMarkers = { "./git" },
+					languages = {
+						lua = {
+							{ formatCommand = "lua-format -i", formatStdin = true },
+						},
+					},
+				},
+			})
+			lspconfig.yamlls.setup({
+				capabilities = capabilities,
+				on_attach = on_attach,
+				filetypes = { "yaml", "yml" },
+				settings = {
+					yaml = {
+						hover = true,
+						completion = true,
+						customTags = {
+							"!reference sequence",
+						},
+					},
+				},
+			})
+			lspconfig.terraformls.setup({ capabilities = capabilities, on_attach = on_attach })
+			lspconfig.tflint.setup({ capabilities = capabilities, on_attach = on_attach })
+			lspconfig.taplo.setup({ capabilities = capabilities, on_attach = on_attach })
+		end,
+	},
 }

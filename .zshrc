@@ -84,6 +84,7 @@ plugins=(
     python
     brew
     macos
+    terraform
 )
 source $ZSH/oh-my-zsh.sh
 # Use ctrl+space to accept autosuggestion

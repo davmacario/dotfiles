@@ -43,13 +43,17 @@ if [ "$(ls "$SECRETS")" ]; then
 fi
 
 # Homebrew setup
-if [[ $(uname -m) == 'arm64' ]]; then
-    BREWPATH="/opt/homebrew/bin"
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    if [[ $(uname -m) == 'arm64' ]]; then
+        BREWPATH="/opt/homebrew/bin"
+    else
+        BREWPATH="/usr/local/bin"
+    fi
 else
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
     BREWPATH="/usr/local/bin"
 fi
 export PATH=$BREWPATH:$PATH
-
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]

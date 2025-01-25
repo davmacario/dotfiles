@@ -1,24 +1,24 @@
 return {
-  {
-    "williamboman/mason.nvim",
-    config = function()
-      require("mason").setup({
-        ui = {
-          -- Whether to automatically check for new versions when opening the :Mason window.
-          check_outdated_packages_on_open = true,
+	{
+		"williamboman/mason.nvim",
+		config = function()
+			require("mason").setup({
+				ui = {
+					-- Whether to automatically check for new versions when opening the :Mason window.
+					check_outdated_packages_on_open = true,
 
-          -- The border to use for the UI window. Accepts same border values as |nvim_open_win()|.
-          border = "rounded",
+					-- The border to use for the UI window. Accepts same border values as |nvim_open_win()|.
+					border = "rounded",
 
-          -- Width of the window. Accepts:
-          -- - Integer greater than 1 for fixed width.
-          -- - Float in the range of 0-1 for a percentage of screen width.
-          width = 0.8,
+					-- Width of the window. Accepts:
+					-- - Integer greater than 1 for fixed width.
+					-- - Float in the range of 0-1 for a percentage of screen width.
+					width = 0.8,
 
-          -- Height of the window. Accepts:
-          -- - Integer greater than 1 for fixed height.
-          -- - Float in the range of 0-1 for a percentage of screen height.
-          height = 0.9,
+					-- Height of the window. Accepts:
+					-- - Integer greater than 1 for fixed height.
+					-- - Float in the range of 0-1 for a percentage of screen height.
+					height = 0.9,
 
 					icons = {
 						package_installed = "",
@@ -89,95 +89,95 @@ return {
 			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {})
 			vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, {})
 
-      -- Border of 'hover' box
-      vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-        border = "rounded",
-      })
+			-- Border of 'hover' box
+			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+				border = "rounded",
+			})
 
-      -- Setup of the individual servers
-      local lspconfig = require("lspconfig")
-      local on_attach = function(client, bufnr)
-        -- if client.server_capabilities.documentSymbolProvider then
-        -- end
-        local navic = require("nvim-navic")
-        navic.attach(client, bufnr)
-      end
-      lspconfig.cssls.setup({ capabilities = capabilities, on_attach = on_attach })
-      lspconfig.eslint.setup({ capabilities = capabilities })
-      lspconfig.html.setup({ capabilities = capabilities, on_attach = on_attach })
-      lspconfig.jsonls.setup({ capabilities = capabilities, on_attach = on_attach })
-      lspconfig.pyright.setup({ capabilities = capabilities, on_attach = on_attach })
-      lspconfig.jedi_language_server.setup({ capabilities = capabilities })
-      lspconfig.bashls.setup({
-        capabilities = capabilities,
-        filetypes = { ".sh", "bash", ".bashrc", ".zshrc", ".conf", "sh", "zsh" },
-        settings = {
-          bashIde = {
-            -- Disable shellcheck in bash-language-server (conflicting)
-            shellcheckPath = "",
-          },
-        },
-        on_attach = on_attach,
-      })
-      lspconfig.dockerls.setup({ capabilities = capabilities, on_attach = on_attach })
-      lspconfig.ltex.setup({
-        capabilities = capabilities,
-        filetypes = { "latex", "tex" },
-        settings = { -- See https://valentjn.github.io/ltex/settings.html for full list
-          ltex = {
-            enabled = {
-              "bibtex",
-              "context",
-              "context.tex",
-              "html",
-              "latex",
-              "org",
-              "restructuredtext",
-              "rsweave",
-              -- "markdown",
-            },
-            language = "en-US",
-            additionalRules = {
-              enablePickyRules = false,
-              motherTongue = "it-IT",
-            },
-          },
-        },
-      })
-      lspconfig.texlab.setup({ capabilities = capabilities, on_attach = on_attach })
-      lspconfig.marksman.setup({ capabilities = capabilities, on_attach = on_attach })
-      lspconfig.lua_ls.setup({
-        capabilities = capabilities,
-        on_init = function(client)
-          local path = client.workspace_folders[1].name
-          if vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc") then
-            return
-          end
+			-- Setup of the individual servers
+			local lspconfig = require("lspconfig")
+			local on_attach = function(client, bufnr)
+				-- if client.server_capabilities.documentSymbolProvider then
+				-- end
+				local navic = require("nvim-navic")
+				navic.attach(client, bufnr)
+			end
+			lspconfig.cssls.setup({ capabilities = capabilities, on_attach = on_attach })
+			lspconfig.eslint.setup({ capabilities = capabilities })
+			lspconfig.html.setup({ capabilities = capabilities, on_attach = on_attach })
+			lspconfig.jsonls.setup({ capabilities = capabilities, on_attach = on_attach })
+			lspconfig.pyright.setup({ capabilities = capabilities, on_attach = on_attach })
+			lspconfig.jedi_language_server.setup({ capabilities = capabilities })
+			lspconfig.bashls.setup({
+				capabilities = capabilities,
+				filetypes = { ".sh", "bash", ".bashrc", ".zshrc", ".conf", "sh", "zsh" },
+				settings = {
+					bashIde = {
+						-- Disable shellcheck in bash-language-server (conflicting)
+						shellcheckPath = "",
+					},
+				},
+				on_attach = on_attach,
+			})
+			lspconfig.dockerls.setup({ capabilities = capabilities, on_attach = on_attach })
+			lspconfig.ltex.setup({
+				capabilities = capabilities,
+				filetypes = { "latex", "tex" },
+				settings = { -- See https://valentjn.github.io/ltex/settings.html for full list
+					ltex = {
+						enabled = {
+							"bibtex",
+							"context",
+							"context.tex",
+							"html",
+							"latex",
+							"org",
+							"restructuredtext",
+							"rsweave",
+							-- "markdown",
+						},
+						language = "en-US",
+						additionalRules = {
+							enablePickyRules = false,
+							motherTongue = "it-IT",
+						},
+					},
+				},
+			})
+			lspconfig.texlab.setup({ capabilities = capabilities, on_attach = on_attach })
+			lspconfig.marksman.setup({ capabilities = capabilities, on_attach = on_attach })
+			lspconfig.lua_ls.setup({
+				capabilities = capabilities,
+				on_init = function(client)
+					local path = client.workspace_folders[1].name
+					if vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc") then
+						return
+					end
 
-          client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
-            runtime = {
-              -- Tell the language server which version of Lua you're using
-              -- (most likely LuaJIT in the case of Neovim)
-              version = "LuaJIT",
-            },
-            -- Make the server aware of Neovim runtime files
-            workspace = {
-              checkThirdParty = false,
-              library = {
-                vim.env.VIMRUNTIME,
-              },
-            },
-          })
-        end,
-        settings = {
-          Lua = {
-            diagnostics = {
-              globals = { "vim", "require" },
-            },
-          },
-        },
-        on_attach = on_attach,
-      })
+					client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
+						runtime = {
+							-- Tell the language server which version of Lua you're using
+							-- (most likely LuaJIT in the case of Neovim)
+							version = "LuaJIT",
+						},
+						-- Make the server aware of Neovim runtime files
+						workspace = {
+							checkThirdParty = false,
+							library = {
+								vim.env.VIMRUNTIME,
+							},
+						},
+					})
+				end,
+				settings = {
+					Lua = {
+						diagnostics = {
+							globals = { "vim", "require" },
+						},
+					},
+				},
+				on_attach = on_attach,
+			})
 
 			lspconfig.rust_analyzer.setup({
 				capabilities = capabilities,

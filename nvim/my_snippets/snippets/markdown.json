@@ -17,7 +17,7 @@
     "prefix": "obsidian-header",
     "body": [
       "---",
-      "id: ${1:title}",
+      "id: $TM_FILENAME_BASE",
       "author: Davide Macario",
       "date: $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE",
       "aliases: []",

@@ -12,10 +12,10 @@ return {
 			.. vim.env.HOME
 			.. "/notes/*.md",
 		"BufReadPre " .. vim.env.GHREPOS .. "/obsidian-notes/*.md",
-		"BufReadPre " .. "/mnt/c/Users/DavideMacario/notes/*.md",
+		"BufReadPre " .. "/mnt/c/Users/DavideMacario/notes/*",
 		"BufNewFile " .. vim.env.GHREPOS .. "/notes/*.md",
 		"BufNewFile " .. vim.env.GHREPOS .. "/obsidian-notes/*.md",
-		"BufNewFile " .. "/mnt/c/Users/DavideMacario/notes/*.md",
+		"BufNewFile " .. "/mnt/c/Users/DavideMacario/notes/*",
 	},
 	dependencies = {
 		"nvim-lua/plenary.nvim",

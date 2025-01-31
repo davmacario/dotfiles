@@ -94,6 +94,9 @@ return {
 				border = "rounded",
 			})
 
+			-- Disable logs
+			vim.lsp.set_log_level("off")
+
 			-- Setup of the individual servers
 			local lspconfig = require("lspconfig")
 			local on_attach = function(client, bufnr)

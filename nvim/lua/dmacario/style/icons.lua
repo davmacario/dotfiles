@@ -164,9 +164,9 @@ ICONS.alpha = {
 }
 
 ICONS.bufferline = {
-  button ="",
-  modified = "●",
-  pinned = "",
+	button = "",
+	modified = "●",
+	pinned = "",
 }
 
 ICONS.nvim_big_logo = {
@@ -190,6 +190,11 @@ ICONS.nvim_small_logo = {
 	[[   / /\  |  __| (_) \ V /| | | | | | |   ]],
 	[[   \_\ \/ \___|\___/ \_/ |_|_| |_| |_|   ]],
 	[[                                         ]],
+}
+
+ICONS.spinner = {
+	symbols = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" },
+	length = 10,
 }
 
 return ICONS

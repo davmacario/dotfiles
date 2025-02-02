@@ -32,9 +32,9 @@ return {
 				always_divide_middle = true,
 				globalstatus = false,
 				refresh = {
-					statusline = 300,
-					tabline = 300,
-					winbar = 300,
+					statusline = 100,
+					tabline = 100,
+					winbar = 100,
 				},
 			},
 			sections = {
@@ -65,7 +65,7 @@ return {
 					"searchcount",
 				},
 				lualine_x = {
-					utils.get_ollama_status_icon,
+					require("dmacario.components.lualine-codecompanion"),
 					"encoding",
 					{ "fileformat", symbols = { unix = icons.os_icon } },
 				},

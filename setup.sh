@@ -1,39 +1,42 @@
 #!/bin/bash
 # Set up dotfiles
 
-abort(){
-    echo -e "Error encountered - aborting"
+log() {
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1"
+}
+
+abort() {
+    log -e "Error encountered - aborting"
     exit 1
 }
 
-installing(){
-    echo "Installing $1..."
+installing() {
+    log "Installing $1..."
+}
+
+get_back() {
+    cd "$CURR_DIR" || log "Something went wrong!" && exit 1
 }
 
 trap abort ERR SIGTERM SIGILL
 
 CURR_DIR=$(pwd)
-echo "Current dir: $CURR_DIR"
-
-echo "Shell: $SHELL"
+log "Current dir: $CURR_DIR"
+log "Shell: $SHELL"
 
 # Install packages
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    echo "Linux detected!"
-
+    log "Linux detected!"
     # TODO: add support for other package managers
     if [ -n "$(apt-get -v)" ]; then
-        echo "Using Ubuntu/Debian - apt detected!"
+        log "Using Ubuntu/Debian - apt detected!"
         PACMAN="apt"
     elif [ -n "$(pacman -v)" ]; then
-        echo "Pacman detected!"
+        log "Pacman detected!"
         PACMAN="pacman"
     fi
-
-    INVOKE_PACMAN="sudo $PACMAN -y"
-
 elif [[ "$OSTYPE" == "darwin"* ]]; then
-    echo "MacOS detected!"
+    log "MacOS detected!"
     # Command line tools
     xcode-select --install
     # Install homebrew
@@ -43,9 +46,15 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
         brew update
         brew upgrade
     fi
-
-    INVOKE_PACMAN="brew"
 fi
+
+package_manager() {
+    if [[ "$OSTYPE" == linux-gnu* ]]; then
+        sudo "$PACMAN" -y "$@"
+    elif [[ "$OSTYPE" == darwin* ]]; then
+        brew "$@"
+    fi
+}
 
 # packages that have the same name across different platforms
 packages_global=(
@@ -70,6 +79,8 @@ packages_global=(
     build-essential
     telnet
     python3-venv
+    lua5.1
+    liblua5.1-0-dev
 )
 packages_mac=(
     bat
@@ -82,13 +93,14 @@ packages_deb=(
 )
 
 # Install possible required packages with:
-# $INVOKE_PACMAN install
+# package_manager install
 for package in "${packages_global[@]}"; do
     installing "$package"
-    $INVOKE_PACMAN install "$package"
+    package_manager install "$package"
 done
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
+    xcode-select --install
     for package in "${packages_mac[@]}"; do
         installing "$package"
         brew install "$package"
@@ -109,8 +121,8 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 # 1. If using ZSH, install p10k
 if [[ "$SHELL" == *"zsh"* ]]; then  # zsh is the shell
     # Install Oh My Zsh
-    echo "Installing OMZ"
-    cd "$HOME" || echo "Unable to find $HOME" && exit 1
+    log "Installing OMZ"
+    cd "$HOME" || log "Unable to find $HOME" && exit 1
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
     # Install powerlevel10k
@@ -144,10 +156,10 @@ done
 
 # Source shellrc
 if [[ "$SHELL" == *"zsh"* ]] && [[ -f "$HOME/.zshrc" ]]; then
-    echo "Sourcing ZSHRC"
+    log "Sourcing ZSHRC"
     source "$HOME/.zshrc"
 elif [[ "$SHELL" == *bash* ]] && [[ -f "$HOME/.bashrc" ]]; then
-    echo "Sourcing BASHRC"
+    log "Sourcing BASHRC"
     source "$HOME/.bashrc"
 fi
 
@@ -163,44 +175,32 @@ fi
 
 # Nvim config
 if [ -d "$CURR_DIR/nvim" ]; then
+    NVIM_VERSION="${NVIM_VERSION:-v0.10.4}"
+    log "Installing Neovim $NVIM_VERSION"
+    $CURR_DIR/scripts/nvim-install.sh "$NVIM_VERSION"
 
     if [ ! -L "$CONFIG_PATH/nvim" ]; then
         ln -s "$CURR_DIR/nvim" "$CONFIG_PATH/nvim"
     fi
+    get_back
 
-    echo "Installing Neovim"
-    if [[ "$OSTYPE" == "darwin"* ]]; then
-        $INVOKE_PACMAN install nvim
-        ./macos-zathura.sh
-    elif [[ "$OSTYPE" == "linux-gnu"* ]] && [ -f "apt-get -v" ]; then
-        # Compile neovim from source
-        cd "$GHDIR" || echo "Unable to find GitHub" && exit 1
-        mkdir neovim
-        cd neovim || exit 2
-        git clone https://github.com/neovim/neovim
-        cd neovim || exit 2
-        git checkout stable
-        echo "Building Neovim from source"
-        make CMAKE_BUILD_TYPE=RelWithDebInfo
-        cd build && cpack -G DEB && sudo dpkg -i nvim-linux64.deb
-    fi
-
-    cd "$CURR_DIR"
-
-    # Install neovim requirements
+    # Install neovim plugins requirements
     if [[  "$OSTYPE" == "darwin"* ]]; then
+        ./macos-zathura.sh
         brew install pngpaste
     else
-        cd "$GHDIR" || exit 1
+        pushd "$GHDIR" || exit 1
         git clone https://github.com/jcsalterego/pngpaste.git
+        cd ./pngpaste
         make all
         sudo make install
+        popd
     fi
 
+    get_back
     ./scripts/lazygit-install.sh
 
-    mkdir "$HOME/.virtualenvs"
-    cd "$HOME/.virtualenvs"
+    mkdir "$HOME/.virtualenvs" && cd "$HOME/.virtualenvs"
     python3 -m venv debugpy
     source debugpy/bin/activate
     pip3 install --upgrade pip
@@ -208,11 +208,12 @@ if [ -d "$CURR_DIR/nvim" ]; then
     deactivate
 fi
 
+get_back
+
 # Tmux config
 # Install the Tmux Plugin Manager
-
 [ ! -d "$HOME/.tmux/plugins" ]; mkdir -p "$HOME/.tmux/plugins"
-git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+git clone https://github.com/tmux-plugins/tpm.git "$HOME/.tmux/plugins/tpm"
 
 if [ -n "$XDG_CONFIG_HOME" ] && [ -d "$CURR_DIR/tmux" ]; then  # Should be defined in .zshrc
     if [ ! -L "$XDG_CONFIG_HOME/tmux" ]; then
@@ -233,7 +234,7 @@ elif [ -z "$XDG_CONFIG_HOME" ] && [ -f "$CURR_DIR/.tmux.conf" ]; then
         ln -s "$CURR_DIR/.tmux.conf" "$HOME/.tmux.conf"
     fi
 else
-    echo "No TMUX config found"
+    log "No TMUX config found"
 fi
 
 # Vim config
@@ -247,5 +248,5 @@ if [ ! -L "$HOME/.gitconfig" ]; then
 fi
 
 
-echo "Setup complete!"
+log "Setup complete!"
 return 0

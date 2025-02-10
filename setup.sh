@@ -6,7 +6,7 @@ log() {
 }
 
 abort() {
-    log -e "Error encountered - aborting"
+    log "Error encountered - aborting"
     exit 1
 }
 

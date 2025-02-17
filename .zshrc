@@ -128,11 +128,11 @@ export XDG_CONFIG_HOME="$HOME/.config"
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-export PATH="$HOME/go/bin:$PATH"
+export PATH="$PATH:$HOME/go/bin"
 export GO111MODULE=on
 
 if [ -x "$(command -v fnm)" ]; then
-    export PATH="$HOME/.fnm:$PATH"
+    export PATH="$PATH:$HOME/.fnm"
     eval "$(fnm env)"
 fi
 

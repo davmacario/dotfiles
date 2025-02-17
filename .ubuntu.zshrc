@@ -11,4 +11,8 @@ if [[ -x "$(command -v powershell.exe)" ]]; then
     export PATH="$PATH:/mnt/c/Windows/system32"
 fi
 
+if ! [[ $PATH == */snap/bin* ]]; then
+    export PATH="$PATH:/snap/bin"
+fi
+
 complete -o nospace -C /usr/bin/terraform terraform

@@ -180,8 +180,8 @@ HISTFILE="$HOME/.zsh_history"
 
 autoload -U +X bashcompinit && bashcompinit
 
-if [[ "$OSTYPE" == darwin* ]] && [[ -f "./.mac.zshrc" ]]; then
-    source "./.mac.zshrc"
-elif [[ "$OSTYPE" == linux* ]] && [[ -f "./.ubuntu.zshrc" ]]; then
-    source "./.ubuntu.zshrc"
+if [[ "$OSTYPE" == darwin* ]] && [[ -f "$HOME/.mac.zshrc" ]]; then
+    source "$HOME/.mac.zshrc"
+elif [[ "$OSTYPE" == linux* ]] && [[ -f "$HOME/.ubuntu.zshrc" ]]; then
+    source "$HOME/.ubuntu.zshrc"
 fi

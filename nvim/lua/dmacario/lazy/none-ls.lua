@@ -18,6 +18,7 @@ return {
 					"clang-format",
 					"bibtex-tidy",
 					"latexindent",
+					"trivy",
 				},
 			})
 		end,
@@ -55,6 +56,7 @@ return {
 						prefer_local = ".venv/bin",
 					}),
 					require("none-ls-shellcheck.diagnostics"),
+					null_ls.builtins.diagnostics.trivy,
 
 					-- Code actions sources
 					require("none-ls-shellcheck.code_actions"),

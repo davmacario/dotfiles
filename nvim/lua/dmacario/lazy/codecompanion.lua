@@ -84,6 +84,25 @@ return {
 				4. You can only give one reply for each conversation turn.]]
 			end,
 			adapters = {
+				qwen2_5_coder = function()
+					return require("codecompanion.adapters").extend("ollama", {
+						name = "qwen2.5-coder:7b",
+						env = {
+							url = "http://100.91.137.78:11435",
+						},
+						headers = {
+							["Content-Type"] = "application/json",
+						},
+						parameters = {
+							sync = true,
+						},
+						schema = {
+							model = {
+								default = "qwen2.5-coder:7b",
+							},
+						},
+					})
+				end,
 				deepseek_r1_14b = function()
 					return require("codecompanion.adapters").extend("ollama", {
 						name = "deepseek-r1:14b",
@@ -118,12 +137,6 @@ return {
 						schema = {
 							model = {
 								default = "llama3.1",
-							},
-							num_ctx = {
-								default = 16384,
-							},
-							num_predict = {
-								default = -1,
 							},
 						},
 					})

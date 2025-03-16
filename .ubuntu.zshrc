@@ -9,6 +9,7 @@ export LS_COLORS='rs=0:di=00;36:ln=04;32:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;
 if [[ -x "$(command -v powershell.exe)" ]]; then
     # We are in WSL (probably) -> add windows executables to path
     export PATH="$PATH:/mnt/c/Windows/system32"
+    export BROWSER="/mnt/c/Program Files/Mozilla Firefox/firefox.exe"
 fi
 
 if ! [[ $PATH == */snap/bin* ]]; then

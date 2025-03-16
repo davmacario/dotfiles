@@ -39,4 +39,10 @@ return {
 			enable = false,
 		},
 	},
+	daily_notes = {
+		folder = "~/notes/daily",
+		date_format = "%Y-%m-%d",
+		default_tags = { "daily-notes" },
+		template = "template.md",
+	},
 }

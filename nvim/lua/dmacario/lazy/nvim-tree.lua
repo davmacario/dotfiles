@@ -6,6 +6,7 @@ return {
 		"nvim-tree/nvim-web-devicons",
 		"stevearc/dressing.nvim",
 	},
+	keys = { "<leader>o" },
 	config = function()
 		vim.keymap.set("n", "<leader>o", vim.cmd.NvimTreeToggle)
 		-- Disable netrw:

@@ -2,6 +2,7 @@ local utils = require("dmacario.utils")
 
 return {
 	"nvim-tree/nvim-web-devicons",
+	lazy = true,
 	config = function()
 		local devicons = require("nvim-web-devicons")
 		local get_icon = devicons.get_icon

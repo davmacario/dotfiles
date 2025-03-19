@@ -38,7 +38,7 @@ return {
 				},
 			},
 			sections = {
-				lualine_a = { { "mode", icon = icons.vim_logo } },
+				lualine_a = { { "mode", icon = icons.vim_logo, fmt = utils.trunc(80, 1, nil, true) } },
 				lualine_b = {
 					"branch",
 					{

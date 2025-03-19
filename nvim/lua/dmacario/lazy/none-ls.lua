@@ -19,6 +19,7 @@ return {
 					"bibtex-tidy",
 					"latexindent",
 					"trivy",
+					"terraform_fmt",
 				},
 			})
 		end,
@@ -46,6 +47,7 @@ return {
 							"--style={BasedOnStyle: Chromium, IndentWidth: 4}",
 						},
 					}),
+					null_ls.builtins.formatting.terraform_fmt,
 
 					-- Diagnostics sources
 					null_ls.builtins.diagnostics.markdownlint.with({

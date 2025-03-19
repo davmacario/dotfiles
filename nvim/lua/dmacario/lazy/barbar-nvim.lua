@@ -78,7 +78,7 @@ return {
 				-- Supports all the base icon options, plus `modified` and `pinned`.
 				alternate = { filetype = { enabled = false } },
 				current = { buffer_index = false },
-				inactive = { button = "×" },
+				inactive = { button = icons.bufferline.button },
 				visible = { modified = { buffer_number = false } },
 			},
 

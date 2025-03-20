@@ -74,20 +74,6 @@ return {
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			-- local opts = {buffer = bufnr, remap = false}
-			-- Keymaps
-			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
-			vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
-			vim.keymap.set("n", "gr", vim.lsp.buf.references, {})
-			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
-			vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol, {})
-			vim.keymap.set("n", "[d", function()
-				vim.diagnostic.jump({ count = 1 })
-			end, { desc = "Jump to next diagnostic item" })
-			vim.keymap.set("n", "]d", function()
-				vim.diagnostic.jump({ count = -1 })
-			end, { desc = "Jump to previous diagnostic item" })
-			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {})
-			vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, {})
 
 			-- Border of 'hover' box
 			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
@@ -96,12 +82,26 @@ return {
 
 			-- Setup of the individual servers
 			local lspconfig = require("lspconfig")
+			local configs = require("lspconfig.configs")
 			local on_attach = function(client, bufnr)
-				-- if client.server_capabilities.documentSymbolProvider then
-				-- end
+				-- Setup keymaps
+				vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
+				vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
+				vim.keymap.set("n", "gr", vim.lsp.buf.references, {})
+				vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
+				vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol, {})
+				vim.keymap.set("n", "[d", function()
+					vim.diagnostic.goto_prev()
+				end, { desc = "Jump to previous diagnostic item" })
+				vim.keymap.set("n", "]d", function()
+					vim.diagnostic.goto_next()
+				end, { desc = "Jump to next diagnostic item" })
+				vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {})
+				vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, {})
 				local navic = require("nvim-navic")
 				navic.attach(client, bufnr)
 			end
+
 			lspconfig.cssls.setup({ capabilities = capabilities, on_attach = on_attach })
 			lspconfig.eslint.setup({ capabilities = capabilities })
 			lspconfig.html.setup({ capabilities = capabilities, on_attach = on_attach })
@@ -220,6 +220,35 @@ return {
 			lspconfig.terraformls.setup({ capabilities = capabilities, on_attach = on_attach })
 			lspconfig.tflint.setup({ capabilities = capabilities, on_attach = on_attach })
 			lspconfig.taplo.setup({ capabilities = capabilities, on_attach = on_attach })
+			lspconfig.gitlab_ci_ls.setup({ capabilities = capabilities, on_attach = on_attach })
+
+			-- lspconfig.gitlab_code_suggestions.setup({ capabilities = capabilities, on_attach = on_attach })
+
+			-- if configs.gitlab_lsp then
+			-- 	return
+			-- end
+			-- local settings = {
+			-- 	baseUrl = "https://gitlab.com",
+			-- 	token = vim.env.GITLAB_TOKEN,
+			-- }
+			-- configs.gitlab_lsp = {
+			-- 	default_config = {
+			-- 		name = "gitlab_lsp",
+			-- 		-- cmd = { "gitlab-lsp", "--stdio" },
+			-- 		-- cmd = { "node", "/Users/your_user/code/gitlab-lsp/out/node/main.js", "--stdio" },
+			-- 		filetypes = { "go", "javascript", "python", "ruby", "c", "cpp", "sh" },
+			-- 		single_file_support = true,
+			-- 		root_dir = function(fname)
+			-- 			return lspconfig.util.find_git_ancestor(fname)
+			-- 		end,
+			-- 		settings = settings,
+			-- 	},
+			-- 	docs = {
+			-- 		description = "GitLab Code Suggestions",
+			-- 	},
+			-- }
+
+			-- lspconfig.gitlab_lsp.setup({})
 		end,
 	},
 }

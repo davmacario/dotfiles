@@ -8,6 +8,14 @@ return {
 		require("codecompanion").setup({
 			-- display.chat.show_settings = true
 			display = {
+				action_palette = {
+					prompt = "Prompt ",
+					provider = "telescope",
+					opts = {
+						show_default_actions = true,
+						show_default_prompt_library = true,
+					},
+				},
 				chat = {
 					show_settings = true,
 					show_header_separation = true,
@@ -23,6 +31,15 @@ return {
 						width = vim.o.columns - 5,
 						---@return number|fun(): number
 						height = vim.o.lines - 2,
+					},
+
+					keymaps = {
+						send = {
+							modes = { n = "<C-s>", i = "<C-s>" },
+						},
+						close = {
+							modes = { n = "<C-c>", i = "<C-c>" },
+						},
 					},
 
 					-- Options to customize the UI of the chat buffer
@@ -48,7 +65,7 @@ return {
 					},
 				},
 			},
-			system_prompt = function()
+			system_prompt = function() -- Passed to the LLM in chat mode
 				return [[
 				You are an AI programming assistant named "CodeCompanion". You are currently plugged in to text editor on a user's machine.
 

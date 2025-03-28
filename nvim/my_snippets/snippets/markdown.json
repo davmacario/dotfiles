@@ -3,7 +3,6 @@
     "prefix": "header",
     "body": [
       "---",
-      "title: ${1:title}",
       "author: Davide Macario",
       "date: $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE",
       "---"

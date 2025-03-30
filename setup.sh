@@ -81,14 +81,14 @@ packages_global=(
     python3-venv
     lua5.1
     liblua5.1-0-dev
+    bat
 )
 packages_mac=(
-    bat
     fd
     golang
 )
 packages_deb=(
-    batcat
+    fd-find
     golang-go
 )
 

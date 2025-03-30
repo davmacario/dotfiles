@@ -108,7 +108,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 else
     for package in "${packages_deb[@]}"; do
         installing "$package"
-        sudo apt install "$package"
+        sudo apt install -y "$package"
     done
 fi
 

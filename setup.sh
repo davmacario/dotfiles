@@ -121,8 +121,11 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 
 # ------------------------------------------------------------------------------
 
-# 1. If using ZSH, install p10k
-if [[ "$SHELL" == *"zsh"* ]]; then  # zsh is the shell
+# 1. Install ZSH, OMZ, and p10k
+if [[ "$SHELL" != *zsh* ]]; then
+    export NOINTERACTIVE="true" # Ugly, set it to nonempty string
+    ./scripts/install_zsh.sh
+
     # Install Oh My Zsh
     log "Installing OMZ"
     cd "$HOME" || log "Unable to find $HOME" && exit 1
@@ -158,17 +161,17 @@ for fl in "${files_to_link[@]}"; do
 done
 
 # Source shellrc
-if [[ "$SHELL" == *"zsh"* ]] && [[ -f "$HOME/.zshrc" ]]; then
-    log "Sourcing ZSHRC"
-    source "$HOME/.zshrc"
-elif [[ "$SHELL" == *bash* ]] && [[ -f "$HOME/.bashrc" ]]; then
-    log "Sourcing BASHRC"
-    source "$HOME/.bashrc"
-fi
+# if [[ "$SHELL" == *"zsh"* ]] && [[ -f "$HOME/.zshrc" ]]; then
+#     log "Sourcing ZSHRC"
+#     source "$HOME/.zshrc"
+# elif [[ "$SHELL" == *bash* ]] && [[ -f "$HOME/.bashrc" ]]; then
+#     log "Sourcing BASHRC"
+#     source "$HOME/.bashrc"
+# fi
 
 # Github repos
 GHDIR="$HOME/github"
-mkdir -p "$GHREPOS"
+mkdir -p "$GHDIR"
 
 if [ -z "$XDG_CONFIG_HOME" ]; then
     CONFIG_PATH="$HOME/.config"
@@ -189,12 +192,13 @@ if [ -d "$CURR_DIR/nvim" ]; then
 
     # Install neovim plugins requirements
     if [[  "$OSTYPE" == "darwin"* ]]; then
-        ./macos-zathura.sh
+        ./scripts/macos-zathura.sh
         brew install pngpaste
     else
         pushd "$GHDIR" || exit 1
-        git clone https://github.com/jcsalterego/pngpaste.git
-        cd ./pngpaste
+        mkdir other
+        git clone https://github.com/jcsalterego/pngpaste.git ./other/pngpaste
+        cd ./other/pngpaste
         make all
         sudo make install
         popd

@@ -159,6 +159,7 @@ files_to_link=(
 )
 
 for fl in "${files_to_link[@]}"; do
+    log "Linking $fl"
     make_link "$fl"
 done
 

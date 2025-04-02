@@ -142,6 +142,9 @@ fi
 # 2. Hyperlinks - don't overwrite files if already present
 
 make_link() {
+    if [ -f "$HOME/$1" ]; then
+        rm "$HOME/$fl"
+    fi
     if [ -f "$CURR_DIR/$1" ] && [ ! -L "$HOME/$1" ]; then
         ln -s "$CURR_DIR/$1" "$HOME/$1"
     fi
@@ -160,7 +163,6 @@ files_to_link=(
 
 for fl in "${files_to_link[@]}"; do
     log "Linking $fl"
-    rm "$HOME/$fl"
     make_link "$fl"
 done
 

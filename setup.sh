@@ -254,6 +254,4 @@ if [ ! -L "$HOME/.gitconfig" ]; then
     ln -s "$CURR_DIR/.gitconfig" "$HOME/.gitconfig"
 fi
 
-
 log "Setup complete!"
-return 0

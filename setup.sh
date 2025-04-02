@@ -202,14 +202,6 @@ if [ -d "$CURR_DIR/nvim" ]; then
     if [[  "$OSTYPE" == "darwin"* ]]; then
         ./scripts/macos-zathura.sh
         brew install pngpaste
-    else
-        pushd "$GHDIR" || exit 1
-        mkdir other
-        git clone https://github.com/jcsalterego/pngpaste.git ./other/pngpaste
-        cd ./other/pngpaste
-        make all
-        sudo make install
-        popd
     fi
 
     get_back

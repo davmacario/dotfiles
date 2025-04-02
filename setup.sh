@@ -15,7 +15,7 @@ installing() {
 }
 
 get_back() {
-    cd "$CURR_DIR" || log "Something went wrong!" && exit 1
+    cd "$CURR_DIR" || (log "Something went wrong!" && exit 1)
 }
 
 trap abort ERR SIGTERM SIGILL
@@ -128,7 +128,7 @@ if [[ "$SHELL" != *zsh* ]]; then
 
     # Install Oh My Zsh
     log "Installing OMZ"
-    cd "$HOME" || log "Unable to find $HOME" && exit 1
+    cd "$HOME" || (log "Unable to find $HOME" && exit 1)
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
     # Install powerlevel10k

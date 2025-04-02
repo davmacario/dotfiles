@@ -184,7 +184,7 @@ else
     CONFIG_PATH="$XDG_CONFIG_HOME"
 fi
 
-mkdir -b "$CONFIG_PATH"
+mkdir -p "$CONFIG_PATH"
 
 # Nvim config
 if [ -d "$CURR_DIR/nvim" ]; then

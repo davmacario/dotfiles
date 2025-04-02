@@ -31,9 +31,12 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     if [ -n "$(apt-get -v)" ]; then
         log "Using Ubuntu/Debian - apt detected!"
         PACMAN="apt"
+        sudo apt update
+        sudo apt upgrade -y
     elif [ -n "$(pacman -v)" ]; then
         log "Pacman detected!"
         PACMAN="pacman"
+        echo -e "Pacman not supported yet"
     fi
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     log "MacOS detected!"

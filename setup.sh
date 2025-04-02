@@ -185,6 +185,8 @@ else
     CONFIG_PATH="$XDG_CONFIG_HOME"
 fi
 
+mkdir -b "$CONFIG_PATH"
+
 # Nvim config
 if [ -d "$CURR_DIR/nvim" ]; then
     NVIM_VERSION="${NVIM_VERSION:-v0.10.4}"

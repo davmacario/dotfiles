@@ -9,7 +9,7 @@ set shiftwidth=4
 set expandtab
 " Hybrid line numbers
 set number relativenumber
-filetype indent on
+filetype plugin indent on
 set autoindent
 set cursorline
 set showcmd
@@ -46,3 +46,6 @@ colorscheme retrobox
 set background=dark
 " Netrw
 nnoremap <leader>pv :Explore<CR>
+
+" Jump to last position when opening file
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif

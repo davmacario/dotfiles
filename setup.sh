@@ -129,17 +129,6 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 if [[ "$SHELL" != *zsh* ]]; then
     NOINTERACTIVE="true" ./scripts/install_zsh.sh
 
-    # Install Oh My Zsh
-    if [ ! -x "$(command -v omz)" ]; then
-        log "Installing OMZ"
-        cd "$HOME" || (log "Unable to find $HOME" && exit 1)
-        if [ -d "$HOME/.oh-my-zsh" ]; then
-            log "Found old ~/.oh-my-zsh folder, adding '-old' suffix"
-            mv "$HOME/.oh-my-zsh" "$HOME/.oh-my-zsh-old"
-        fi
-        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    fi
-
     # Install powerlevel10k
     log "Installing p10k"
     rm -rf "${ZSH_CUSTOM:-"$HOME"/.oh-my-zsh/custom}/themes/powerlevel10k"

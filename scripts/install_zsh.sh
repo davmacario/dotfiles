@@ -1,5 +1,9 @@
 #!/bin/bash
 
+log() {
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1"
+}
+
 install_plugins() {
     git clone "https://github.com/zsh-users/zsh-autosuggestions" ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
     git clone "https://github.com/zsh-users/zsh-syntax-highlighting.git" ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
@@ -20,6 +24,17 @@ else
         brew update
         brew install zsh
     fi
+fi
+
+if [ ! -x "$(command -v omz)" ]; then
+    log "Installing OMZ"
+    pushd "$HOME" || (log "Unable to find $HOME" && exit 1)
+    if [ -d "$HOME/.oh-my-zsh" ]; then
+        log "Found old ~/.oh-my-zsh folder, adding '-old' suffix"
+        mv "$HOME/.oh-my-zsh" "$HOME/.oh-my-zsh-old"
+    fi
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    popd
 fi
 
 if [ -z "$NOINTERACTIVE" ]; then

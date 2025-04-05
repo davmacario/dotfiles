@@ -127,8 +127,7 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 
 # 1. Install ZSH, OMZ, and p10k
 if [[ "$SHELL" != *zsh* ]]; then
-    export NOINTERACTIVE="true" # Ugly, set it to nonempty string
-    ./scripts/install_zsh.sh
+    NOINTERACTIVE="true" ./scripts/install_zsh.sh
 
     # Install Oh My Zsh
     if [ ! -x "$(command -v omz)" ]; then

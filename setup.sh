@@ -184,7 +184,7 @@ done
 # fi
 
 # Github repos
-GHDIR="$HOME/github"
+export GHDIR="$HOME/github"
 mkdir -p "$GHDIR"
 
 if [ -z "$XDG_CONFIG_HOME" ]; then

@@ -1,5 +1,6 @@
 #!/bin/bash
-# Set up dotfiles
+
+trap abort ERR SIGTERM SIGILL
 
 log() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1"
@@ -18,7 +19,6 @@ get_back() {
     cd "$CURR_DIR" || (log "Something went wrong!" && exit 1)
 }
 
-trap abort ERR SIGTERM SIGILL
 
 CURR_DIR=$(pwd)
 log "Current dir: $CURR_DIR"
@@ -30,6 +30,7 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     # TODO: add support for other package managers
     if [ -n "$(apt-get -v)" ]; then
         log "Using Ubuntu/Debian - apt detected!"
+        export DEBIAN_FRONTEND=noninteractive
         PACMAN="apt"
         sudo apt update
         sudo apt upgrade -y

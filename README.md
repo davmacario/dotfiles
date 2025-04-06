@@ -18,6 +18,12 @@ up-to-date.
 > Neovim - Editing a file
 > ![nvim](images/nvim.png)
 
+## Quickstart
+
+You can test these dotfiles using the [Devcontainer definition](./.devcontainer/devcontainer.json).
+
+It uses my custom [Dev Environment feature](https://github.com/davmacario/devcontainer-features/tree/main/src/dev-environment) to automatically install all requirements and set up the environment using the [`./setup.sh` script](./setup.sh).
+
 ---
 
 **Note**: for a specific configuration select the specific branch

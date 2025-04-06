@@ -1,0 +1,25 @@
+{
+  "name": "Dev Environment",
+  "build": {
+    "dockerfile": "./Dockerfile",
+    "context": ".",
+    "args": {
+      "USERNAME": "${localEnv:USER}"
+    }
+  },
+  "features": {
+    // Add here necessary features - e.g., "ghcr.io/devcontainers/features/go:1" {"version": "1.21"}
+    "ghcr.io/devcontainers/features/common-utils": {
+      "configureZshAsDefaultShell": true,
+      "username": "dev"
+    },
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/davmacario/devcontainer-features/dev-environment:1": {
+      "dotfiles_repo": "https://github.com/davmacario/dotfiles.git",
+      "dotfiles_branch": "main",
+      "dotfiles_install_script": "setup.sh"
+    }
+  },
+  "customizations": {},
+  "remoteUser": "${localEnv:USER}"
+}

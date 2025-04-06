@@ -6,12 +6,6 @@ fi
 
 # Setup secret keys/passwords - private folder
 export SECRETS="$HOME/.keys"
-# Evaluate permissions on secrets folder - syntax changes between Linux and Mac
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    secrets_perm=$(stat -f '%A %a %N' "$SECRETS")
-else
-    secrets_perm=$(stat -c '%a %n' "$SECRETS")
-fi
 # Create folder if not there
 if [ ! -d "$SECRETS" ]; then
     mkdir "$SECRETS"
@@ -22,14 +16,22 @@ if [ ! -d "$SECRETS" ]; then
     chmod 600 "$SECRETS/.gitignore"
     chmod 700 "$SECRETS"
     chown -R "$(whoami)" "$SECRETS"
-elif [ "$secrets_perm" != 700 ]; then
-    chmod 700 "$SECRETS"
-    chown -R "$(whoami)" "$SECRETS"
-    # Source secret keys file
-    if [ "$(ls "$SECRETS")" ]; then
-        for file in "$SECRETS"/*; do
-            chmod 600 "$file"
-        done
+else
+    # Evaluate permissions on secrets folder - syntax changes between Linux and Mac
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        secrets_perm=$(stat -f '%A %a %N' "$SECRETS")
+    else
+        secrets_perm=$(stat -c '%a %n' "$SECRETS")
+    fi
+    if [ "$secrets_perm" != 700 ]; then
+        chmod 700 "$SECRETS"
+        chown -R "$(whoami)" "$SECRETS"
+        # Source secret keys file
+        if [ "$(ls "$SECRETS")" ]; then
+            for file in "$SECRETS"/*; do
+                chmod 600 "$file"
+            done
+        fi
     fi
 fi
 
@@ -152,7 +154,9 @@ export PATH="$PATH:$HOME/go/bin:/usr/local/go/bin"
 export KUBECONFIG="$HOME/.kube/config"
 
 # Rust setup
-source "$HOME/.cargo/env"
+if [ -f "$HOME/.cargo/env" ]; then
+    source "$HOME/.cargo/env"
+fi
 
 export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

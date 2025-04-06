@@ -3,7 +3,7 @@
 trap abort ERR SIGTERM SIGILL
 
 log() {
-    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1"
+    echo "[$(date '+%Y-%m-%d %H:%M:%S') - $0] $1"
 }
 
 abort() {
@@ -16,9 +16,15 @@ installing() {
 }
 
 get_back() {
-    cd "$CURR_DIR" || (log "Something went wrong!" && exit 1)
+    cd "$CURR_DIR" || { log "Something went wrong!"; exit 1; }
 }
 
+source_env() {
+    # Move some relevant variables (e.g., program versions) to env file
+    if [ -f "$(dirname "$0")/.env" ]; then
+        source "$(dirname "$0")/.env"
+    fi
+}
 
 CURR_DIR=$(pwd)
 log "Current dir: $CURR_DIR"
@@ -27,19 +33,18 @@ log "Shell: $SHELL"
 # Install packages
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     log "Linux detected!"
-    echo "Installing homebrew"
+    log "Installing homebrew"
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     # TODO: add support for other package managers
     if [ -n "$(apt-get -v)" ]; then
         log "Using Ubuntu/Debian - apt detected!"
-        export DEBIAN_FRONTEND=noninteractive
         PACMAN="apt"
         sudo apt update
         sudo apt upgrade -y
     elif [ -n "$(pacman -v)" ]; then
         log "Pacman detected!"
         PACMAN="pacman"
-        echo -e "Pacman not supported yet"
+        log -e "Pacman not supported yet" && exit 1
     fi
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     log "MacOS detected!"
@@ -61,6 +66,8 @@ package_manager() {
         brew "$@"
     fi
 }
+
+source_env
 
 # packages that have the same name across different platforms
 packages_global=(
@@ -118,15 +125,13 @@ else
     done
 fi
 
-# Install fzf from source
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install
+"$(dirname "$0")/scripts/install_fzf.sh" || { log "Error installing fzf"; exit 1; }
 
 # ------------------------------------------------------------------------------
 
 # 1. Install ZSH, OMZ, and p10k
 if [[ "$SHELL" != *zsh* ]]; then
-    NOINTERACTIVE="true" ./scripts/install_zsh.sh
+    ./scripts/install_zsh.sh
 
     # Install powerlevel10k
     log "Installing p10k"
@@ -164,7 +169,6 @@ for fl in "${files_to_link[@]}"; do
 done
 
 # Github repos
-export GHDIR="$HOME/github"
 mkdir -p "$GHDIR"
 
 if [ -z "$XDG_CONFIG_HOME" ]; then
@@ -178,8 +182,14 @@ mkdir -p "$CONFIG_PATH"
 # Nvim config
 if [ -d "$CURR_DIR/nvim" ]; then
     NVIM_VERSION="${NVIM_VERSION:-v0.10.4}"
-    log "Installing Neovim $NVIM_VERSION"
-    $CURR_DIR/scripts/nvim-install.sh "$NVIM_VERSION"
+
+    # Check whether neovim is already installed with the default version
+    if [ ! -x "$(command -v nvim)" ] || [ "$(nvim -v | awk -F" " '{ print $2 }' | head -n 1)" != "$NVIM_VERSION" ]; then
+        log "Installing Neovim $NVIM_VERSION"
+        "$CURR_DIR/scripts/nvim-install.sh" "$NVIM_VERSION"
+    else
+        log "Found local installation of Neovim $NVIM_VERSION"
+    fi
 
     if [ ! -L "$CONFIG_PATH/nvim" ]; then
         ln -s "$CURR_DIR/nvim" "$CONFIG_PATH/nvim"

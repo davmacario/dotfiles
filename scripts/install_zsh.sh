@@ -1,7 +1,7 @@
 #!/bin/bash
 
 log() {
-    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1"
+    echo "[$(date '+%Y-%m-%d %H:%M:%S') - $0] $1"
 }
 
 install_plugins() {
@@ -9,13 +9,11 @@ install_plugins() {
     git clone "https://github.com/zsh-users/zsh-syntax-highlighting.git" ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 }
 
-NOINTERACTIVE=${NOINTERACTIVE:-""}
-
 # Install ZSH
 FLG=0
 if [[ "$SHELL" == *"zsh"* ]]; then
     FLG=1
-    echo "ZSH is the default shell already! $(which zsh)"
+    log "ZSH is the default shell already! $(which zsh)"
 else
     if [[ "$OSTYPE" == "linux-gnu"* ]] && [[ -n "$(apt-get -v)" ]] && [[ -z "$(which zsh)" ]]; then
         sudo apt-get update
@@ -28,16 +26,16 @@ fi
 
 if [ ! -x "$(command -v omz)" ]; then
     log "Installing OMZ"
-    pushd "$HOME" || (log "Unable to find $HOME" && exit 1)
+    pushd "$HOME" || { log "Unable to find $HOME"; exit 1; }
     if [ -d "$HOME/.oh-my-zsh" ]; then
         log "Found old ~/.oh-my-zsh folder, adding '-old' suffix"
         mv "$HOME/.oh-my-zsh" "$HOME/.oh-my-zsh-old"
     fi
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    popd
+    popd || { log "Something went wrong"; exit 1; }
 fi
 
-if [ -z "$NOINTERACTIVE" ]; then
+if [ "$DEBIAN_FRONTEND" != "noninteractive" ]; then
     # Installing plugins (autocomplete)
     while true; do
         read -r -p "Do you want to install the following plugins: zsh-autosuggestions, zsh-syntax-highlighting\n? [y/n]  " yn
@@ -62,7 +60,7 @@ if [ -z "$NOINTERACTIVE" ]; then
             esac
         done
 
-        echo "Now log out and back in for the changes to take place"
+        log "Now log out and back in for the changes to take place"
     fi
 else
     install_plugins

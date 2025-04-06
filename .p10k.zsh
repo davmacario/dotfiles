@@ -188,7 +188,7 @@
   typeset -g POWERLEVEL9K_OS_ICON_FOREGROUND=232
   typeset -g POWERLEVEL9K_OS_ICON_BACKGROUND=7
   # Custom icon.
-  if [[ -f /proc/1/cgroup ]] && grep -q docker /proc/1/cgroup; then
+  if [[ -f /.dockerenv ]]; then
     typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION=''
   elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
     source /etc/os-release

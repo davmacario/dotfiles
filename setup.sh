@@ -163,15 +163,6 @@ for fl in "${files_to_link[@]}"; do
     make_link "$fl"
 done
 
-# Source shellrc
-# if [[ "$SHELL" == *"zsh"* ]] && [[ -f "$HOME/.zshrc" ]]; then
-#     log "Sourcing ZSHRC"
-#     source "$HOME/.zshrc"
-# elif [[ "$SHELL" == *bash* ]] && [[ -f "$HOME/.bashrc" ]]; then
-#     log "Sourcing BASHRC"
-#     source "$HOME/.bashrc"
-# fi
-
 # Github repos
 export GHDIR="$HOME/github"
 mkdir -p "$GHDIR"
@@ -251,4 +242,4 @@ if [ ! -L "$HOME/.gitconfig" ]; then
     ln -s "$CURR_DIR/.gitconfig" "$HOME/.gitconfig"
 fi
 
-log "Setup complete!"
+log "Setup complete! Restart your shell for all the changes to take effect."

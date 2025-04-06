@@ -188,12 +188,15 @@
   typeset -g POWERLEVEL9K_OS_ICON_FOREGROUND=232
   typeset -g POWERLEVEL9K_OS_ICON_BACKGROUND=7
   # Custom icon.
-  if grep -q docker /proc/1/cgroup; then
+  if [[ -f /proc/1/cgroup ]] && grep -q docker /proc/1/cgroup; then
     typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION=''
-  elif [[ "$(cat /etc/os-release | grep ^NAME=)" ~= *Ubuntu* ]]; then
-    typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION=''
   elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION=''
+    source /etc/os-release
+    if [[ $ID == "ubuntu" ]]; then
+      typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION=''
+    else
+      typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION=''
+    fi
   elif [[ "$OSTYPE" == "darwin"* ]]; then
     typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION=''
   fi

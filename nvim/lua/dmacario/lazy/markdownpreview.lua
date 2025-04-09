@@ -16,7 +16,7 @@ return {
 		vim.g.mkdp_open_to_the_world = false
 		vim.g.mkdp_open_ip = "127.0.0.1"
 		vim.g.mkdp_port = "8888"
-		vim.g.mkdp_browser = ""
+		vim.g.mkdp_browser = os.getenv('BROWSER')
 		vim.g.mkdp_echo_preview_url = true
 		vim.g.mkdp_page_title = " mkdp:「${name}」"
 		vim.g.mkdp_theme = "dark"
@@ -27,6 +27,8 @@ return {
             if has('macunix')
                 execute "silent ! open -a Firefox -n --args --new-window " . a:url
                 " echom ">>> new window - url: " . a:url
+						elseif has('wsl')
+								execute "silent ! open -a $BROWSER --new-window " . a:url
             else
                 execute "silent ! firefox --new-window " . a:url
             endif

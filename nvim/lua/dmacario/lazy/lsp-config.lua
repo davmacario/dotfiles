@@ -190,7 +190,50 @@ return {
 				on_attach = on_attach,
 			})
 			lspconfig.gopls.setup({ capabilities = capabilities, on_attach = on_attach })
-			lspconfig.clangd.setup({ capabilities = capabilities, on_attach = on_attach })
+			lspconfig.clangd.setup({
+				capabilities = vim.tbl_deep_extend("force", capabilities, {
+					textDocument = {
+						completion = {
+							editsNearCursor = true,
+						},
+					},
+					offsetEncoding = { "utf-8", "utf-16" },
+				}),
+				on_attach = on_attach,
+				filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto", ".h", ".hpp" },
+				root_dir = function(fname)
+					return require("lspconfig.util").root_pattern(
+						".clangd",
+						".clang-tidy",
+						".clang-format",
+						"compile_commands.json",
+						"compile_flags.txt"
+					)(fname) or require("lspconfig.util").root_pattern(
+						"Makefile",
+						"configure.ac",
+						"configure.in",
+						"config.h.in",
+						"meson.build",
+						"meson_options.txt",
+						"build.ninja"
+					)(fname) or require("lspconfig.util").find_git_ancestor(fname)
+				end,
+				cmd = {
+					"clangd",
+					"--background-index",
+					"--clang-tidy",
+					"--header-insertion=iwyu",
+					"--completion-style=detailed",
+					"--function-arg-placeholders",
+					"--fallback-style=llvm",
+				},
+				single_file_support = true,
+				init_options = {
+					usePlaceholders = true,
+					completeUnimported = true,
+					clangdFileStatus = true,
+				},
+			})
 			lspconfig.cmake.setup({ capabilities = capabilities, on_attach = on_attach })
 			lspconfig.efm.setup({
 				capabilities = capabilities,

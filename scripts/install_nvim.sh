@@ -6,5 +6,6 @@ mkdir "$GHDIR/neovim"
 git clone -b "$VERSION" https://github.com/neovim/neovim.git "$GHDIR/neovim/neovim"
 pushd "$GHDIR/neovim/neovim" || exit 1
 make CMAKE_BUILD_TYPE="${NVIM_CMAKE_BUILD_TYPE:-"RelWithDebInfo"}"
-sudo make install
+make install
 popd || exit 1
+chown -R "$2":"$2" "$GHDIR/neovim"

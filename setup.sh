@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 trap abort ERR SIGTERM SIGILL
 
@@ -26,6 +26,20 @@ source_env() {
     fi
 }
 
+correct_ownership() {
+    chown -R "$actual_user":"$actual_user" "$1"
+}
+
+if [ "$EUID" -ne 0 ]
+  then echo "Please run as root"
+  exit 1
+fi
+
+# Set up actual user - SUDO_USER has priority
+tmp=${SUDO_USER:-$_REMOTE_USER}
+actual_user=${tmp:-"dmacario"}
+actual_home=$(eval echo "~$actual_user")
+
 CURR_DIR=$(pwd)
 log "Current dir: $CURR_DIR"
 log "Shell: $SHELL"
@@ -39,8 +53,8 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     if [ -n "$(apt-get -v)" ]; then
         log "Using Ubuntu/Debian - apt detected!"
         PACMAN="apt"
-        sudo apt update
-        sudo apt upgrade -y
+        apt update
+        apt upgrade -y
     elif [ -n "$(pacman -v)" ]; then
         log "Pacman detected!"
         PACMAN="pacman"
@@ -61,7 +75,7 @@ fi
 
 package_manager() {
     if [[ "$OSTYPE" == linux-gnu* ]]; then
-        sudo "$PACMAN" -y "$@"
+        "$PACMAN" -y "$@"
     elif [[ "$OSTYPE" == darwin* ]]; then
         brew "$@"
     fi
@@ -121,22 +135,23 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 else
     for package in "${packages_deb[@]}"; do
         installing "$package"
-        sudo apt install -y "$package"
+        apt install -y "$package"
     done
 fi
 
-"$(dirname "$0")/scripts/install_fzf.sh" || { log "Error installing fzf"; exit 1; }
+"$(dirname "$0")/scripts/install_fzf.sh" "$actual_user" || { log "Error installing fzf"; exit 1; }
 
 # ------------------------------------------------------------------------------
 
 # 1. Install ZSH, OMZ, and p10k
 if [[ "$SHELL" != *zsh* ]]; then
-    ./scripts/install_zsh.sh
+    ./scripts/install_zsh.sh "$actual_user"
 
     # Install powerlevel10k
     log "Installing p10k"
     rm -rf "${ZSH_CUSTOM:-"$HOME"/.oh-my-zsh/custom}/themes/powerlevel10k"
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-"$HOME"/.oh-my-zsh/custom}/themes/powerlevel10k"
+    correct_ownership "${ZSH_CUSTOM:-"$HOME"/.oh-my-zsh/custom}/themes/powerlevel10k"
 fi
 
 # ------------------------------------------------------------------------------
@@ -149,6 +164,7 @@ make_link() {
     fi
     if [ -f "$CURR_DIR/$1" ] && [ ! -L "$HOME/$1" ]; then
         ln -s "$CURR_DIR/$1" "$HOME/$1"
+        correct_ownership "$HOME/$1"
     fi
 }
 
@@ -186,13 +202,14 @@ if [ -d "$CURR_DIR/nvim" ]; then
     # Check whether neovim is already installed with the default version
     if [ ! -x "$(command -v nvim)" ] || [ "$(nvim -v | awk -F" " '{ print $2 }' | head -n 1)" != "$NVIM_VERSION" ]; then
         log "Installing Neovim $NVIM_VERSION"
-        "$CURR_DIR/scripts/install_nvim.sh" "$NVIM_VERSION"
+        "$CURR_DIR/scripts/install_nvim.sh" "$NVIM_VERSION" "$actual_user"
     else
         log "Found local installation of Neovim $NVIM_VERSION"
     fi
 
     if [ ! -L "$CONFIG_PATH/nvim" ]; then
         ln -s "$CURR_DIR/nvim" "$CONFIG_PATH/nvim"
+        correct_ownership "$CONFIG_PATH/nvim"
     fi
     get_back
 
@@ -203,7 +220,7 @@ if [ -d "$CURR_DIR/nvim" ]; then
     fi
 
     get_back
-    ./scripts/lazygit-install.sh
+    ./scripts/lazygit-install.sh "$actual_user"
 
     mkdir "$HOME/.virtualenvs" && cd "$HOME/.virtualenvs"
     python3 -m venv debugpy
@@ -211,6 +228,8 @@ if [ -d "$CURR_DIR/nvim" ]; then
     pip3 install --upgrade pip
     python3 -m pip install debugpy
     deactivate
+    get_back
+    correct_ownership "$HOME/.virtualenvs"
 fi
 
 get_back
@@ -219,24 +238,29 @@ get_back
 # Install the Tmux Plugin Manager
 [ ! -d "$HOME/.tmux/plugins" ]; mkdir -p "$HOME/.tmux/plugins"
 git clone https://github.com/tmux-plugins/tpm.git "$HOME/.tmux/plugins/tpm"
+correct_ownership "$HOME/.tmux/plugins/tpm"
 
 if [ -n "$XDG_CONFIG_HOME" ] && [ -d "$CURR_DIR/tmux" ]; then  # Should be defined in .zshrc
     if [ ! -L "$XDG_CONFIG_HOME/tmux" ]; then
         ln -s "$CURR_DIR/tmux" "$XDG_CONFIG_HOME/tmux"
+        correct_ownership "$XDG_CONFIG_HOME/tmux"
     fi
 elif [ -n "$XDG_CONFIG_HOME" ] && [ -f "$CURR_DIR/.tmux.conf" ]; then
     TMUX_XDG_PATH="$XDG_CONFIG_HOME/tmux"
     mkdir TMUX_XDG_PATH
     if [ ! -L "$TMUX_XDG_PATH/tmux.conf" ]; then
         ln -s "$CURR_DIR/.tmux.conf" "$TMUX_XDG_PATH/tmux.conf"
+        correct_ownership "$TMUX_XDG_PATH/tmux.conf"
     fi
 elif [ -z "$XDG_CONFIG_HOME" ] && [ -d "$CURR_DIR/tmux" ]; then
     if [ ! -L "$HOME/.tmux.conf" ]; then
         ln -s "$CURR_DIR/tmux/tmux.conf" "$HOME/.tmux.conf"
+        correct_ownership "$HOME/.tmux.conf"
     fi
 elif [ -z "$XDG_CONFIG_HOME" ] && [ -f "$CURR_DIR/.tmux.conf" ]; then
     if [ ! -L "$HOME/.tmux.conf" ]; then
         ln -s "$CURR_DIR/.tmux.conf" "$HOME/.tmux.conf"
+        correct_ownership "$HOME/.tmux.conf"
     fi
 else
     log "No TMUX config found"
@@ -245,11 +269,16 @@ fi
 # Vim config
 if [ -f "$CURR_DIR/.vimrc" ] && [ ! -L "$HOME/.vimrc" ]; then
     ln -s "$CURR_DIR/.vimrc" "$HOME/.vimrc"
+    correct_ownership "$HOME/.vimrc"
 fi
 
 # Git config
 if [ ! -L "$HOME/.gitconfig" ]; then
     ln -s "$CURR_DIR/.gitconfig" "$HOME/.gitconfig"
+    correct_ownership "$HOME/.gitconfig"
 fi
+
+correct_ownership "$CONFIG_PATH"
+correct_ownership "$GHDIR"
 
 log "Setup complete! Restart your shell for all the changes to take effect."

@@ -15,5 +15,5 @@ else
     tar xf lazygit.tar.gz lazygit
     install lazygit /usr/local/bin
     rm lazygit.tar.gz
-    chown -R "$1":"$1"
+    chown -R "$1":"$1" lazygit
 fi

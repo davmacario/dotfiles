@@ -46,7 +46,11 @@ if [ ! -x "$(command -v omz)" ]; then
         mv "$HOME/.oh-my-zsh" "$HOME/.oh-my-zsh-old"
         correct_ownership "$HOME/.oh-my-zsh-old"
     fi
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    if [ -z "$actual_user" ]; then
+        su - "$actual_user" -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    else
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    fi
     popd || { log "Something went wrong"; exit 1; }
 fi
 

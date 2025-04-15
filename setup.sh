@@ -48,7 +48,7 @@ log "Shell: $SHELL"
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     log "Linux detected!"
     log "Installing homebrew"
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    su - "$actual_user" -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     # TODO: add support for other package managers
     if [ -n "$(apt-get -v)" ]; then
         log "Using Ubuntu/Debian - apt detected!"
@@ -63,10 +63,10 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     log "MacOS detected!"
     # Command line tools
-    xcode-select --install
+    su - "$actual_user" -c xcode-select --install
     # Install homebrew
     if [ -z "$(brew -v)" ]; then
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        su - "$actual_user" -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     else
         brew update
         brew upgrade

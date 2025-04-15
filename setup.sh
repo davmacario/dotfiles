@@ -203,6 +203,7 @@ if [ -d "$CURR_DIR/nvim" ]; then
     if [ ! -x "$(command -v nvim)" ] || [ "$(nvim -v | awk -F" " '{ print $2 }' | head -n 1)" != "$NVIM_VERSION" ]; then
         log "Installing Neovim $NVIM_VERSION"
         "$CURR_DIR/scripts/install_nvim.sh" "$NVIM_VERSION" "$actual_user"
+        log "Neovim installed successfully!"
     else
         log "Found local installation of Neovim $NVIM_VERSION"
     fi

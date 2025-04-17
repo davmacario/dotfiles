@@ -3,7 +3,7 @@
 trap abort ERR SIGTERM SIGILL
 
 log() {
-    echo "[$(date '+%Y-%m-%d %H:%M:%S') - $0] $1"
+    echo -e "[$(date '+%Y-%m-%d %H:%M:%S')] $1"
 }
 
 abort() {
@@ -150,9 +150,9 @@ if [[ "$SHELL" != *zsh* ]]; then
 
     # Install powerlevel10k
     log "Installing p10k"
-    rm -rf "${ZSH_CUSTOM:-"$HOME"/.oh-my-zsh/custom}/themes/powerlevel10k"
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-"$HOME"/.oh-my-zsh/custom}/themes/powerlevel10k"
-    correct_ownership "${ZSH_CUSTOM:-"$HOME"/.oh-my-zsh/custom}/themes/powerlevel10k"
+    rm -rf "${ZSH_CUSTOM:-"$actual_home"/.oh-my-zsh/custom}/themes/powerlevel10k"
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-"$actual_home"/.oh-my-zsh/custom}/themes/powerlevel10k"
+    correct_ownership "${ZSH_CUSTOM:-"$actual_home"/.oh-my-zsh/custom}/themes/powerlevel10k"
 fi
 
 # ------------------------------------------------------------------------------
@@ -160,12 +160,12 @@ fi
 # 2. Hyperlinks - don't overwrite files if already present
 
 make_link() {
-    if [ -f "$HOME/$1" ]; then
-        rm "$HOME/$fl"
+    if [ -f "$actual_home/$1" ]; then
+        rm "$actual_home/$fl"
     fi
-    if [ -f "$CURR_DIR/$1" ] && [ ! -L "$HOME/$1" ]; then
-        ln -s "$CURR_DIR/$1" "$HOME/$1"
-        correct_ownership "$HOME/$1"
+    if [ -f "$CURR_DIR/$1" ] && [ ! -L "$actual_home/$1" ]; then
+        ln -s "$CURR_DIR/$1" "$actual_home/$1"
+        correct_ownership "$actual_home/$1"
     fi
 }
 
@@ -189,7 +189,7 @@ done
 mkdir -p "$GHDIR"
 
 if [ -z "$XDG_CONFIG_HOME" ]; then
-    CONFIG_PATH="$HOME/.config"
+    CONFIG_PATH="$actual_home/.config"
 else
     CONFIG_PATH="$XDG_CONFIG_HOME"
 fi
@@ -224,23 +224,23 @@ if [ -d "$CURR_DIR/nvim" ]; then
     get_back
     ./scripts/lazygit-install.sh "$actual_user"
 
-    mkdir "$HOME/.virtualenvs" && cd "$HOME/.virtualenvs"
+    mkdir "$actual_home/.virtualenvs" && cd "$actual_home/.virtualenvs"
     python3 -m venv debugpy
     source debugpy/bin/activate
     pip3 install --upgrade pip
     python3 -m pip install debugpy
     deactivate
     get_back
-    correct_ownership "$HOME/.virtualenvs"
+    correct_ownership "$actual_home/.virtualenvs"
 fi
 
 get_back
 
 # Tmux config
 # Install the Tmux Plugin Manager
-[ ! -d "$HOME/.tmux/plugins" ]; mkdir -p "$HOME/.tmux/plugins"
-git clone https://github.com/tmux-plugins/tpm.git "$HOME/.tmux/plugins/tpm"
-correct_ownership "$HOME/.tmux/plugins/tpm"
+[ ! -d "$actual_home/.tmux/plugins" ]; mkdir -p "$actual_home/.tmux/plugins"
+git clone https://github.com/tmux-plugins/tpm.git "$actual_home/.tmux/plugins/tpm"
+correct_ownership "$actual_home/.tmux/plugins/tpm"
 
 if [ -n "$XDG_CONFIG_HOME" ] && [ -d "$CURR_DIR/tmux" ]; then  # Should be defined in .zshrc
     if [ ! -L "$XDG_CONFIG_HOME/tmux" ]; then
@@ -255,29 +255,29 @@ elif [ -n "$XDG_CONFIG_HOME" ] && [ -f "$CURR_DIR/.tmux.conf" ]; then
         correct_ownership "$TMUX_XDG_PATH/tmux.conf"
     fi
 elif [ -z "$XDG_CONFIG_HOME" ] && [ -d "$CURR_DIR/tmux" ]; then
-    if [ ! -L "$HOME/.tmux.conf" ]; then
-        ln -s "$CURR_DIR/tmux/tmux.conf" "$HOME/.tmux.conf"
-        correct_ownership "$HOME/.tmux.conf"
+    if [ ! -L "$actual_home/.tmux.conf" ]; then
+        ln -s "$CURR_DIR/tmux/tmux.conf" "$actual_home/.tmux.conf"
+        correct_ownership "$actual_home/.tmux.conf"
     fi
 elif [ -z "$XDG_CONFIG_HOME" ] && [ -f "$CURR_DIR/.tmux.conf" ]; then
-    if [ ! -L "$HOME/.tmux.conf" ]; then
-        ln -s "$CURR_DIR/.tmux.conf" "$HOME/.tmux.conf"
-        correct_ownership "$HOME/.tmux.conf"
+    if [ ! -L "$actual_home/.tmux.conf" ]; then
+        ln -s "$CURR_DIR/.tmux.conf" "$actual_home/.tmux.conf"
+        correct_ownership "$actual_home/.tmux.conf"
     fi
 else
     log "No TMUX config found"
 fi
 
 # Vim config
-if [ -f "$CURR_DIR/.vimrc" ] && [ ! -L "$HOME/.vimrc" ]; then
-    ln -s "$CURR_DIR/.vimrc" "$HOME/.vimrc"
-    correct_ownership "$HOME/.vimrc"
+if [ -f "$CURR_DIR/.vimrc" ] && [ ! -L "$actual_home/.vimrc" ]; then
+    ln -s "$CURR_DIR/.vimrc" "$actual_home/.vimrc"
+    correct_ownership "$actual_home/.vimrc"
 fi
 
 # Git config
-if [ ! -L "$HOME/.gitconfig" ]; then
-    ln -s "$CURR_DIR/.gitconfig" "$HOME/.gitconfig"
-    correct_ownership "$HOME/.gitconfig"
+if [ ! -L "$actual_home/.gitconfig" ]; then
+    ln -s "$CURR_DIR/.gitconfig" "$actual_home/.gitconfig"
+    correct_ownership "$actual_home/.gitconfig"
 fi
 
 correct_ownership "$CONFIG_PATH"

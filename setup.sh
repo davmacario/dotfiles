@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -euo pipefail
+set -eo pipefail
 trap abort ERR SIGTERM SIGILL
 
 log() {

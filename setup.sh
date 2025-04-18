@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
 trap abort ERR SIGTERM SIGILL
 
 log() {
@@ -145,7 +146,7 @@ fi
 
 # 1. Install ZSH, OMZ, and p10k
 if [[ "$SHELL" != *zsh* ]]; then
-    ./scripts/install_zsh.sh "$actual_user"
+    ./scripts/install_zsh.sh "$actual_user" "$actual_home"
 
     # Install powerlevel10k
     log "Installing p10k"

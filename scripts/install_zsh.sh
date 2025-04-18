@@ -9,18 +9,19 @@ if [ "$EUID" -ne 0 ]
   exit 1
 fi
 
-actual_user="$1"
+actual_user="${1:-$USER}"
+actual_home="${2:-$HOME}"
 correct_ownership() {
-    if [ -z "$actual_user" ]; then
+    if [ "$actual_user" != "$USER" ]; then
         chown -R "$actual_user":"$actual_user" "$1"
     fi
 }
 
 install_plugins() {
-    git clone "https://github.com/zsh-users/zsh-autosuggestions" "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
-    git clone "https://github.com/zsh-users/zsh-syntax-highlighting.git" "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
-    correct_ownership "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
-    correct_ownership "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
+    git clone "https://github.com/zsh-users/zsh-autosuggestions" "${ZSH_CUSTOM:-$actual_home/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+    git clone "https://github.com/zsh-users/zsh-syntax-highlighting.git" "${ZSH_CUSTOM:-$actual_home/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
+    correct_ownership "${ZSH_CUSTOM:-$actual_home/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+    correct_ownership "${ZSH_CUSTOM:-$actual_home/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
 }
 
 # Install ZSH
@@ -40,11 +41,11 @@ fi
 
 if [ ! -x "$(command -v omz)" ]; then
     log "Installing OMZ"
-    pushd "$HOME" || { log "Unable to find $HOME"; exit 1; }
-    if [ -d "$HOME/.oh-my-zsh" ]; then
+    pushd "$actual_home" || { log "Unable to find $HOME"; exit 1; }
+    if [ -d "$actual_home/.oh-my-zsh" ]; then
         log "Found old ~/.oh-my-zsh folder, adding '-old' suffix"
-        mv "$HOME/.oh-my-zsh" "$HOME/.oh-my-zsh-old"
-        correct_ownership "$HOME/.oh-my-zsh-old"
+        mv "$actual_home/.oh-my-zsh" "$HOME/.oh-my-zsh-old"
+        correct_ownership "$actual_home/.oh-my-zsh-old"
     fi
     if [ -z "$actual_user" ]; then
         su - "$actual_user" -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"

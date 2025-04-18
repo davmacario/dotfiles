@@ -10,7 +10,7 @@ if [ "$EUID" -ne 0 ]
 fi
 
 actual_user="${1:-$USER}"
-actual_home="${2:-$HOME}"
+actual_home="${2:-$actual_home}"
 correct_ownership() {
     if [ "$actual_user" != "$USER" ]; then
         chown -R "$actual_user":"$actual_user" "$1"
@@ -41,10 +41,10 @@ fi
 
 if [ ! -x "$(command -v omz)" ]; then
     log "Installing OMZ"
-    pushd "$actual_home" || { log "Unable to find $HOME"; exit 1; }
+    pushd "$actual_home" || { log "Unable to find $actual_home"; exit 1; }
     if [ -d "$actual_home/.oh-my-zsh" ]; then
         log "Found old ~/.oh-my-zsh folder, adding '-old' suffix"
-        mv "$actual_home/.oh-my-zsh" "$HOME/.oh-my-zsh-old"
+        mv "$actual_home/.oh-my-zsh" "$actual_home/.oh-my-zsh-old"
         correct_ownership "$actual_home/.oh-my-zsh-old"
     fi
     if [ -z "$actual_user" ]; then

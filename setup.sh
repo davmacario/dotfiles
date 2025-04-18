@@ -23,7 +23,7 @@ get_back() {
 source_env() {
     # Move some relevant variables (e.g., program versions) to env file
     if [ -f "$(dirname "$0")/.env" ]; then
-        source "$(dirname "$0")/.env"
+        source "$(dirname "$0")/.env" "$actual_home"
     fi
 }
 

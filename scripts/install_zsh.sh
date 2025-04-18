@@ -1,7 +1,7 @@
 #!/bin/bash
 
 log() {
-    echo "[$(date '+%Y-%m-%d %H:%M:%S') - $0] $1"
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1"
 }
 
 if [ "$EUID" -ne 0 ]
@@ -10,7 +10,8 @@ if [ "$EUID" -ne 0 ]
 fi
 
 actual_user="${1:-$USER}"
-actual_home="${2:-$actual_home}"
+actual_home="${2:-$HOME}"
+
 correct_ownership() {
     if [ "$actual_user" != "$USER" ]; then
         chown -R "$actual_user":"$actual_user" "$1"

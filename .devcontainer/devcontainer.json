@@ -14,7 +14,7 @@
       "username": "dev"
     },
     "ghcr.io/devcontainers/features/git:1": {},
-    "ghcr.io/davmacario/devcontainer-features/dev-environment:1": {
+    "ghcr.io/davmacario/devcontainer-features/dev-environment:1.1.0": {
       "dotfiles_repo": "https://github.com/davmacario/dotfiles.git",
       "dotfiles_branch": "main",
       "dotfiles_install_script": "setup.sh"

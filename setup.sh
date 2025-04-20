@@ -150,7 +150,7 @@ else
     done
 fi
 
-"$(dirname "$0")/scripts/install_fzf.sh" "$actual_user" || { log "Error installing fzf"; exit 1; }
+"$(dirname "$0")/scripts/install_fzf.sh" "$actual_user" "$actual_home" || { log "Error installing fzf"; exit 1; }
 
 # ------------------------------------------------------------------------------
 

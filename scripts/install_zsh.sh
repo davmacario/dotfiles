@@ -4,13 +4,15 @@ log() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1"
 }
 
+actual_user="${1:-$USER}"
+actual_home="${2:-$HOME}"
+
 if [ "$EUID" -ne 0 ]
   then echo "Please run as root"
   exit 1
+else
+    echo -e "Installing for $actual_user, with home in $actual_home"
 fi
-
-actual_user="${1:-$USER}"
-actual_home="${2:-$HOME}"
 
 correct_ownership() {
     if [ "$actual_user" != "$USER" ]; then
@@ -89,3 +91,5 @@ else
         chsh -s "$(which zsh)" "$actual_user"
     fi
 fi
+
+correct_ownership "$actual_home/.oh-my-zsh"

@@ -31,6 +31,16 @@ correct_ownership() {
     chown -R "$actual_user":"$actual_user" "$1"
 }
 
+make_link() {
+    if [ -f "$actual_home/$1" ]; then
+        rm "$actual_home/$fl"
+    fi
+    if [ -f "$CURR_DIR/$1" ] && [ ! -L "$actual_home/$1" ]; then
+        ln -s "$CURR_DIR/$1" "$actual_home/$1"
+        correct_ownership "$actual_home/$1"
+    fi
+}
+
 if [ "$EUID" -ne 0 ]
   then echo "Please run as root"
   exit 1
@@ -158,16 +168,6 @@ fi
 # ------------------------------------------------------------------------------
 
 # 2. Hyperlinks - don't overwrite files if already present
-
-make_link() {
-    if [ -f "$actual_home/$1" ]; then
-        rm "$actual_home/$fl"
-    fi
-    if [ -f "$CURR_DIR/$1" ] && [ ! -L "$actual_home/$1" ]; then
-        ln -s "$CURR_DIR/$1" "$actual_home/$1"
-        correct_ownership "$actual_home/$1"
-    fi
-}
 
 files_to_link=(
     ".bashrc"

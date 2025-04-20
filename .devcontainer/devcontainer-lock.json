@@ -1,9 +1,9 @@
 {
   "features": {
-    "ghcr.io/davmacario/devcontainer-features/dev-environment:1": {
-      "version": "1.0.0",
-      "resolved": "ghcr.io/davmacario/devcontainer-features/dev-environment@sha256:7bba20c3348e771ae5759d6de30c06a78fc074470d32dc202363fe9710d44423",
-      "integrity": "sha256:7bba20c3348e771ae5759d6de30c06a78fc074470d32dc202363fe9710d44423",
+    "ghcr.io/davmacario/devcontainer-features/dev-environment:1.1.0": {
+      "version": "1.1.0",
+      "resolved": "ghcr.io/davmacario/devcontainer-features/dev-environment@sha256:2a97e8ceac903b25cfeb265a48984508251c83dd0a0b257d468be90a388ab5de",
+      "integrity": "sha256:2a97e8ceac903b25cfeb265a48984508251c83dd0a0b257d468be90a388ab5de",
       "dependsOn": [
         "ghcr.io/devcontainers/features/common-utils",
         "ghcr.io/devcontainers/features/git:1"

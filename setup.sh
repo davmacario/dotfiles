@@ -179,11 +179,17 @@ files_to_link=(
     ".p10k.zsh"
     ".ubuntu.zshrc"
     ".zshrc"
+    ".vimrc"
+    ".gitconfig"
+    "personal.gitconfig"
+    "work.gitconfig"
 )
 
 for fl in "${files_to_link[@]}"; do
-    log "Linking $fl"
-    make_link "$fl"
+    if [ -f "$CURR_DIR/$fl" ] && [ ! -L "$actual_home/$fl" ]; then
+        log "Linking $fl"
+        make_link "$fl"
+    fi
 done
 
 # Github repos
@@ -194,7 +200,6 @@ if [ -z "$XDG_CONFIG_HOME" ]; then
 else
     CONFIG_PATH="$XDG_CONFIG_HOME"
 fi
-
 mkdir -p "$CONFIG_PATH"
 
 # Nvim config
@@ -241,16 +246,15 @@ get_back
 # Install the Tmux Plugin Manager
 [ ! -d "$actual_home/.tmux/plugins" ]; mkdir -p "$actual_home/.tmux/plugins"
 git clone https://github.com/tmux-plugins/tpm.git "$actual_home/.tmux/plugins/tpm"
-correct_ownership "$actual_home/.tmux/plugins/tpm"
 
-if [ -n "$XDG_CONFIG_HOME" ] && [ -d "$CURR_DIR/tmux" ]; then  # Should be defined in .zshrc
+if [ -n "$XDG_CONFIG_HOME" ] && [ -d "$CURR_DIR/tmux" ]; then  # Should be defined in .zshrc or .env
     if [ ! -L "$XDG_CONFIG_HOME/tmux" ]; then
         ln -s "$CURR_DIR/tmux" "$XDG_CONFIG_HOME/tmux"
         correct_ownership "$XDG_CONFIG_HOME/tmux"
     fi
 elif [ -n "$XDG_CONFIG_HOME" ] && [ -f "$CURR_DIR/.tmux.conf" ]; then
     TMUX_XDG_PATH="$XDG_CONFIG_HOME/tmux"
-    mkdir TMUX_XDG_PATH
+    mkdir "$TMUX_XDG_PATH"
     if [ ! -L "$TMUX_XDG_PATH/tmux.conf" ]; then
         ln -s "$CURR_DIR/.tmux.conf" "$TMUX_XDG_PATH/tmux.conf"
         correct_ownership "$TMUX_XDG_PATH/tmux.conf"
@@ -269,18 +273,7 @@ else
     log "No TMUX config found"
 fi
 
-# Vim config
-if [ -f "$CURR_DIR/.vimrc" ] && [ ! -L "$actual_home/.vimrc" ]; then
-    ln -s "$CURR_DIR/.vimrc" "$actual_home/.vimrc"
-    correct_ownership "$actual_home/.vimrc"
-fi
-
-# Git config
-if [ ! -L "$actual_home/.gitconfig" ]; then
-    ln -s "$CURR_DIR/.gitconfig" "$actual_home/.gitconfig"
-    correct_ownership "$actual_home/.gitconfig"
-fi
-
+correct_ownership "$actual_home/.tmux"
 correct_ownership "$CONFIG_PATH"
 correct_ownership "$GHDIR"
 

@@ -274,6 +274,7 @@ else
 fi
 
 correct_ownership "$actual_home/.tmux"
+correct_ownership "$actual_home/.local"
 correct_ownership "$CONFIG_PATH"
 correct_ownership "$GHDIR"
 

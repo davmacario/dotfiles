@@ -93,3 +93,4 @@ else
 fi
 
 correct_ownership "$actual_home/.oh-my-zsh"
+correct_ownership "$actual_home/.zshrc.pre-oh-my-zsh"

@@ -81,7 +81,7 @@ return {
 			})
 
 			-- Disable logs
-			vim.lsp.set_log_level("off")
+			vim.lsp.set_log_level("error")
 
 			-- Setup of the individual servers
 			local lspconfig = require("lspconfig")
@@ -267,34 +267,11 @@ return {
 			lspconfig.tflint.setup({ capabilities = capabilities, on_attach = on_attach })
 			lspconfig.taplo.setup({ capabilities = capabilities, on_attach = on_attach })
 			lspconfig.gitlab_ci_ls.setup({ capabilities = capabilities, on_attach = on_attach })
-
-			-- lspconfig.gitlab_code_suggestions.setup({ capabilities = capabilities, on_attach = on_attach })
-
-			-- if configs.gitlab_lsp then
-			-- 	return
-			-- end
-			-- local settings = {
-			-- 	baseUrl = "https://gitlab.com",
-			-- 	token = vim.env.GITLAB_TOKEN,
-			-- }
-			-- configs.gitlab_lsp = {
-			-- 	default_config = {
-			-- 		name = "gitlab_lsp",
-			-- 		-- cmd = { "gitlab-lsp", "--stdio" },
-			-- 		-- cmd = { "node", "/Users/your_user/code/gitlab-lsp/out/node/main.js", "--stdio" },
-			-- 		filetypes = { "go", "javascript", "python", "ruby", "c", "cpp", "sh" },
-			-- 		single_file_support = true,
-			-- 		root_dir = function(fname)
-			-- 			return lspconfig.util.find_git_ancestor(fname)
-			-- 		end,
-			-- 		settings = settings,
-			-- 	},
-			-- 	docs = {
-			-- 		description = "GitLab Code Suggestions",
-			-- 	},
-			-- }
-
-			-- lspconfig.gitlab_lsp.setup({})
+			-- lspconfig.bitbake_language_server.setup({
+			-- 	capabilities = capabilities,
+			-- 	on_attach = on_attach,
+			-- 	cmd = { "language-server-bitbake" },
+			-- })
 		end,
 	},
 }

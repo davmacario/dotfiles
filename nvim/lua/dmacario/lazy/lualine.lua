@@ -65,6 +65,7 @@ return {
 					"searchcount",
 				},
 				lualine_x = {
+					require("dmacario.components.lualine-gitlab-completions"),
 					require("dmacario.components.lualine-codecompanion"),
 					"encoding",
 					{ "fileformat", symbols = { unix = icons.os_icon } },

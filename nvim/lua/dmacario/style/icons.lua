@@ -197,4 +197,15 @@ ICONS.spinner = {
 	length = 10,
 }
 
+ICONS.gitlab = {
+	logo_full = "",
+	logo_empty = "󰮠",
+	check_ok = " ",
+	check_ko = " ",
+	check_wait = " ",
+	check_unknown = "?",
+	color_active = "#FC6D26",
+	color_inactive = "#7c6f64",
+}
+
 return ICONS

@@ -1,10 +1,10 @@
 return {
-	-- DEV - testing out local changes
+	-- NOTE: testing out local changes
 	-- "gitlab-org/editor-extensions/gitlab.vim.git",
 	dir = "~/gitlab/dmacario/gitlab.vim",
 	dev = true,
 	event = { "BufReadPre", "BufNewFile" },
-	ft = { "go", "javascript", "python", "ruby", "c", "cpp", "sh" },
+	ft = { "go", "javascript", "python", "ruby", "c", "cpp", "sh", "terraform" },
 	cond = function()
 		-- Only activate if token is present in environment variable.
 		-- Remove this line to use the interactive workflow.
@@ -22,23 +22,32 @@ return {
 				-- If enabled, allows to edit GitLab resources (issues/MRs) from Neovim
 				enabled = false,
 			},
-			minimal_message_level = vim.lsp.log_levels.DEBUG,
+			minimal_message_level = vim.lsp.log_levels.ERROR,
 			code_suggestions = {
 				auto_filetypes = {
 					"c",
 					"cpp",
 					"go",
 					"python",
-					"sh",
+					"shell",
+					"terraform",
 				},
 				ghost_text = {
 					enabled = true,
-					toggle_enabled = "<C-a>", -- overridden becaus of harpoon
-					accept_suggestion = "<C-l>",
+					toggle_enabled = "<C-a>", -- overridden because of harpoon
+					accept_suggestion = "<C-Space>",
 					clear_suggestions = "<C-k>",
 					stream = true,
 				},
 			},
+			language_server = {
+				-- The following get passed to LSP directly
+				workspace_settings = {
+					codeCompletion = {
+						enableSecretRedaction = true,
+					},
+				},
+			}
 		})
 		vim.keymap.set("n", "<C-g>", "<Plug>(GitLabToggleCodeSuggestions)", { silent = true })
 		vim.keymap.set("i", "<C-g>", "<ESC><Plug>(GitLabToggleCodeSuggestions)A", { silent = true })

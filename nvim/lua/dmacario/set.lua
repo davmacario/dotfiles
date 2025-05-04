@@ -41,6 +41,9 @@ vim.opt.scrolloff = 8
 -- Add column at 80 chars
 vim.opt.colorcolumn = "80"
 
+-- TODO: review once Telescope border is fixed
+-- vim.o.winborder = "rounded"
+
 -- Settings for lualine
 vim.opt.showtabline = 2
 vim.opt.showmode = false
@@ -70,6 +73,7 @@ vim.g.loaded_netrwPlugin = 1
 -- FormatOptions
 vim.opt.formatoptions:append("ro") -- jcroql (no t - autowrap text)
 
+-- Handle copy-paste in WSL :/
 if vim.fn.has("wsl") then
 	vim.opt.clipboard = {
 		name = "WslClipboard",

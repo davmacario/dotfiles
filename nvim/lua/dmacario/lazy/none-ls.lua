@@ -64,8 +64,6 @@ return {
 					require("none-ls-shellcheck.code_actions"),
 				},
 			})
-			-- Keymaps
-			vim.keymap.set("n", "<leader>ft", vim.lsp.buf.format, { desc = "Format current buffer" })
 		end,
 	},
 }

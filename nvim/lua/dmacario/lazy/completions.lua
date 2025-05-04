@@ -38,6 +38,18 @@ return {
 		---@module 'blink.cmp'
 		---@type blink.cmp.Config
 		opts = {
+			enabled = function()
+				return not vim.tbl_contains({
+					"NvimTree",
+					"dapui_stacks",
+					"dapui_watches",
+					"dapui_breakpoints",
+					"dapui_scopes",
+					"dapui_console",
+					"dap-repl",
+					"fugitiveblame",
+				}, vim.bo.filetype)
+			end,
 			-- All presets have the following mappings:
 			-- C-space: Open menu or open docs if already open
 			-- C-n/C-p or Up/Down: Select next/previous item

@@ -65,7 +65,7 @@ return {
 					},
 				},
 			},
-			system_prompt = function() -- Used in chat only
+			system_prompt = function() -- Passed to the LLM in chat mode
 				return [[
 				You are an AI programming assistant named "CodeCompanion". You are currently plugged in to text editor on a user's machine.
 
@@ -96,7 +96,7 @@ return {
 
 				When given a task:
 				1. Think step-by-step and describe your plan for what to build in pseudocode, written out in great detail, unless asked not to do so.
-				2. Output the code in a single code block, being careful to only return relevant code. Do NOT place the code in a code block, i.e., don't include backticks.
+				2. Output the code in a single code block, being careful to only return relevant code.
 				3. You should always generate short suggestions for the next user turns that are relevant to the conversation.
 				4. You can only give one reply for each conversation turn.]]
 			end,
@@ -182,6 +182,9 @@ return {
 						},
 						headers = {
 							["Content-Type"] = "application/json",
+						},
+						parameters = {
+							sync = true,
 						},
 						schema = {
 							model = {

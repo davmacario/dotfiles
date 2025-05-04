@@ -1,8 +1,9 @@
 return {
 	{
 		"L3MON4D3/LuaSnip",
+		version = "v2.*",
+		build = "make install_jsregexp",
 		dependencies = {
-			"saadparwaiz1/cmp_luasnip",
 			"rafamadriz/friendly-snippets",
 		},
 
@@ -20,63 +21,114 @@ return {
 					t(' world")'),
 				}),
 			})
+			require("luasnip.loaders.from_vscode").lazy_load()
+			require("luasnip.loaders.from_vscode").load({ paths = "~/.config/nvim/my_snippets" })
 		end,
 	},
 	{
-		"hrsh7th/nvim-cmp",
+		"saghen/blink.cmp",
+		-- optional: provides snippets for the snippet source
 		dependencies = {
-			"hrsh7th/cmp-nvim-lsp-signature-help",
-			"hrsh7th/cmp-path",
-			"hrsh7th/cmp-nvim-lsp",
+			"L3MON4D3/LuaSnip",
 		},
-		config = function()
-			require("luasnip.loaders.from_vscode").lazy_load()
-			require("luasnip.loaders.from_vscode").load({ paths = "~/.config/nvim/my_snippets" })
-			local cmp = require("cmp")
-			local icons = require("dmacario.style.icons")
-			cmp.setup({
-				snippet = {
-					expand = function(args)
-						require("luasnip").lsp_expand(args.body)
-					end,
+
+		-- use a release tag to download pre-built binaries
+		version = "1.*",
+
+		---@module 'blink.cmp'
+		---@type blink.cmp.Config
+		opts = {
+			-- All presets have the following mappings:
+			-- C-space: Open menu or open docs if already open
+			-- C-n/C-p or Up/Down: Select next/previous item
+			-- C-e: Hide menu
+			-- C-k: Toggle signature help (if signature.enabled = true)
+			--
+			-- See :h blink-cmp-config-keymap for defining your own keymap
+			keymap = {
+				preset = "enter",
+				["<cr>"] = { "accept", "fallback" },
+				["<c-l>"] = { "show", "show_documentation", "hide_documentation" },
+				["<c-e>"] = { "hide", "fallback" },
+				["<tab>"] = { "select_next", "fallback" },
+				["<s-tab>"] = { "select_prev", "fallback" },
+				["<C-b>"] = { "scroll_documentation_up", "fallback" },
+				["<C-f>"] = { "scroll_documentation_down", "fallback" },
+				["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
+				["<C-space>"] = { "fallback" }, -- Used for other things
+			},
+
+			appearance = {
+				nerd_font_variant = "normal",
+			},
+
+			completion = {
+				keyword = {
+					range = "prefix",
 				},
-				window = {
-					completion = cmp.config.window.bordered(),
-					documentation = cmp.config.window.bordered(),
+				accept = { auto_brackets = { enabled = false } },
+				list = { selection = { preselect = false, auto_insert = true } },
+				menu = {
+					border = "none",
+					draw = {
+						components = {
+							kind_icon = {
+								ellipsis = false,
+								text = function(ctx) -- Customize icon
+									local custom_icons = require("dmacario.style.icons").kind_icons
+									local icon = ctx.kind_icon
+									if vim.tbl_contains({ "Path" }, ctx.source_name) then
+										local dev_icon, _ = require("nvim-web-devicons").get_icon(ctx.label)
+										if dev_icon then
+											icon = dev_icon
+										end
+									else
+										icon = custom_icons[ctx.kind]
+									end
+
+									return icon .. ctx.icon_gap
+								end,
+							},
+						},
+						columns = {
+							{ "label", "label_description", gap = 1 },
+							{ "kind_icon", "kind" },
+						},
+					},
 				},
-				mapping = cmp.mapping.preset.insert({
-					["<CR>"] = cmp.mapping.confirm({ select = false }),
-					["<C-l>"] = cmp.mapping.complete(),
-					["<Tab>"] = cmp.mapping.select_next_item(),
-					["<S-Tab>"] = cmp.mapping.select_prev_item(),
-					["<C-e>"] = cmp.mapping.close(),
-				}),
-				sources = {
-					{ name = "nvim_lsp_signature_help" }, -- display function signatures with current parameter emphasized
-					{ name = "path" }, -- file paths
-					{ name = "nvim_lsp", keyword_length = 2 }, -- from language server
-					{ name = "nvim_lua", keyword_length = 3 }, -- complete neovim's Lua runtime API such vim.lsp.*
-					{ name = "luasnip", keyword_length = 2 }, -- nvim-cmp source for vim-vsnip
-					{ name = "buffer", keyword_length = 4 }, -- source current buffer
-					{ name = "calc" }, -- source for math calculation
+				documentation = {
+					-- See keymaps: pressing <C-l> on current selection triggers docs
+					auto_show = false,
+					window = { border = "rounded" },
 				},
-				formatting = {
-					fields = { "menu", "abbr", "kind" },
-					format = function(entry, vim_item)
-						-- Kind icons
-						vim_item.kind = string.format("%s %s", icons.kind_icons[vim_item.kind], vim_item.kind)
-						-- Source
-						local menu_icon = {
-							nvim_lsp = "λ",
-							vsnip = "⋗",
-							buffer = "Ω",
-							path = "",
-						}
-						vim_item.menu = menu_icon[entry.source.name]
-						return vim_item
-					end,
+				ghost_text = { enabled = false },
+			},
+			signature = { enabled = true, window = { border = "rounded" } },
+
+			-- Default list of enabled providers defined so that you can extend it
+			-- elsewhere in your config, without redefining it, due to `opts_extend`
+			sources = {
+				default = { "lsp", "path", "snippets", "buffer" },
+				providers = {
+					buffer = {
+						opts = {
+							-- or (recommended) filter to only "normal" buffers
+							get_bufnrs = function()
+								return vim.tbl_filter(function(bufnr)
+									return vim.bo[bufnr].buftype == ""
+								end, vim.api.nvim_list_bufs())
+							end,
+						},
+					},
 				},
-			})
-		end,
+			},
+
+			snippets = {
+				preset = "luasnip",
+			},
+
+			fuzzy = { implementation = "prefer_rust_with_warning" },
+		},
+		opts_extend = { "sources.default" },
 	},
 }

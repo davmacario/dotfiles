@@ -54,7 +54,7 @@ packer_compiled.lua
 # Lazy json file
 lazy-lock.json
 
-# log files
+# Log files
 *.log
 
 # NVIM Spellcheck folder

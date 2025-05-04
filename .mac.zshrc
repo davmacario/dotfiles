@@ -28,5 +28,6 @@ alias ff="fd --type f --hidden --exclude .git | fzf-tmux -p --preview \"bat --co
 
 # Env
 export LSCOLORS=gxFxCxDxBxegedabagaced
+export TERM="xterm-256color"
 
 complete -o nospace -C /opt/homebrew/bin/terraform terraform

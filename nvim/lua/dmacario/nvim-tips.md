@@ -20,6 +20,12 @@ Some nice tips to keep handy when using neovim.
   a quickfix list
 - Custom mapping: `<leader>fr`, to resume last Telescope search
 
+## Print terminal command output in current buffer
+
+`:%!<Command>`
+
+Note: it will overwrite current buffer content!
+
 ## Nice keymaps
 
 - `<leader>R` (both normal and visual): replace word under cursor/selected

@@ -91,6 +91,8 @@ plugins=(
     brew
     macos
     terraform
+    opentofu
+    nmap
 )
 source $ZSH/oh-my-zsh.sh
 # Use ctrl+space to accept autosuggestion
@@ -139,6 +141,7 @@ if [ -x "$(command -v fnm)" ]; then
 fi
 
 export CLICOLOR=1
+
 # Set bat theme
 export BAT_THEME="gruvbox-dark"
 # Change terminal language settings to english:

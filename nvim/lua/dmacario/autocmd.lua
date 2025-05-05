@@ -197,3 +197,20 @@ autocmd("BufEnter", {
 		end
 	end,
 })
+
+augroup("specialTextObjects", { clear = true })
+autocmd("FileType", {
+	group = "specialTextObjects",
+	pattern = { "markdown" },
+	callback = function()
+		-- from mini.ai docs (:h MiniAI.config)
+		local spec_pair = require("mini.ai").gen_spec.pair
+		vim.b.miniai_config = {
+			custom_textobjects = {
+				["*"] = spec_pair("*", "*", { type = "greedy" }),
+				["_"] = spec_pair("_", "_", { type = "greedy" }),
+				["~"] = spec_pair("~", "~", { type = "greedy" }),
+			},
+		}
+	end,
+})

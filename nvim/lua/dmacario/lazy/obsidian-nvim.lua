@@ -1,5 +1,5 @@
 return {
-	"epwalsh/obsidian.nvim",
+	"obsidian-nvim/obsidian.nvim",
 	version = "*", -- recommended, use latest release instead of latest commit
 	lazy = true,
 	-- ft = "markdown",
@@ -29,9 +29,8 @@ return {
 		},
 
 		completion = {
-			-- Set to false to disable completion.
-			nvim_cmp = true,
-			-- Trigger completion at 2 chars.
+			nvim_cmp = false,
+			blink = true,
 			min_chars = 2,
 		},
 

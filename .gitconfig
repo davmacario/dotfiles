@@ -26,6 +26,8 @@
     path=vitestro.gitconfig
 [includeIf "gitdir/i:/home/dmacario/gitlab/"]
     path=vitestro.gitconfig
+[includeIf "gitdir/i:/workspaces/"]
+    path=vitestro.gitconfig
 [includeIf "gitdir/i:/home/dmacario/github/"]
     path=personal.gitconfig
 [difftool]

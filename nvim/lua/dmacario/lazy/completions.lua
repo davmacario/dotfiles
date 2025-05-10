@@ -120,15 +120,42 @@ return {
 			-- Default list of enabled providers defined so that you can extend it
 			-- elsewhere in your config, without redefining it, due to `opts_extend`
 			sources = {
-				default = { "lsp", "path", "snippets", "buffer" },
+				default = { "lsp", "path", "snippets", "omni", "buffer" },
 				providers = {
+					lsp = {
+						score_offset = 3,
+						min_keyword_length = 3,
+						fallbacks = {},
+					},
+					path = {
+						score_offset = 1,
+						min_keyword_length = 0,
+					},
 					buffer = {
 						opts = {
-							-- or (recommended) filter to only "normal" buffers
+							-- Get completions from normal buffers
 							get_bufnrs = function()
 								return vim.tbl_filter(function(bufnr)
 									return vim.bo[bufnr].buftype == ""
 								end, vim.api.nvim_list_bufs())
+							end,
+						},
+						score_offset = -5,
+						min_keyword_length = 4,
+					},
+					snippets = {
+						min_keyword_length = 1,
+						score_offset = 2,
+					},
+					omni = {
+						module = "blink.cmp.sources.complete_func",
+						enabled = function()
+							return vim.bo.omnifunc ~= "v:lua.vim.lsp.omnifunc"
+						end,
+						---@type blink.cmp.CompleteFuncOpts
+						opts = {
+							complete_func = function()
+								return vim.bo.omnifunc
 							end,
 						},
 					},

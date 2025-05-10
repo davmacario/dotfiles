@@ -1,12 +1,13 @@
 return {
-	"mcauley-penney/visual-whitespace.nvim",
+	"davmacario/visual-whitespace.nvim",
+	event = "ModeChanged *:[vV\22]",
 	config = function()
 		require("visual-whitespace").setup({
-			highlight = { link = "", fg = "#a89984", bg = "#665c54" },
-			space_char = "·",
-			tab_char = "→",
-			nl_char = "↲",
-			cr_char = "←",
+			highlight = { fg = "#a89984", bg = "#665c54" },
+			list_chars = {
+				space = "·",
+				tab = "→",
+			},
 			enabled = true,
 		})
 	end,

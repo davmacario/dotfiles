@@ -134,7 +134,7 @@ ICONS.diagnostics = {
 	other = " ",
 }
 
-if vim.loop.os_uname().sysname == "Darwin" then
+if vim.uv.os_uname().sysname == "Darwin" then
 	ICONS.os_icon = ""
 else
 	ICONS.os_icon = ""

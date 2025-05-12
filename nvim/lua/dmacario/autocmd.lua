@@ -118,7 +118,7 @@ autocmd({ "Filetype", "BufRead", "BufNewFile" }, {
 	command = "set filetype=gitconfig",
 })
 
--- Always remove trailing whitespaces
+-- Always remove trailing whitespaces on save
 autocmd("BufWritePre", {
 	pattern = { "*" },
 	callback = function()

@@ -124,7 +124,7 @@ return {
 				providers = {
 					lsp = {
 						score_offset = 3,
-						min_keyword_length = 3,
+						min_keyword_length = 0,
 						fallbacks = {},
 					},
 					path = {

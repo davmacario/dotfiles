@@ -135,7 +135,7 @@ vim.lsp.config("clangd", {
 		},
 		offsetEncoding = { "utf-8", "utf-16" },
 	},
-	filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto", ".h", ".hpp" },
+	filetypes = { "c", "cpp", ".cc", "objc", "objcpp", "cuda", "proto", ".h", ".hpp" },
 	root_dir = function(fname)
 		return require("lspconfig.util").root_pattern(
 			".clangd",

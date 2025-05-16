@@ -1,7 +1,7 @@
 return {
-	-- NOTE: testing out local changes
-	-- "gitlab-org/editor-extensions/gitlab.vim.git",
-	dir = "~/gitlab/dmacario/gitlab.vim",
+	"https://gitlab.com/dmacario/gitlab.vim.git",
+	-- NOTE: for testing out local changes:
+	-- dir = "~/gitlab/dmacario/gitlab.vim",
 	dev = true,
 	event = { "BufReadPre", "BufNewFile" },
 	ft = { "go", "javascript", "python", "ruby", "c", "cpp", "sh", "terraform" },
@@ -47,7 +47,7 @@ return {
 						enableSecretRedaction = true,
 					},
 				},
-			}
+			},
 		})
 		vim.keymap.set("n", "<C-g>", "<Plug>(GitLabToggleCodeSuggestions)", { silent = true })
 		vim.keymap.set("i", "<C-g>", "<ESC><Plug>(GitLabToggleCodeSuggestions)A", { silent = true })

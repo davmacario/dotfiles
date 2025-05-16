@@ -135,9 +135,19 @@ vim.lsp.config("clangd", {
 		},
 		offsetEncoding = { "utf-8", "utf-16" },
 	},
-	filetypes = { "c", "cpp", ".cc", "objc", "objcpp", "cuda", "proto", ".h", ".hpp" },
-	root_dir = function(fname)
-		return require("lspconfig.util").root_pattern(
+	filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
+	-- root_markers = { -- Default configuration from lspconfig
+	--   '.clangd',
+	--   '.clang-tidy',
+	--   '.clang-format',
+	--   'compile_commands.json',
+	--   'compile_flags.txt',
+	--   'configure.ac', -- AutoTools
+	--   '.git',
+	-- },
+	root_dir = function(bufnr, callback)
+		local fname = vim.api.nvim_buf_get_name(bufnr)
+		local out = require("lspconfig.util").root_pattern(
 			".clangd",
 			".clang-tidy",
 			".clang-format",
@@ -151,7 +161,12 @@ vim.lsp.config("clangd", {
 			"meson.build",
 			"meson_options.txt",
 			"build.ninja"
-		)(fname) or require("lspconfig.util").find_git_ancestor(fname)
+		)(fname) or vim.fs.dirname(vim.fs.find(".git", {
+			path = fname,
+			upward = true,
+		})[1]) or "."
+		callback(out)
+		return out
 	end,
 	cmd = {
 		"clangd",

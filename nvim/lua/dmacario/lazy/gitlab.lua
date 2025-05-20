@@ -1,8 +1,9 @@
 return {
+	-- "https://gitlab.com/gitlab-org/editor-extensions/gitlab.vim.git",
 	"https://gitlab.com/dmacario/gitlab.vim.git",
 	-- NOTE: for testing out local changes:
 	-- dir = "~/gitlab/dmacario/gitlab.vim",
-	dev = true,
+	-- dev = true,
 	event = { "BufReadPre", "BufNewFile" },
 	ft = { "go", "javascript", "python", "ruby", "c", "cpp", "sh", "terraform" },
 	cond = function()

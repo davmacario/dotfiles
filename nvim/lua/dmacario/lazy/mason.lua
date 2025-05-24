@@ -11,7 +11,6 @@ return {
 					border = "rounded",
 					width = 0.8,
 					height = 0.9,
-
 					icons = icons.mason,
 				},
 			})
@@ -19,10 +18,12 @@ return {
 	},
 	{
 		"mason-org/mason-lspconfig.nvim",
-		config = function()
-			require("mason-lspconfig").setup({
-				ensure_installed = lsp_list,
-			})
-		end,
+		dependencies = {
+			"mason-org/mason.nvim",
+			"nvim/nvim-lspconfig",
+		},
+		opts = {
+			ensure_installed = lsp_list,
+		},
 	},
 }

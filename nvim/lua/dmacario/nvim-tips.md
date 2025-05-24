@@ -36,3 +36,20 @@ Note: it will overwrite current buffer content!
 - `<leader>rm`: mark todo in current line as not done
 - `<leader>se`: create session file (with smart Git name)
 - `<leader>sr`: remove session file (with smart Git name)
+
+## Debugger
+
+- `<leader>dt`: toggle UI
+- `<leader>dB`: set breakpoint
+- `<leader>db`: toggle breakpoint
+- `<leader>dc`: continue (go to next breakpoint) or **start debugging**
+- `<leader>di`: step into
+- `<leader>dj`: down
+- `<leader>dk`: up
+- `<leader>dl`: run last
+- `<leader>do`: step out
+- `<leader>dO`: step over
+- `<leader>dp`: pause
+- `<leader>dT`: terminate
+- `<leader>dr`: reset UI
+- `<leader>?`: eval variable under cursor (show type and attributes)

@@ -182,6 +182,7 @@ files_to_link=(
     ".gitconfig"
     "personal.gitconfig"
     "work.gitconfig"
+    "vitestro.gitconfig"
 )
 
 for fl in "${files_to_link[@]}"; do

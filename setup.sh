@@ -128,6 +128,7 @@ packages_mac=(
 packages_deb=(
     fd-find
     golang-go
+    xclip
 )
 
 # Install possible required packages with:

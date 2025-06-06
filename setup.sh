@@ -154,6 +154,9 @@ fi
 
 "$(dirname "$0")/scripts/install_fzf.sh" "$actual_user" "$actual_home" || { log "Error installing fzf"; exit 1; }
 
+# Install uv (python env manager)
+./scripts/install_uv.sh
+
 # ------------------------------------------------------------------------------
 
 # 1. Install ZSH, OMZ, and p10k

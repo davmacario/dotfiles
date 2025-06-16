@@ -192,3 +192,6 @@ if [[ "$OSTYPE" == darwin* ]] && [[ -f "$HOME/.mac.zshrc" ]]; then
 elif [[ "$OSTYPE" == linux* ]] && [[ -f "$HOME/.ubuntu.zshrc" ]]; then
     source "$HOME/.ubuntu.zshrc"
 fi
+
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"

@@ -72,6 +72,10 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { desc = "Make current 
 vim.keymap.set("n", "<leader>R", ":%s/<C-r><C-w>/<C-r><C-w>/gc<C-f>$F/i", { desc = "Replace word under cursor" })
 vim.keymap.set("x", "<leader>R", '"hy:%s/<C-r>h//gc<left><left><left>', { desc = "Replace word under cursor" })
 
+-- Quickfix list navigation
+vim.keymap.set("n", "<M-j>", "<cmd>cnext<CR>", { desc = "Navigate to next item in quickfix list" })
+vim.keymap.set("n", "<M-k>", "<cmd>cprev<CR>", { desc = "Navigate to previous item in quickfix list" })
+
 -- ToDo list
 vim.keymap.set("n", "<leader>td", "o<CR><ESC>kkA TODO:<ESC>jjA - [ ]<ESC>kk0d^j.j.A", { desc = "Add a TODO comment" })
 vim.keymap.set("n", "<leader>md", "0f[lrx", { desc = "Mark Done" })

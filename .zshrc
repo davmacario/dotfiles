@@ -100,20 +100,23 @@ bindkey '^ ' autosuggest-accept
 
 # User configuration
 alias ls='ls --color=auto'
-alias ll="ls -l"
-alias llm="ll -rt"
+alias ll='ls -l'
+alias llm='ll -rt'
 alias vim='nvim'
 alias k='kubectl'
 alias cowsaysomething="fortune | cowsay"
 alias tmux="tmux -u"
-alias gg="lazygit" # Override git gui
+alias gg='lazygit' # Override git gui
 alias gcl='gitlab-ci-local'
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    alias ff="fd --type f --hidden --exclude .git | fzf-tmux -p --preview \"bat --color=always {}\" --reverse"
+    alias ff='fd --type f --hidden --exclude .git | fzf-tmux -p --preview "bat --color=always {}" --reverse'
 else
-    alias bat="batcat"
+    alias bat='batcat'
     alias ff="fd --type f --hidden --exclude .git | fzf-tmux -p --preview \"batcat --color=always {}\" --reverse"
 fi
+alias externalip='curl -sS https://ysap.sh/ip'
+alias hl='rg --passthrough'
+alias suod='sudo'
 
 ### Fix for making Docker plugin work
 fpath=(~/.zsh/completion $fpath)

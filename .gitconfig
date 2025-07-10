@@ -1,7 +1,9 @@
 [core]
-	compression = 0
+	compression = 9
 	excludesfile = ~/.gitignore
 	editor = nvim
+    whitespace = error
+    preloadindex = true
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
@@ -11,6 +13,13 @@
 	postBuffer = 1048576000
 [init]
 	defaultBranch = main
+[status]
+    branch = true
+    showStash = true
+    showUntrackedFiles = true
+[diff]
+    renames = copies
+    interHunkContext = 10
 [alias]
     lg = lg1
     lg1 = lg1-specific --all

@@ -1,9 +1,9 @@
-[init]
-	defaultBranch = main
 [core]
-	compression = 0
-    excludesfile = /home/dmacario/.gitignore
+	compression = 9
+	excludesfile = ~/.gitignore
 	editor = nvim
+    whitespace = error
+    preloadindex = true
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
@@ -13,6 +13,15 @@
 	helper = !/usr/bin/gh auth git-credential
 [http]
 	postBuffer = 1048576000
+[init]
+	defaultBranch = main
+[status]
+    branch = true
+    showStash = true
+    showUntrackedFiles = true
+[diff]
+    renames = copies
+    interHunkContext = 10
 [alias]
     lg = lg1
     lg1 = lg1-specific --all

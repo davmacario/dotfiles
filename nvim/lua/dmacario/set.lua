@@ -25,21 +25,29 @@ vim.opt.foldlevel = 99
 vim.opt.encoding = "UTF-8"
 vim.opt.updatetime = 50
 -- vim.opt.backspace=indent,eol,start
+vim.opt.conceallevel = 0
+-- Searching
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-vim.opt.conceallevel = 0
-
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
 
-vim.opt.undodir = vim.env.HOME .. "/.vim/undodir"
+local undodir = vim.fn.expand("~/.vim/undodir")
+vim.opt.undodir = undodir
+if vim.fn.isdirectory(undodir) == 0 then
+	vim.fn.mkdir(undodir, "p")
+end
 vim.opt.undofile = true
 
 vim.opt.termguicolors = true
 
 vim.opt.scrolloff = 8
 
--- Add column at 80 chars
+-- Performance improvements
+vim.opt.redrawtime = 10000
+vim.opt.maxmempattern = 20000
+
+-- Add column at 80 chars (by default)
 vim.opt.colorcolumn = "80"
 
 -- TODO: review once Telescope border is fixed

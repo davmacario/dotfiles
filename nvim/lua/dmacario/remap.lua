@@ -1,16 +1,17 @@
 local api = vim.api
+local keymap = vim.keymap.set
 local utils = require("dmacario.utils")
 -- Key mappings
 vim.g.mapleader = " "
 
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+keymap("n", "<leader>pv", vim.cmd.Ex)
 
-vim.keymap.set("n", ",", "za", { desc = "Code folding with comma" })
+keymap("n", ",", "za", { desc = "Code folding with comma" })
 
 -- Split view
-vim.keymap.set("n", "<leader>v", vim.cmd.vsplit)
-vim.keymap.set("n", "<leader>s", vim.cmd.split)
-vim.keymap.set(
+keymap("n", "<leader>v", vim.cmd.vsplit)
+keymap("n", "<leader>s", vim.cmd.split)
+keymap(
 	"n",
 	"<leader>bq",
 	":bp|bd#<CR>",
@@ -18,79 +19,78 @@ vim.keymap.set(
 )
 
 -- Navigating split view
-vim.keymap.set("n", "<leader>h", "<C-w>h")
-vim.keymap.set("n", "<leader>l", "<C-w>l")
-vim.keymap.set("n", "<leader>j", "<C-w>j")
-vim.keymap.set("n", "<leader>k", "<C-w>k")
+keymap("n", "<leader>h", "<C-w>h")
+keymap("n", "<leader>l", "<C-w>l")
+keymap("n", "<leader>j", "<C-w>j")
+keymap("n", "<leader>k", "<C-w>k")
 -- Jump to last in direction
-vim.keymap.set("n", "<leader>L", function()
+keymap("n", "<leader>L", function()
 	local wins = api.nvim_tabpage_list_wins(0)
 	api.nvim_set_current_win(wins[#wins])
 end)
-vim.keymap.set("n", "<leader>H", function()
+keymap("n", "<leader>H", function()
 	local wins = api.nvim_tabpage_list_wins(0)
 	api.nvim_set_current_win(wins[1])
 end)
 
 -- Remap keys for resizing splits
-vim.keymap.set("n", "<leader>>", "<C-w>2>")
-vim.keymap.set("n", "<leader><lt>", "<C-w>2<lt>")
-vim.keymap.set("n", "<leader>+", "<C-w>2+")
-vim.keymap.set("n", "<leader>=", "<C-w>2+") -- Not pressing shift, may change
-vim.keymap.set("n", "<leader>-", "<C-w>2-")
-vim.keymap.set("n", "<leader>_", "<C-w>2-") -- Force of habit
+keymap("n", "<C-Right", "<C-w>2>", { desc = "Increase window width" })
+keymap("n", "<C-Left>", "<C-w>2<lt>", { desc = "Decrease window width" })
+keymap("n", "<C-Up>", "<C-w>2+", { desc = "Increase window height" })
+keymap("n", "<C-Down>", "<C-w>2-", { desc = "Decrease window height" })
 
--- Remap keys for navigating tabs
-vim.keymap.set("n", "H", vim.cmd.bp)
-vim.keymap.set("n", "L", vim.cmd.bn)
+-- Remap keys for navigating buffers
+keymap("n", "H", vim.cmd.bp)
+keymap("n", "L", vim.cmd.bn)
 
 -- Move selected lines while in visual mode
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+keymap("v", "J", ":m '>+1<CR>gv=gv")
+keymap("v", "K", ":m '<-2<CR>gv=gv")
 
 -- Movement
 -- Keep cursor at center of page when jumping
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
+keymap("n", "<C-d>", "<C-d>zz")
+keymap("n", "<C-u>", "<C-u>zz")
 
 -- Keep cursor at center when moving to next/previous occurrence
-vim.keymap.set("n", "n", "nzzzv")
-vim.keymap.set("n", "N", "Nzzzv")
+keymap("n", "n", "nzzzv")
+keymap("n", "N", "Nzzzv")
 
 -- Stay in visual mode when indenting
-vim.keymap.set("v", ">", ">gv")
-vim.keymap.set("v", "<", "<gv")
+keymap("v", ">", ">gv")
+keymap("v", "<", "<gv")
 
 -- Copy-pasting
-vim.keymap.set("x", "<leader>p", "pgvy", { desc = "Paste with <leader>p to overwrite without losing yanked text" })
-vim.keymap.set("n", "<leader>y", '"+y', { desc = "<leader>y to yank to system clipboard" })
-vim.keymap.set("v", "<leader>y", '"+y', { desc = "<leader>y to yank selection to system clipboard" })
-vim.keymap.set("n", "<leader>Y", '"+Y', { desc = "<leader>Y to yank until end of line to system clipboard" })
+keymap("x", "<leader>p", "pgvy", { desc = "Paste with <leader>p to overwrite without losing yanked text" })
+keymap("n", "<leader>y", '"+y', { desc = "<leader>y to yank to system clipboard" })
+keymap("v", "<leader>y", '"+y', { desc = "<leader>y to yank selection to system clipboard" })
+keymap("n", "<leader>Y", '"+Y', { desc = "<leader>Y to yank until end of line to system clipboard" })
+keymap({ "n", "v" }, "<leader>d", '"_d', { desc = "Delete without yanking" })
 
 -- Utilities
-vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { desc = "Make current file executable" })
-vim.keymap.set("n", "<leader>R", ":%s/<C-r><C-w>/<C-r><C-w>/gc<C-f>$F/i", { desc = "Replace word under cursor" })
-vim.keymap.set("x", "<leader>R", '"hy:%s/<C-r>h//gc<left><left><left>', { desc = "Replace word under cursor" })
+keymap("n", "<leader>x", "<cmd>!chmod +x %<CR>", { desc = "Make current file executable" })
+keymap("n", "<leader>R", ":%s/<C-r><C-w>/<C-r><C-w>/gc<C-f>$F/i", { desc = "Replace word under cursor" })
+keymap("x", "<leader>R", '"hy:%s/<C-r>h//gc<left><left><left>', { desc = "Replace word under cursor" })
 
 -- Quickfix list navigation
-vim.keymap.set("n", "<M-j>", "<cmd>cnext<CR>", { desc = "Navigate to next item in quickfix list" })
-vim.keymap.set("n", "<M-k>", "<cmd>cprev<CR>", { desc = "Navigate to previous item in quickfix list" })
+keymap("n", "<M-j>", "<cmd>cnext<CR>", { desc = "Navigate to next item in quickfix list" })
+keymap("n", "<M-k>", "<cmd>cprev<CR>", { desc = "Navigate to previous item in quickfix list" })
 
 -- ToDo list
-vim.keymap.set("n", "<leader>td", "o<CR><ESC>kkA TODO:<ESC>jjA - [ ]<ESC>kk0d^j.j.A", { desc = "Add a TODO comment" })
-vim.keymap.set("n", "<leader>md", "0f[lrx", { desc = "Mark Done" })
-vim.keymap.set("n", "<leader>rm", "0f[lr ", { desc = "Remove checkMark" })
-vim.keymap.set("n", "<leader>to", "o- [ ] ", { desc = "Open new TODO: item below current line" })
-vim.keymap.set("n", "<leader>tO", "O- [ ] ", { desc = "Open new TODO: item below current line" })
+keymap("n", "<leader>td", "o<CR><ESC>kkA TODO:<ESC>jjA - [ ]<ESC>kk0d^j.j.A", { desc = "Add a TODO comment" })
+keymap("n", "<leader>md", "0f[lrx", { desc = "Mark Done" })
+keymap("n", "<leader>rm", "0f[lr ", { desc = "Remove checkMark" })
+keymap("n", "<leader>to", "o- [ ] ", { desc = "Open new TODO: item below current line" })
+keymap("n", "<leader>tO", "O- [ ] ", { desc = "Open new TODO: item below current line" })
 
 -- Session management
-vim.keymap.set("n", "<leader>se", function()
+keymap("n", "<leader>se", function()
 	local session_name = utils.git_branch_session_name()
 	vim.cmd("mksession! " .. session_name)
 	vim.print("Created " .. session_name)
 end, { desc = "Create Vim session file with git branch name (if inside Git repo)" })
 
-vim.keymap.set("n", "<leader>sr", function()
+keymap("n", "<leader>sr", function()
 	local session_name = utils.git_branch_session_name()
 	local out = vim.system({ "rm", session_name })
 	if vim.v.shell_error ~= 0 then -- FIXME: not working...

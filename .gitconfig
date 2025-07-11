@@ -16,7 +16,7 @@
 [status]
     branch = true
     showStash = true
-    showUntrackedFiles = true
+    showUntrackedFiles = all
 [diff]
     renames = copies
     interHunkContext = 10

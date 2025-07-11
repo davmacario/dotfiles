@@ -109,10 +109,12 @@ function M.cowsay(max_width)
 end
 
 -- Line length
+local root_patterns = { ".git", ".clang-format", "setup.py", ".editorconfig", ".flake8" }
 
 -- Get max line length from editorconfig (default: 80 chars)
 function M.get_editorconfig_max_line_length()
-	local config_files = { ".editorconfig" }
+	local root_project_dir = vim.fs.dirname(vim.fs.find(root_patterns, { upward = true })[1]) or "."
+	local config_files = { ".editorconfig", vim.fs.joinpath(root_project_dir, ".editorconfig") }
 	for _, fname in ipairs(config_files) do
 		local file = io.open(fname, "r")
 		if file then
@@ -132,7 +134,9 @@ end
 -- For python files, grab the maximum line length from teh active flake8 config
 -- and use it to set the value of colorcolumn
 function M.get_flake8_max_line_length()
-	local config_files = { ".flake8", "setup.cfg", "tox.ini" }
+	local root_project_dir = vim.fs.dirname(vim.fs.find(root_patterns, { upward = true })[1]) or "."
+	local config_files =
+		{ ".flake8", "setup.cfg", "tox.ini", vim.fs.joinpath(root_project_dir, ".flake8"), "~/.flake8" }
 	for _, filename in ipairs(config_files) do
 		local file = io.open(filename, "r")
 		if file then

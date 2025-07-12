@@ -44,7 +44,7 @@ end
 -- FIXME: I would like to update the rtp to include `nvim/lua/dmacario`, allowing
 -- to look for lsp/ inside it, but it does not work...
 vim.lsp.config("*", {
-	root_markers = { ".git", ".hg" },
+	root_markers = { ".git", ".hg", ".editorconfig", ".flake8", "pyproject.toml" },
 	capabilities = {
 		textDocument = {
 			semanticTokens = {
@@ -59,7 +59,29 @@ vim.lsp.config("eslint", {})
 vim.lsp.config("html", {})
 vim.lsp.config("jsonls", {})
 vim.lsp.config("pyright", {})
-vim.lsp.config("jedi_language_server", {})
+vim.lsp.config("jedi_language_server", {
+	on_attach = function(client, bufnr)
+		-- Ugly but does the job: disable server capabilities to prevent conflict
+		-- with Pyright.
+		local disabled = {
+			"hoverProvider",
+			"definitionProvider",
+			"referencesProvider",
+			"implementationProvider",
+			"typeDefinitionProvider",
+			"documentSymbolProvider",
+			"workspaceSymbolProvider",
+			"renameProvider",
+			"codeActionProvider",
+			"signatureHelpProvider",
+			"completionProvider",
+			"semanticTokensProvider",
+		}
+		for _, cap in ipairs(disabled) do
+			client.server_capabilities[cap] = false
+		end
+	end,
+})
 vim.lsp.config("bashls", {
 	filetypes = { ".sh", "bash", ".bashrc", ".zshrc", ".conf", "sh", "zsh" },
 	settings = {

@@ -23,6 +23,7 @@ local lsp_list = {
 	"terraformls",
 	"tflint",
 	"yamlls",
+	"ruff",
 }
 
 local on_attach = function(client, bufnr)
@@ -232,6 +233,27 @@ vim.lsp.config("terraformls", {})
 vim.lsp.config("tflint", {})
 vim.lsp.config("taplo", {})
 vim.lsp.config("gitlab_ci_ls", {})
+vim.lsp.config("ruff", {
+	on_attach = function(client, bufnr)
+		local disabled = {
+			"hoverProvider",
+			"definitionProvider",
+			"referencesProvider",
+			"implementationProvider",
+			"typeDefinitionProvider",
+			"documentSymbolProvider",
+			"workspaceSymbolProvider",
+			"renameProvider",
+			"codeActionProvider",
+			"signatureHelpProvider",
+			"completionProvider",
+			"semanticTokensProvider",
+		}
+		for _, cap in ipairs(disabled) do
+			client.server_capabilities[cap] = false
+		end
+	end,
+})
 
 vim.lsp.enable(lsp_list)
 

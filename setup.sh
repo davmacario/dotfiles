@@ -209,7 +209,7 @@ mkdir -p "$CONFIG_PATH"
 
 # Nvim config
 if [ -d "$CURR_DIR/nvim" ]; then
-    NVIM_VERSION="${NVIM_VERSION:-v0.10.4}"
+    NVIM_VERSION="${NVIM_VERSION:-v0.11.3}"
 
     # Check whether neovim is already installed with the default version
     if [ ! -x "$(command -v nvim)" ] || [ "$(nvim -v | awk -F" " '{ print $2 }' | head -n 1)" != "$NVIM_VERSION" ]; then

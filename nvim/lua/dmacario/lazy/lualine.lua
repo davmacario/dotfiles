@@ -25,6 +25,7 @@ return {
 					"dapui_console",
 					"dap-repl",
 					"fugitiveblame",
+					"DiffviewFiles",
 					statusline = {},
 					winbar = {},
 				},

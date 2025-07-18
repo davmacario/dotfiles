@@ -192,24 +192,27 @@ autocmd("FileType", {
 	end,
 })
 
--- Deactivate statuscol in alpha (dashboard)
+-- Deactivate statuscol
+local no_linenumbers_ftypes = {
+	"help",
+	"alpha",
+	"dashboard",
+	"neo-tree",
+	"Trouble",
+	"trouble",
+	"lazy",
+	"mason",
+	"notify",
+	"toggleterm",
+	"lazyterm",
+	"NvimTree",
+	"DiffviewFiles",
+}
+
 augroup("noLineNumbers", { clear = true })
 autocmd("FileType", {
 	group = "noLineNumbers",
-	pattern = {
-		"help",
-		"alpha",
-		"dashboard",
-		"neo-tree",
-		"Trouble",
-		"trouble",
-		"lazy",
-		"mason",
-		"notify",
-		"toggleterm",
-		"lazyterm",
-		"DiffviewFiles",
-	},
+	pattern = no_linenumbers_ftypes,
 	callback = function()
 		vim.opt_local.statuscolumn = ""
 	end,
@@ -219,8 +222,10 @@ augroup("noLineNumbersNvimTree", { clear = true })
 autocmd("BufEnter", {
 	group = "noLineNumbersNvimTree",
 	callback = function()
-		if vim.bo.filetype == "NvimTree" then
-			vim.opt_local.statuscolumn = ""
+		for _, ft in ipairs(no_linenumbers_ftypes) do
+			if vim.bo.filetype == ft then
+				vim.opt_local.statuscolumn = ""
+			end
 		end
 	end,
 })

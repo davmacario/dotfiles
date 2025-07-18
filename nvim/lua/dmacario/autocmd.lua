@@ -208,6 +208,7 @@ autocmd("FileType", {
 		"notify",
 		"toggleterm",
 		"lazyterm",
+		"DiffviewFiles",
 	},
 	callback = function()
 		vim.opt_local.statuscolumn = ""

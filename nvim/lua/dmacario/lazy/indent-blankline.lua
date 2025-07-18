@@ -1,6 +1,6 @@
 return {
 	"lukas-reineke/indent-blankline.nvim",
-  tag = 'v3.8.2',
+	tag = "v3.8.2",
 	main = "ibl",
 	event = { "BufReadPost", "BufNewFile" },
 	config = function()
@@ -22,6 +22,7 @@ return {
 					"notify",
 					"toggleterm",
 					"lazyterm",
+					"DiffviewFiles",
 				},
 			},
 		})

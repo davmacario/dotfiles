@@ -35,7 +35,7 @@ keymap("n", "<leader>H", function()
 end)
 
 -- Remap keys for resizing splits
-keymap("n", "<C-Right", "<C-w>2>", { desc = "Increase window width" })
+keymap("n", "<C-Right>", "<C-w>2>", { desc = "Increase window width" })
 keymap("n", "<C-Left>", "<C-w>2<lt>", { desc = "Decrease window width" })
 keymap("n", "<C-Up>", "<C-w>2+", { desc = "Increase window height" })
 keymap("n", "<C-Down>", "<C-w>2-", { desc = "Decrease window height" })

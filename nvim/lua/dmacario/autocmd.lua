@@ -120,26 +120,33 @@ autocmd("Filetype", {
 	command = "setlocal noexpandtab shiftwidth=4 tabstop=4",
 })
 
+--- FileType Overrides
+augroup("ftOverride", { clear = true })
+
 -- Treat Jenkinsfile as groovy
-augroup("jenkinsGroovy", { clear = true })
 autocmd({ "Filetype", "BufRead", "BufNewFile" }, {
-	group = "jenkinsGroovy",
-	pattern = { ".jenkins", "Jenkinsfile", "jenkinsfile", "jenkins" },
+	group = "ftOverride",
+	pattern = { "*.jenkins", "Jenkinsfile", "jenkinsfile", "jenkins" },
 	command = "set filetype=groovy",
 })
 
 -- Treat .tf as terraform
-augroup("tfFileType", { clear = true })
 autocmd({ "Filetype", "BufRead", "BufNewFile" }, {
-	group = "tfFileType",
-	pattern = { ".tf", "tf" },
+	group = "ftOverride",
+	pattern = { "*.tf", "tf" },
 	command = "set filetype=terraform",
 })
 
+-- Treat .tfstate and .tfstate.backup as JSON
+autocmd({ "FileType", "BufRead", "BufNewFile" }, {
+	group = "ftOverride",
+	pattern = { "*.tfstate", "*.tfstate.backup" },
+	command = "set filetype=json",
+})
+
 -- Set correct filetype for gitconfig (enable treesitter)
-augroup("gitconfig", { clear = true })
 autocmd({ "Filetype", "BufRead", "BufNewFile" }, {
-	group = "gitconfig",
+	group = "ftOverride",
 	pattern = { "*.gitconfig", ".gitconfig.*" },
 	command = "set filetype=gitconfig",
 })

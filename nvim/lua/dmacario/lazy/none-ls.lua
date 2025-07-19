@@ -59,6 +59,8 @@ return {
 							"MD033",
 							"--disable",
 							"MD059",
+							"--disable",
+							"MD028",
 							"--",
 						},
 					}),

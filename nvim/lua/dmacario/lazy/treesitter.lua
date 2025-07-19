@@ -28,6 +28,8 @@ return {
 				"rust",
 				"go",
 				"query",
+				"hcl",
+				"terraform",
 			},
 
 			-- Install parsers synchronously (only applied to `ensure_installed`)

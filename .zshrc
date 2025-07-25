@@ -114,7 +114,7 @@ else
     alias bat='batcat'
     alias ff="fd --type f --hidden --exclude .git | fzf-tmux -p --preview \"batcat --color=always {}\" --reverse"
 fi
-alias externalip='curl -sS https://ysap.sh/ip'
+alias externalip='curl -sS https://checkip.amazonaws.com/'
 alias hl='rg --passthrough'
 alias suod='sudo'
 

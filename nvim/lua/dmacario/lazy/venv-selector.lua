@@ -9,7 +9,7 @@ return {
 	lazy = false,
 	branch = "regexp",
 	config = function()
-		require("venv-selector").setup()
+		require("venv-selector").setup({})
 		vim.keymap.set("n", "<leader>vs", vim.cmd.VenvSelect)
 	end,
 }

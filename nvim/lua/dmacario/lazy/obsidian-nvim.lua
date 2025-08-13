@@ -37,5 +37,7 @@ return {
 		ui = {
 			enable = false,
 		},
+
+		legacy_commands = false,
 	},
 }

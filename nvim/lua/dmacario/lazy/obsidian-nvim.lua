@@ -37,6 +37,8 @@ return {
 		ui = {
 			enable = false,
 		},
+
+		legacy_commands = false,
 	},
 	daily_notes = {
 		folder = "~/notes/daily",

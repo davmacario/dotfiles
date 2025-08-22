@@ -40,17 +40,17 @@ return {
 		},
 
 		legacy_commands = false,
-	},
-	daily_notes = {
-		folder = "daily",
-		date_format = "%Y-%m-%d",
-		default_tags = { "daily-notes" },
-		template = "template.md",
-	},
-	statusline = {
-		enabled = false,
-	},
-	footer = {
-		enabled = false,
+		statusline = {
+			enabled = false,
+		},
+		footer = {
+			enabled = false,
+		},
+		daily_notes = {
+			folder = "daily",
+			date_format = "%Y-%m-%d",
+			default_tags = { "daily-notes" },
+			template = "template.md",
+		},
 	},
 }

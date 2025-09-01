@@ -58,8 +58,11 @@ log "Shell: $SHELL"
 # Install packages
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     log "Linux detected!"
-    log "Installing homebrew"
-    su - "$actual_user" -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    if [ ! -x "$(command -v brew)" ]; then
+        log "Installing homebrew"
+        su - "$actual_user" -s /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    fi
+
     # TODO: add support for other package managers
     if [ -n "$(apt-get -v)" ]; then
         log "Using Ubuntu/Debian - apt detected!"

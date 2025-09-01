@@ -101,95 +101,128 @@ return {
 				4. You can only give one reply for each conversation turn.]]
 			end,
 			adapters = {
-				qwen2_5_coder = function()
-					return require("codecompanion.adapters").extend("ollama", {
-						name = "qwen2.5-coder:7b",
-						env = {
-							url = "http://100.91.137.78:11435",
-						},
-						headers = {
-							["Content-Type"] = "application/json",
-						},
-						parameters = {
-							sync = true,
-						},
-						schema = {
-							model = {
-								default = "qwen2.5-coder:7b",
+				http = {
+					qwen2_5_coder = function()
+						return require("codecompanion.adapters").extend("ollama", {
+							name = "qwen2.5-coder:7b",
+							env = {
+								url = "http://100.91.137.78:11435",
 							},
-						},
-					})
-				end,
-				deepseek_r1_14b = function()
-					return require("codecompanion.adapters").extend("ollama", {
-						name = "deepseek-r1:14b",
-						env = {
-							url = "http://100.91.137.78:11435",
-						},
-						headers = {
-							["Content-Type"] = "application/json",
-						},
-						parameters = {
-							sync = true,
-						},
-						schema = {
-							model = {
-								default = "deepseek-r1:14b",
+							headers = {
+								["Content-Type"] = "application/json",
 							},
-						},
-					})
-				end,
-				llama3_1 = function()
-					return require("codecompanion.adapters").extend("ollama", {
-						name = "llama3.1",
-						env = {
-							url = "http://100.91.137.78:11435",
-						},
-						headers = {
-							["Content-Type"] = "application/json",
-						},
-						parameters = {
-							sync = true,
-						},
-						schema = {
-							model = {
-								default = "llama3.1",
+							parameters = {
+								sync = true,
 							},
-						},
-					})
-				end,
-				codestral = function()
-					return require("codecompanion.adapters").extend("ollama", {
-						name = "codestral",
-						env = {
-							url = "http://100.91.137.78:11435",
-						},
-						headers = {
-							["Content-Type"] = "application/json",
-						},
-						parameters = {
-							sync = true,
-						},
-						schema = {
-							model = {
-								default = "codestral",
+							schema = {
+								model = {
+									default = "qwen2.5-coder:7b",
+								},
 							},
-							num_ctx = {
-								default = 16384,
+						})
+					end,
+					deepseek_r1_14b = function()
+						return require("codecompanion.adapters").extend("ollama", {
+							name = "deepseek-r1:14b",
+							env = {
+								url = "http://100.91.137.78:11435",
 							},
-							num_predict = {
-								default = -1,
+							headers = {
+								["Content-Type"] = "application/json",
 							},
-						},
-					})
-				end,
+							parameters = {
+								sync = true,
+							},
+							schema = {
+								model = {
+									default = "deepseek-r1:14b",
+								},
+							},
+						})
+					end,
+					llama3_1 = function()
+						return require("codecompanion.adapters").extend("ollama", {
+							name = "llama3.1",
+							env = {
+								url = "http://100.91.137.78:11435",
+							},
+							headers = {
+								["Content-Type"] = "application/json",
+							},
+							parameters = {
+								sync = true,
+							},
+							schema = {
+								model = {
+									default = "llama3.1",
+								},
+							},
+						})
+					end,
+					codestral = function()
+						return require("codecompanion.adapters").extend("ollama", {
+							name = "codestral",
+							env = {
+								url = "http://100.91.137.78:11435",
+							},
+							headers = {
+								["Content-Type"] = "application/json",
+							},
+							parameters = {
+								sync = true,
+							},
+							schema = {
+								model = {
+									default = "codestral:latest",
+								},
+								num_ctx = {
+									default = 16384,
+								},
+								num_predict = {
+									default = -1,
+								},
+							},
+						})
+					end,
+					gpt_oss = function()
+						return require("codecompanion.adapters").extend("openai_compatible", {
+							name = "gpt_oss",
+							formatted_name = "GPT-OSS",
+							opts = {
+								stream = true,
+								tools = true,
+								vision = false,
+							},
+							url = "${url}${chat_endpoint}",
+							env = {
+								api_key = "OpenWebUI_gmacario_API_KEY",
+								url = "https://openwebui.gmacario.it",
+								chat_endpoint = "/api/chat/completions",
+								models_endpoint = "/api/models",
+							},
+							headers = {
+								["Content-Type"] = "application/json",
+								Authorization = "Bearer ${api_key}",
+							},
+							schema = {
+								model = {
+									default = "gpt-oss:120b",
+								},
+							},
+						})
+					end,
+				},
 			},
 			strategies = {
 				chat = {
-					adapter = "deepseek_r1_14b",
+					adapter = {
+						name = "deepseek_r1_14b",
+					},
 				},
 				inline = {
-					adapter = "codestral",
+					adapter = {
+						name = "codestral",
+					},
 				},
 			},
 		})

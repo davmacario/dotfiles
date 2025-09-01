@@ -7,7 +7,6 @@ return {
 		{ "nvim-telescope/telescope.nvim", branch = "0.1.x", dependencies = { "nvim-lua/plenary.nvim" } },
 	},
 	lazy = false,
-	branch = "regexp",
 	config = function()
 		require("venv-selector").setup({})
 		vim.keymap.set("n", "<leader>vs", vim.cmd.VenvSelect)

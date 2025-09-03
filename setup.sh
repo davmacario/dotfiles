@@ -28,7 +28,9 @@ source_env() {
 }
 
 correct_ownership() {
-    chown -R "$actual_user":"$actual_user" "$1"
+    if [ -e "$1" ]; then
+        chown -R "$actual_user":"$actual_user" "$1"
+    fi
 }
 
 make_link() {
@@ -65,6 +67,7 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 
     # TODO: add support for other package managers
     if [ -n "$(apt-get -v)" ]; then
+        export DEBIAN_FRONTEND=noninteractive
         log "Using Ubuntu/Debian - apt detected!"
         PACMAN="apt"
         apt update

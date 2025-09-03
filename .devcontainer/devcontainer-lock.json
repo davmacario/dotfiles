@@ -1,18 +1,18 @@
 {
   "features": {
-    "ghcr.io/davmacario/devcontainer-features/dev-environment:1.1.0": {
-      "version": "1.1.0",
-      "resolved": "ghcr.io/davmacario/devcontainer-features/dev-environment@sha256:2a97e8ceac903b25cfeb265a48984508251c83dd0a0b257d468be90a388ab5de",
-      "integrity": "sha256:2a97e8ceac903b25cfeb265a48984508251c83dd0a0b257d468be90a388ab5de",
+    "ghcr.io/davmacario/devcontainer-features/dev-environment:1.2.0": {
+      "version": "1.2.0",
+      "resolved": "ghcr.io/davmacario/devcontainer-features/dev-environment@sha256:1bc1023d9d236cfd88467b300e9def759bd2de989ccd0ecb9d4adee55388d80a",
+      "integrity": "sha256:1bc1023d9d236cfd88467b300e9def759bd2de989ccd0ecb9d4adee55388d80a",
       "dependsOn": [
         "ghcr.io/devcontainers/features/common-utils",
         "ghcr.io/devcontainers/features/git:1"
       ]
     },
     "ghcr.io/devcontainers/features/common-utils": {
-      "version": "2.5.3",
-      "resolved": "ghcr.io/devcontainers/features/common-utils@sha256:3cf7ca93154faf9bdb128f3009cf1d1a91750ec97cc52082cf5d4edef5451f85",
-      "integrity": "sha256:3cf7ca93154faf9bdb128f3009cf1d1a91750ec97cc52082cf5d4edef5451f85"
+      "version": "2.5.4",
+      "resolved": "ghcr.io/devcontainers/features/common-utils@sha256:00fd45550f578d9d515044d9e2226e908dbc3d7aa6fcb9dee4d8bdb60be114cf",
+      "integrity": "sha256:00fd45550f578d9d515044d9e2226e908dbc3d7aa6fcb9dee4d8bdb60be114cf"
     },
     "ghcr.io/devcontainers/features/git:1": {
       "version": "1.3.2",

@@ -288,5 +288,6 @@ correct_ownership "$actual_home/.tmux"
 correct_ownership "$actual_home/.local"
 correct_ownership "$CONFIG_PATH"
 correct_ownership "$GHDIR"
+correct_ownership "$actual_home"
 
 log "Setup complete! Restart your shell for all the changes to take effect."

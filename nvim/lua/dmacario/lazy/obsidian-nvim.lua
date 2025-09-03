@@ -28,17 +28,14 @@ return {
 				path = "~/notes",
 			},
 		},
-
 		completion = {
 			nvim_cmp = false,
 			blink = true,
 			min_chars = 3,
 		},
-
 		ui = {
 			enable = false,
 		},
-
 		legacy_commands = false,
 		statusline = {
 			enabled = false,
@@ -46,11 +43,22 @@ return {
 		footer = {
 			enabled = false,
 		},
+		templates = {
+			folder = "templates",
+			date_format = "%Y-%m-%d",
+			time_format = "%H:%M",
+			substitutions = {
+				today = function()
+					return os.date("%Y-%m-%d", os.time())
+				end,
+			},
+			coustomizations = {},
+		},
 		daily_notes = {
 			folder = "daily",
 			date_format = "%Y-%m-%d",
 			default_tags = { "daily-notes" },
-			template = "template.md",
+			template = "daily.md",
 		},
 	},
 }

@@ -69,7 +69,7 @@ return {
 						prefer_local = ".venv/bin",
 					}),
 					require("none-ls-shellcheck.diagnostics"),
-					null_ls.builtins.diagnostics.trivy,
+					-- null_ls.builtins.diagnostics.trivy,
 
 					-- Code actions sources
 					require("none-ls-shellcheck.code_actions"),

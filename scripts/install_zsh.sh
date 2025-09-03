@@ -16,7 +16,9 @@ fi
 
 correct_ownership() {
     if [ "$actual_user" != "$USER" ]; then
-        chown -R "$actual_user":"$actual_user" "$1"
+        if [ -e "$1" ]; then
+            chown -R "$actual_user":"$actual_user" "$1"
+        fi
     fi
 }
 

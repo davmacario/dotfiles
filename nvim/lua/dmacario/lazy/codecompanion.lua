@@ -124,6 +124,7 @@ return {
 							},
 							headers = {
 								["Content-Type"] = "application/json",
+								Authorization = "Bearer ${api_key}",
 							},
 							parameters = {
 								sync = true,
@@ -184,7 +185,13 @@ return {
 					end,
 					llama3_1 = function()
 						return require("codecompanion.adapters").extend("ollama", {
-							name = "llama3.1",
+							name = "llama3.1:latest",
+							formatted_name = "Llama 3.1 8b",
+							opts = {
+								stream = true,
+								tools = false,
+								vision = false,
+							},
 							env = {
 								url = "http://127.0.0.1:11434",
 							},
@@ -196,32 +203,37 @@ return {
 							},
 							schema = {
 								model = {
-									default = "llama3.1",
+									default = "llama3.1:latest",
 								},
 							},
 						})
 					end,
 					codestral = function()
-						return require("codecompanion.adapters").extend("ollama", {
+						return require("codecompanion.adapters").extend("openai_compatible", {
 							name = "codestral",
+							formatted_name = "Codestral",
+							opts = {
+								stream = true,
+								tools = false,
+								vision = false,
+							},
+							url = "${url}${chat_endpoint}",
 							env = {
-								url = "http://100.91.137.78:11435",
+								api_key = "OpenWebUI_dmacario_API_KEY",
+								url = "https://open-webui.dmhosted.duckdns.org",
+								chat_endpoint = "/api/chat/completions",
+								models_endpoint = "/api/models",
 							},
 							headers = {
 								["Content-Type"] = "application/json",
+								Authorization = "Bearer ${api_key}",
 							},
 							parameters = {
 								sync = true,
 							},
 							schema = {
 								model = {
-									default = "codestral",
-								},
-								num_ctx = {
-									default = 16384,
-								},
-								num_predict = {
-									default = -1,
+									default = "codestral:latest",
 								},
 							},
 						})

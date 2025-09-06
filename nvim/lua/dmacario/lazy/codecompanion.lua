@@ -187,7 +187,7 @@ return {
 					gpt_oss = function()
 						return require("codecompanion.adapters").extend("openai_compatible", {
 							name = "gpt_oss",
-							formatted_name = "GPT-OSS",
+							formatted_name = "GPT-OSS 120b",
 							opts = {
 								stream = true,
 								tools = true,
@@ -207,6 +207,33 @@ return {
 							schema = {
 								model = {
 									default = "gpt-oss:120b",
+								},
+							},
+						})
+					end,
+					gpt_oss_small = function()
+						return require("codecompanion.adapters").extend("openai_compatible", {
+							name = "gpt_oss_small",
+							formatted_name = "GPT-OSS 20b",
+							opts = {
+								stream = true,
+								tools = true,
+								vision = false,
+							},
+							url = "${url}${chat_endpoint}",
+							env = {
+								api_key = "OpenWebUI_dmacario_API_KEY",
+								url = "https://open-webui.dmhosted.duckdns.org",
+								chat_endpoint = "/api/chat/completions",
+								models_endpoint = "/api/models",
+							},
+							headers = {
+								["Content-Type"] = "application/json",
+								Authorization = "Bearer ${api_key}",
+							},
+							schema = {
+								model = {
+									default = "gpt-oss:20b",
 								},
 							},
 						})

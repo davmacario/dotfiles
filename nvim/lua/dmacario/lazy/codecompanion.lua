@@ -103,13 +103,25 @@ return {
 			adapters = {
 				http = {
 					qwen2_5_coder = function()
-						return require("codecompanion.adapters").extend("ollama", {
+						return require("codecompanion.adapters").extend("openai_compatible", {
 							name = "qwen2.5-coder:7b",
+							formatted_name = "Qwen 2.5-Coder 7b",
+							opts = {
+								stream = true,
+								tools = false,
+								vision = false,
+							},
+							url = "${url}${chat_endpoint}",
 							env = {
-								url = "http://100.91.137.78:11435",
+								api_key = "OpenWebUI_dmacario_API_KEY",
+								url = "https://open-webui.dmhosted.duckdns.org",
+								-- url = "http://100.91.137.78:11435",
+								chat_endpoint = "/api/chat/completions",
+								models_endpoint = "/api/models",
 							},
 							headers = {
 								["Content-Type"] = "application/json",
+								Authorization = "Bearer ${api_key}",
 							},
 							parameters = {
 								sync = true,
@@ -141,20 +153,32 @@ return {
 						})
 					end,
 					llama3_1 = function()
-						return require("codecompanion.adapters").extend("ollama", {
-							name = "llama3.1",
+						return require("codecompanion.adapters").extend("openai_compatible", {
+							name = "llama3.1:latest",
+							formatted_name = "Llama 3.1 8b",
+							opts = {
+								stream = true,
+								tools = false,
+								vision = false,
+							},
+							url = "${url}${chat_endpoint}",
 							env = {
-								url = "http://100.91.137.78:11435",
+								api_key = "OpenWebUI_dmacario_API_KEY",
+								url = "https://open-webui.dmhosted.duckdns.org",
+								-- url = "http://100.91.137.78:11435",
+								chat_endpoint = "/api/chat/completions",
+								models_endpoint = "/api/models",
 							},
 							headers = {
 								["Content-Type"] = "application/json",
+								Authorization = "Bearer ${api_key}",
 							},
 							parameters = {
 								sync = true,
 							},
 							schema = {
 								model = {
-									default = "llama3.1",
+									default = "llama3.1:latest",
 								},
 							},
 						})

@@ -22,6 +22,12 @@ function _G.markdown_unindent_list_item_shift_tab()
 	return vim.api.nvim_replace_termcodes("<S-Tab>", true, false, true) -- Default Shift-Tab behavior
 end
 
+-- Returns the full path of the Home directory
+function _G.get_home()
+	-- Prefer libuv (no external Vimscript call), fall back to expand()
+	return vim.loop.os_homedir() or vim.fn.expand("~")
+end
+
 -- Return true if inside a git repository
 function M.is_git_repo()
 	local _ = vim.fn.system("git rev-parse --is-inside-work-tree")
@@ -131,25 +137,55 @@ function M.get_editorconfig_max_line_length()
 	return 80 -- default
 end
 
--- For python files, grab the maximum line length from teh active flake8 config
--- and use it to set the value of colorcolumn
-function M.get_flake8_max_line_length()
-	local root_project_dir = vim.fs.dirname(vim.fs.find({ ".flake8" }, { upward = true })[1]) or "."
-	local config_files =
-		{ ".flake8", "setup.cfg", "tox.ini", vim.fs.joinpath(root_project_dir, ".flake8"), "~/.flake8" }
-	for _, filename in ipairs(config_files) do
-		local file = io.open(filename, "r")
-		if file then
-			for line in file:lines() do
-				local max_line_length = line:match("^%s*max%-line%-length%s*=%s*(%d+)")
-				if max_line_length then
-					file:close()
-					return tonumber(max_line_length)
-				end
+---@param filename string The filename to attempt extracting the line length from
+---@return number|nil: The extracted line length (nil otherwise)
+local function parse_python_line_length(filename)
+	local file = io.open(filename, "r")
+	if file then
+		for line in file:lines() do
+			local max_line_length = line:match("^%s*max%-line%-length%s*=%s*(%d+)")
+				or line:match("^%s*line%-length%s*=%s*(%d+)")
+			if max_line_length then
+				return tonumber(max_line_length)
 			end
-			file:close()
+		end
+		file:close()
+	end
+	return nil
+end
+
+-- For python files, grab the maximum line length from pyproject.toml
+function M.get_python_max_line_length()
+	local config_filenames = { "pyproject.toml", "setup.cfg", "tox.ini", ".flake8" }
+	local root_project_dir = vim.fs.dirname(vim.fs.find(config_filenames, { upward = true })[1]) or "."
+
+	local out = nil
+	for _, filename in ipairs(config_filenames) do
+		local max_line_length = parse_python_line_length(vim.fs.joinpath(root_project_dir, filename))
+		if max_line_length ~= nil then
+			if out ~= nil then
+				out = math.min(out, max_line_length)
+			else
+				out = max_line_length
+			end
 		end
 	end
+
+	if out ~= nil then
+		return out
+	end
+
+	for _, filename in ipairs(config_filenames) do
+		local max_line_length = parse_python_line_length(vim.fs.joinpath(vim.fn.expand("~"), filename))
+		if max_line_length ~= nil then
+			if out ~= nil then
+				out = math.min(out, max_line_length)
+			else
+				out = max_line_length
+			end
+		end
+	end
+
 	-- Default line length if no config found (same as in ~/.flake8)
 	return 88
 end

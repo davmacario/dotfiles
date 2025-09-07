@@ -63,7 +63,7 @@ autocmd("Filetype", {
 	group = "pythonLineLength",
 	pattern = { "python", "python3", "py" },
 	callback = function()
-		local max_line_length = utils.get_flake8_max_line_length()
+		local max_line_length = utils.get_python_max_line_length()
 		if max_line_length then
 			vim.wo.colorcolumn = tostring(max_line_length)
 		end

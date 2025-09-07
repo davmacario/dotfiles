@@ -170,6 +170,11 @@ return {
 							env = {
 								url = "http://100.91.137.78:11435",
 							},
+							opts = {
+								stream = true,
+								tools = false,
+								vision = false,
+							},
 							headers = {
 								["Content-Type"] = "application/json",
 							},
@@ -223,6 +228,11 @@ return {
 								url = "https://open-webui.dmhosted.duckdns.org",
 								chat_endpoint = "/api/chat/completions",
 								models_endpoint = "/api/models",
+							},
+							opts = {
+								stream = true,
+								tools = false,
+								vision = false,
 							},
 							headers = {
 								["Content-Type"] = "application/json",
@@ -296,7 +306,7 @@ return {
 			},
 			strategies = {
 				chat = {
-					adapter = "llama3_1",
+					adapter = "gpt_oss_small",
 				},
 				inline = {
 					adapter = "qwen2_5_coder",

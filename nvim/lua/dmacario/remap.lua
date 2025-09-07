@@ -34,10 +34,10 @@ keymap("n", "<leader>H", function()
 end)
 
 -- Remap keys for resizing splits
-keymap("n", "<C-Right>", "<C-w>2>", { desc = "Increase window width" })
-keymap("n", "<C-Left>", "<C-w>2<lt>", { desc = "Decrease window width" })
-keymap("n", "<C-Up>", "<C-w>2+", { desc = "Increase window height" })
-keymap("n", "<C-Down>", "<C-w>2-", { desc = "Decrease window height" })
+keymap("n", "<C-S-Right>", "<C-w>2>", { desc = "Increase window width" })
+keymap("n", "<C-S-Left>", "<C-w>2<lt>", { desc = "Decrease window width" })
+keymap("n", "<C-S-Up>", "<C-w>2+", { desc = "Increase window height" })
+keymap("n", "<C-S-Down>", "<C-w>2-", { desc = "Decrease window height" })
 
 -- Remap keys for navigating buffers
 keymap("n", "H", vim.cmd.bp)

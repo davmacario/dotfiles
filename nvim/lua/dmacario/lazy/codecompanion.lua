@@ -139,6 +139,11 @@ return {
 							env = {
 								url = "http://100.91.137.78:11435",
 							},
+							opts = {
+								stream = true,
+								tools = false,
+								vision = false,
+							},
 							headers = {
 								["Content-Type"] = "application/json",
 							},
@@ -188,6 +193,11 @@ return {
 							name = "codestral",
 							env = {
 								url = "http://100.91.137.78:11435",
+							},
+							opts = {
+								stream = true,
+								tools = false,
+								vision = false,
 							},
 							headers = {
 								["Content-Type"] = "application/json",
@@ -266,14 +276,10 @@ return {
 			},
 			strategies = {
 				chat = {
-					adapter = {
-						name = "deepseek_r1_14b",
-					},
+					adapter = "gpt_oss_small",
 				},
 				inline = {
-					adapter = {
-						name = "codestral",
-					},
+					adapter = "gpt_oss_small",
 				},
 			},
 		})

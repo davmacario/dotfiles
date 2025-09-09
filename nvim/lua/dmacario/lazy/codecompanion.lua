@@ -134,7 +134,7 @@ return {
 									default = "qwen2.5-coder:7b",
 								},
 								num_ctx = {
-									default = "128000",
+									default = 128000,
 								},
 								keep_alive = {
 									default = "5m",

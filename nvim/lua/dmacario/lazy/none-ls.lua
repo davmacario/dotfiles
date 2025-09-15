@@ -11,9 +11,6 @@ return {
 				ensure_installed = {
 					"stylua",
 					"prettier",
-					"black",
-					"isort",
-					"flake8",
 					"markdownlint",
 					"clang-format",
 					"bibtex-tidy",
@@ -39,8 +36,6 @@ return {
 					null_ls.builtins.formatting.prettier.with({
 						prefer_local = "node_modules/.bin",
 					}),
-					null_ls.builtins.formatting.black,
-					null_ls.builtins.formatting.isort,
 					null_ls.builtins.formatting.markdownlint,
 					null_ls.builtins.formatting.clang_format.with({
 						extra_args = {
@@ -63,10 +58,6 @@ return {
 							"MD028",
 							"--",
 						},
-					}),
-					require("none-ls.diagnostics.flake8").with({ -- from none-ls-extras
-						extra_args = {},
-						prefer_local = ".venv/bin",
 					}),
 					require("none-ls-shellcheck.diagnostics"),
 					null_ls.builtins.diagnostics.trivy,

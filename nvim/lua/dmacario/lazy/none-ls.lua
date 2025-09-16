@@ -11,6 +11,8 @@ return {
 				ensure_installed = {
 					"stylua",
 					"prettier",
+					-- "black",
+					"isort",
 					"markdownlint",
 					"clang-format",
 					"bibtex-tidy",
@@ -36,6 +38,8 @@ return {
 					null_ls.builtins.formatting.prettier.with({
 						prefer_local = "node_modules/.bin",
 					}),
+					-- null_ls.builtins.formatting.black,
+					null_ls.builtins.formatting.isort,
 					null_ls.builtins.formatting.markdownlint,
 					null_ls.builtins.formatting.clang_format.with({
 						extra_args = {

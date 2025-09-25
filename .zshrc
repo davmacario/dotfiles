@@ -94,6 +94,8 @@ plugins=(
     opentofu
     nmap
 )
+
+DISABLE_AUTO_UPDATE=true
 source $ZSH/oh-my-zsh.sh
 # Use ctrl+space to accept autosuggestion
 bindkey '^ ' autosuggest-accept

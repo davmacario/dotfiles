@@ -3,12 +3,22 @@ return {
 	dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
 	ft = { "markdown", "codecompanion" },
 	opts = {
+		-- Mimic UX
+		preset = "obsidian",
+		-- Do not render markdown nested within markdown (code block)
+		nested = false,
+		-- Conceal settings
+		anti_conceal = {
+			enabled = true,
+			ignore = {},
+		},
+		completions = {
+			blink = { enabled = true },
+		},
 		file_types = { "markdown", "codecompanion" },
 		heading = {
 			-- Turn on / off heading icon & background rendering
 			enabled = true,
-			-- Turn on / off any sign column related rendering
-			sign = true,
 			-- Determines how icons fill the available space:
 			--  inline:  underlying '#'s are concealed resulting in a left aligned icon
 			--  overlay: result is left padded with spaces to hide any additional '#'
@@ -161,7 +171,20 @@ return {
 			--   'rendered':  Replaces the 'raw' value when rendering
 			--   'highlight': Highlight for the 'rendered' icon
 			custom = {
-				todo = { raw = "[-]", rendered = "󰥔 ", highlight = "RenderMarkdownTodo" },
+				todo = { raw = "[-]", rendered = "󰥔 ", highlight = "RenderMarkdownTodo", scope_highlight = nil },
+				in_progress = {
+					raw = "[>]",
+					rendered = "󰦕 ",
+					highlight = "RenderMarkdownTodo",
+					scope_highlight = nil,
+				},
+				blocked = { raw = "[!]", rendered = " ", highlight = "RenderMarkdownWarn", scope_highlight = nil },
+				cancelled = {
+					raw = "[~]",
+					rendered = "󰜺 ",
+					highlight = "RenderMarkdownError",
+					scope_highlight = nil,
+				},
 			},
 		},
 		quote = {
@@ -279,6 +302,17 @@ return {
 			-- Applies to background of sign text
 			highlight = "RenderMarkdownSign",
 		},
+		inline_highlight = {
+			-- Mimics Obsidian inline highlights when content is surrounded by double equals.
+			-- The equals on both ends are concealed and the inner content is highlighted.
+
+			-- Turn on / off inline highlight rendering.
+			enabled = true,
+			-- Additional modes to render inline highlights.
+			render_modes = false,
+			-- Applies to background of surrounded text.
+			highlight = "RenderMarkdownInlineHighlight",
+		},
 		-- Mimic org-indent-mode behavior by indenting everything under a heading based on the
 		-- level of the heading. Indenting starts from level 2 headings onward.
 		indent = {
@@ -286,6 +320,20 @@ return {
 			enabled = false,
 			-- Amount of additional padding added for each heading level
 			per_level = 2,
+		},
+		html = {
+			enabled = true,
+			render_modes = false,
+			comment = {
+				conceal = false,
+				text = nil,
+				highlight = "RenderMarkdownHtmlComment",
+			},
+			-- HTML tags whose start and end will be hidden and icon shown.
+			-- The key is matched against the tag name, value type below.
+			-- | icon      | gets inlined at the start |
+			-- | highlight | highlight for the icon    |
+			tag = {},
 		},
 	},
 }

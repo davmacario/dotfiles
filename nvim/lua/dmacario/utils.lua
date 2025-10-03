@@ -23,7 +23,7 @@ function _G.markdown_unindent_list_item_shift_tab()
 end
 
 -- Returns the full path of the Home directory
-function _G.get_home()
+function M.get_home()
 	-- Prefer libuv (no external Vimscript call), fall back to expand()
 	return vim.loop.os_homedir() or vim.fn.expand("~")
 end
@@ -411,6 +411,18 @@ end
 -- Open tips file (local)
 function M.open_tips()
 	M.open_float_win(M.get_current_file_directory() .. "nvim-tips.md", { readonly = true })
+end
+
+-- Get location of executable on system.
+--- @param name string: the name of the executable to look for
+--- @param default string|nil: the optional default return value
+--- @return string: the full path to the executable
+function M.get_executable(name, default)
+	local res = vim.fn.exepath(name)
+	if res == "" then
+		return default or res
+	end
+	return res
 end
 
 return M

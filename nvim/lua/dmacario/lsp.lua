@@ -1,4 +1,5 @@
 -- LSP Setup
+local utils = require("dmacario.utils")
 
 -- These will automatically be installed by Mason
 local lsp_list = {
@@ -24,6 +25,7 @@ local lsp_list = {
 	"tflint",
 	"yamlls",
 	"ruff",
+	"arduino_language_server",
 }
 
 local on_attach = function(client, bufnr)
@@ -59,7 +61,17 @@ vim.lsp.config("cssls", {})
 vim.lsp.config("eslint", {})
 vim.lsp.config("html", {})
 vim.lsp.config("jsonls", {})
-vim.lsp.config("pyright", {})
+vim.lsp.config("pyright", {
+	settings = {
+		python = {
+			analysis = {
+				typeCheckingMode = "basic",
+				autoSearchPaths = true,
+				useLibraryCodeForTypes = true,
+			},
+		},
+	},
+})
 vim.lsp.config("jedi_language_server", {
 	on_attach = function(client, bufnr)
 		-- Ugly but does the job: disable server capabilities to prevent conflict
@@ -158,16 +170,7 @@ vim.lsp.config("clangd", {
 		},
 		offsetEncoding = { "utf-8", "utf-16" },
 	},
-	filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
-	-- root_markers = { -- Default configuration from lspconfig
-	--   '.clangd',
-	--   '.clang-tidy',
-	--   '.clang-format',
-	--   'compile_commands.json',
-	--   'compile_flags.txt',
-	--   'configure.ac', -- AutoTools
-	--   '.git',
-	-- },
+	filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto", "arduino" },
 	root_dir = function(bufnr, callback)
 		local fname = vim.api.nvim_buf_get_name(bufnr)
 		local out = require("lspconfig.util").root_pattern(
@@ -206,6 +209,29 @@ vim.lsp.config("clangd", {
 		completeUnimported = true,
 		clangdFileStatus = true,
 	},
+	on_attach = function(client, bufnr)
+		local ft = vim.bo[bufnr].filetype
+		if ft == "arduino" then
+			-- disable some options, as they are provided out by arduino lsp
+			local disabled = { -- NOTE: possibly others as well
+				"hoverProvider",
+				-- "definitionProvider",
+				-- "referencesProvider",
+				-- "implementationProvider",
+				-- "typeDefinitionProvider",
+				-- "documentSymbolProvider",
+				-- "workspaceSymbolProvider",
+				-- "renameProvider",
+				-- "codeActionProvider",
+				-- "signatureHelpProvider",
+				-- "completionProvider",
+				-- "semanticTokensProvider",
+			}
+			for _, cap in ipairs(disabled) do
+				client.server_capabilities[cap] = false
+			end
+		end
+	end,
 })
 vim.lsp.config("cmake", {})
 vim.lsp.config("efm", {
@@ -253,6 +279,20 @@ vim.lsp.config("ruff", {
 			client.server_capabilities[cap] = false
 		end
 	end,
+})
+
+vim.lsp.config("arduino_language_server", {
+	cmd = {
+		"arduino-language-server",
+		"-clangd",
+		utils.get_executable("clangd", utils.get_home() .. ".local/share/nvim/mason/bin/clangd"),
+		"-cli",
+		utils.get_executable("arduino-cli"),
+		"-cli-config",
+		utils.get_home() .. ".arduino15/arduino-cli.yaml",
+		"-fqbn",
+		"arduino:mbed_nicla:nicla_vision", -- TODO: Either a) look for configuration file or b) ask for user input
+	},
 })
 
 vim.lsp.enable(lsp_list)

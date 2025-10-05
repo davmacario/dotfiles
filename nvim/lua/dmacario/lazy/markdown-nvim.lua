@@ -13,7 +13,7 @@ return {
 			ignore = {},
 		},
 		completions = {
-			blink = { enabled = true },
+			lsp = { enabled = true},
 		},
 		file_types = { "markdown", "codecompanion" },
 		heading = {

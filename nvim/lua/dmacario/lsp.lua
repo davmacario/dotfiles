@@ -214,7 +214,7 @@ vim.lsp.config("clangd", {
 		if ft == "arduino" then
 			-- disable some options, as they are provided out by arduino lsp
 			local disabled = { -- NOTE: possibly others as well
-				"hoverProvider",
+				-- "hoverProvider",
 				-- "definitionProvider",
 				-- "referencesProvider",
 				-- "implementationProvider",
@@ -293,6 +293,29 @@ vim.lsp.config("arduino_language_server", {
 		"-fqbn",
 		"arduino:mbed_nicla:nicla_vision", -- TODO: Either a) look for configuration file or b) ask for user input
 	},
+	on_attach = function(client, bufnr)
+		local ft = vim.bo[bufnr].filetype
+		if ft == "arduino" then
+			-- disable some options, as they are provided out by arduino lsp
+			local disabled = { -- NOTE: possibly others as well
+				"hoverProvider",
+				-- "definitionProvider",
+				-- "referencesProvider",
+				-- "implementationProvider",
+				-- "typeDefinitionProvider",
+				-- "documentSymbolProvider",
+				-- "workspaceSymbolProvider",
+				-- "renameProvider",
+				-- "codeActionProvider",
+				-- "signatureHelpProvider",
+				-- "completionProvider",
+				-- "semanticTokensProvider",
+			}
+			for _, cap in ipairs(disabled) do
+				client.server_capabilities[cap] = false
+			end
+		end
+	end,
 })
 
 vim.lsp.enable(lsp_list)

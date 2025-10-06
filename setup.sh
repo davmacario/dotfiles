@@ -64,7 +64,6 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         log "Installing homebrew"
         su - "$actual_user" -s /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     fi
-
     # TODO: add support for other package managers
     if [ -n "$(apt-get -v)" ]; then
         export DEBIAN_FRONTEND=noninteractive

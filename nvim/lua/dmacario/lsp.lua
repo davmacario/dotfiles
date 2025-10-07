@@ -59,7 +59,17 @@ vim.lsp.config("cssls", {})
 vim.lsp.config("eslint", {})
 vim.lsp.config("html", {})
 vim.lsp.config("jsonls", {})
-vim.lsp.config("pyright", {})
+vim.lsp.config("pyright", {
+	settings = {
+		python = {
+			analysis = {
+				typeCheckingMode = "basic",
+				autoSearchPaths = true,
+				useLibraryCodeForTypes = true,
+			},
+		},
+	},
+})
 vim.lsp.config("jedi_language_server", {
 	on_attach = function(client, bufnr)
 		-- Ugly but does the job: disable server capabilities to prevent conflict

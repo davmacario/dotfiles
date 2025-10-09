@@ -170,7 +170,7 @@ vim.lsp.config("clangd", {
 		},
 		offsetEncoding = { "utf-8", "utf-16" },
 	},
-	filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto", "arduino" },
+	filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
 	root_dir = function(bufnr, callback)
 		local fname = vim.api.nvim_buf_get_name(bufnr)
 		local out = require("lspconfig.util").root_pattern(
@@ -187,10 +187,7 @@ vim.lsp.config("clangd", {
 			"meson.build",
 			"meson_options.txt",
 			"build.ninja"
-		)(fname) or vim.fs.dirname(vim.fs.find(".git", {
-			path = fname,
-			upward = true,
-		})[1]) or "."
+		)(fname) or "."
 		callback(out)
 		return out
 	end,
@@ -209,29 +206,6 @@ vim.lsp.config("clangd", {
 		completeUnimported = true,
 		clangdFileStatus = true,
 	},
-	on_attach = function(client, bufnr)
-		local ft = vim.bo[bufnr].filetype
-		if ft == "arduino" then
-			-- disable some options, as they are provided out by arduino lsp
-			local disabled = { -- NOTE: possibly others as well
-				-- "hoverProvider",
-				-- "definitionProvider",
-				-- "referencesProvider",
-				-- "implementationProvider",
-				-- "typeDefinitionProvider",
-				-- "documentSymbolProvider",
-				-- "workspaceSymbolProvider",
-				-- "renameProvider",
-				-- "codeActionProvider",
-				-- "signatureHelpProvider",
-				-- "completionProvider",
-				-- "semanticTokensProvider",
-			}
-			for _, cap in ipairs(disabled) do
-				client.server_capabilities[cap] = false
-			end
-		end
-	end,
 })
 vim.lsp.config("cmake", {})
 vim.lsp.config("efm", {
@@ -280,41 +254,30 @@ vim.lsp.config("ruff", {
 		end
 	end,
 })
-
 vim.lsp.config("arduino_language_server", {
+	capabilities = {
+		textDocument = {
+			semanticTokens = vim.NIL,
+		},
+		workspace = {
+			semanticTokens = vim.NIL,
+		},
+	},
 	cmd = {
 		"arduino-language-server",
 		"-clangd",
-		utils.get_executable("clangd", utils.get_home() .. ".local/share/nvim/mason/bin/clangd"),
+		utils.get_executable("clangd", utils.get_home() .. "/.local/share/nvim/mason/bin/clangd"),
 		"-cli",
 		utils.get_executable("arduino-cli"),
 		"-cli-config",
-		utils.get_home() .. ".arduino15/arduino-cli.yaml",
-		"-fqbn",
-		"arduino:mbed_nicla:nicla_vision", -- TODO: Either a) look for configuration file or b) ask for user input
+		utils.get_home() .. "/.arduino15/arduino-cli.yaml",
+		-- "-fqbn",
+		-- "TODO" -- not required if using sketch.yaml
 	},
-	on_attach = function(client, bufnr)
-		local ft = vim.bo[bufnr].filetype
-		if ft == "arduino" then
-			-- disable some options, as they are provided out by arduino lsp
-			local disabled = { -- NOTE: possibly others as well
-				"hoverProvider",
-				-- "definitionProvider",
-				-- "referencesProvider",
-				-- "implementationProvider",
-				-- "typeDefinitionProvider",
-				-- "documentSymbolProvider",
-				-- "workspaceSymbolProvider",
-				-- "renameProvider",
-				-- "codeActionProvider",
-				-- "signatureHelpProvider",
-				-- "completionProvider",
-				-- "semanticTokensProvider",
-			}
-			for _, cap in ipairs(disabled) do
-				client.server_capabilities[cap] = false
-			end
-		end
+	-- Default (from https://github.com/neovim/nvim-lspconfig/blob/master/lsp/arduino_language_server.lua)
+	root_dir = function(bufnr, on_dir)
+		local fname = vim.api.nvim_buf_get_name(bufnr)
+		on_dir(require("lspconfig.util").root_pattern("*.ino")(fname))
 	end,
 })
 

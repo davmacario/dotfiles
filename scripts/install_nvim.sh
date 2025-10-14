@@ -11,6 +11,7 @@ else
     echo "Found local clone of Neovim repo"
 fi
 pushd "$GHDIR/neovim/neovim" || exit 1
+git pull -p --tags
 make CMAKE_BUILD_TYPE="${NVIM_CMAKE_BUILD_TYPE:-"RelWithDebInfo"}"
 make install
 popd || exit 1

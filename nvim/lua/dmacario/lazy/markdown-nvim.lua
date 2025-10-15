@@ -3,6 +3,7 @@ return {
 	dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
 	ft = { "markdown", "codecompanion" },
 	opts = {
+		render_modes = { "n", "c", "t" },
 		-- Mimic UX
 		preset = "obsidian",
 		-- Do not render markdown nested within markdown (code block)
@@ -10,10 +11,15 @@ return {
 		-- Conceal settings
 		anti_conceal = {
 			enabled = true,
-			ignore = {},
+			ignore = {
+				code_background = true,
+				indent = true,
+				sign = true,
+				virtual_lines = true,
+			},
 		},
 		completions = {
-			lsp = { enabled = true},
+			lsp = { enabled = true },
 		},
 		file_types = { "markdown", "codecompanion" },
 		heading = {

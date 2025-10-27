@@ -151,6 +151,27 @@ autocmd({ "Filetype", "BufRead", "BufNewFile" }, {
 	command = "set filetype=gitconfig",
 })
 
+-- Set correct filetype for systemd.unit files
+-- Ref: https://www.freedesktop.org/software/systemd/man/latest/systemd.unit.html#Description
+autocmd({ "Filetype", "BufRead", "BufNewFile" }, {
+	group = "ftOverride",
+	pattern = {
+		"*.service",
+		"*.unit",
+		"*.timer",
+		"*.socket",
+		"*.device",
+		"*.mount",
+		"*.automount",
+		"*.swap",
+		"*.target",
+		"*.path",
+		"*.slice",
+		"*.scope",
+	},
+	command = "set filetype=ini",
+})
+
 -- Always remove trailing whitespaces on save
 autocmd("BufWritePre", {
 	pattern = { "*" },

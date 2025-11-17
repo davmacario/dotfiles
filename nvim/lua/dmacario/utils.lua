@@ -186,6 +186,11 @@ function M.get_python_max_line_length()
 		return out
 	end
 
+	local editorconfig_line_length = M.get_editorconfig_max_line_length()
+	if editorconfig_line_length ~= nil then
+		return editorconfig_line_length
+	end
+
 	for _, filename in ipairs(config_filenames) do
 		local max_line_length = parse_python_line_length(vim.fs.joinpath(vim.fn.expand("~"), filename))
 		if max_line_length ~= nil then
@@ -198,7 +203,7 @@ function M.get_python_max_line_length()
 	end
 
 	-- Default line length if no config found (same as in ~/.flake8)
-	return out or M.get_editorconfig_max_line_length() or 88
+	return out or 88
 end
 
 -- Statuscol

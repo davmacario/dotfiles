@@ -199,6 +199,13 @@ autocmd("FileType", {
 	end,
 })
 
+-- Disable markdown error highlighting (e.g., '_' used besides emphasis)
+autocmd("FileType", {
+	group = "mdFormatOpts",
+	pattern = { "markdown" },
+	command = "highlight link markdownError NONE"
+})
+
 -- Deactivate statuscol
 local no_linenumbers_ftypes = {
 	"help",

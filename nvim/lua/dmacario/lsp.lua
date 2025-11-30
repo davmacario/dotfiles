@@ -325,9 +325,9 @@ vim.lsp.enable(lsp_list)
 -- local hover = vim.lsp.buf.hover
 local lsp_custom = require("dmacario.lsp-custom")
 ---@diagnostic disable-next-line: duplicate-set-field
-vim.lsp.buf.hover = function()
-	return lsp_custom.custom_hover()
-end
+-- vim.lsp.buf.hover = function()
+-- 	return lsp_custom.custom_hover()
+-- end
 
 -- local signature_help = vim.lsp.buf.signature_help
 -- ---@diagnostic disable-next-line: duplicate-set-field

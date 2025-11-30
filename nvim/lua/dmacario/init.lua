@@ -6,3 +6,4 @@ require("dmacario.autocmd") -- Autocmd definitions
 require("dmacario.lazy_init") -- Lazy Init. file
 require("dmacario.user_commands") -- User commands
 require("dmacario.lsp") -- LSP configuration
+require("dmacario.lsp-custom") -- LSP customization - load last

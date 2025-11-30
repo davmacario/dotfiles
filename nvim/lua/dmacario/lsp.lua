@@ -60,6 +60,21 @@ vim.lsp.config("eslint", {})
 vim.lsp.config("html", {})
 vim.lsp.config("jsonls", {})
 vim.lsp.config("pyright", {
+	-- on_attach = function(client, bufnr)
+	-- 	on_attach(client, bufnr)
+
+	-- 	-- Override handlers
+	-- 	local methods = vim.lsp.protocol.Methods
+	-- 	local req = client.request
+
+	-- 	client.request = function(self, method, params, handler, bufnr_request)
+	-- 		if method == methods.textDocument_hover then
+	-- 			return req(self, method, params, utils.pyright_hover, bufnr_request)
+	-- 		else
+	-- 			return req(self, method, params, handler, bufnr_request)
+	-- 		end
+	-- 	end
+	-- end,
 	settings = {
 		python = {
 			analysis = {
@@ -290,28 +305,24 @@ vim.lsp.config("ruff", {
 
 vim.lsp.enable(lsp_list)
 
--- TODO: remove the following when border is fixed in Telescope
-local hover = vim.lsp.buf.hover
+-- FIXME: hopefully my custom functionality gets incorporated in Nvim core.
+-- local hover = vim.lsp.buf.hover
+local lsp_custom = require("dmacario.lsp-custom")
 ---@diagnostic disable-next-line: duplicate-set-field
 vim.lsp.buf.hover = function()
-	return hover({
-		border = "rounded",
-		-- max_width = 100,
-		max_width = math.floor(vim.o.columns * 0.7),
-		max_height = math.floor(vim.o.lines * 0.7),
-	})
+	return lsp_custom.custom_hover()
 end
 
-local signature_help = vim.lsp.buf.signature_help
----@diagnostic disable-next-line: duplicate-set-field
-vim.lsp.buf.signature_help = function()
-	return signature_help({
-		border = "rounded",
-		-- max_width = 100,
-		max_width = math.floor(vim.o.columns * 0.7),
-		max_height = math.floor(vim.o.lines * 0.7),
-	})
-end
+-- local signature_help = vim.lsp.buf.signature_help
+-- ---@diagnostic disable-next-line: duplicate-set-field
+-- vim.lsp.buf.signature_help = function()
+-- 	return signature_help({
+-- 		border = "rounded",
+-- 		-- max_width = 100,
+-- 		max_width = math.floor(vim.o.columns * 0.7),
+-- 		max_height = math.floor(vim.o.lines * 0.7),
+-- 	})
+-- end
 
 -- lspconfig.gitlab_code_suggestions.setup({ capabilities = capabilities, on_attach = on_attach })
 

@@ -51,7 +51,7 @@ vim.opt.maxmempattern = 20000
 vim.opt.colorcolumn = "80"
 
 -- TODO: review once Telescope border is fixed
--- vim.o.winborder = "rounded"
+vim.o.winborder = "rounded"
 
 -- Settings for lualine
 vim.opt.showtabline = 2

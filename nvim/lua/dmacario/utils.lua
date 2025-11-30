@@ -103,9 +103,9 @@ function M.cowsay(max_width)
 	-- The small logo is placed above the output of cowsay
 	local pos, out_table = 0, icons.nvim_small_logo
 	for st, sp in
-		function()
-			return string.find(result, "\n", pos, true)
-		end
+	function()
+		return string.find(result, "\n", pos, true)
+	end
 	do
 		table.insert(out_table, string.sub(result, pos, st - 1))
 		pos = sp + 1
@@ -124,7 +124,7 @@ function M.get_editorconfig_max_line_length()
 		start_dir = vim.fn.getcwd()
 	end
 	local root_project_dir = vim.fs.dirname(vim.fs.find({ ".editorconfig" }, { upward = true, path = start_dir })[1])
-		or "."
+			or "."
 	local config_files = { ".editorconfig", vim.fs.joinpath(root_project_dir, ".editorconfig") }
 	for _, fname in ipairs(config_files) do
 		local file = io.open(fname, "r")
@@ -149,7 +149,7 @@ local function parse_python_line_length(filename)
 	if file then
 		for line in file:lines() do
 			local max_line_length = line:match("^%s*max%-line%-length%s*=%s*(%d+)")
-				or line:match("^%s*line%-length%s*=%s*(%d+)")
+					or line:match("^%s*line%-length%s*=%s*(%d+)")
 			if max_line_length then
 				file:close()
 				return tonumber(max_line_length)
@@ -168,7 +168,7 @@ function M.get_python_max_line_length()
 		start_dir = vim.fn.getcwd()
 	end
 	local root_project_dir = vim.fs.dirname(vim.fs.find(config_filenames, { upward = true, path = start_dir })[1])
-		or "."
+			or "."
 
 	local out = nil
 	for _, filename in ipairs(config_filenames) do
@@ -267,7 +267,7 @@ end
 -- Get special file extension (nvim web devicons)
 function M.get_special_ext(name)
 	if name:find(".*%.gitlab%-ci.*%.yml") then -- Match <>.gitlab-ci<>.yml
-		return "gitlab-ci.yml" -- Return `gitlab-ci.yml` as the extension
+		return "gitlab-ci.yml"                  -- Return `gitlab-ci.yml` as the extension
 	end
 	if name:find("^Dockerfile.*") or name:find(".*.Dockerfile$") then
 		return "Dockerfile"

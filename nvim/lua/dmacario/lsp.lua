@@ -87,6 +87,7 @@ vim.lsp.config("pyright", {
 })
 vim.lsp.config("jedi_language_server", {
 	on_attach = function(client, bufnr)
+		on_attach(client, bufnr)
 		-- Ugly but does the job: disable server capabilities to prevent conflict
 		-- with Pyright.
 		local disabled = {
@@ -283,23 +284,24 @@ vim.lsp.config("taplo", {})
 vim.lsp.config("gitlab_ci_ls", {})
 vim.lsp.config("ruff", {
 	on_attach = function(client, bufnr)
-		local disabled = {
-			"hoverProvider",
-			"definitionProvider",
-			"referencesProvider",
-			"implementationProvider",
-			"typeDefinitionProvider",
-			"documentSymbolProvider",
-			"workspaceSymbolProvider",
-			"renameProvider",
-			"codeActionProvider",
-			"signatureHelpProvider",
-			"completionProvider",
-			"semanticTokensProvider",
-		}
-		for _, cap in ipairs(disabled) do
-			client.server_capabilities[cap] = false
-		end
+		on_attach(client, bufnr)
+		-- local disabled = {
+		-- 	"hoverProvider",
+		-- 	"definitionProvider",
+		-- 	"referencesProvider",
+		-- 	"implementationProvider",
+		-- 	"typeDefinitionProvider",
+		-- 	"documentSymbolProvider",
+		-- 	"workspaceSymbolProvider",
+		-- 	"renameProvider",
+		-- 	"codeActionProvider",
+		-- 	"signatureHelpProvider",
+		-- 	"completionProvider",
+		-- 	"semanticTokensProvider",
+		-- }
+		-- for _, cap in ipairs(disabled) do
+		-- 	client.server_capabilities[cap] = false
+		-- end
 	end,
 })
 

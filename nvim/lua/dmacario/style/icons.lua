@@ -214,4 +214,8 @@ ICONS.gitlab = {
 	color_inactive = "#7c6f64",
 }
 
+ICONS.snacks_nvim = {
+	input = " "
+}
+
 return ICONS

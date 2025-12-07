@@ -3,6 +3,7 @@ return {
 	dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
 	ft = { "markdown", "codecompanion" },
 	opts = {
+		render_modes = { "n", "c", "t" },
 		-- Mimic UX
 		preset = "obsidian",
 		-- Do not render markdown nested within markdown (code block)
@@ -10,10 +11,15 @@ return {
 		-- Conceal settings
 		anti_conceal = {
 			enabled = true,
-			ignore = {},
+			ignore = {
+				code_background = true,
+				indent = true,
+				sign = true,
+				virtual_lines = true,
+			},
 		},
 		completions = {
-			lsp = { enabled = true},
+			lsp = { enabled = true },
 		},
 		file_types = { "markdown", "codecompanion" },
 		heading = {
@@ -147,29 +153,6 @@ return {
 		checkbox = {
 			-- Turn on / off checkbox state rendering
 			enabled = true,
-			-- Determines how icons fill the available space:
-			--  inline:  underlying text is concealed resulting in a left aligned icon
-			--  overlay: result is left padded with spaces to hide any additional text
-			position = "inline",
-			unchecked = {
-				-- Replaces '[ ]' of 'task_list_marker_unchecked'
-				icon = "󰄱 ",
-				-- Highlight for the unchecked icon
-				highlight = "RenderMarkdownUnchecked",
-			},
-			checked = {
-				-- Replaces '[x]' of 'task_list_marker_checked'
-				icon = "󰱒 ",
-				-- Highligh for the checked icon
-				highlight = "RenderMarkdownChecked",
-			},
-			-- Define custom checkbox states, more involved as they are not part of the markdown grammar
-			-- As a result this requires neovim >= 0.10.0 since it relies on 'inline' extmarks
-			-- Can specify as many additional states as you like following the 'todo' pattern below
-			--   The key in this case 'todo' is for healthcheck and to allow users to change its values
-			--   'raw':       Matched against the raw text of a 'shortcut_link'
-			--   'rendered':  Replaces the 'raw' value when rendering
-			--   'highlight': Highlight for the 'rendered' icon
 			custom = {
 				todo = { raw = "[-]", rendered = "󰥔 ", highlight = "RenderMarkdownTodo", scope_highlight = nil },
 				in_progress = {
@@ -187,153 +170,14 @@ return {
 				},
 			},
 		},
-		quote = {
-			-- Turn on / off block quote & callout rendering
-			enabled = true,
-			-- Replaces '>' of 'block_quote'
-			icon = "▋",
-			-- Whether to repeat icon on wrapped lines. Requires neovim >= 0.10. This will obscure text if
-			-- not configured correctly with :h 'showbreak', :h 'breakindent' and :h 'breakindentopt'. A
-			-- combination of these that is likely to work is showbreak = '  ' (2 spaces), breakindent = true,
-			-- breakindentopt = '' (empty string). These values are not validated by this plugin. If you want
-			-- to avoid adding these to your main configuration then set them in win_options for this plugin.
-			repeat_linebreak = false,
-			-- Highlight for the quote icon
-			highlight = "RenderMarkdownQuote",
-		},
-		pipe_table = {
-			-- Turn on / off pipe table rendering
-			enabled = true,
-			-- Pre configured settings largely for setting table border easier
-			--  heavy:  use thicker border characters
-			--  double: use double line border characters
-			--  round:  use round border corners
-			--  none:   does nothing
-			preset = "none",
-			-- Determines how the table as a whole is rendered:
-			--  none:   disables all rendering
-			--  normal: applies the 'cell' style rendering to each row of the table
-			--  full:   normal + a top & bottom line that fill out the table when lengths match
-			style = "full",
-			-- Determines how individual cells of a table are rendered:
-			--  overlay: writes completely over the table, removing conceal behavior and highlights
-			--  raw:     replaces only the '|' characters in each row, leaving the cells unmodified
-			--  padded:  raw + cells are padded with inline extmarks to make up for any concealed text
-			cell = "padded",
-			-- Gets placed in delimiter row for each column, position is based on alignmnet
-			alignment_indicator = "━",
-			-- Characters used to replace table border
-			-- Correspond to top(3), delimiter(3), bottom(3), vertical, & horizontal
-			-- stylua: ignore
-			border = {
-				'┌', '┬', '┐',
-				'├', '┼', '┤',
-				'└', '┴', '┘',
-				'│', '─',
-			},
-			-- Highlight for table heading, delimiter, and the line above
-			head = "RenderMarkdownTableHead",
-			-- Highlight for everything else, main table rows and the line below
-			row = "RenderMarkdownTableRow",
-			-- Highlight for inline padding used to add back concealed space
-			filler = "RenderMarkdownTableFill",
-		},
-		-- Callouts are a special instance of a 'block_quote' that start with a 'shortcut_link'
-		-- Can specify as many additional values as you like following the pattern from any below, such as 'note'
-		--   The key in this case 'note' is for healthcheck and to allow users to change its values
-		--   'raw':       Matched against the raw text of a 'shortcut_link', case insensitive
-		--   'rendered':  Replaces the 'raw' value when rendering
-		--   'highlight': Highlight for the 'rendered' text and quote markers
-		callout = {
-			note = { raw = "[!NOTE]", rendered = "󰋽 Note", highlight = "RenderMarkdownInfo" },
-			tip = { raw = "[!TIP]", rendered = "󰌶 Tip", highlight = "RenderMarkdownSuccess" },
-			important = { raw = "[!IMPORTANT]", rendered = "󰅾 Important", highlight = "RenderMarkdownHint" },
-			warning = { raw = "[!WARNING]", rendered = "󰀪 Warning", highlight = "RenderMarkdownWarn" },
-			caution = { raw = "[!CAUTION]", rendered = "󰳦 Caution", highlight = "RenderMarkdownError" },
-			-- Obsidian: https://help.obsidian.md/Editing+and+formatting/Callouts
-			abstract = { raw = "[!ABSTRACT]", rendered = "󰨸 Abstract", highlight = "RenderMarkdownInfo" },
-			summary = { raw = "[!SUMMARY]", rendered = "󰨸 Summary", highlight = "RenderMarkdownInfo" },
-			tldr = { raw = "[!TLDR]", rendered = "󰨸 Tldr", highlight = "RenderMarkdownInfo" },
-			info = { raw = "[!INFO]", rendered = "󰋽 Info", highlight = "RenderMarkdownInfo" },
-			todo = { raw = "[!TODO]", rendered = "󰗡 Todo", highlight = "RenderMarkdownInfo" },
-			hint = { raw = "[!HINT]", rendered = "󰌶 Hint", highlight = "RenderMarkdownSuccess" },
-			success = { raw = "[!SUCCESS]", rendered = "󰄬 Success", highlight = "RenderMarkdownSuccess" },
-			check = { raw = "[!CHECK]", rendered = "󰄬 Check", highlight = "RenderMarkdownSuccess" },
-			done = { raw = "[!DONE]", rendered = "󰄬 Done", highlight = "RenderMarkdownSuccess" },
-			question = { raw = "[!QUESTION]", rendered = "󰘥 Question", highlight = "RenderMarkdownWarn" },
-			help = { raw = "[!HELP]", rendered = "󰘥 Help", highlight = "RenderMarkdownWarn" },
-			faq = { raw = "[!FAQ]", rendered = "󰘥 Faq", highlight = "RenderMarkdownWarn" },
-			attention = { raw = "[!ATTENTION]", rendered = "󰀪 Attention", highlight = "RenderMarkdownWarn" },
-			failure = { raw = "[!FAILURE]", rendered = "󰅖 Failure", highlight = "RenderMarkdownError" },
-			fail = { raw = "[!FAIL]", rendered = "󰅖 Fail", highlight = "RenderMarkdownError" },
-			missing = { raw = "[!MISSING]", rendered = "󰅖 Missing", highlight = "RenderMarkdownError" },
-			danger = { raw = "[!DANGER]", rendered = "󱐌 Danger", highlight = "RenderMarkdownError" },
-			error = { raw = "[!ERROR]", rendered = "󱐌 Error", highlight = "RenderMarkdownError" },
-			bug = { raw = "[!BUG]", rendered = "󰨰 Bug", highlight = "RenderMarkdownError" },
-			example = { raw = "[!EXAMPLE]", rendered = "󰉹 Example", highlight = "RenderMarkdownHint" },
-			quote = { raw = "[!QUOTE]", rendered = "󱆨 Quote", highlight = "RenderMarkdownQuote" },
-			cite = { raw = "[!CITE]", rendered = "󱆨 Cite", highlight = "RenderMarkdownQuote" },
-		},
-		link = {
-			-- Turn on / off inline link icon rendering
-			enabled = true,
-			-- Inlined with 'image' elements
-			image = "󰥶 ",
-			-- Inlined with 'email_autolink' elements
-			email = "󰀓 ",
-			-- Fallback icon for 'inline_link' elements
-			hyperlink = "󰌹 ",
-			-- Applies to the fallback inlined icon
-			highlight = "RenderMarkdownLink",
-			-- Define custom destination patterns so icons can quickly inform you of what a link
-			-- contains. Applies to 'inline_link' and wikilink nodes.
-			-- Can specify as many additional values as you like following the 'web' pattern below
-			--   The key in this case 'web' is for healthcheck and to allow users to change its values
-			--   'pattern':   Matched against the destination text see :h lua-pattern
-			--   'icon':      Gets inlined before the link text
-			--   'highlight': Highlight for the 'icon'
-			custom = {
-				web = { pattern = "^http[s]?://", icon = "󰖟 ", highlight = "RenderMarkdownLink" },
-			},
-		},
-		sign = {
-			-- Turn on / off sign rendering
-			enabled = true,
-			-- Applies to background of sign text
-			highlight = "RenderMarkdownSign",
-		},
-		inline_highlight = {
-			-- Mimics Obsidian inline highlights when content is surrounded by double equals.
-			-- The equals on both ends are concealed and the inner content is highlighted.
-
-			-- Turn on / off inline highlight rendering.
-			enabled = true,
-			-- Additional modes to render inline highlights.
-			render_modes = false,
-			-- Applies to background of surrounded text.
-			highlight = "RenderMarkdownInlineHighlight",
-		},
-		-- Mimic org-indent-mode behavior by indenting everything under a heading based on the
-		-- level of the heading. Indenting starts from level 2 headings onward.
-		indent = {
-			-- Turn on / off org-indent-mode
-			enabled = false,
-			-- Amount of additional padding added for each heading level
-			per_level = 2,
-		},
 		html = {
 			enabled = true,
-			render_modes = false,
 			comment = {
 				conceal = false,
-				text = nil,
-				highlight = "RenderMarkdownHtmlComment",
 			},
-			-- HTML tags whose start and end will be hidden and icon shown.
-			-- The key is matched against the tag name, value type below.
-			-- | icon      | gets inlined at the start |
-			-- | highlight | highlight for the icon    |
-			tag = {},
+		},
+		latex = {
+			enabled = false,
 		},
 	},
 }

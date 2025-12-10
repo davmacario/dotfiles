@@ -174,6 +174,10 @@ if [[ "$SHELL" != *zsh* ]]; then
     rm -rf "${ZSH_CUSTOM:-"$actual_home"/.oh-my-zsh/custom}/themes/powerlevel10k"
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-"$actual_home"/.oh-my-zsh/custom}/themes/powerlevel10k"
     correct_ownership "${ZSH_CUSTOM:-"$actual_home"/.oh-my-zsh/custom}/themes/powerlevel10k"
+
+    if [ ! -f "$actual_home/.zsh_history" ]; then
+        touch "$actual_home/.zsh_history"
+    fi
 fi
 
 # ------------------------------------------------------------------------------

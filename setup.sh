@@ -161,6 +161,11 @@ fi
 # Install uv (python env manager)
 ./scripts/install_uv.sh
 
+# Install npm packages
+if [ -x "$(command -v npm)" ]; then
+    npm install -g tree-sitter-cli
+fi
+
 # ------------------------------------------------------------------------------
 
 # 1. Install ZSH, OMZ, and p10k

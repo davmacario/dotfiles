@@ -150,7 +150,7 @@ export CLICOLOR=1
 # Set bat theme
 export BAT_THEME="gruvbox-dark"
 # Change terminal language settings to english:
-export LC_ALL=C
+export LC_ALL="en_US.UTF-8"
 
 # Add local bin to path
 export PATH="$PATH:$HOME/.local/bin"

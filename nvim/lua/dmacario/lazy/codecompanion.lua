@@ -126,7 +126,6 @@ return {
 							},
 							headers = {
 								["Content-Type"] = "application/json",
-								Authorization = "Bearer ${api_key}",
 							},
 							parameters = {
 								sync = true,
@@ -219,11 +218,6 @@ return {
 						return require("codecompanion.adapters").extend("openai_compatible", {
 							name = "codestral",
 							formatted_name = "Codestral",
-							opts = {
-								stream = true,
-								tools = false,
-								vision = false,
-							},
 							url = "${url}${chat_endpoint}",
 							env = {
 								api_key = "OpenWebUI_dmacario_API_KEY",

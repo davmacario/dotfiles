@@ -20,7 +20,6 @@ return {
 			"markdown_inline",
 			"comment",
 			"json",
-			"jsonc",
 			"rust",
 			"go",
 			"query",

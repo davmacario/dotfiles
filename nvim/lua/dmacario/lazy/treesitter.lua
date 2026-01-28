@@ -1,13 +1,10 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
+	lazy = false,
 	build = ":TSUpdate",
 	event = { "BufReadPre", "BufNewFile" },
-	dependencies = {
-		-- "nvim-treesitter/nvim-treesitter-context",
-		"nvim-treesitter/nvim-treesitter-textobjects",
-	},
 	config = function()
-		require("nvim-treesitter.configs").setup({
+		require("nvim-treesitter.config").setup({
 			-- A list of parser names, or "all" (the five listed parsers should always be installed)
 			ensure_installed = {
 				"c",
@@ -32,7 +29,7 @@ return {
 				"hcl",
 				"terraform",
 				"html",
-				"latex"
+				"latex",
 			},
 
 			-- Install parsers synchronously (only applied to `ensure_installed`)

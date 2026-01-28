@@ -3,56 +3,96 @@ return {
 	lazy = false,
 	build = ":TSUpdate",
 	event = { "BufReadPre", "BufNewFile" },
-	config = function()
-		require("nvim-treesitter.config").setup({
-			-- A list of parser names, or "all" (the five listed parsers should always be installed)
-			ensure_installed = {
-				"c",
-				"lua",
-				"luadoc",
-				"vim",
-				"vimdoc",
-				"bash",
-				"dockerfile",
-				"cpp",
-				"javascript",
-				"python",
-				"yaml",
-				"markdown",
-				"markdown_inline",
-				"comment",
-				"json",
-				"jsonc",
-				"rust",
-				"go",
-				"query",
-				"hcl",
-				"terraform",
-				"html",
-				"latex",
-			},
+	opts = {
+		ensure_installed = {
+			"c",
+			"lua",
+			"luadoc",
+			"vim",
+			"vimdoc",
+			"bash",
+			"dockerfile",
+			"cpp",
+			"javascript",
+			"python",
+			"yaml",
+			"markdown",
+			"markdown_inline",
+			"comment",
+			"json",
+			"jsonc",
+			"rust",
+			"go",
+			"query",
+			"hcl",
+			"terraform",
+			"html",
+			"latex",
+		},
+	},
+	config = function(_, opts)
+		require("nvim-treesitter.config").setup()
 
-			-- Install parsers synchronously (only applied to `ensure_installed`)
-			sync_install = false,
+		if opts.ensure_installed and #opts.ensure_installed > 0 then
+			require("nvim-treesitter").install(opts.ensure_installed)
+			for _, parser in ipairs(opts.ensure_installed) do
+				local filetypes = parser -- In this case, parser is the filetype/language name
+				vim.treesitter.language.register(parser, filetypes)
 
-			-- Automatically install missing parsers when entering buffer
-			auto_install = true,
+				vim.api.nvim_create_autocmd({ "FileType" }, {
+					pattern = filetypes,
+					callback = function(event)
+						vim.treesitter.start(event.buf, parser)
+					end,
+				})
+			end
+		end
 
-			highlight = {
-				enable = true,
-				disable = { "csv", "tsv" }, -- Rainbow csv
-				additional_vim_regex_highlighting = { "latex", "markdown" },
-			},
-			playground = { enable = true },
-			indent = { enable = true },
-			rainbow = {
-				enable = true,
-				-- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
-				extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-				max_file_lines = nil, -- Do not enable for files with more than n lines, int
-				-- colors = {}, -- table of hex strings
-				-- termcolors = {} -- table of colour name strings
-			},
+		-- Auto-install and start parsers for any buffer
+		vim.api.nvim_create_autocmd({ "BufRead" }, {
+			callback = function(event)
+				local bufnr = event.buf
+				local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
+
+				-- Skip if no filetype, ot if csv/tsv - see Rainbow CSV
+				if filetype == "" or filetype == "csv" or filetype == "tsv" then
+					return
+				end
+
+				-- Check if this filetype is already handled by explicit opts.ensure_installed config
+				for _, filetypes in pairs(opts.ensure_installed) do
+					local ft_table = type(filetypes) == "table" and filetypes or { filetypes }
+					if vim.tbl_contains(ft_table, filetype) then
+						return -- Already handled above
+					end
+				end
+
+				-- Get parser name based on filetype
+				local parser_name = vim.treesitter.language.get_lang(filetype) -- might return filetype (not helpful)
+				if not parser_name then
+					return
+				end
+				-- Try to get existing parser (helpful check if filetype was returned above)
+				local parser_configs = require("nvim-treesitter.parsers")
+				if not parser_configs[parser_name] then
+					return -- Parser not available, skip silently
+				end
+
+				local parser_installed = pcall(vim.treesitter.get_parser, bufnr, parser_name)
+
+				if not parser_installed then
+					-- If not installed, install parser synchronously
+					require("nvim-treesitter").install({ parser_name }):wait(30000)
+				end
+
+				-- let's check again
+				parser_installed = pcall(vim.treesitter.get_parser, bufnr, parser_name)
+
+				if parser_installed then
+					-- Start treesitter for this buffer
+					vim.treesitter.start(bufnr, parser_name)
+				end
+			end,
 		})
 	end,
 }

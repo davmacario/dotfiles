@@ -158,6 +158,13 @@ autocmd({ "FileType", "BufRead", "BufNewFile" }, {
 	command = "set filetype=helm"
 })
 
+-- Set correct filetype for Helm templates
+autocmd({ "FileType", "BufRead", "BufNewFile" }, {
+	group = "ftOverride",
+	pattern = { "*.tpl", "moustache" },
+	command = "set filetype=helm"
+})
+
 -- Always remove trailing whitespaces on save
 autocmd("BufWritePre", {
 	pattern = { "*" },

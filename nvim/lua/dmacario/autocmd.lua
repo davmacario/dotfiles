@@ -151,11 +151,25 @@ autocmd({ "Filetype", "BufRead", "BufNewFile" }, {
 	command = "set filetype=gitconfig",
 })
 
--- Set correct filetype for Helm templates
-autocmd({ "FileType", "BufRead", "BufNewFile" }, {
+-- Set correct filetype for systemd.unit files
+-- Ref: https://www.freedesktop.org/software/systemd/man/latest/systemd.unit.html#Description
+autocmd({ "Filetype", "BufRead", "BufNewFile" }, {
 	group = "ftOverride",
-	pattern = { "*.tpl", "moustache" },
-	command = "set filetype=helm"
+	pattern = {
+		"*.service",
+		"*.unit",
+		"*.timer",
+		"*.socket",
+		"*.device",
+		"*.mount",
+		"*.automount",
+		"*.swap",
+		"*.target",
+		"*.path",
+		"*.slice",
+		"*.scope",
+	},
+	command = "set filetype=ini",
 })
 
 -- Set correct filetype for Helm templates

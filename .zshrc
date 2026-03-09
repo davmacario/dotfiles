@@ -119,6 +119,9 @@ fi
 alias externalip='curl -sS https://checkip.amazonaws.com/'
 alias hl='rg --passthrough'
 alias suod='sudo'
+if [[ -x "$(command -v powershell.exe)" ]]; then
+    alias open='explorer.exe'
+fi
 
 ### Fix for making Docker plugin work
 fpath=(~/.zsh/completion $fpath)

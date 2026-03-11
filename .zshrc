@@ -163,6 +163,9 @@ export PATH="$PATH:$HOME/go/bin:/usr/local/go/bin"
 
 # kubectl setup
 export KUBECONFIG="$HOME/.kube/config"
+if command -x kubectl; then
+    source <(kubectl completion zsh)
+fi
 
 # Rust setup
 if [ -f "$HOME/.cargo/env" ]; then

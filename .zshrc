@@ -163,7 +163,7 @@ export PATH="$PATH:$HOME/go/bin:/usr/local/go/bin"
 
 # kubectl setup
 export KUBECONFIG="$HOME/.kube/config"
-if command -v kubectl; then
+if command -v kubectl > /dev/null 2>&1; then
     source <(kubectl completion zsh)
 fi
 

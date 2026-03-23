@@ -97,3 +97,6 @@ if vim.fn.has("wsl") then
 		cache_enabled = 0,
 	}
 end
+
+-- Automatically refresh buffer contents if changed externally
+vim.opt.autoread = true

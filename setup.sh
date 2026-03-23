@@ -125,6 +125,7 @@ packages_global=(
     lua5.1
     liblua5.1-0-dev
     bat
+    pipx
 )
 packages_mac=(
     fd

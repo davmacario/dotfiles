@@ -28,6 +28,13 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 	end,
 })
 
+-- Auto refresh buffer contents if changed externally
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
+	group = user_config,
+	pattern = { "*" },
+	command = "silent! checktime",
+})
+
 -- Colorcolumn depending on .editorconfig
 augroup("setColorColumn", { clear = true })
 autocmd({ "BufNewFile", "BufReadPre" }, {
@@ -130,10 +137,10 @@ autocmd({ "Filetype", "BufRead", "BufNewFile" }, {
 	command = "set filetype=groovy",
 })
 
--- Treat .tf as terraform
+-- Treat .tf, .hcl as terraform
 autocmd({ "Filetype", "BufRead", "BufNewFile" }, {
 	group = "ftOverride",
-	pattern = { "*.tf", "tf" },
+	pattern = { "*.tf", "tf", "hcl", "*.hcl" },
 	command = "set filetype=terraform",
 })
 
@@ -176,7 +183,7 @@ autocmd({ "Filetype", "BufRead", "BufNewFile" }, {
 autocmd({ "FileType", "BufRead", "BufNewFile" }, {
 	group = "ftOverride",
 	pattern = { "*.tpl", "moustache" },
-	command = "set filetype=helm"
+	command = "set filetype=helm",
 })
 
 -- Always remove trailing whitespaces on save
@@ -231,7 +238,7 @@ autocmd("FileType", {
 autocmd("FileType", {
 	group = "mdFormatOpts",
 	pattern = { "markdown" },
-	command = "highlight link markdownError NONE"
+	command = "highlight link markdownError NONE",
 })
 
 -- Deactivate statuscol

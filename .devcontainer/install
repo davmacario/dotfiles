@@ -4,7 +4,7 @@ if [ -n "$DOTFILES_BRANCH" ]; then
     echo "Using branch $DOTFILES_BRANCH"
 fi
 
-git fetch --unshallow origin "$DOTFILES_BRANCH"
-git checkout "$DOTFILES_BRANCH"
+git fetch --unshallow origin "$DOTFILES_BRANCH":"$DOTFILES_BRANCH"
+git switch "$DOTFILES_BRANCH"
 
 sudo "$(dirname "$0")/../setup.sh"

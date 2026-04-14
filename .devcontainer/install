@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
-echo "Received args: $*"
+if [ -n "$DOTFILES_BRANCH" ]; then
+    echo "Using branch $DOTFILES_BRANCH"
+fi
+
+git checkout "$DOTFILES_BRANCH"
 
 sudo "$(dirname "$0")/../setup.sh"

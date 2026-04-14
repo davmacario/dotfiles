@@ -5,6 +5,6 @@ if [ -n "$DOTFILES_BRANCH" ]; then
 fi
 
 git fetch --unshallow origin "$DOTFILES_BRANCH"
-git switch "$DOTFILES_BRANCH"
+git checkout "$DOTFILES_BRANCH"
 
 sudo "$(dirname "$0")/../setup.sh"

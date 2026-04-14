@@ -6,7 +6,7 @@ fi
 
 pushd ~/dotfiles
 git fetch -p
-git checkout "$DOTFILES_BRANCH"
+git checkout -b "$DOTFILES_BRANCH" "origin/$DOTFILES_BRANCH"
 popd
 
 sudo "$(dirname "$0")/../setup.sh"

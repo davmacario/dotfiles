@@ -23,36 +23,27 @@ get_back() {
 source_env() {
     # Move some relevant variables (e.g., program versions) to env file
     if [ -f "$(dirname "$0")/.env" ]; then
-        source "$(dirname "$0")/.env" "$actual_home"
+        source "$(dirname "$0")/.env" "$HOME"
     fi
 }
 
 correct_ownership() {
     if [ -e "$1" ]; then
-        chown -R "$actual_user":"$actual_user" "$1"
+        sudo chown -R "$(whoami)":"$(whoami)" "$1"
     fi
 }
 
 make_link() {
-    if [ -f "$actual_home/$1" ]; then
-        rm "$actual_home/$fl"
+    if [ -f "$HOME/$1" ]; then
+        rm "$HOME/$1"
     fi
-    if [ -f "$CURR_DIR/$1" ] && [ ! -L "$actual_home/$1" ]; then
-        ln -s "$CURR_DIR/$1" "$actual_home/$1"
-        correct_ownership "$actual_home/$1"
+    if [ -f "$CURR_DIR/$1" ] && [ ! -L "$HOME/$1" ]; then
+        ln -s "$CURR_DIR/$1" "$HOME/$1"
+        correct_ownership "$HOME/$1"
     fi
 }
 
-if [ "$EUID" -ne 0 ]
-  then echo "Please run as root"
-  exit 1
-fi
-
-# Set up actual user - SUDO_USER has priority
-tmp=${SUDO_USER:-$_REMOTE_USER}
-actual_user=${tmp:-"dmacario"}
-actual_home=$(eval echo "~$actual_user")
-
+# Set up user variables
 CURR_DIR=$(pwd)
 log "Current dir: $CURR_DIR"
 log "Shell: $SHELL"
@@ -62,7 +53,7 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     log "Linux detected!"
     if [ ! -x "$(command -v brew)" ]; then
         log "Installing homebrew"
-        su - "$actual_user" -s /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        sudo -u "$(whoami)" /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     fi
 
     # TODO: add support for other package managers
@@ -70,8 +61,8 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         export DEBIAN_FRONTEND=noninteractive
         log "Using Ubuntu/Debian - apt detected!"
         PACMAN="apt"
-        apt update
-        apt upgrade -y
+        sudo apt update
+        sudo apt upgrade -y
     elif [ -n "$(pacman -v)" ]; then
         log "Pacman detected!"
         PACMAN="pacman"
@@ -80,10 +71,10 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     log "MacOS detected!"
     # Command line tools
-    su - "$actual_user" -c xcode-select --install
+    sudo -u "$(whoami)" xcode-select --install
     # Install homebrew
     if [ -z "$(brew -v)" ]; then
-        su - "$actual_user" -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        sudo -u "$(whoami)" /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     else
         brew update
         brew upgrade
@@ -92,9 +83,9 @@ fi
 
 package_manager() {
     if [[ "$OSTYPE" == linux-gnu* ]]; then
-        "$PACMAN" -y "$@"
+        sudo "$PACMAN" -y "$@"
     elif [[ "$OSTYPE" == darwin* ]]; then
-        brew "$@"
+        sudo brew "$@"
     fi
 }
 
@@ -147,7 +138,7 @@ for package in "${packages_global[@]}"; do
 done
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    xcode-select --install
+    sudo xcode-select --install
     for package in "${packages_mac[@]}"; do
         installing "$package"
         brew install "$package"
@@ -155,34 +146,35 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 else
     for package in "${packages_deb[@]}"; do
         installing "$package"
-        apt install -y "$package"
+        sudo apt install -y "$package"
     done
 fi
 
-"$(dirname "$0")/scripts/install_fzf.sh" "$actual_user" "$actual_home" || { log "Error installing fzf"; exit 1; }
+sudo "$(dirname "$0")/scripts/install_fzf.sh" "$(whoami)" "$HOME" || { log "Error installing fzf"; exit 1; }
 
 # Install uv (python env manager)
 ./scripts/install_uv.sh
 
 # Install npm packages
 if [ -x "$(command -v npm)" ]; then
-    npm install -g tree-sitter-cli
+    sudo npm install -g tree-sitter-cli
 fi
 
 # ------------------------------------------------------------------------------
 
 # 1. Install ZSH, OMZ, and p10k
 if [[ "$SHELL" != *zsh* ]]; then
-    ./scripts/install_zsh.sh "$actual_user" "$actual_home"
+    sudo -u "$(whoami)" ./scripts/install_zsh.sh "$(whoami)" "$HOME"
 
     # Install powerlevel10k
     log "Installing p10k"
-    rm -rf "${ZSH_CUSTOM:-"$actual_home"/.oh-my-zsh/custom}/themes/powerlevel10k"
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-"$actual_home"/.oh-my-zsh/custom}/themes/powerlevel10k"
-    correct_ownership "${ZSH_CUSTOM:-"$actual_home"/.oh-my-zsh/custom}/themes/powerlevel10k"
+    rm -rf "${ZSH_CUSTOM:-"$HOME"/.oh-my-zsh/custom}/themes/powerlevel10k"
+    sudo -u "$(whoami)" git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-"$HOME"/.oh-my-zsh/custom}/themes/powerlevel10k"
+    correct_ownership "${ZSH_CUSTOM:-"$HOME"/.oh-my-zsh/custom}/themes/powerlevel10k"
 
-    if [ ! -f "$actual_home/.zsh_history" ]; then
-        touch "$actual_home/.zsh_history"
+    if [ ! -f "$HOME/.zsh_history" ]; then
+        touch "$HOME/.zsh_history"
+        correct_ownership "$HOME/.zsh_history"
     fi
 fi
 
@@ -207,7 +199,7 @@ files_to_link=(
 )
 
 for fl in "${files_to_link[@]}"; do
-    if [ -f "$CURR_DIR/$fl" ] && [ ! -L "$actual_home/$fl" ]; then
+    if [ -f "$CURR_DIR/$fl" ] && [ ! -L "$HOME/$fl" ]; then
         log "Linking $fl"
         make_link "$fl"
     fi
@@ -217,7 +209,7 @@ done
 mkdir -p "$GHDIR"
 
 if [ -z "$XDG_CONFIG_HOME" ]; then
-    CONFIG_PATH="$actual_home/.config"
+    CONFIG_PATH="$HOME/.config"
 else
     CONFIG_PATH="$XDG_CONFIG_HOME"
 fi
@@ -230,7 +222,7 @@ if [ -d "$CURR_DIR/nvim" ]; then
     # Check whether neovim is already installed with the default version
     if [ ! -x "$(command -v nvim)" ] || [ "$(nvim -v | awk -F" " '{ print $2 }' | head -n 1)" != "$NVIM_VERSION" ]; then
         log "Installing Neovim $NVIM_VERSION"
-        "$CURR_DIR/scripts/install_nvim.sh" "$NVIM_VERSION" "$actual_user" "$actual_home"
+        sudo ./scripts/install_nvim.sh "$NVIM_VERSION" "$(whoami)" "$HOME"
         log "Neovim installed successfully!"
     else
         log "Found local installation of Neovim $NVIM_VERSION"
@@ -244,29 +236,29 @@ if [ -d "$CURR_DIR/nvim" ]; then
 
     # Install neovim plugins requirements
     if [[  "$OSTYPE" == "darwin"* ]]; then
-        ./scripts/macos-zathura.sh
+        sudo ./scripts/macos-zathura.sh
         brew install pngpaste
     fi
 
     get_back
-    ./scripts/lazygit-install.sh "$actual_user"
+    sudo ./scripts/lazygit-install.sh "$(whoami)"
 
-    mkdir "$actual_home/.virtualenvs" && cd "$actual_home/.virtualenvs"
+    mkdir "$HOME/.virtualenvs" && cd "$HOME/.virtualenvs"
     python3 -m venv debugpy
     source debugpy/bin/activate
     pip3 install --upgrade pip
     python3 -m pip install debugpy
     deactivate
     get_back
-    correct_ownership "$actual_home/.virtualenvs"
+    correct_ownership "$HOME/.virtualenvs"
 fi
 
 get_back
 
 # Tmux config
 # Install the Tmux Plugin Manager
-[ ! -d "$actual_home/.tmux/plugins" ]; mkdir -p "$actual_home/.tmux/plugins"
-git clone https://github.com/tmux-plugins/tpm.git "$actual_home/.tmux/plugins/tpm"
+[ ! -d "$HOME/.tmux/plugins" ]; mkdir -p "$HOME/.tmux/plugins"
+sudo git clone https://github.com/tmux-plugins/tpm.git "$HOME/.tmux/plugins/tpm"
 
 if [ -n "$XDG_CONFIG_HOME" ] && [ -d "$CURR_DIR/tmux" ]; then  # Should be defined in .zshrc or .env
     if [ ! -L "$XDG_CONFIG_HOME/tmux" ]; then
@@ -281,23 +273,23 @@ elif [ -n "$XDG_CONFIG_HOME" ] && [ -f "$CURR_DIR/.tmux.conf" ]; then
         correct_ownership "$TMUX_XDG_PATH/tmux.conf"
     fi
 elif [ -z "$XDG_CONFIG_HOME" ] && [ -d "$CURR_DIR/tmux" ]; then
-    if [ ! -L "$actual_home/.tmux.conf" ]; then
-        ln -s "$CURR_DIR/tmux/tmux.conf" "$actual_home/.tmux.conf"
-        correct_ownership "$actual_home/.tmux.conf"
+    if [ ! -L "$HOME/.tmux.conf" ]; then
+        ln -s "$CURR_DIR/tmux/tmux.conf" "$HOME/.tmux.conf"
+        correct_ownership "$HOME/.tmux.conf"
     fi
 elif [ -z "$XDG_CONFIG_HOME" ] && [ -f "$CURR_DIR/.tmux.conf" ]; then
-    if [ ! -L "$actual_home/.tmux.conf" ]; then
-        ln -s "$CURR_DIR/.tmux.conf" "$actual_home/.tmux.conf"
-        correct_ownership "$actual_home/.tmux.conf"
+    if [ ! -L "$HOME/.tmux.conf" ]; then
+        ln -s "$CURR_DIR/.tmux.conf" "$HOME/.tmux.conf"
+        correct_ownership "$HOME/.tmux.conf"
     fi
 else
     log "No TMUX config found"
 fi
 
-correct_ownership "$actual_home/.tmux"
-correct_ownership "$actual_home/.local"
+correct_ownership "$HOME/.tmux"
+correct_ownership "$HOME/.local"
 correct_ownership "$CONFIG_PATH"
 correct_ownership "$GHDIR"
-correct_ownership "$actual_home"
+correct_ownership "$HOME"
 
 log "Setup complete! Restart your shell for all the changes to take effect."

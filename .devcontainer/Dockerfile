@@ -5,8 +5,9 @@ ARG USERNAME
 USER root
 
 RUN export DEBIAN_FRONTEND=noninteractive
-RUN apt update && apt autoremove -y
-RUN apt-get -y install --no-install-recommends tar curl zip unzip
+RUN apt update && \
+    apt-get -y install --no-install-recommends ca-certificates tar curl zip unzip git && \
+    apt autoremove -y
 
 RUN useradd -ms /bin/bash $USERNAME
 RUN usermod -aG sudo $USERNAME

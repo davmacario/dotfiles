@@ -4,8 +4,9 @@ if [ -n "$DOTFILES_BRANCH" ]; then
     echo "Using branch $DOTFILES_BRANCH"
 fi
 
-pushd ~/dotfiles >/dev/null
+pushd ~/dotfiles
+git fetch -p
 git checkout "$DOTFILES_BRANCH"
-popd >/dev/null
+popd
 
 sudo "$(dirname "$0")/../setup.sh"

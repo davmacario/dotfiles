@@ -4,6 +4,6 @@ if [ -n "$DOTFILES_BRANCH" ]; then
     echo "Using branch $DOTFILES_BRANCH"
 fi
 
-git switch "$DOTFILES_BRANCH" --track "origin/$DOTFILES_BRANCH"
+git switch -c "$DOTFILES_BRANCH" --track "origin/$DOTFILES_BRANCH"
 
 sudo "$(dirname "$0")/../setup.sh"

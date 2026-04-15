@@ -82,6 +82,7 @@ fi
 
 package_manager() {
     if [[ "$OSTYPE" == linux-gnu* ]]; then
+        export DEBIAN_FRONTEND=noninteractive
         sudo "$PACMAN" -y "$@"
     elif [[ "$OSTYPE" == darwin* ]]; then
         brew "$@"

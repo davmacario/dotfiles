@@ -8,50 +8,33 @@ if [ "$EUID" -eq 0 ]; then
   echo -e "Warning: installing as root" # TODO: yellow
 fi
 
-correct_ownership() {
-    if [ -e "$1" ]; then
-        chown -R "$2":"$3" "$1"
-    fi
-}
-
 install_plugins() {
-    git clone "https://github.com/zsh-users/zsh-autosuggestions" "${ZSH_CUSTOM:-$actual_home/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
-    git clone "https://github.com/zsh-users/zsh-syntax-highlighting.git" "${ZSH_CUSTOM:-$actual_home/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
-    git clone "https://github.com/jeffreytse/zsh-vi-mode.git" "${ZSH_CUSTOM:-$actual_home/.oh-my-zsh/custom}/plugins/zsh-vi-mode"
-
-    correct_ownership "${ZSH_CUSTOM:-$actual_home/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
-    correct_ownership "${ZSH_CUSTOM:-$actual_home/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
-    correct_ownership "${ZSH_CUSTOM:-$actual_home/.oh-my-zsh/custom}/plugins/zsh-vi-mode"
+    git clone "https://github.com/zsh-users/zsh-autosuggestions" "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+    git clone "https://github.com/zsh-users/zsh-syntax-highlighting.git" "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
+    git clone "https://github.com/jeffreytse/zsh-vi-mode.git" "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-vi-mode"
 }
 
 # Install ZSH
 FLG=0
 if [[ "$SHELL" == *"zsh"* ]]; then
     FLG=1
-    log "ZSH is the default shell already! $(which zsh)"
+    log "ZSH ($(which zsh)) is the default shell already!"
 else
     if [[ "$OSTYPE" == "linux-gnu"* ]] && [[ -n "$(apt-get -v)" ]] && [[ -z "$(which zsh)" ]]; then
-        apt-get update
         apt-get install zsh -y
     elif [[ "$OSTYPE" == "darwin"* ]]; then
-        brew update
         brew install zsh
     fi
 fi
 
 if [ ! -x "$(command -v omz)" ]; then
     log "Installing OMZ"
-    pushd "$actual_home" || { log "Unable to find $actual_home"; exit 1; }
-    if [ -d "$actual_home/.oh-my-zsh" ]; then
+    pushd "$HOME"
+    if [ -d "$HOME/.oh-my-zsh" ]; then
         log "Found old ~/.oh-my-zsh folder, adding '-old' suffix"
-        mv "$actual_home/.oh-my-zsh" "$actual_home/.oh-my-zsh-old"
-        correct_ownership "$actual_home/.oh-my-zsh-old"
+        mv "$HOME/.oh-my-zsh" "$HOME/.oh-my-zsh-old"
     fi
-    if [ -z "$actual_user" ]; then
-        su - "$actual_user" -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    else
-        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    fi
+    curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
     popd || { log "Something went wrong"; exit 1; }
 fi
 
@@ -74,7 +57,7 @@ if [ "$DEBIAN_FRONTEND" != "noninteractive" ]; then
         while true; do
             read -r -p "ZSH is not the default shell, do you want to set it as default? [y/n]  " yn
             case $yn in
-                [Yy]* ) chsh -s "$(which zsh)" "$actual_user"; break;;
+                [Yy]* ) chsh -s "$(which zsh)" "$USER"; break;;
                 [Nn]* ) exit 2;;
                 * ) echo "Please answer y/n"
             esac
@@ -85,9 +68,6 @@ if [ "$DEBIAN_FRONTEND" != "noninteractive" ]; then
 else
     install_plugins
     if [ ! $FLG -eq 1 ]; then
-        chsh -s "$(which zsh)" "$actual_user"
+        chsh -s "$(which zsh)" "$USER"
     fi
 fi
-
-correct_ownership "$actual_home/.oh-my-zsh"
-correct_ownership "$actual_home/.zshrc.pre-oh-my-zsh"

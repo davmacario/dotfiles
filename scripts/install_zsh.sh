@@ -30,7 +30,7 @@ install_plugins() {
 
 # Install ZSH
 FLG=0
-if [[ "$SHELL" == *"zsh"* ]]; then
+if [[ "$SHELL" == */zsh ]]; then
     FLG=1
     log "ZSH ($(which zsh)) is the default shell already!"
 elif command -v zsh ; then

@@ -48,6 +48,7 @@ current_gid="$(id -g)"
 
 # Source installation environment variables
 source install.env
+source .zshenv
 
 # Install homebrew
 if [ ! -x "$(command -v brew)" ]; then

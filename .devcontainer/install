@@ -7,4 +7,4 @@ fi
 git fetch --unshallow origin "$DOTFILES_BRANCH":"$DOTFILES_BRANCH"
 git switch "$DOTFILES_BRANCH"
 
-../setup.sh
+setup.sh

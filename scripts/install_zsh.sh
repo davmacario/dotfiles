@@ -21,7 +21,7 @@ if [[ "$SHELL" == *"zsh"* ]]; then
     log "ZSH ($(which zsh)) is the default shell already!"
 else
     if [[ "$OSTYPE" == "linux-gnu"* ]] && [[ -n "$(apt-get -v)" ]] && [[ -z "$(which zsh)" ]]; then
-        apt-get install zsh -y
+        sudo apt-get install zsh -y
     elif [[ "$OSTYPE" == "darwin"* ]]; then
         brew install zsh
     fi

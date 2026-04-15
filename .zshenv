@@ -7,4 +7,4 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export SECRETS="$HOME/.keys"
 
 # Allow for per-machine customization
-[[ -f "$HOME/.zshenv.local" ]] && source "$HOME/.zshenv.local"
+[[ -f "$HOME/.zshenv.local" ]] && source "$HOME/.zshenv.local" || true

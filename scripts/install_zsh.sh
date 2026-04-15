@@ -4,6 +4,20 @@ log() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1"
 }
 
+AUTO_CHSH=0
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --chsh)
+            AUTO_CHSH=1
+            shift
+            ;;
+        *)
+            echo "Unknown argument: $1"
+            exit 1
+            ;;
+    esac
+done
+
 if [ "$EUID" -eq 0 ]; then
   echo -e "Warning: installing as root" # TODO: yellow
 fi
@@ -19,11 +33,14 @@ FLG=0
 if [[ "$SHELL" == *"zsh"* ]]; then
     FLG=1
     log "ZSH ($(which zsh)) is the default shell already!"
-else
-    if [[ "$OSTYPE" == "linux-gnu"* ]] && [[ -n "$(apt-get -v)" ]] && [[ -z "$(which zsh)" ]]; then
-        sudo apt-get install zsh -y
+elif command -v zsh ; then
+    if [[ "$OSTYPE" == "linux-gnu"* ]] && command -v apt; then
+        sudo DEBIAN_FRONTEND=noninteractive apt install zsh -y
     elif [[ "$OSTYPE" == "darwin"* ]]; then
         brew install zsh
+    else
+        echo "Unsupported OS" >&2
+        exit 1
     fi
 fi
 
@@ -34,26 +51,16 @@ if [ ! -x "$(command -v omz)" ]; then
         log "Found old ~/.oh-my-zsh folder, adding '-old' suffix"
         mv "$HOME/.oh-my-zsh" "$HOME/.oh-my-zsh-old"
     fi
-    curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     popd || { log "Something went wrong"; exit 1; }
 fi
 
-if [ "$DEBIAN_FRONTEND" != "noninteractive" ]; then
-    # Installing plugins (autocomplete)
-    while true; do
-        read -r -p "Do you want to install the following plugins: zsh-autosuggestions, zsh-syntax-highlighting\n? [y/n]  " yn
-        case $yn in
-            [Yy]* )
-                install_plugins
-                break;;
-            [Nn]* ) break;;
-            * ) echo "Please answer y/n"
-        esac
-    done
+install_plugins
 
-    # Prompt for setting default
-
-    if [ ! $FLG -eq 1 ]; then
+if [ ! $FLG -eq 1 ]; then
+    if [ $AUTO_CHSH -eq 1 ]; then
+        chsh -s "$(which zsh)" "$USER"
+    else
         while true; do
             read -r -p "ZSH is not the default shell, do you want to set it as default? [y/n]  " yn
             case $yn in
@@ -62,12 +69,7 @@ if [ "$DEBIAN_FRONTEND" != "noninteractive" ]; then
                 * ) echo "Please answer y/n"
             esac
         done
+    fi
 
-        log "Now log out and back in for the changes to take place"
-    fi
-else
-    install_plugins
-    if [ ! $FLG -eq 1 ]; then
-        chsh -s "$(which zsh)" "$USER"
-    fi
+    log "Now log out and back in for the changes to take place"
 fi

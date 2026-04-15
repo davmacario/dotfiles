@@ -152,7 +152,7 @@ fi
 
 # 1. Install ZSH, OMZ, and p10k
 if [[ "$SHELL" != *zsh* ]]; then
-    scripts/install_zsh.sh
+    scripts/install_zsh.sh --chsh
 
     # Install powerlevel10k
     log "Installing p10k"

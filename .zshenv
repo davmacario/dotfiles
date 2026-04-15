@@ -5,6 +5,7 @@ export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.cache"
 # Local keys
 export SECRETS="$HOME/.keys"
+export GHDIR="$HOME/github"
 
 # Allow for per-machine customization
 [[ -f "$HOME/.zshenv.local" ]] && source "$HOME/.zshenv.local" || true

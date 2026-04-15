@@ -27,7 +27,7 @@ export PATH="$PATH:$HOME/.rvm/bin"
 export LC_ALL="en_US.UTF-8"
 
 # Github
-export GHUSER="davmacario"
 export GHDIR="$HOME/github"
+export GHUSER="davmacario"
 export GHREPOS="$GHDIR/$GHUSER"
 export DOTFILES="$GHREPOS/dotfiles"

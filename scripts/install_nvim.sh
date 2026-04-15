@@ -24,7 +24,11 @@ if [ "$COMPILE" = "true" ]; then
     GHDIR=${GHDIR:-"$HOME/github"}
     mkdir -p "$GHDIR/neovim"
     if [ ! -d "$GHDIR/neovim/neovim" ]; then
-        git clone -b "$NVIM_VERSION" https://github.com/neovim/neovim.git "$GHDIR/neovim/neovim"
+        if [ "$NVIM_VERSION" != "latest" ]; then
+            git clone -b "$NVIM_VERSION" https://github.com/neovim/neovim.git "$GHDIR/neovim/neovim"
+        else
+            git clone https://github.com/neovim/neovim.git "$GHDIR/neovim/neovim"
+        fi
     else
         echo "Found local clone of Neovim repo"
     fi
@@ -35,9 +39,14 @@ if [ "$COMPILE" = "true" ]; then
     popd || exit 1
 else
     echo "Downloading Nvim $NVIM_VERSION from releases"
-    curl -LO "https://github.com/neovim/neovim/releases/download/$NVIM_VERSION/nvim-linux-x86_64.tar.gz"
+    if [ "$NVIM_VERSION" == "latest" ]; then
+        # Grabbing latest from releases
+        curl -LO "https://github.com/neovim/neovim/releases/$NVIM_VERSION/download/nvim-linux-x86_64.tar.gz"
+    else
+        curl -LO "https://github.com/neovim/neovim/releases/download/$NVIM_VERSION/nvim-linux-x86_64.tar.gz"
+    fi
     sudo rm -rf /opt/nvim-linux-x86_64
     sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
-    ln -s /opt/nvim-linux-x86_64/bin/nvim /usr/local/bin/nvim
+    sudo ln -s /opt/nvim-linux-x86_64/bin/nvim /usr/local/bin/nvim
     rm nvim-linux-x86_64.tar.gz
 fi

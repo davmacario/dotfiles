@@ -20,19 +20,22 @@ get_back() {
     cd "$CURR_DIR" || { log "Something went wrong!"; exit 1; }
 }
 
+# Env variables for configuration
 source_env() {
-    # Move some relevant variables (e.g., program versions) to env file
     if [ -f "$(dirname "$0")/.env" ]; then
-        source "$(dirname "$0")/.env" "$HOME"
+        source "$(dirname "$0")/.env"
     fi
 }
 
+# Set the owner of the file/directory to the current user:group
 correct_ownership() {
     if [ -e "$1" ]; then
-        sudo chown -R "$(whoami)":"$(whoami)" "$1"
+        sudo chown -R "${current_uid}":"${current_gid}" "$1"
     fi
 }
 
+# Symlinks the argument to the home directory
+# NOTE: will overwrite files if they already exist
 make_link() {
     if [ -f "$HOME/$1" ]; then
         rm "$HOME/$1"
@@ -47,52 +50,52 @@ make_link() {
 CURR_DIR=$(pwd)
 log "Current dir: $CURR_DIR"
 log "Shell: $SHELL"
+current_uid="$(id -u)"
+current_gid="$(id -g)"
+
+# Install homebrew
+if [ ! -x "$(command -v brew)" ]; then
+    log "Installing homebrew"
+    curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+else
+    brew update
+    brew upgrade
+fi
 
 # Install packages
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     log "Linux detected!"
-    if [ ! -x "$(command -v brew)" ]; then
-        log "Installing homebrew"
-        sudo -u "$(whoami)" /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    fi
 
     # TODO: add support for other package managers
-    if [ -n "$(apt-get -v)" ]; then
+    if [ -n "$(apt -v)" ]; then
         export DEBIAN_FRONTEND=noninteractive
         log "Using Ubuntu/Debian - apt detected!"
         PACMAN="apt"
         sudo apt update
         sudo apt upgrade -y
-    elif [ -n "$(pacman -v)" ]; then
-        log "Pacman detected!"
-        PACMAN="pacman"
-        log -e "Pacman not supported yet" && exit 1
+    # elif [ -n "$(pacman -v)" ]; then
+    #     log "Pacman detected!"
+    #     PACMAN="pacman"
+    #     log -e "Pacman not supported yet" && exit 1
+    else
+        log "Unsupported OS" && exit 1
     fi
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     log "MacOS detected!"
-    # Command line tools
-    sudo -u "$(whoami)" xcode-select --install
-    # Install homebrew
-    if [ -z "$(brew -v)" ]; then
-        sudo -u "$(whoami)" /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    else
-        brew update
-        brew upgrade
-    fi
 fi
 
 package_manager() {
     if [[ "$OSTYPE" == linux-gnu* ]]; then
         sudo "$PACMAN" -y "$@"
     elif [[ "$OSTYPE" == darwin* ]]; then
-        sudo brew "$@"
+        brew "$@"
     fi
 }
 
 source_env
 
 # packages that have the same name across different platforms
-packages_global=(
+declare -a packages_global=(
     tmux
     neofetch
     htop
@@ -120,40 +123,29 @@ packages_global=(
     bat
     pipx
 )
-packages_mac=(
+declare -a packages_mac=(
     fd
     golang
 )
-packages_deb=(
+declare -a packages_deb=(
     fd-find
     golang-go
     xclip
 )
 
-# Install possible required packages with:
-# package_manager install
-for package in "${packages_global[@]}"; do
-    installing "$package"
-    package_manager install "$package"
-done
-
 if [[ "$OSTYPE" == "darwin"* ]]; then
     sudo xcode-select --install
-    for package in "${packages_mac[@]}"; do
-        installing "$package"
-        brew install "$package"
-    done
+    packages_all=( "${packages_global[@]}" "${packages_mac[@]}" )
 else
-    for package in "${packages_deb[@]}"; do
-        installing "$package"
-        sudo apt install -y "$package"
-    done
+    packages_all=( "${packages_global[@]}" "${packages_deb[@]}" )
 fi
 
-sudo "$(dirname "$0")/scripts/install_fzf.sh" "$(whoami)" "$HOME" || { log "Error installing fzf"; exit 1; }
+package_manager install "${packages_all[@]}"
+
+scripts/install_fzf.sh || { log "Error installing fzf"; exit 1; }
 
 # Install uv (python env manager)
-./scripts/install_uv.sh
+scripts/install_uv.sh
 
 # Install npm packages
 if [ -x "$(command -v npm)" ]; then
@@ -164,12 +156,12 @@ fi
 
 # 1. Install ZSH, OMZ, and p10k
 if [[ "$SHELL" != *zsh* ]]; then
-    sudo -u "$(whoami)" ./scripts/install_zsh.sh "$(whoami)" "$HOME"
+    scripts/install_zsh.sh
 
     # Install powerlevel10k
     log "Installing p10k"
     rm -rf "${ZSH_CUSTOM:-"$HOME"/.oh-my-zsh/custom}/themes/powerlevel10k"
-    sudo -u "$(whoami)" git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-"$HOME"/.oh-my-zsh/custom}/themes/powerlevel10k"
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-"$HOME"/.oh-my-zsh/custom}/themes/powerlevel10k"
     correct_ownership "${ZSH_CUSTOM:-"$HOME"/.oh-my-zsh/custom}/themes/powerlevel10k"
 
     if [ ! -f "$HOME/.zsh_history" ]; then
@@ -180,7 +172,7 @@ fi
 
 # ------------------------------------------------------------------------------
 
-# 2. Hyperlinks - don't overwrite files if already present
+# 2. Symlinks - don't overwrite files if already present
 
 files_to_link=(
     ".bashrc"
@@ -222,7 +214,7 @@ if [ -d "$CURR_DIR/nvim" ]; then
     # Check whether neovim is already installed with the default version
     if [ ! -x "$(command -v nvim)" ] || [ "$(nvim -v | awk -F" " '{ print $2 }' | head -n 1)" != "$NVIM_VERSION" ]; then
         log "Installing Neovim $NVIM_VERSION"
-        sudo ./scripts/install_nvim.sh "$NVIM_VERSION" "$(whoami)" "$HOME"
+        ./scripts/install_nvim.sh "$NVIM_VERSION"
         log "Neovim installed successfully!"
     else
         log "Found local installation of Neovim $NVIM_VERSION"
@@ -236,7 +228,7 @@ if [ -d "$CURR_DIR/nvim" ]; then
 
     # Install neovim plugins requirements
     if [[  "$OSTYPE" == "darwin"* ]]; then
-        sudo ./scripts/macos-zathura.sh
+        ./scripts/macos-zathura.sh
         brew install pngpaste
     fi
 
@@ -258,7 +250,7 @@ get_back
 # Tmux config
 # Install the Tmux Plugin Manager
 [ ! -d "$HOME/.tmux/plugins" ]; mkdir -p "$HOME/.tmux/plugins"
-sudo git clone https://github.com/tmux-plugins/tpm.git "$HOME/.tmux/plugins/tpm"
+git clone https://github.com/tmux-plugins/tpm.git "$HOME/.tmux/plugins/tpm"
 
 if [ -n "$XDG_CONFIG_HOME" ] && [ -d "$CURR_DIR/tmux" ]; then  # Should be defined in .zshrc or .env
     if [ ! -L "$XDG_CONFIG_HOME/tmux" ]; then

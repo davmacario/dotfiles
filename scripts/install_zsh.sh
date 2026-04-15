@@ -4,21 +4,13 @@ log() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1"
 }
 
-actual_user="${1:-$USER}"
-actual_home="${2:-$HOME}"
-
-if [ "$EUID" -ne 0 ]
-  then echo "Please run as root"
-  exit 1
-else
-    echo -e "Installing for $actual_user, with home in $actual_home"
+if [ "$EUID" -eq 0 ]; then
+  echo -e "Warning: installing as root" # TODO: yellow
 fi
 
 correct_ownership() {
-    if [ "$actual_user" != "$USER" ]; then
-        if [ -e "$1" ]; then
-            chown -R "$actual_user":"$actual_user" "$1"
-        fi
+    if [ -e "$1" ]; then
+        chown -R "$2":"$3" "$1"
     fi
 }
 

@@ -20,13 +20,6 @@ get_back() {
     cd "$CURR_DIR" || { log "Something went wrong!"; exit 1; }
 }
 
-# Env variables for configuration
-source_env() {
-    if [ -f "$(dirname "$0")/.env" ]; then
-        source "$(dirname "$0")/.env"
-    fi
-}
-
 # Set the owner of the file/directory to the current user:group
 correct_ownership() {
     if [ -e "$1" ]; then
@@ -52,6 +45,9 @@ log "Current dir: $CURR_DIR"
 log "Shell: $SHELL"
 current_uid="$(id -u)"
 current_gid="$(id -g)"
+
+# Source installation environment variables
+source install.env
 
 # Install homebrew
 if [ ! -x "$(command -v brew)" ]; then
@@ -91,8 +87,6 @@ package_manager() {
         brew "$@"
     fi
 }
-
-source_env
 
 # packages that have the same name across different platforms
 declare -a packages_global=(

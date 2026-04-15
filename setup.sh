@@ -45,6 +45,7 @@ log "Current dir: $CURR_DIR"
 log "Shell: $SHELL"
 current_uid="$(id -u)"
 current_gid="$(id -g)"
+log "Running install script as user $(whoami) ($current_uid:$current_gid)"
 
 # Source installation environment variables
 source install.env

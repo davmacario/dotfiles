@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-echo "Running install script as user $(whoami)"
-
 if [ -n "$DOTFILES_BRANCH" ]; then
     echo "Using branch $DOTFILES_BRANCH"
 fi

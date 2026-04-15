@@ -35,7 +35,7 @@ if [ "$COMPILE" = "true" ]; then
     popd || exit 1
 else
     echo "Downloading Nvim $NVIM_VERSION from releases"
-    curl -LO "https://github.com/neovim/neovim/releases/$NVIM_VERSION/download/nvim-linux-x86_64.tar.gz"
+    curl -LO "https://github.com/neovim/neovim/releases/download/$NVIM_VERSION/nvim-linux-x86_64.tar.gz"
     sudo rm -rf /opt/nvim-linux-x86_64
     sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
     ln -s /opt/nvim-linux-x86_64/bin/nvim /usr/local/bin/nvim

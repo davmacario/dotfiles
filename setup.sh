@@ -210,7 +210,7 @@ if [ -d "$CURR_DIR/nvim" ]; then
     # Check whether neovim is already installed with the default version
     if [ ! -x "$(command -v nvim)" ] || [ "$(nvim -v | awk -F" " '{ print $2 }' | head -n 1)" != "$NVIM_VERSION" ]; then
         log "Installing Neovim $NVIM_VERSION"
-        ./scripts/install_nvim.sh "$NVIM_VERSION"
+        ./scripts/install_nvim.sh --nvim-version "$NVIM_VERSION"
         log "Neovim installed successfully!"
     else
         log "Found local installation of Neovim $NVIM_VERSION"

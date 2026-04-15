@@ -33,7 +33,8 @@ FLG=0
 if [[ "$SHELL" == */zsh ]]; then
     FLG=1
     log "ZSH ($(which zsh)) is the default shell already!"
-elif command -v zsh ; then
+elif ! command -v zsh ; then
+    echo "Installing ZSH"
     if [[ "$OSTYPE" == "linux-gnu"* ]] && command -v apt; then
         sudo DEBIAN_FRONTEND=noninteractive apt install zsh -y
     elif [[ "$OSTYPE" == "darwin"* ]]; then
@@ -42,6 +43,8 @@ elif command -v zsh ; then
         echo "Unsupported OS" >&2
         exit 1
     fi
+else
+    echo "Zsh already installed!"
 fi
 
 if [ ! -x "$(command -v omz)" ]; then

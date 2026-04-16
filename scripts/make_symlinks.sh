@@ -18,7 +18,7 @@ declare -a files_to_link=(
 
 for fl in "${files_to_link[@]}"; do
     if [ -f "$CURR_DIR/$fl" ] && [ ! -L "$HOME/$fl" ]; then
-        log "Linking $fl"
+        echo "Linking $fl"
         make_link "$fl"
     fi
 done
@@ -30,7 +30,7 @@ declare -a config_dirs_to_link=(
 
 for dir in "${config_dirs_to_link[@]}"; do
     if [ -d "$CURR_DIR/$dir" ] && [ ! -L "$XDG_CONFIG_HOME/$dir" ]; then
-        log "Linking $dir to $XDG_CONFIG_HOME"
+        echo "Linking $dir to $XDG_CONFIG_HOME"
         ln -s "$CURR_DIR/$dir" "$XDG_CONFIG_HOME/$dir"
     fi
 done

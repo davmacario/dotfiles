@@ -40,7 +40,7 @@ make_link() {
 }
 
 # Set up user variables
-CURR_DIR=$(pwd)
+CURR_DIR=$(realpath .)
 log "Current dir: $CURR_DIR"
 log "Shell: $SHELL"
 current_uid="$(id -u)"
@@ -167,47 +167,20 @@ if [[ "$SHELL" != *zsh* ]]; then
 fi
 
 # ------------------------------------------------------------------------------
-
 # 2. Symlinks - don't overwrite files if already present
+scripts/make_symlinks.sh
 
-files_to_link=(
-    ".bashrc"
-    ".fzf.bash"
-    ".fzf.zsh"
-    ".gitignore"
-    ".p10k.zsh"
-    ".zshenv"
-    ".zprofile"
-    ".zshrc"
-    ".vimrc"
-    ".gitconfig"
-    "personal.gitconfig"
-    "work.gitconfig"
-    "vitestro.gitconfig"
-)
-
-for fl in "${files_to_link[@]}"; do
-    if [ -f "$CURR_DIR/$fl" ] && [ ! -L "$HOME/$fl" ]; then
-        log "Linking $fl"
-        make_link "$fl"
-    fi
-done
+# ------------------------------------------------------------------------------
+# 3. User configuration
 
 # Github repos
 mkdir -p "$GHDIR"
-
-if [ -z "$XDG_CONFIG_HOME" ]; then
-    CONFIG_PATH="$HOME/.config"
-else
-    CONFIG_PATH="$XDG_CONFIG_HOME"
-fi
-mkdir -p "$CONFIG_PATH"
 
 # Nvim config
 if [ -d "$CURR_DIR/nvim" ]; then
     NVIM_VERSION="${NVIM_VERSION:-v0.11.3}"
 
-    # Check whether neovim is already installed with the default version
+    # Check whether neovim is already installed with the specified version
     if [ ! -x "$(command -v nvim)" ] || [ "$(nvim -v | awk -F" " '{ print $2 }' | head -n 1)" != "$NVIM_VERSION" ]; then
         log "Installing Neovim $NVIM_VERSION"
         ./scripts/install_nvim.sh --nvim-version "$NVIM_VERSION"
@@ -216,29 +189,20 @@ if [ -d "$CURR_DIR/nvim" ]; then
         log "Found local installation of Neovim $NVIM_VERSION"
     fi
 
-    if [ ! -L "$CONFIG_PATH/nvim" ]; then
-        ln -s "$CURR_DIR/nvim" "$CONFIG_PATH/nvim"
-        correct_ownership "$CONFIG_PATH/nvim"
-    fi
-    get_back
-
     # Install neovim plugins requirements
+    # TODO: put into dedicated script
     if [[  "$OSTYPE" == "darwin"* ]]; then
         ./scripts/macos-zathura.sh
         brew install pngpaste
     fi
 
-    get_back
     sudo ./scripts/lazygit-install.sh "$(whoami)"
 
-    mkdir "$HOME/.virtualenvs" && cd "$HOME/.virtualenvs"
-    python3 -m venv debugpy
-    source debugpy/bin/activate
-    pip3 install --upgrade pip
-    python3 -m pip install debugpy
-    deactivate
-    get_back
-    correct_ownership "$HOME/.virtualenvs"
+    mkdir -p "$HOME/.virtualenvs"
+    pushd "$HOME/.virtualenvs"
+    python3 -m venv debugpy # FIXME: pin python version
+    debugpy/bin/python3 -m pip install --upgrade pip debugpy
+    popd
 fi
 
 get_back
@@ -248,32 +212,7 @@ get_back
 [ ! -d "$HOME/.tmux/plugins" ]; mkdir -p "$HOME/.tmux/plugins"
 git clone https://github.com/tmux-plugins/tpm.git "$HOME/.tmux/plugins/tpm"
 
-if [ -n "$XDG_CONFIG_HOME" ] && [ -d "$CURR_DIR/tmux" ]; then  # Should be defined in .zshrc or .env
-    if [ ! -L "$XDG_CONFIG_HOME/tmux" ]; then
-        ln -s "$CURR_DIR/tmux" "$XDG_CONFIG_HOME/tmux"
-        correct_ownership "$XDG_CONFIG_HOME/tmux"
-    fi
-elif [ -n "$XDG_CONFIG_HOME" ] && [ -f "$CURR_DIR/.tmux.conf" ]; then
-    TMUX_XDG_PATH="$XDG_CONFIG_HOME/tmux"
-    mkdir "$TMUX_XDG_PATH"
-    if [ ! -L "$TMUX_XDG_PATH/tmux.conf" ]; then
-        ln -s "$CURR_DIR/.tmux.conf" "$TMUX_XDG_PATH/tmux.conf"
-        correct_ownership "$TMUX_XDG_PATH/tmux.conf"
-    fi
-elif [ -z "$XDG_CONFIG_HOME" ] && [ -d "$CURR_DIR/tmux" ]; then
-    if [ ! -L "$HOME/.tmux.conf" ]; then
-        ln -s "$CURR_DIR/tmux/tmux.conf" "$HOME/.tmux.conf"
-        correct_ownership "$HOME/.tmux.conf"
-    fi
-elif [ -z "$XDG_CONFIG_HOME" ] && [ -f "$CURR_DIR/.tmux.conf" ]; then
-    if [ ! -L "$HOME/.tmux.conf" ]; then
-        ln -s "$CURR_DIR/.tmux.conf" "$HOME/.tmux.conf"
-        correct_ownership "$HOME/.tmux.conf"
-    fi
-else
-    log "No TMUX config found"
-fi
-
+# FIXME: can (probably) remove these
 correct_ownership "$HOME/.tmux"
 correct_ownership "$HOME/.local"
 correct_ownership "$CONFIG_PATH"

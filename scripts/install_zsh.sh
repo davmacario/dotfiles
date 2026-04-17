@@ -62,6 +62,7 @@ install_plugins
 
 if [ ! $FLG -eq 1 ]; then
     if [ $AUTO_CHSH -eq 1 ]; then
+        echo "Setting Zsh ($(command -v zsh)) as default shell"
         chsh -s "$(command -v zsh)" "$USER"
     else
         while true; do

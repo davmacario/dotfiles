@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 declare -a files_to_link=(
     ".bashrc"
     ".fzf.bash"
@@ -17,9 +19,9 @@ declare -a files_to_link=(
 )
 
 for fl in "${files_to_link[@]}"; do
-    if [ -f "$CURR_DIR/$fl" ] && [ ! -L "$HOME/$fl" ]; then
+    if [ -f "$fl" ]; then
         echo "Linking $fl"
-        make_link "$fl"
+        ln -s "$fl" "$HOME/$fl"
     fi
 done
 
@@ -29,8 +31,8 @@ declare -a config_dirs_to_link=(
 )
 
 for dir in "${config_dirs_to_link[@]}"; do
-    if [ -d "$CURR_DIR/$dir" ] && [ ! -L "$XDG_CONFIG_HOME/$dir" ]; then
+    if [ -d "$dir" ]; then
         echo "Linking $dir to $XDG_CONFIG_HOME"
-        ln -s "$CURR_DIR/$dir" "$XDG_CONFIG_HOME/$dir"
+        ln -s "$$dir" "$XDG_CONFIG_HOME/$dir"
     fi
 done

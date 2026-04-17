@@ -9,7 +9,7 @@ USER root
 
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt update && \
-    apt install --no-install-recommends \
+    apt install -y --no-install-recommends \
     ca-certificates \
     tar \
     curl \

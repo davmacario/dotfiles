@@ -4,6 +4,12 @@ log() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1"
 }
 
+if [ -z "$USER" ]; then
+    echo "USER not set"
+fi
+
+USER=${USER:-$(whoami)}
+
 AUTO_CHSH=0
 while [[ $# -gt 0 ]]; do
     case "$1" in

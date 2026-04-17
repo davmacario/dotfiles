@@ -18,11 +18,13 @@ declare -a files_to_link=(
     "vitestro.gitconfig"
 )
 
+curr_dir="$(realpath .)"
+
 for fl in "${files_to_link[@]}"; do
-    if [ -f "$fl" ]; then
+    if [ -f "$curr_dir/$fl" ]; then
         echo "Linking $fl"
         rm -rf "${HOME:?Home is not set}/$fl"
-        ln -s "$fl" "$HOME/$fl"
+        ln -s "$curr_dir/$fl" "$HOME/$fl"
     fi
 done
 
@@ -32,9 +34,9 @@ declare -a config_dirs_to_link=(
 )
 
 for dir in "${config_dirs_to_link[@]}"; do
-    if [ -d "$dir" ]; then
+    if [ -d "$curr_dir/$dir" ]; then
         echo "Linking $dir to $XDG_CONFIG_HOME"
         rm -rf "${XDG_CONFIG_HOME:?XDG_CONFIG_HOME is not set}/$fl"
-        ln -s "$$dir" "$XDG_CONFIG_HOME/$dir"
+        ln -s "$curr_dir/$dir" "$XDG_CONFIG_HOME/$dir"
     fi
 done

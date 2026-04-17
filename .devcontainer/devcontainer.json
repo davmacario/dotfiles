@@ -1,20 +1,16 @@
 {
   "name": "Dev Environment",
-  "build": {
-    "dockerfile": "./Dockerfile",
-    "context": ".",
-    "args": {
-      "USERNAME": "${localEnv:USER}"
-    }
-  },
-  "runArgs": ["--name", "dmacario_dotfiles"],
+  "initializeCommand": "bash -c 'printf \"UID=%s\\nGID=%s\\n\" $(id -u) $(id -g) > .devcontainer/.env'",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "devcontainer",
+  "workspaceFolder": "/workspaces/dotfiles",
   "features": {
     // Add here necessary features - e.g., "ghcr.io/devcontainers/features/go:1" {"version": "1.21"}
-    "ghcr.io/davmacario/devcontainer-features/dev-environment:1.2.0": {
-      "dotfiles_repo": "https://github.com/davmacario/dotfiles.git",
-      "dotfiles_branch": "main",
-      "dotfiles_install_script": "setup.sh"
-    }
+    // "ghcr.io/davmacario/devcontainer-features/dev-environment:1.2.0": {
+    //   "dotfiles_repo": "https://github.com/davmacario/dotfiles.git",
+    //   "dotfiles_branch": "main",
+    //   "dotfiles_install_script": "setup.sh"
+    // }
   },
   "customizations": {},
   "remoteUser": "${localEnv:USER}"

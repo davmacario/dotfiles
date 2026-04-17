@@ -1,11 +1,9 @@
 # Command(s) ran at the beginning
-if [ -n "$SSH_CLIENT" ];
-then
-    neofetch
-fi
+# if [ -n "$SSH_CLIENT" ]; then
+#     neofetch
+# fi
 
 # Setup secret keys/passwords - private folder
-export SECRETS="$HOME/.keys"
 # Create folder if not there
 if [ ! -d "$SECRETS" ]; then
     mkdir "$SECRETS"
@@ -43,19 +41,6 @@ if [ "$(ls "$SECRETS")" ]; then
         [ -f "$file" ] && source "$file"
     done
 fi
-
-# Homebrew setup
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    if [[ $(uname -m) == 'arm64' ]]; then
-        BREWPATH="/opt/homebrew/bin"
-    else
-        BREWPATH="/usr/local/bin"
-    fi
-else
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-    BREWPATH="/usr/local/bin"
-fi
-export PATH=$BREWPATH:$PATH
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -127,39 +112,15 @@ fi
 fpath=(~/.zsh/completion $fpath)
 autoload -Uz compinit && compinit -i
 
-# Environment
-export EDITOR="nvim"
-export GHUSER="davmacario"
-export GHDIR="$HOME/github"
-export GHREPOS="$GHDIR/$GHUSER"
-export DOTFILES="$GHREPOS/dotfiles"
-export XDG_CONFIG_HOME="$HOME/.config"
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f "$HOME/.p10k.zsh" ]] || source "$HOME/.p10k.zsh"
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-export PATH="$PATH:$HOME/go/bin"
-export GO111MODULE=on
-
-if [ -x "$(command -v fnm)" ]; then
-    export PATH="$PATH:$HOME/.fnm"
-    eval "$(fnm env)"
-fi
-
 export CLICOLOR=1
 
 # Set bat theme
 export BAT_THEME="gruvbox-dark"
-# Change terminal language settings to english:
-export LC_ALL="en_US.UTF-8"
-
-# Add local bin to path
-export PATH="$PATH:$HOME/.local/bin"
-
-# Go executables
-export PATH="$PATH:$HOME/go/bin:/usr/local/go/bin"
 
 # kubectl setup
 export KUBECONFIG="$HOME/.kube/config"
@@ -185,11 +146,9 @@ export DBUS_SESSION_BUS_ADDRESS="unix:path=$DBUS_LAUNCHD_SESSION_BUS_SOCKET"
 # Manpage colors
 export MANPAGER="less -R --use-color -Dd+r -Du+b"
 
+# FIXME
 # Personal scripts - Download repo in setup.sh script
 [ -d "$GHREPOS/bash-scripts/src" ] && export PATH="$PATH:$GHREPOS/bash-scripts/src"
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
 
 setopt histignorealldups sharehistory
 HISTSIZE=100000
@@ -202,10 +161,51 @@ fi
 
 autoload -U +X bashcompinit && bashcompinit
 
+# os-specific configuration
 if [[ "$OSTYPE" == darwin* ]] && [[ -f "$HOME/.mac.zshrc" ]]; then
-    source "$HOME/.mac.zshrc"
+    # >>> conda initialize >>>
+    # !! Contents within this block are managed by 'conda init' !!
+    __conda_setup="$('/Users/dmacario/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+    if [ $? -eq 0 ]; then
+        eval "$__conda_setup"
+    else
+        if [ -f "/Users/dmacario/miniconda3/etc/profile.d/conda.sh" ]; then
+            . "/Users/dmacario/miniconda3/etc/profile.d/conda.sh"
+        else
+            export PATH="/Users/dmacario/miniconda3/bin:$PATH"
+        fi
+    fi
+    unset __conda_setup
+    # <<< conda initialize <<<
+
+    alias ff="fd --type f --hidden --exclude .git | fzf-tmux -p --preview \"bat --color=always {}\" --reverse"
+
+    # Env
+    export LSCOLORS=gxFxCxDxBxegedabagaced
+    export TERM="xterm-256color"
+
+    complete -o nospace -C /opt/homebrew/bin/terraform terraform
 elif [[ "$OSTYPE" == linux* ]] && [[ -f "$HOME/.ubuntu.zshrc" ]]; then
-    source "$HOME/.ubuntu.zshrc"
+    alias bat="batcat"
+    alias ff="fd --type f --hidden --exclude .git | fzf-tmux -p --preview \"batcat --color=always {}\" --reverse"
+
+    export LS_COLORS='rs=0:di=00;36:ln=04;32:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;31:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.zip=04;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lz=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;33:*.rpm=01;31:*.jar=01;31:*.rar=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.axv=01;35:*.anx=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.axa=00;36:*.oga=00;36:*.spx=00;36:*.xspf=00;36:*.zsh=00;32';
+
+    if ! [[ $PATH == */usr/games* ]]; then
+        export PATH="$PATH:/usr/games"
+    fi
+
+    if [[ -x "$(command -v powershell.exe)" ]]; then
+        # We are in WSL (probably) -> add windows executables to path
+        export PATH="$PATH:/mnt/c/Windows/system32"
+        export BROWSER="/mnt/c/Program Files/Mozilla Firefox/firefox.exe"
+    fi
+
+    if ! [[ $PATH == */snap/bin* ]]; then
+        export PATH="$PATH:/snap/bin"
+    fi
+
+    complete -o nospace -C /usr/bin/terraform terraform
 fi
 
 # Generated for envman. Do not edit.

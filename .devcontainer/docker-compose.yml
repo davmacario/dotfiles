@@ -1,0 +1,16 @@
+services:
+  devcontainer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        USERNAME: ${USER}
+        # Issue: it is not possible to extract UID and GID from `localEnv` in devcontainer.json
+        # We have to use docker compose for that.
+        # This is due to how env variable are accessed (run `env` to see the ones accessible by `localEnv`)
+        USER_UID: ${UID}
+        USER_GID: ${GID}
+    container_name: dmacario_dotfiles
+    volumes:
+      - ..:/workspaces/dotfiles:cached
+    command: sleep infinity

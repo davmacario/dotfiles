@@ -68,12 +68,12 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     if [ -n "$(apt -v)" ]; then
         export DEBIAN_FRONTEND=noninteractive
         log "Using Ubuntu/Debian - apt detected!"
-        PACMAN="apt"
+        PACKAGE_MANAGER="apt"
         sudo apt update
         sudo apt upgrade -y
     # elif [ -n "$(pacman -v)" ]; then
     #     log "Pacman detected!"
-    #     PACMAN="pacman"
+    #     PACKAGE_MANAGER="pacman"
     #     log -e "Pacman not supported yet" && exit 1
     else
         log "Unsupported OS" && exit 1
@@ -84,7 +84,7 @@ fi
 
 package_manager() {
     if [[ "$OSTYPE" == linux-gnu* ]]; then
-        sudo DEBIAN_FRONTEND=noninteractive "$PACMAN" -y "$@"
+        sudo DEBIAN_FRONTEND=noninteractive "$PACKAGE_MANAGER" -y "$@"
     elif [[ "$OSTYPE" == darwin* ]]; then
         brew "$@"
     fi

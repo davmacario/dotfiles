@@ -9,7 +9,7 @@ USER root
 
 RUN export DEBIAN_FRONTEND=noninteractive
 RUN apt update && \
-    apt-get -y install --no-install-recommends \
+    apt install --no-install-recommends \
     ca-certificates \
     tar \
     curl \

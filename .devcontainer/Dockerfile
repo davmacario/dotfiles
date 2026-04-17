@@ -7,7 +7,7 @@ ARG USER_GID
 
 USER root
 
-RUN export DEBIAN_FRONTEND=noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 RUN apt update && \
     apt install --no-install-recommends \
     ca-certificates \

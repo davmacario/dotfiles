@@ -210,14 +210,7 @@ get_back
 
 # Tmux config
 # Install the Tmux Plugin Manager
-[ ! -d "$HOME/.tmux/plugins" ]; mkdir -p "$HOME/.tmux/plugins"
+mkdir -p "$HOME/.tmux/plugins"
 git clone https://github.com/tmux-plugins/tpm.git "$HOME/.tmux/plugins/tpm"
-
-# FIXME: can (probably) remove these
-correct_ownership "$HOME/.tmux"
-correct_ownership "$HOME/.local"
-correct_ownership "$CONFIG_PATH"
-correct_ownership "$GHDIR"
-correct_ownership "$HOME"
 
 log "Setup complete! Restart your shell for all the changes to take effect."

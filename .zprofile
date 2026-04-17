@@ -11,7 +11,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
         BREWPATH="/usr/local/bin"
     fi
 else
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    [ -f "/home/linuxbrew/.linuxbrew/bin/brew" ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
     BREWPATH="/usr/local/bin"
 fi
 export PATH=$BREWPATH:$PATH

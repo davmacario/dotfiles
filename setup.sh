@@ -93,7 +93,7 @@ package_manager() {
 # packages that have the same name across different platforms
 declare -a packages_global=(
     tmux
-    neofetch
+    fastfetch
     htop
     git
     cmake

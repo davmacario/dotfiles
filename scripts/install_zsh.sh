@@ -62,12 +62,12 @@ install_plugins
 
 if [ ! $FLG -eq 1 ]; then
     if [ $AUTO_CHSH -eq 1 ]; then
-        chsh -s "$(which zsh)" "$USER"
+        chsh -s "$(command -v zsh)" "$USER"
     else
         while true; do
             read -r -p "ZSH is not the default shell, do you want to set it as default? [y/n]  " yn
             case $yn in
-                [Yy]* ) chsh -s "$(which zsh)" "$USER"; break;;
+                [Yy]* ) chsh -s "$(command -v zsh)" "$USER"; break;;
                 [Nn]* ) exit 2;;
                 * ) echo "Please answer y/n"
             esac

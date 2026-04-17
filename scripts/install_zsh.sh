@@ -41,7 +41,7 @@ if [[ "$SHELL" == */zsh ]]; then
     log "ZSH ($(which zsh)) is the default shell already!"
 elif ! command -v zsh ; then
     echo "Installing ZSH"
-    if [[ "$OSTYPE" == "linux-gnu"* ]] && command -v apt; then
+    if [[ "$OSTYPE" == "linux-gnu"* ]] && command -v apt >/dev/null 2>&1; then
         sudo DEBIAN_FRONTEND=noninteractive apt install zsh -y
     elif [[ "$OSTYPE" == "darwin"* ]]; then
         brew install zsh
@@ -52,6 +52,8 @@ elif ! command -v zsh ; then
 else
     echo "Zsh already installed!"
 fi
+
+ZSH_BIN="$(command -v zsh)"
 
 if [ ! -x "$(command -v omz)" ]; then
     log "Installing OMZ"
@@ -68,13 +70,13 @@ install_plugins
 
 if [ ! $FLG -eq 1 ]; then
     if [ $AUTO_CHSH -eq 1 ]; then
-        echo "Setting Zsh ($(command -v zsh)) as default shell"
-        chsh -s "$(command -v zsh)" "$USER"
+        echo "Setting Zsh (${ZSH_BIN}) as default shell"
+        sudo usermod -s "${ZSH_BIN}" "$USER"
     else
         while true; do
             read -r -p "ZSH is not the default shell, do you want to set it as default? [y/n]  " yn
             case $yn in
-                [Yy]* ) chsh -s "$(command -v zsh)" "$USER"; break;;
+                [Yy]* ) chsh -s "${ZSH_BIN}" "$USER"; break;;
                 [Nn]* ) exit 2;;
                 * ) echo "Please answer y/n"
             esac

@@ -20,8 +20,6 @@ RUN apt update && \
     apt autoremove -y
 
 # Remove default user ubuntu and create custom user (w/ passwordless sudo)
-RUN userdel -r ubuntu && \
-    groupadd --gid=${USER_GID} ${USERNAME} && \
-    useradd --create-home --shell /bin/bash --gid ${USERNAME} --groups sudo --uid=${USER_UID} ${USERNAME}
-RUN mkdir -p "/etc/sudoers.d" && \
-    echo "$USERNAME ALL=(ALL:ALL) NOPASSWD: ALL" | tee "/etc/sudoers.d/$USERNAME"
+COPY ./sync_user.sh /sync_user.sh
+RUN /sync_user.sh --user ${USERNAME} --uid ${USER_UID} --gid ${USER_GID} && \
+    rm /sync_user.sh

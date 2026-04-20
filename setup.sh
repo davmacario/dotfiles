@@ -60,6 +60,8 @@ else
     brew upgrade
 fi
 
+brew install fastfetch
+
 # Install packages
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     log "Linux detected!"
@@ -93,7 +95,6 @@ package_manager() {
 # packages that have the same name across different platforms
 declare -a packages_global=(
     tmux
-    fastfetch
     htop
     git
     cmake

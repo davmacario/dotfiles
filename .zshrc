@@ -162,7 +162,7 @@ fi
 autoload -U +X bashcompinit && bashcompinit
 
 # os-specific configuration
-if [[ "$OSTYPE" == darwin* ]] && [[ -f "$HOME/.mac.zshrc" ]]; then
+if [[ "$OSTYPE" == darwin* ]]; then
     # >>> conda initialize >>>
     # !! Contents within this block are managed by 'conda init' !!
     __conda_setup="$('/Users/dmacario/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
@@ -185,7 +185,7 @@ if [[ "$OSTYPE" == darwin* ]] && [[ -f "$HOME/.mac.zshrc" ]]; then
     export TERM="xterm-256color"
 
     complete -o nospace -C /opt/homebrew/bin/terraform terraform
-elif [[ "$OSTYPE" == linux* ]] && [[ -f "$HOME/.ubuntu.zshrc" ]]; then
+elif [[ "$OSTYPE" == linux* ]]; then
     alias bat="batcat"
     alias ff="fd --type f --hidden --exclude .git | fzf-tmux -p --preview \"batcat --color=always {}\" --reverse"
 

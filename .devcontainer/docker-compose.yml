@@ -1,5 +1,6 @@
 services:
   devcontainer:
+    platform: linux/x86_64 # Required for apple silicon
     build:
       context: .
       dockerfile: Dockerfile

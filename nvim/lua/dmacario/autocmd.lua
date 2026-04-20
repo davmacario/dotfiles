@@ -50,7 +50,7 @@ autocmd({ "BufNewFile", "BufReadPre" }, {
 
 -- Disable max line length in some files
 augroup("disableLineLength", { clear = true })
-autocmd("Filetype", {
+autocmd("FileType", {
 	group = "disableLineLength",
 	pattern = { "html", "xhtml", "typescript", "json", "markdown" },
 	command = "setlocal cc=0 textwidth=0",
@@ -58,7 +58,7 @@ autocmd("Filetype", {
 
 -- LaTeX settings
 augroup("md_latex_settings", { clear = true })
-autocmd("Filetype", {
+autocmd("FileType", {
 	group = "md_latex_settings",
 	pattern = { "latex", "tex" },
 	command = "setlocal textwidth=80 conceallevel=2",
@@ -66,7 +66,7 @@ autocmd("Filetype", {
 
 -- Python custom line lenght + comments
 augroup("pythonLineLength", { clear = true })
-autocmd("Filetype", {
+autocmd("FileType", {
 	group = "pythonLineLength",
 	pattern = { "python", "python3", "py" },
 	callback = function()
@@ -80,7 +80,7 @@ autocmd("Filetype", {
 
 -- Set indentation to 2 spaces for specific filetypes
 augroup("setIndent", { clear = true })
-autocmd("Filetype", {
+autocmd("FileType", {
 	group = "setIndent",
 	pattern = {
 		"xml",
@@ -119,7 +119,7 @@ autocmd("FileType", {
 })
 
 augroup("golangIndent", { clear = true })
-autocmd("Filetype", {
+autocmd("FileType", {
 	group = "golangIndent",
 	pattern = {
 		"go",
@@ -131,14 +131,14 @@ autocmd("Filetype", {
 augroup("ftOverride", { clear = true })
 
 -- Treat Jenkinsfile as groovy
-autocmd({ "Filetype", "BufRead", "BufNewFile" }, {
+autocmd({ "FileType", "BufRead", "BufNewFile" }, {
 	group = "ftOverride",
 	pattern = { "*.jenkins", "Jenkinsfile", "jenkinsfile", "jenkins" },
 	command = "set filetype=groovy",
 })
 
 -- Treat .tf, .hcl as terraform
-autocmd({ "Filetype", "BufRead", "BufNewFile" }, {
+autocmd({ "FileType", "BufRead", "BufNewFile" }, {
 	group = "ftOverride",
 	pattern = { "*.tf", "tf", "hcl", "*.hcl" },
 	command = "set filetype=terraform",
@@ -152,7 +152,7 @@ autocmd({ "FileType", "BufRead", "BufNewFile" }, {
 })
 
 -- Set correct filetype for gitconfig (enable treesitter)
-autocmd({ "Filetype", "BufRead", "BufNewFile" }, {
+autocmd({ "FileType", "BufRead", "BufNewFile" }, {
 	group = "ftOverride",
 	pattern = { "*.gitconfig", ".gitconfig.*" },
 	command = "set filetype=gitconfig",
@@ -160,7 +160,7 @@ autocmd({ "Filetype", "BufRead", "BufNewFile" }, {
 
 -- Set correct filetype for systemd.unit files
 -- Ref: https://www.freedesktop.org/software/systemd/man/latest/systemd.unit.html#Description
-autocmd({ "Filetype", "BufRead", "BufNewFile" }, {
+autocmd({ "FileType", "BufRead", "BufNewFile" }, {
 	group = "ftOverride",
 	pattern = {
 		"*.service",
@@ -198,7 +198,7 @@ autocmd("BufWritePre", {
 
 -- Remove smartindent in some files (experiencing issues)
 augroup("noSmartIndent", { clear = true })
-autocmd("Filetype", {
+autocmd("FileType", {
 	group = "noSmartIndent",
 	pattern = {
 		"python",

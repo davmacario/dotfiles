@@ -27,4 +27,7 @@ require("lazy").setup({
 			height = 0.8,
 		},
 	},
+	rocks = {
+		enabled = false,
+	},
 })

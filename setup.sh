@@ -60,8 +60,6 @@ else
     brew upgrade
 fi
 
-brew install fastfetch
-
 # Install packages
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     log "Linux detected!"
@@ -100,8 +98,6 @@ declare -a packages_global=(
     cmake
     gcc
     whois
-    cowsay
-    sl
     python3
     python3-dev
     python3-pip

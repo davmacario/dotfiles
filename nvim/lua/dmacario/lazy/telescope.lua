@@ -5,7 +5,7 @@ return {
 	},
 	{
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.5",
+		version = "*",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			{
@@ -80,10 +80,10 @@ return {
 						},
 					},
 					file_browser = {
-            hidden = {
-              file_browser = true,
-              folder_browser = true,
-            },
+						hidden = {
+							file_browser = true,
+							folder_browser = true,
+						},
 						theme = "ivy",
 						-- disables netrw and use telescope-file-browser in its place
 						-- hijack_netrw = true,

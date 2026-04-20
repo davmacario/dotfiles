@@ -241,8 +241,8 @@ autocmd("FileType", {
 	command = "highlight link markdownError NONE",
 })
 
--- Deactivate statuscol
-local no_linenumbers_ftypes = {
+-- Deactivate statuscol and treesitter highlighting
+local no_linenumbers_treesitter_ftypes = {
 	"help",
 	"alpha",
 	"dashboard",
@@ -261,7 +261,7 @@ local no_linenumbers_ftypes = {
 augroup("noLineNumbers", { clear = true })
 autocmd("FileType", {
 	group = "noLineNumbers",
-	pattern = no_linenumbers_ftypes,
+	pattern = no_linenumbers_treesitter_ftypes,
 	callback = function()
 		vim.opt_local.statuscolumn = ""
 	end,
@@ -271,7 +271,7 @@ augroup("noLineNumbersNvimTree", { clear = true })
 autocmd("BufEnter", {
 	group = "noLineNumbersNvimTree",
 	callback = function()
-		for _, ft in ipairs(no_linenumbers_ftypes) do
+		for _, ft in ipairs(no_linenumbers_treesitter_ftypes) do
 			if vim.bo.filetype == ft then
 				vim.opt_local.statuscolumn = ""
 			end
@@ -293,5 +293,65 @@ autocmd("FileType", {
 				["~"] = spec_pair("~", "~", { type = "greedy" }),
 			},
 		}
+	end,
+})
+
+--- Launch treesitter for specified buffer
+--- @param buf integer Buffer number
+local function setup_treesitter(buf)
+	-- Start treesitter
+	vim.treesitter.start(buf)
+	-- Use treesitter for indents
+	vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+	-- Use treesitter for folds
+	vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
+	vim.wo[0][0].foldmethod = "expr"
+end
+
+augroup("TreesitterConfigure", { clear = true })
+autocmd("FileType", {
+	group = "TreesitterConfigure",
+	desc = "Automatically install and launch treesitter parsers",
+	callback = function(args)
+		local buf = args.buf
+		local lang = vim.treesitter.language.get_lang(args.match)
+		local ts = require("nvim-treesitter")
+		local available = ts.get_available()
+		local installed = ts.get_installed()
+		-- If filetype is not set, then no treesitter highlighting
+		if lang == "" or not vim.tbl_contains(available, lang) then
+			return
+		end
+
+		-- Install with timer
+		if not vim.tbl_contains(installed, lang) then
+			ts.install(lang)
+			local timer = vim.uv.new_timer()
+			if not timer then
+				return
+			end
+			local i = 0
+			timer:start(
+				0,
+				1000,
+				vim.schedule_wrap(function()
+					i = i + 1
+					if i > 60 or not vim.api.nvim_buf_is_valid(buf) then
+						timer:close(function()
+							print("Install timed out")
+						end)
+						return
+					end
+					if vim.list_contains(ts.get_installed(), lang) then
+						timer:close(function()
+							print("Done")
+						end)
+						setup_treesitter(buf)
+					end
+				end)
+			)
+		else
+			setup_treesitter(buf)
+		end
 	end,
 })

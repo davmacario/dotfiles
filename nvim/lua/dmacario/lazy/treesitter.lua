@@ -1,7 +1,9 @@
+-- NOTE: see autocmd.lua ('TreesitterConfigure') for set up
 return {
 	"nvim-treesitter/nvim-treesitter",
 	lazy = false,
 	build = ":TSUpdate",
+	branch = "main",
 	event = { "BufReadPre", "BufNewFile" },
 	opts = {
 		ensure_installed = {
@@ -37,6 +39,7 @@ return {
 			"python",
 			"lua",
 			"bash",
+			"zsh",
 			"dockerfile",
 			"yaml",
 			"markdown",
@@ -50,6 +53,8 @@ return {
 			"terraform",
 			"html",
 			"latex",
+			"ini",
+			"toml",
 		})
 	end,
 }

@@ -5,32 +5,6 @@ return {
 	build = ":TSUpdate",
 	branch = "main",
 	event = { "BufReadPre", "BufNewFile" },
-	opts = {
-		ensure_installed = {
-			"c",
-			"lua",
-			"luadoc",
-			"vim",
-			"vimdoc",
-			"bash",
-			"dockerfile",
-			"cpp",
-			"javascript",
-			"python",
-			"yaml",
-			"markdown",
-			"markdown_inline",
-			"comment",
-			"json",
-			"rust",
-			"go",
-			"query",
-			"hcl",
-			"terraform",
-			"html",
-			"latex",
-		},
-	},
 	config = function()
 		require("nvim-treesitter").setup({})
 		require("nvim-treesitter").install({

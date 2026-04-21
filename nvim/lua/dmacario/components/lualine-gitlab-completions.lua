@@ -1,5 +1,5 @@
 -- GitLab Code Completion status component for Lualine
-local gitlab_globals = require("gitlab.globals")
+local gitlab_globals = require("gitlab.globals") or {}
 local icons = require("dmacario.style.icons").gitlab
 
 -- Create hl groups for gitlab orange and inactive grey
@@ -15,6 +15,11 @@ M.gitlab_element_icons = vim.deepcopy(gitlab_globals, true)
 
 function M:init(options)
 	M.super.init(self, options)
+
+	if vim.tbl_isempty(gitlab_globals) then
+		vim.notify("Gitlab plugin is not loaded!", vim.log.levels.WARN)
+		M.init = false
+	end
 
 	setup_highlights()
 	M.gitlab_element_icons = vim.tbl_extend("keep", M.gitlab_element_icons, {

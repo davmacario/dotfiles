@@ -20,7 +20,8 @@ local lsp_list = {
 	"cmake",
 	"efm",
 	"sqlls",
-	"terraformls",
+	-- "terraformls",
+	"tofu_ls",
 	"tflint",
 	"yamlls",
 	"ruff",
@@ -293,7 +294,10 @@ vim.lsp.config("yamlls", {
 		},
 	},
 })
-vim.lsp.config("terraformls", {})
+-- vim.lsp.config("terraformls", {})
+vim.lsp.config("tofu_ls", {
+	filetypes = { "terraform", "tf", "hcl" },
+})
 vim.lsp.config("tflint", {})
 vim.lsp.config("taplo", {})
 vim.lsp.config("gitlab_ci_ls", {})

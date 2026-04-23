@@ -3,6 +3,12 @@
   "permission": {
     "edit": "ask",
     "read": "allow",
+    "grep": "allow",
+    "glob": "allow",
+    "skill": "allow",
+    "todowrite": "allow",
+    "webfetch": "ask",
+    "question": "allow",
     "bash": {
       "*": "ask",
       "ls": "allow",
@@ -45,5 +51,6 @@
         }
       }
     }
-  }
+  },
+  "mcp": {}
 }

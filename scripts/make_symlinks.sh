@@ -31,6 +31,7 @@ done
 declare -a config_dirs_to_link=(
     "nvim"
     "tmux"
+    "opencode"
 )
 
 for dir in "${config_dirs_to_link[@]}"; do

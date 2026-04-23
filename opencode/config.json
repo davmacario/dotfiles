@@ -52,5 +52,11 @@
       }
     }
   },
-  "mcp": {}
+  "mcp": {
+    "terraform-mcp-server": {
+      "type": "local",
+      "command": ["docker", "run", "-i", "--rm", "hashicorp/terraform-mcp-server:0.5.1"],
+      "enabled": true
+    }
+  }
 }

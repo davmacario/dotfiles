@@ -5,7 +5,7 @@ ICONS.kind_icons = {
 	Module = "󰏗 ",
 	Namespace = "󰌗 ",
 	Class = " ",
-	Method = " ",
+	Method = " ",
 	Property = "󰜢 ",
 	Field = "󰄶 ",
 	Constructor = " ",
@@ -215,7 +215,7 @@ ICONS.gitlab = {
 }
 
 ICONS.snacks_nvim = {
-	input = " "
+	input = " ",
 }
 
 return ICONS

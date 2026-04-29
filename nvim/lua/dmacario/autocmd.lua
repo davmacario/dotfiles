@@ -18,7 +18,7 @@ autocmd("BufReadPost", {
 })
 
 -- Create directories when saving files
-vim.api.nvim_create_autocmd("BufWritePre", {
+autocmd("BufWritePre", {
 	group = user_config,
 	callback = function()
 		local dir = vim.fn.expand("<afile>:p:h")
@@ -29,10 +29,16 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 })
 
 -- Auto refresh buffer contents if changed externally
-vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
+autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
 	group = user_config,
 	pattern = { "*" },
-	command = "silent! checktime",
+	callback = function()
+		vim.cmd("silent! checktime")
+		local ok, parser = pcall(vim.treesitter.get_parser)
+		if ok and parser then
+			parser:parse(true)
+		end
+	end,
 })
 
 -- Colorcolumn depending on .editorconfig

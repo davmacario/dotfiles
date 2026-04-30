@@ -274,14 +274,41 @@ return {
 							},
 						})
 					end,
+					qwen3_6 = function()
+						return require("codecompanion.adapters").extend("openai_compatible", {
+							name = "qwen3.6",
+							formatted_name = "Qwen 3.6 35b",
+							opts = {
+								stream = true,
+								tools = true,
+								vision = false,
+							},
+							url = "${url}${chat_endpoint}",
+							env = {
+								api_key = "OpenWebUI_gmacario_API_KEY",
+								url = "https://openwebui.gmacario.it",
+								chat_endpoint = "/api/chat/completions",
+								models_endpoint = "/api/models",
+							},
+							headers = {
+								["Content-Type"] = "application/json",
+								Authorization = "Bearer ${api_key}",
+							},
+							schema = {
+								model = {
+									default = "qwen3.6:35b",
+								},
+							},
+						})
+					end,
 				},
 			},
 			strategies = {
 				chat = {
-					adapter = "gpt_oss_small",
+					adapter = "qwen3_6",
 				},
 				inline = {
-					adapter = "gpt_oss_small",
+					adapter = "qwen3_6",
 				},
 			},
 		})

@@ -47,8 +47,8 @@ vim.opt.scrolloff = 8
 vim.opt.redrawtime = 10000
 vim.opt.maxmempattern = 20000
 
--- Add column at 80 chars (by default)
-vim.opt.colorcolumn = "80"
+-- Add column at 81 chars (by default) (= textwidth + 1)
+vim.opt.colorcolumn = "81"
 
 -- TODO: review once Telescope border is fixed
 vim.o.winborder = "rounded"
@@ -60,7 +60,6 @@ vim.opt.showmode = false
 -- Line wrap
 vim.opt.wrap = true
 
-local utils = require("dmacario.utils")
 -- Statuscolumn settings
 local separator_l = " "
 local separator_r = " "

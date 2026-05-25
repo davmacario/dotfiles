@@ -117,30 +117,31 @@ end
 -- Line length
 local root_patterns = { ".git", ".clang-format", "setup.py", ".editorconfig", ".flake8" }
 
+-- FIX: not needed!!
 -- Get max line length from editorconfig (default: 80 chars)
-function M.get_editorconfig_max_line_length()
-	local start_dir = vim.fn.expand("%:p:h")
-	if start_dir == "" then
-		start_dir = vim.fn.getcwd()
-	end
-	local root_project_dir = vim.fs.dirname(vim.fs.find({ ".editorconfig" }, { upward = true, path = start_dir })[1])
-		or "."
-	local config_files = { ".editorconfig", vim.fs.joinpath(root_project_dir, ".editorconfig") }
-	for _, fname in ipairs(config_files) do
-		local file = io.open(fname, "r")
-		if file then
-			for line in file:lines() do
-				local max_line_length = line:match("^%s*max%_line%_length%s*=%s*(%d+)")
-				if max_line_length then
-					file:close()
-					return tonumber(max_line_length)
-				end
-			end
-			file:close()
-		end
-	end
-	return 80 -- default
-end
+-- function M.get_editorconfig_max_line_length()
+-- 	local start_dir = vim.fn.expand("%:p:h")
+-- 	if start_dir == "" then
+-- 		start_dir = vim.fn.getcwd()
+-- 	end
+-- 	local root_project_dir = vim.fs.dirname(vim.fs.find({ ".editorconfig" }, { upward = true, path = start_dir })[1])
+-- 		or "."
+-- 	local config_files = { ".editorconfig", vim.fs.joinpath(root_project_dir, ".editorconfig") }
+-- 	for _, fname in ipairs(config_files) do
+-- 		local file = io.open(fname, "r")
+-- 		if file then
+-- 			for line in file:lines() do
+-- 				local max_line_length = line:match("^%s*max%_line%_length%s*=%s*(%d+)")
+-- 				if max_line_length then
+-- 					file:close()
+-- 					return tonumber(max_line_length)
+-- 				end
+-- 			end
+-- 			file:close()
+-- 		end
+-- 	end
+-- 	return 80 -- default
+-- end
 
 ---@param filename string The filename to attempt extracting the line length from
 ---@return number|nil: The extracted line length (nil otherwise)
@@ -204,7 +205,8 @@ function M.get_python_max_line_length()
 		return out
 	end
 
-	local editorconfig_line_length = M.get_editorconfig_max_line_length()
+	-- editorconfig supported by neovim out of the box, sets textwidth
+	local editorconfig_line_length = vim.bo.textwidth
 	if editorconfig_line_length ~= nil then
 		return editorconfig_line_length
 	end

@@ -43,14 +43,16 @@ autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
 
 -- Colorcolumn depending on .editorconfig
 augroup("setColorColumn", { clear = true })
-autocmd({ "BufNewFile", "BufReadPre" }, {
+autocmd({ "BufEnter", "BufNewFile", "BufReadPre" }, {
 	group = "setColorColumn",
 	pattern = { "*" },
 	callback = function()
-		local max_line_length = utils.get_editorconfig_max_line_length()
-		if max_line_length then
-			vim.wo.colorcolumn = tostring(max_line_length)
+		-- from editorconfig (:h editorconfig.max_line_length)
+		local tw = vim.bo.textwidth
+		if tw and tw > 0 then
+			vim.opt_local.colorcolumn = tostring(tw + 1)
 		end
+		-- NOTE: will use default (80, from set.lua) if not found
 	end,
 })
 
@@ -78,7 +80,7 @@ autocmd("FileType", {
 	callback = function()
 		local max_line_length = utils.get_python_max_line_length()
 		if max_line_length then
-			vim.wo.colorcolumn = tostring(max_line_length)
+			vim.wo.colorcolumn = tostring(max_line_length + 1)
 		end
 		vim.opt.formatoptions:append("cro")
 	end,

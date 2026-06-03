@@ -201,13 +201,13 @@ function M.get_python_max_line_length()
 		end
 	end
 
-	if out ~= nil then
+	if out ~= nil and out > 0 then
 		return out
 	end
 
 	-- editorconfig supported by neovim out of the box, sets textwidth
 	local editorconfig_line_length = vim.bo.textwidth
-	if editorconfig_line_length ~= nil then
+	if editorconfig_line_length ~= nil and editorconfig_line_length > 0 then
 		return editorconfig_line_length
 	end
 

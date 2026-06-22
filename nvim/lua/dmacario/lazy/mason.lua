@@ -1,4 +1,4 @@
-local lsp_list = require("dmacario.lsp")
+local lsp_list = require("dmacario.extras.lsp_list")
 local icons = require("dmacario.style.icons")
 
 return {

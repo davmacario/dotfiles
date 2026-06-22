@@ -2,31 +2,7 @@
 local utils = require("dmacario.utils")
 
 -- These will automatically be installed by Mason
-local lsp_list = {
-	"cssls",
-	"eslint",
-	"html",
-	"jsonls",
-	"pyright",
-	"jedi_language_server",
-	"bashls",
-	"dockerls",
-	"ltex",
-	"texlab",
-	"marksman",
-	"lua_ls",
-	"rust_analyzer",
-	"gopls",
-	"clangd",
-	"cmake",
-	"efm",
-	"sqlls",
-	"terraformls",
-	"tflint",
-	"yamlls",
-	"ruff",
-	"arduino_language_server",
-}
+local lsp_list = require("dmacario.extras.lsp_list")
 
 local on_attach = function(client, bufnr)
 	-- Setup keymaps
@@ -60,7 +36,14 @@ vim.lsp.config("*", {
 vim.lsp.config("cssls", {})
 vim.lsp.config("eslint", {})
 vim.lsp.config("html", {})
-vim.lsp.config("jsonls", {})
+vim.lsp.config("jsonls", {
+	settings = {
+		json = {
+			schemas = require("schemastore").json.schemas(),
+			validate = { enable = true },
+		},
+	},
+})
 vim.lsp.config("pyright", {
 	-- on_attach = function(client, bufnr)
 	-- 	on_attach(client, bufnr)
@@ -270,24 +253,25 @@ vim.lsp.config("yamlls", {
 			hover = true,
 			completion = true,
 			schemaStore = {
-				url = "https://www.schemastore.org/api/json/catalog.json",
-				enable = true,
+				enable = false,
+				url = "",
 			},
-			schemas = { -- Assume all yaml are kube, unless one of these matches
-				kubernetes = "*.yaml",
-				["http://json.schemastore.org/github-workflow"] = ".github/workflows/*",
-				["http://json.schemastore.org/github-action"] = ".github/action.{yml,yaml}",
-				["http://json.schemastore.org/ansible-stable-2.9"] = "roles/tasks/*.{yml,yaml}",
-				["http://json.schemastore.org/prettierrc"] = ".prettierrc.{yml,yaml}",
-				["http://json.schemastore.org/kustomization"] = "kustomization.{yml,yaml}",
-				["http://json.schemastore.org/ansible-playbook"] = "*play*.{yml,yaml}",
-				["http://json.schemastore.org/chart"] = "Chart.{yml,yaml}",
-				["https://json.schemastore.org/dependabot-v2"] = ".github/dependabot.{yml,yaml}",
-				["https://json.schemastore.org/gitlab-ci"] = "*gitlab-ci*.{yml,yaml}",
-				["https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema.json"] = "*api*.{yml,yaml}",
-				["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = "*docker-compose*.{yml,yaml}",
-				["https://raw.githubusercontent.com/argoproj/argo-workflows/master/api/jsonschema/schema.json"] = "*flow*.{yml,yaml}",
-			},
+			schemas = require("schemastore").yaml.schemas(),
+			-- { -- Assume all yaml are kube, unless one of these matches
+			-- 	kubernetes = "*.yaml",
+			-- 	["http://json.schemastore.org/github-workflow"] = ".github/workflows/*",
+			-- 	["http://json.schemastore.org/github-action"] = ".github/action.{yml,yaml}",
+			-- 	["http://json.schemastore.org/ansible-stable-2.9"] = "roles/tasks/*.{yml,yaml}",
+			-- 	["http://json.schemastore.org/prettierrc"] = ".prettierrc.{yml,yaml}",
+			-- 	["http://json.schemastore.org/kustomization"] = "kustomization.{yml,yaml}",
+			-- 	["http://json.schemastore.org/ansible-playbook"] = "*play*.{yml,yaml}",
+			-- 	["http://json.schemastore.org/chart"] = "Chart.{yml,yaml}",
+			-- 	["https://json.schemastore.org/dependabot-v2"] = ".github/dependabot.{yml,yaml}",
+			-- 	["https://json.schemastore.org/gitlab-ci"] = "*gitlab-ci*.{yml,yaml}",
+			-- 	["https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema.json"] = "*api*.{yml,yaml}",
+			-- 	["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = "*docker-compose*.{yml,yaml}",
+			-- 	["https://raw.githubusercontent.com/argoproj/argo-workflows/master/api/jsonschema/schema.json"] = "*flow*.{yml,yaml}",
+			-- },
 			customTags = {
 				"!reference sequence",
 				"!fn",
@@ -430,5 +414,3 @@ vim.diagnostic.config({
 	-- virtual_lines = { current_line = true }, -- too invasive
 	float = true,
 })
-
-return lsp_list

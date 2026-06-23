@@ -17,7 +17,7 @@ return {
 	"cmake",
 	"efm",
 	"sqlls",
-	"terraformls",
+	"tofu_ls",
 	"tflint",
 	"yamlls",
 	"ruff",

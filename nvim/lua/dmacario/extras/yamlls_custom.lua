@@ -93,7 +93,7 @@ M.attach_schema = function(schema_url, description)
 	yaml_client.config.settings.yaml.schemas[schema_url] = "*.yaml"
 
 	-- Notify the server of the configuration change
-	yaml_client.notify("workspace/didChangeConfiguration", {
+	yaml_client:notify("workspace/didChangeConfiguration", {
 		settings = yaml_client.config.settings,
 	})
 	vim.notify("Attached schema: " .. description, vim.log.levels.INFO)

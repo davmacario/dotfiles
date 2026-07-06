@@ -340,7 +340,9 @@ vim.lsp.enable(lsp_list)
 
 -- FIXME: hopefully my custom functionality gets incorporated in Nvim core.
 -- local hover = vim.lsp.buf.hover
-local lsp_custom = require("dmacario.lsp-custom")
+-- "Source" the file to override the parsing of docstrings (LSP hover)
+-- Actually, done in dmacario/init.lua
+-- require("dmacario.extras.lsp-custom")
 ---@diagnostic disable-next-line: duplicate-set-field
 -- vim.lsp.buf.hover = function()
 -- 	return lsp_custom.custom_hover()

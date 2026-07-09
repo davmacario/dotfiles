@@ -355,7 +355,7 @@ vim.lsp.enable(lsp_list)
 -- local hover = vim.lsp.buf.hover
 -- "Source" the file to override the parsing of docstrings (LSP hover)
 -- Actually, done in dmacario/init.lua
--- require("dmacario.extras.lsp-custom")
+-- require("dmacario.extras.lsp_custom")
 ---@diagnostic disable-next-line: duplicate-set-field
 -- vim.lsp.buf.hover = function()
 -- 	return lsp_custom.custom_hover()

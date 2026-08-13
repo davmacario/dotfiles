@@ -135,7 +135,9 @@ M.init = function(bufnr)
 	if vim.b[bufnr].schema_attached then
 		return
 	end
-	vim.b[bufnr].schema_attached = true -- Mark the schema as attached
+	-- Mark the schema as attached; NOTE: this prevents retrying if any of the
+	-- following fails
+	vim.b[bufnr].schema_attached = true
 
 	local buffer_content = table.concat(vim.api.nvim_buf_get_lines(bufnr, 0, -1, false), "\n")
 	local crd = M.match_crd(buffer_content)

@@ -14,19 +14,19 @@ local M = {
 }
 M.crd_schema_url = "https://raw.githubusercontent.com/" .. M.crd_schemas_catalog .. "/" .. M.crd_schema_catalog_branch
 
--- Schemas for the GitHub API response (CRD schemas):
+-- Schemas for the GitHub API response (CRD schema list):
 
----@class GitHubListTreeEntry
+---@class GitHubCRDListTreeEntry
 ---@field path string
 ---@field mode string
 ---@field type string
 ---@field sha string
 ---@field url string
 
----@class GitHubListResponseBody
+---@class GitHubCRDListResponseBody
 ---@field sha string
 ---@field url string
----@field tree GitHubListTreeEntry[]
+---@field tree GitHubCRDListTreeEntry[]
 ---@field truncated boolean
 
 ---Download and cache the list of CRDs
@@ -39,7 +39,7 @@ M.list_github_tree = function()
 	local url = M.github_base_api_url .. "/" .. M.crd_schemas_catalog .. "/git/trees/" .. M.crd_schema_catalog_branch
 	local response = curl.get(url, { headers = M.github_headers, query = { recursive = 1 } })
 
-	---@type GitHubListResponseBody
+	---@type GitHubCRDListResponseBody
 	local body = vim.fn.json_decode(response.body)
 
 	---@type string[]

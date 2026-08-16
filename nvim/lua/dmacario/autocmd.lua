@@ -363,17 +363,3 @@ autocmd("FileType", {
 		end
 	end,
 })
-
--- Kubernetes CRDs support for Yamlls
-autocmd({ "LspAttach", "BufEnter" }, {
-  callback = function(args)
-		local bufnr = args.buf
-    local clients = vim.lsp.get_clients({ bufnr = bufnr })
-    for _, client in ipairs(clients) do
-      if client.name == "yamlls" then
-				require("dmacario.extras.yamlls_custom").init(bufnr)
-        return
-      end
-    end
-  end,
-})

@@ -390,7 +390,7 @@ M.get_kubernetes_schema = function(api_version, kind)
 
 	local abs, reason = M.ensure_local_schema(url_with_version, rel_with_version)
 	if abs and abs ~= nil then
-		return abs
+		return abs, nil
 	end
 	local with_missing = reason == "missing"
 

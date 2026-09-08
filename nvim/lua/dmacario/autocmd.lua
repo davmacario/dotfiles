@@ -102,6 +102,8 @@ autocmd("FileType", {
 		"yaml",
 		"yml",
 		"json",
+		"jsonc",
+		"ndjson",
 		"markdown",
 		"c",
 		"cpp",

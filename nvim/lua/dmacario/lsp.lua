@@ -37,6 +37,7 @@ vim.lsp.config("cssls", {})
 vim.lsp.config("eslint", {})
 vim.lsp.config("html", {})
 vim.lsp.config("jsonls", {
+	filetypes = { "jsonc", "json", "ndjson" },
 	settings = {
 		json = {
 			schemas = require("schemastore").json.schemas(),

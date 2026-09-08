@@ -49,6 +49,7 @@ return {
 					null_ls.builtins.formatting.terraform_fmt,
 
 					-- Diagnostics sources
+					-- TODO: allow overriding with configuration file
 					null_ls.builtins.diagnostics.markdownlint.with({
 						args = {
 							"--stdin",

@@ -264,7 +264,7 @@ vim.lsp.config("yamlls", {
 	filetypes = { "yaml", "yml" },
 	settings = {
 		yaml = {
-			validate = false,
+			validate = true,
 			hover = true,
 			completion = true,
 			schemaStore = {

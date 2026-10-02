@@ -39,9 +39,13 @@
     path=vitestro.gitconfig
 [includeIf "gitdir/i:/home/dmacario/github/"]
     path=personal.gitconfig
+[includeIf "gitdir/i:/home/dmacario/forgejo/"]
+    path=personal.gitconfig
 [difftool]
     prompt = true
 [diff]
     tool = nvimdiff
 [difftool "nvimdiff"]
     cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
+[credential]
+	helper = store

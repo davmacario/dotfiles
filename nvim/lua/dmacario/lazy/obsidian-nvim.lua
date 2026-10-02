@@ -6,9 +6,7 @@ return {
 		-- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
 		-- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/*.md"
 		-- refer to `:h file-pattern` for more examples
-		"BufReadPre "
-			.. vim.env.HOME
-			.. "/notes/*.md",
+		"BufReadPre " .. vim.env.HOME .. "/notes/*.md",
 		"BufReadPre " .. vim.env.GHREPOS .. "/obsidian-notes/*.md",
 		"BufReadPre " .. "/mnt/c/Users/DavideMacario/notes/*.md",
 		"BufNewFile " .. vim.env.GHREPOS .. "/notes/*.md",
@@ -29,9 +27,8 @@ return {
 			},
 		},
 		completion = {
-			nvim_cmp = false,
-			blink = true,
 			min_chars = 3,
+			match_case = false,
 		},
 		ui = {
 			enable = false,

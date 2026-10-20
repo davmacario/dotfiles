@@ -23,6 +23,9 @@ fi
 
 export PATH="$PATH:$HOME/.rvm/bin"
 
+# Allow using the LSPs installed with Mason (nvim)
+export PATH="$PATH:$HOME/.local/share/nvim/mason/bin"
+
 # Change terminal language settings to english:
 export LC_ALL="en_US.UTF-8"
 
